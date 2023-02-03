@@ -1,0 +1,181 @@
+models:
+    TableColor:
+        id: increments
+        numb: integer nullable
+        id_product: integer nullable foreign:table_product.id
+        photo: string nullable default:null
+        name: string nullable default:null
+        color: string nullable default:null
+        type_show: tinyInteger nullable
+        type: string nullable default:null
+        regular_price: double nullable
+        sale_price: double nullable
+        discount: double nullable
+        status: string nullable default:null
+        date_created: integer nullable
+        date_updated: integer nullable
+    TablePost:
+        id: increments
+        photo: string nullable default:null
+        slug: string
+        name: string nullable default:null
+        desc: mediumText nullable default:null
+        content: mediumText nullable default:null
+        options: mediumText nullable default:null
+        numb: integer nullable
+        status: json nullable default:null
+        type: string nullable default:null
+        view: integer nullable
+        date_created: integer nullable
+        date_updated: integer nullable
+    TableOrder:
+        id: increments
+        numb: integer nullable
+        id_user: integer nullable foreign:table_user.id
+        code: string nullable default:null
+        fullname: string nullable default:null
+        phone: string nullable default:null
+        address: string nullable default:null
+        email: string nullable default:null
+        order_payment: integer nullable
+        temp_price: double nullable
+        total_price: double nullable
+        city: integer nullable
+        district: integer nullable
+        ward: integer nullable
+        ship_price: double nullable
+        requirements: mediumText nullable default:null
+        notes: mediumText nullable default:null
+        order_status: integer nullable foreign:table_order_status.id
+        date_created: integer nullable
+        date_updated: integer
+    TableOrderDetail:
+        id: increments
+        id_order: integer nullable foreign:table_order.id
+        id_product: integer nullable foreign:table_product.id
+        photo: string nullable default:null
+        name: string nullable default:null
+        code: string nullable default:null
+        color: string nullable default:null
+        size: string nullable default:null
+        regular_price: double nullable
+        sale_price: double nullable
+        quantity: integer nullable
+    TableOrderStatus:
+        id: increments
+        name: string nullable default:null
+        class_order: string nullable default:null
+    TablePhoto:
+        id: increments
+        photo: string nullable default:null
+        content: mediumText nullable default:null
+        desc: mediumText nullable default:null
+        name: string nullable default:null
+        link: mediumText nullable default:null
+        link_video: mediumText nullable default:null
+        options: mediumText nullable default:null
+        type: string nullable default:null
+        act: string nullable default:null
+        numb: integer nullable
+        status: string nullable default:null
+        date_created: integer nullable
+        date_updated: integer nullable
+    TableProduct:
+        id: increments
+        id_list: integer nullable foreign:table_product_list.id
+        id_cat: integer nullable foreign:table_product_cat.id
+        name: string nullable default:null
+        photo: string nullable default:null
+        options: mediumText nullable default:null
+        content: mediumText nullable default:null
+        desc: mediumText nullable default:null
+        slug: string
+        code: string nullable default:null
+        regular_price: double nullable
+        discount: double nullable
+        sale_price: double nullable
+        numb: integer nullable
+        status: json nullable default:null
+        type: string nullable default:null
+        date_created: integer nullable
+        date_updated: integer nullable
+        view: integer nullable
+    TableProductCat:
+        id: increments
+        id_list: integer nullable foreign:table_product_list.id
+        content: mediumText nullable default:null
+        slug: string
+        desc: mediumText nullable default:null
+        name: string nullable default:null
+        photo: string nullable default:null
+        options: mediumText nullable default:null
+        numb: integer nullable
+        status: json nullable default:null
+        type: string nullable default:null
+        date_created: integer nullable
+        date_updated: integer nullable
+    TableProductList:
+        id: increments
+        slug: string
+        name: string nullable default:null
+        content: mediumText nullable default:null
+        desc: mediumText nullable default:null
+        photo: string nullable default:null
+        options: mediumText nullable default:null
+        numb: integer nullable
+        status: json nullable default:null
+        type: string nullable default:null
+        date_created: integer nullable
+        date_updated: integer nullable
+    TableSetting:
+        id: increments
+        options: mediumText nullable default:null
+        mastertool: mediumText nullable default:null
+        headjs: mediumText nullable default:null
+        bodyjs: mediumText nullable default:null
+        name: string nullable default:null
+        addressvi: string nullable default:null
+        addressen: string nullable default:null
+        analytics: mediumText nullable default:null
+    TableSize:
+        id: increments
+        id_product: integer foreign:table_product.id
+        name: string nullable default:null
+        type: string nullable default:null
+        numb: integer nullable
+        status: string nullable default:null
+        date_created: integer nullable
+        date_updated: integer nullable
+    TableStatic:
+        id: increments
+        photo: string nullable default:null
+        photo1: string nullable default:null
+        options: mediumText nullable default:null
+        content: mediumText nullable default:null
+        desc: mediumText nullable default:null
+        name: string nullable default:null
+        file_attach: string nullable default:null
+        type: string nullable default:null
+        status: string nullable default:null
+        date_created: integer nullable
+        date_updated: integer nullable
+    TableUser:
+        id: increments
+        id_permission: integer nullable
+        username: string nullable default:null
+        password: string nullable default:null
+        confirm_code: string nullable default:null
+        avatar: string nullable default:null
+        fullname: string nullable default:null
+        phone: string nullable default:null
+        email: string nullable default:null
+        address: string nullable default:null
+        gender: tinyInteger nullable
+        login_session: string nullable default:null
+        user_token: string nullable default:null
+        lastlogin: string nullable default:null
+        status: string nullable default:null
+        role: tinyInteger nullable default:1
+        secret_key: string nullable default:null
+        birthday: integer nullable
+        numb: integer nullable

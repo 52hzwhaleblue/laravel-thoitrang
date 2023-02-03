@@ -1,17 +1,53 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+// Admin Controller
+use App\Http\Controllers\Admin\HomeController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+// Product Controller
+use App\Http\Controllers\Admin\ProductListController;
+use App\Http\Controllers\Admin\ProductCatController;
+use App\Http\Controllers\Admin\ProductController;
+
+// Post Controller
+use App\Http\Controllers\Admin\PostController;
+
+
+
+// Admin Route
+Route::group([
+    'prefix' => 'admin',
+    'as' => 'admin.',
+],function(){
+    Route::resource('/', HomeController::class);
+
+    // Sản phẩm
+    Route::group([
+        'prefix' => 'product',
+        'as' => 'product.',
+    ], function(){
+        // Sản phẩm
+        Route::resource('product-list', ProductListController::class);
+        Route::resource('product-cat', ProductCatController::class);
+        Route::resource('product-man', ProductController::class);
+    });
+
+    // Bài viết
+    Route::group([
+        'prefix' => 'post',
+        'as' => 'post.',
+    ], function(){
+        // Tin tức
+        Route::resource('tin-tuc', PostController::class);
+
+        // Tiêu chí
+        Route::resource('tieu-chi', PostController::class);
+
+        // Hình thức thanh toán
+        Route::resource('hinh-thuc-thanh-toan', PostController::class);
+    });
+
+});
 
 Route::get('/', function () {
     return view('welcome');
