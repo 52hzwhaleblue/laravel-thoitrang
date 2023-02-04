@@ -35,6 +35,51 @@
                             aria-labelledby="panelsStayOpen-headingOne"
                         >
                             <div class="accordion-body">
+                                <div>
+                                    <form wire:submit.prevent="storePost">
+                                        <div class="form-group row">
+                                            <label for="name" class="col-md-4 col-form-label text-md-right">name</label>
+
+                                            <div class="col-md-6">
+                                                <input wire:model="name"
+                                                       type="text"
+                                                       class="form-control @error('name') is-invalid @enderror"
+                                                       autofocus>
+
+                                                @error('name')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label for="slug" class="col-md-4 col-form-label text-md-right">Slug</label>
+
+                                            <div class="col-md-6">
+                                                <input wire:model="slug"
+                                                       type="text"
+                                                       class="form-control @error('slug') is-invalid @enderror">
+
+                                                @error('slug')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row mb-0">
+                                            <div class="col-md-8 offset-md-4">
+                                                <button type="submit" class="btn btn-primary">
+                                                    Add
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
                                 <label for="slug" class="form-label"
                                     >Slug:</label
                                 >

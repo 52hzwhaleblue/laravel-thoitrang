@@ -56,6 +56,8 @@
                 )
             }}"
         />
+
+        @livewireStyles
     </head>
 
     <body class="app sidebar-mini rtl">
@@ -140,5 +142,7 @@
                 ga("send", "pageview");
             }
         </script>
+@livewireScripts
+
     </body>
 </html>

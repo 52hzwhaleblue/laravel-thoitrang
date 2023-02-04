@@ -12,19 +12,19 @@ created:
     - database/factories/TableSizeFactory.php
     - database/factories/TableStaticFactory.php
     - database/factories/TableUserFactory.php
-    - database/migrations/2023_02_03_161446_create_table_colors_table.php
-    - database/migrations/2023_02_03_161447_create_table_posts_table.php
-    - database/migrations/2023_02_03_161448_create_table_orders_table.php
-    - database/migrations/2023_02_03_161449_create_table_order_details_table.php
-    - database/migrations/2023_02_03_161450_create_table_order_statuses_table.php
-    - database/migrations/2023_02_03_161451_create_table_photos_table.php
-    - database/migrations/2023_02_03_161452_create_table_products_table.php
-    - database/migrations/2023_02_03_161453_create_table_product_cats_table.php
-    - database/migrations/2023_02_03_161454_create_table_product_lists_table.php
-    - database/migrations/2023_02_03_161455_create_table_settings_table.php
-    - database/migrations/2023_02_03_161456_create_table_sizes_table.php
-    - database/migrations/2023_02_03_161457_create_table_statics_table.php
-    - database/migrations/2023_02_03_161458_create_table_users_table.php
+    - database/migrations/2023_02_04_010010_create_table_colors_table.php
+    - database/migrations/2023_02_04_010011_create_table_posts_table.php
+    - database/migrations/2023_02_04_010012_create_table_orders_table.php
+    - database/migrations/2023_02_04_010013_create_table_order_details_table.php
+    - database/migrations/2023_02_04_010014_create_table_order_statuses_table.php
+    - database/migrations/2023_02_04_010015_create_table_photos_table.php
+    - database/migrations/2023_02_04_010016_create_table_products_table.php
+    - database/migrations/2023_02_04_010017_create_table_product_cats_table.php
+    - database/migrations/2023_02_04_010018_create_table_product_lists_table.php
+    - database/migrations/2023_02_04_010019_create_table_settings_table.php
+    - database/migrations/2023_02_04_010020_create_table_sizes_table.php
+    - database/migrations/2023_02_04_010021_create_table_statics_table.php
+    - database/migrations/2023_02_04_010022_create_table_users_table.php
     - app/Models/TableColor.php
     - app/Models/TablePost.php
     - app/Models/TableOrder.php
