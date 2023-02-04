@@ -35,17 +35,37 @@
                             aria-labelledby="panelsStayOpen-headingOne"
                         >
                             <div class="accordion-body">
-                                <label for="slug" class="form-label"
-                                    >Slug:</label
-                                >
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    id="slug"
-                                    placeholder="Slug"
-                                    name="slug"
-                                    required
-                                />
+                                <div class="mb-3 mt-3">
+                                    <label for="name" class="form-label"
+                                        >Tiêu đề:</label
+                                    >
+                                    <input
+                                        type="text"
+                                        class="name form-control"
+                                        id="name"
+                                        placeholder="Tiêu đề"
+                                        name="name"
+                                        required
+                                    />
+                                </div>
+
+                                <div class="">
+                                    <label for="slug" class="form-label"
+                                        >Slug:</label
+                                    >
+                                    <input
+                                        type="text"
+                                        class="slug form-control"
+                                        id="slug"
+                                        placeholder="Slug"
+                                        name="slug"
+                                        required
+                                    />
+                                </div>
+
+                                <!-- <input class="a" type="text" value="some text">
+                                <input class="b" type="text" value=""> -->
+                                <h3></h3>
                             </div>
                         </div>
                     </div>
@@ -75,17 +95,8 @@
                         >
                             <div class="accordion-body">
                                 <div class="mb-3 mt-3">
-                                    <label for="name" class="form-label"
-                                        >Tiêu đề:</label
-                                    >
-                                    <input
-                                        type="text"
-                                        class="form-control"
-                                        id="name"
-                                        placeholder="Tiêu đề"
-                                        name="name"
-                                        required
-                                    />
+                                    <input type="checkbox" name="status[]" value="noibat"> Nổi bật
+                                    <input type="checkbox" name="status[]" value="hienthi" checked> Hiển thị
                                 </div>
 
                                 <div class="mb-3 mt-3">

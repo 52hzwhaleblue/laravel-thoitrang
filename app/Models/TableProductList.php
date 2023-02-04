@@ -9,6 +9,7 @@ use Cviebrock\EloquentSluggable\Sluggable;
 class TableProductList extends Model
 {
     use HasFactory;
+    use Sluggable;
 
     /**
      * The attributes that are mass assignable.
@@ -49,7 +50,7 @@ class TableProductList extends Model
     {
         return [
             'slug' => [
-                'source' => 'title'
+                'source' => 'name'
             ]
         ];
     }

@@ -69,8 +69,9 @@
         <main class="app-content">
             <!-- Breadcrumb -->
             @include('admin.template.layout.breadcrumb')
-
-            @if ($ProfileComposer['com'] == 'admin.index') @include('admin.template.index') @endif
+            @if ($ProfileComposer['com'] == 'admin.index')
+                @include('admin.template.index')
+            @endif
             <!-- Yield content -->
             @yield('content')
         </main>
@@ -142,7 +143,9 @@
                 ga("send", "pageview");
             }
         </script>
-@livewireScripts
 
+
+
+        @livewireScripts
     </body>
 </html>

@@ -18,21 +18,20 @@ class ProductList extends Component
 
     public function render()
     {
-        $productList = TableProductList::latest('id')->take(5)->get();
-
-        return view('admin.template.product.list.list_add', compact('productList'));
+        $rowProductList = TableProductList::all();
+        return view('admin.template.product.list.list_add',compact('rowProductList'));
     }
 
     public function updatedName()
     {
-        $this->slug = SlugService::createSlug(Post::class, 'slug', $this->name);
+        $this->slug = SlugService::createSlug(TableProductList::class, 'slug', $this->name);
     }
 
     public function storePost()
     {
         $this->validate();
 
-        Post::create([
+        TableProductList::create([
             'name' => $this->name,
             'slug' => $this->slug,
         ]);
@@ -40,4 +39,5 @@ class ProductList extends Component
         $this->name = '';
         $this->slug = '';
     }
+
 }

@@ -26,6 +26,9 @@ Route::group([
         'prefix' => 'product',
         'as' => 'product.',
     ], function(){
+
+        // Check slug
+        Route::get('check-slug', [ProductListController::class,'checkSlug'])->name('checkSlug');
         // Sản phẩm
         Route::resource('product-list', ProductListController::class);
         Route::resource('product-cat', ProductCatController::class);
@@ -47,8 +50,4 @@ Route::group([
         Route::resource('hinh-thuc-thanh-toan', PostController::class);
     });
 
-});
-
-Route::get('/', function () {
-    return view('welcome');
 });
