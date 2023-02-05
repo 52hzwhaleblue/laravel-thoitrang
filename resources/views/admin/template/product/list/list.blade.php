@@ -67,7 +67,7 @@
                                     <th class="align-middle">
                                         <a
                                             href="{{
-                                                route('admin.product.product-list.edit', $v['id'])
+                                                route('admin.product.product-list.edit', $v['slug'])
                                             }}"
                                         >
                                             {{$v['name']}}
