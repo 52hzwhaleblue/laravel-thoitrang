@@ -38,8 +38,8 @@ class TableProductCat extends Model
         'status' => 'array',
     ];
 
-    public function idList()
+    public function product_list()
     {
-        return $this->belongsTo(TableProductList::class);
+        return $this->belongsTo(TableProductList::class,'id_list');
     }
 }

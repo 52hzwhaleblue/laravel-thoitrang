@@ -1,21 +1,15 @@
 @extends('admin.app') @section('title') Chi tiết Sản phẩm cấp 1 @endsection
 @section('content')
-<script src="{{ asset('backend/assets/js/jquery-3.2.1.min.js') }}"></script>
-<form
-    action="{{ route('admin.product.product-list.store') }}"
-    method="POST"
-    enctype="multipart/form-data"
->
+<script src="{{
+    asset('backend/assets/js/jquery-3.2.1.min.js')
+}}"></script>
+<form action="{{ route('admin.product.product-cat.update', $data['slug'] ) }}" method="post" enctype="multipart/form-data">
     @csrf
+    @method('PUT')
+
     <div class="row">
         <div class="mb-3">
-            @if(session()->has('warning'))
-            <div class="alert alert-danger">
-                {{ session()->get('warning') }}
-            </div>
-            @endif
-            <button type="submit" class="btn btn-primary">Tạo mới</button>
-            <button type="reset" class="btn btn-secondary">Làm lại</button>
+            <button type="submit" class="btn btn-primary">Cập nhật</button>
         </div>
         <div class="row">
             <div class="col-xl-8">
@@ -56,6 +50,7 @@
                                         placeholder="Tiêu đề"
                                         name="name"
                                         required
+                                        value="{{$data['name']}}"
                                     />
                                 </div>
 
@@ -69,12 +64,10 @@
                                         id="slug"
                                         placeholder="Slug"
                                         name="slug"
+                                        value="{{$data['slug']}}"
                                         required
                                     />
                                 </div>
-
-                                <!-- <input class="a" type="text" value="some text">
-                                <input class="b" type="text" value=""> -->
                                 <h3></h3>
                             </div>
                         </div>
@@ -105,20 +98,10 @@
                         >
                             <div class="accordion-body">
                                 <div class="mb-3 mt-3">
-                                    <input
-                                        type="checkbox"
-                                        name="status[]"
-                                        value="noibat"
-                                    />
-                                    Nổi bật
-                                    <input
-                                        type="checkbox"
-                                        name="status[]"
-                                        value="hienthi"
-                                        checked
-                                    />
-                                    Hiển thị
+                                    <input type="checkbox" name="status[]" value="noibat" @if (in_array('noibat',$explodeStatus)) checked  @endif > Nổi bật
+                                    <input type="checkbox" name="status[]" value="hienthi" @if (in_array('hienthi',$explodeStatus)) checked  @endif> Hiển thị
                                 </div>
+
 
                                 <div class="mb-3 mt-3">
                                     <label for="desc">Mô tả:</label>
@@ -127,7 +110,9 @@
                                         rows="3"
                                         id="desc"
                                         name="desc"
-                                    ></textarea>
+                                    >
+                                        {{$data['desc']}}
+                                    </textarea>
                                 </div>
 
                                 <div class="mb-3 mt-3">
@@ -137,7 +122,9 @@
                                         rows="3"
                                         id="cke_content"
                                         name="content"
-                                    ></textarea>
+                                    >
+                                    {{$data['content']}}
+                                    </textarea>
                                 </div>
                             </div>
                         </div>
@@ -146,6 +133,36 @@
             </div>
 
             <div class="col-xl-4">
+                <div class="accordion mb-3" id="accordionPanelsStayOpenExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#danhmucsanpham" aria-expanded="true" aria-controls="danhmucsanpham">
+                                Danh mục sản phẩm
+                            </button>
+                        </h2>
+                        <div id="danhmucsanpham" class="accordion-collapse collapse show"
+                            aria-labelledby="panelsStayOpen-headingOne">
+                            <div class="accordion-body">
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <div class="">
+                                            <label for="type" class="form-label">Danh mục cấp 1:</label>
+                                            <select class="form-select" id="type" name="id_list">
+                                                <option value=""> == Chọn danh mục ==</option>
+                                                {{$data['id']}}
+                                                @foreach ($splist as $v)
+                                                    <option @if ($v['id'] == $data['id_list'])  selected  @endif value="{{$v['id']}}"> {{$v['name']}} </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="accordion mb-3" id="accordionPanelsStayOpenExample">
                     <div class="accordion-item">
                         <h2
@@ -170,6 +187,7 @@
                         >
                             <div class="accordion-body">
                                 <input type="file" name="photo" />
+                            </div>
                             </div>
                         </div>
                     </div>

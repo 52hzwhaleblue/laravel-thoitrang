@@ -17,8 +17,12 @@ class CreateTableProductCatsTable extends Migration
 
         Schema::create('table_product_cats', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_list')->nullable();
-            $table->foreign('id_list')->references('id')->on('table_product_list');
+            $table->unsignedInteger('id_list')->nullable();
+
+            $table->foreign('id_list')
+                ->references('id')
+                ->on('table_product_lists')
+                ->onDelete('cascade');
             $table->mediumText('content')->nullable()->default(null);
             $table->string('slug');
             $table->mediumText('desc')->nullable()->default(null);

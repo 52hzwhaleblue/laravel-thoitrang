@@ -4,12 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Cviebrock\EloquentSluggable\Sluggable;
 
 class TableProductList extends Model
 {
     use HasFactory;
-    use Sluggable;
 
     /**
      * The attributes that are mass assignable.
@@ -39,20 +37,9 @@ class TableProductList extends Model
         'status' => 'array',
     ];
 
-    use Sluggable;
-
-    /**
-     * Return the sluggable configuration array for this model.
-     *
-     * @return array
-     */
-    public function sluggable(): array
+    public function product_cat()
     {
-        return [
-            'slug' => [
-                'source' => 'name'
-            ]
-        ];
+        return $this->hasMany(TableProductCat::class); // id của product_cats
     }
 
 }

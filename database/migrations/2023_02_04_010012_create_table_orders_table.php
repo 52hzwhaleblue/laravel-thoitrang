@@ -18,8 +18,11 @@ class CreateTableOrdersTable extends Migration
         Schema::create('table_orders', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('numb')->nullable();
-            $table->integer('id_user')->nullable();
-            $table->foreign('id_user')->references('id')->on('table_user');
+            $table->unsignedInteger('id_user')->nullable();
+            $table->foreign('id_user')
+            ->references('id')
+            ->on('table_users')
+            ->onDelete('cascade');
             $table->string('code')->nullable()->default(null);
             $table->string('fullname')->nullable()->default(null);
             $table->string('phone')->nullable()->default(null);

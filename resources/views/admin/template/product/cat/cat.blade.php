@@ -1,5 +1,18 @@
 @extends('admin.app') @section('title') Quản lý sản phẩm cấp 2 @endsection
 @section('content')
+
+@if(session()->has('message'))
+    <div class="alert alert-success">
+        {{ session()->get('message') }}
+    </div>
+@endif
+
+@if(session()->has('warning'))
+    <div class="alert alert-danger">
+        {{ session()->get('warning') }}
+    </div>
+@endif
+
 <div class="mb-3">
     <a
         href="{{ route('admin.product.product-cat.create') }}"
@@ -61,7 +74,7 @@
                                     <th class="align-middle">
                                         <a
                                             href="{{
-                                                route('admin.product.product-list.edit', $v['id'])
+                                                route('admin.product.product-cat.edit', $v['slug'])
                                             }}"
                                         >
                                             {{$v['name']}}
@@ -124,12 +137,18 @@
                                             />
                                         </div>
                                     </th>
-                                    <th class="align-middle">
-                                        <a href=" {{route('admin.product.product-list.edit', 2)}} " class="btn btn-primary mr-2">
+                                    <th class="align-middle d-flex">
+                                        <a href=" {{route('admin.product.product-cat.edit', $v['slug'])}} " class="btn btn-primary mr-2">
                                             Sửa
                                         </a>
 
-                                        <a href=" {{route('admin.product.product-list.destroy',2)}} " class="btn btn-danger"> xóa </a>
+                                        <form action="{{ route('admin.product.product-cat.destroy', $v->id) }}" method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-danger">
+                                                Xóa
+                                            </button>
+                                        </form>
                                     </th>
                                 </tr>
                             @endforeach

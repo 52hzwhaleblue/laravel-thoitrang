@@ -6,6 +6,12 @@
         {{ session()->get('message') }}
     </div>
 @endif
+
+@if(session()->has('warning'))
+    <div class="alert alert-danger">
+        {{ session()->get('warning') }}
+    </div>
+@endif
 <div class="mb-3">
     <a
         href="{{ route('admin.product.product-list.create') }}"
@@ -130,12 +136,18 @@
                                             />
                                         </div>
                                     </th>
-                                    <th class="align-middle">
-                                        <a href=" {{route('admin.product.product-list.edit', 2)}} " class="btn btn-primary mr-2">
+                                    <th class="align-middle d-flex">
+                                        <a href=" {{route('admin.product.product-list.edit', $v['slug'] )}} " class="btn btn-primary mr-2">
                                             Sửa
                                         </a>
 
-                                        <a href=" {{route('admin.product.product-list.destroy',2)}} " class="btn btn-danger"> xóa </a>
+                                        <form action="{{ route('admin.product.product-list.destroy', $v->id) }}" method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-danger">
+                                                Xóa
+                                            </button>
+                                        </form>
                                     </th>
                                 </tr>
                             @endforeach

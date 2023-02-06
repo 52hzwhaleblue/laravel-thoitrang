@@ -22,8 +22,7 @@ class CreateTableSettingsTable extends Migration
             $table->mediumText('headjs')->nullable()->default(null);
             $table->mediumText('bodyjs')->nullable()->default(null);
             $table->string('name')->nullable()->default(null);
-            $table->string('addressvi')->nullable()->default(null);
-            $table->string('addressen')->nullable()->default(null);
+            $table->string('address')->nullable()->default(null);
             $table->mediumText('analytics')->nullable()->default(null);
             $table->timestamps();
         });
