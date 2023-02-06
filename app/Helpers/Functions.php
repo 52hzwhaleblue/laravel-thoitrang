@@ -12,26 +12,47 @@ class Functions
         $result = 'valid';
         // Kiểm tra xem có slug tồn tại trong database chưa
         $slug = $data->slug;
+        // die($slug);
+
         $id = $data->id;
         if (!empty($slug)) {
             $table = [
                 'table_product_lists',
-                // "table_product_cats",
-                // "table_products",
+                "table_product_cats",
+                "table_products",
                 // "table_news",
             ];
-
-            $where = 'id!=' . $id;
+            if(!empty($data['id']))  // cập nhậ mới có id
+            {
+                $where = $data['id'];
+            }else{
+                $where = '';
+            }
 
             foreach ($table as $v) {
                 $check = DB::table($v)
                     ->select('id')
-                    ->where('id', '!=', $id)
+                    ->where('id','!=' ,$where)
+                    ->where('slug', '=', $slug)
                     ->get();
 
-                if (!empty($check['id'])) {
-                    $result = 'exist';
-                    break;
+            // dd($check);
+
+
+                // dd(json_decode($check,true));
+                $arrChecks = json_decode($check,true);
+
+                foreach($arrChecks as $arrCheck){
+                    // if($arrCheck['slug'] == $slug)
+                    // {
+                    //     $result = 'exist';
+                    // }
+
+                    if($arrCheck['id'] != '')
+                    {
+                        $result = 'exist';
+                    }
+
                 }
             }
         } else {

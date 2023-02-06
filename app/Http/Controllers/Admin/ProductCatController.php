@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Models\TableProductList;
+use App\Models\TableProductCat;
+use Functions;
 
 class ProductCatController extends Controller
 {
@@ -14,7 +18,8 @@ class ProductCatController extends Controller
      */
     public function index()
     {
-        return view('admin.template.product.cat.cat');
+        $data = TableProductCat::all();
+        return view('admin.template.product.cat.cat',compact('data'));
     }
 
     /**
@@ -24,7 +29,8 @@ class ProductCatController extends Controller
      */
     public function create()
     {
-        return view('admin.template.product.cat.cat_add');
+        $splist = TableProductList::all();
+        return view('admin.template.product.cat.cat_add',compact('splist'));
 
     }
 
@@ -36,7 +42,46 @@ class ProductCatController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $count = TableProductCat::all()->count();
+
+        if ($request->has('photo')) {
+            $file = $request->photo;
+            $ext = $request->photo->extension(); //lấy đuôi file png||jpg
+            $file_name =
+                Date('Ymd') . '-' . 'productList' . $count . '.' . $ext;
+            $file->move(public_path('backend/assets/img/products'), $file_name); //chuyển file vào đường dẫn chỉ định
+        }
+
+        $productCat = new TableProductCat();
+
+        $productCat->id_list = $request->get('id_list');
+        $productCat->name = $request->get('name');
+        $productCat->desc = $request->get('desc');
+        $productCat->content = $request->get('content');
+        if ($request->has('photo')) {
+            $productCat->photo = $file_name;
+        }
+        $productCat->status = implode(',', $request->get('status'));
+        $productCat->slug = $request->get('slug');
+        $checkSlug = Functions::checkSlug($productCat);
+
+        if ($checkSlug == 'exist') {
+            return redirect()
+                ->route('admin.product.product-cat.create')
+                ->with(
+                    'warning',
+                    'Đường dẫn (' . $request->get('slug') . ') đã tồn tại'
+                );
+        } elseif ($checkSlug == 'empty') {
+            return redirect()
+                ->route('admin.product.product-cat.create')
+                ->with('warning', 'Đường dẫn không được trống');
+        }
+        $productCat->save();
+
+        return redirect()
+            ->route('admin.product.product-cat.index')
+            ->with('message', 'Bạn đã tạo danh mục cấp 2 thành công!');
     }
 
     /**
@@ -56,9 +101,24 @@ class ProductCatController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($slug)
     {
-        //
+        $sql = TableProductCat::where('slug', $slug)->first();
+        $data = json_decode($sql, true);
+        $splist = TableProductList::all();
+
+        // dd($data);
+        // Status
+        $status = $data['status'];
+        $explodeStatus = explode(',', $status);
+
+        // Lấy danh mục cấp 1 thuộc danh mục cấp 2
+
+
+        return view(
+            'admin.template.product.cat.cat_edit',
+            compact('data', 'explodeStatus','splist')
+        );
     }
 
     /**
@@ -79,8 +139,9 @@ class ProductCatController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(TableProductCat $productCat)
     {
-        //
+        $productCat->delete();
+        return redirect()->route('admin.product.product-cat.index')->with('message', 'Bạn đã xóa danh mục cấp 2 thành công!');
     }
 }
