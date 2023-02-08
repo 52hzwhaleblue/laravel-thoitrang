@@ -13,11 +13,10 @@
         </div>
     </div>
     <ul class="app-menu">
-        <?php $routeName = \Request::route()->getName() ?>
-
+        @php $routeName = \Request::route()->getName() @endphp
 
         @foreach ($menus as $m )
-        <?php $a = strpos($routeName, $m['group']) ?>
+            @php $a = strpos($routeName, $m['group']) @endphp
             <li class="treeview @if ($a > 0) is-expanded @endif">
                 <a class="app-menu__item" href="#" data-toggle="treeview"
                     ><i class="app-menu__icon fa fa-laptop"></i

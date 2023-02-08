@@ -185,7 +185,17 @@
                             class="accordion-collapse collapse show"
                             aria-labelledby="panelsStayOpen-headingOne"
                         >
-                            <div class="accordion-body">
+                            <div class="accordion-body text-center">
+                                <img
+                                    class="mb-2"
+                                    style="width: 200px; height: 200px"
+                                    src="{{
+                                        asset(
+                                            'backend/assets/img/products/'.$data['photo']
+                                        )
+                                    }}"
+                                    alt="{{ $data['name'] }}"
+                                />
                                 <input type="file" name="photo" />
                             </div>
                             </div>

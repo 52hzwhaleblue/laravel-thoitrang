@@ -56,7 +56,7 @@
                                         <a
                                             class="d-block"
                                             href=" {{
-                                                route('admin.product.product-list.edit', $v['id'])
+                                                route('admin.product.product-list.edit', $v['slug'])
                                             }} "
                                         >
                                             <img
@@ -106,36 +106,24 @@
                                             </ul>
                                         </div>
                                     </th>
-                                    <th class="align-middle">
-                                        <div
-                                            class="custom-control custom-checkbox my-checkbox"
-                                        >
-                                            <input
-                                                type="checkbox"
-                                                class="custom-control-input show-checkbox"
-                                                id="show-checkbox-noibat-1"
-                                                data-table="product_list"
-                                                data-id="1"
-                                                data-attr="noibat"
-                                                checked=""
-                                            />
-                                        </div>
-                                    </th>
-                                    <th class="align-middle">
-                                        <div
-                                            class="custom-control custom-checkbox my-checkbox"
-                                        >
-                                            <input
-                                                type="checkbox"
-                                                class="custom-control-input show-checkbox"
-                                                id="show-checkbox-noibat-1"
-                                                data-table="product_list"
-                                                data-id="1"
-                                                data-attr="noibat"
-                                                checked=""
-                                            />
-                                        </div>
-                                    </th>
+                                    @foreach ($status as $k => $eachStatus)
+                                        <th class="align-middle">
+                                            <div
+                                                class="custom-control custom-checkbox my-checkbox"
+                                            >
+                                                <input
+                                                    type="checkbox"
+                                                    class="custom-control-input show-checkbox"
+                                                    id="show-checkbox-{{$eachStatus }}-{{ $v['id'] }}"
+                                                    data-table="product_lists"
+                                                    data-id="{{ $v['id'] }}"
+                                                    data-attr="{{ $eachStatus }}"
+                                                    @if (in_array($eachStatus,explode(',',$v['status']))) checked @endif
+                                                />
+                                            </div>
+                                        </th>
+                                    @endforeach
+
                                     <th class="align-middle d-flex">
                                         <a href=" {{route('admin.product.product-list.edit', $v['slug'] )}} " class="btn btn-primary mr-2">
                                             Sửa

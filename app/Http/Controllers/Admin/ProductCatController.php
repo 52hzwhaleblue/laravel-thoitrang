@@ -11,15 +11,13 @@ use Functions;
 
 class ProductCatController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public $config_status = ['noibat','hienthi'];
+
     public function index()
     {
         $data = TableProductCat::all();
-        return view('admin.template.product.cat.cat',compact('data'));
+        $status = $this->config_status;
+        return view('admin.template.product.cat.cat',compact('data','status'));
     }
 
     /**
@@ -31,7 +29,6 @@ class ProductCatController extends Controller
     {
         $splist = TableProductList::all();
         return view('admin.template.product.cat.cat_add',compact('splist'));
-
     }
 
     /**
@@ -107,13 +104,9 @@ class ProductCatController extends Controller
         $data = json_decode($sql, true);
         $splist = TableProductList::all();
 
-        // dd($data);
         // Status
         $status = $data['status'];
         $explodeStatus = explode(',', $status);
-
-        // Lấy danh mục cấp 1 thuộc danh mục cấp 2
-
 
         return view(
             'admin.template.product.cat.cat_edit',
@@ -121,24 +114,53 @@ class ProductCatController extends Controller
         );
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update(Request $request, $slug)
     {
-        //
+        $count = TableProductCat::all()->count();
+        $fix_status = implode(',', $request->get('status'));
+        if ($request->has('photo')) {
+            $file = $request->photo;
+            $ext = $request->photo->extension(); //lấy đuôi file png||jpg
+            $file_name =
+                Date('Ymd') . '-' . 'productCat' . $count . '.' . $ext;
+            $file->move(public_path('backend/assets/img/products'), $file_name); //chuyển file vào đường dẫn chỉ định
+        }
+
+        $productCat = TableProductCat::where('slug', $slug)->first();
+
+        $productCat->name = $request->get('name');
+        $productCat->desc = $request->get('desc');
+        $productCat->content = $request->get('content');
+        $productCat->id_list = $request->get('id_list');
+        if ($request->has('photo')) {
+            $productCat->photo = $file_name;
+        }
+        $productCat->status = implode(',', $request->get('status'));
+        $productCat->slug = $request->get('slug');
+
+        $checkSlug = Functions::checkSlug($productCat);
+
+        if ($checkSlug == 'exist') {
+            return redirect()
+                ->route('admin.product.product-cat.index')
+                ->with(
+                    'warning',
+                    'Đường dẫn (' . $request->get('slug') . ') đã tồn tại'
+                );
+        } elseif ($checkSlug == 'empty') {
+            return redirect()
+                ->route('admin.product.product-cat.index')
+                ->with('warning', 'Đường dẫn không được trống');
+        }
+
+        $productCat->save();
+
+        return redirect()
+            ->route('admin.product.product-cat.index')
+            ->with('message', 'Bạn đã cập nhật danh mục cấp 2 thành công!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(TableProductCat $productCat)
     {
         $productCat->delete();
