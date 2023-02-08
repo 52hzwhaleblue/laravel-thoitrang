@@ -14455,3 +14455,26 @@ be a descendant of the grid when it is being dragged.
 }
 
 
+select#type {
+    font-size: 12px;
+}
+
+
+.sticky-top1{
+    position: sticky;
+    top: 50px;
+    z-index: 99999999;
+    background: #e5e5e5;
+}
+
+table.dataTable thead .sorting_asc:before{
+    content:"";
+}
+
+table.dataTable thead .sorting_asc:after{
+    content:"";
+}
+table.dataTable thead>tr>th.sorting_asc{
+    padding-left:0;
+    padding-right:0;
+}

@@ -8,7 +8,7 @@
 <form action="{{route('admin.product.product-cat.store')}}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="row">
-        <div class="mb-3">
+        <div class="mb-3 sticky-top1">
             <button type="submit" class="btn btn-primary">Tạo mới</button>
             <button type="reset" class="btn btn-secondary">Làm lại</button>
         </div>
@@ -148,7 +148,5 @@
             </div>
         </div>
     </div>
-    <button type="submit" class="btn btn-primary">Tạo mới</button>
-    <button type="reset" class="btn btn-secondary">Làm lại</button>
 </form>
 @endsection

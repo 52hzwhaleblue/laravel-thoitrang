@@ -1,20 +1,15 @@
 @extends('admin.app') @section('title') Chi tiết Sản phẩm @endsection
 @section('content')
-@if(session()->has('warning'))
-    <div class="alert alert-danger">
-        {{ session()->get('warning') }}
-    </div>
-@endif
-<form
-action="{{ route('admin.product.product-man.store') }}"
-method="POST"
-enctype="multipart/form-data"
- >
+<script src="{{
+    asset('backend/assets/js/jquery-3.2.1.min.js')
+}}"></script>
+<form action="{{ route('admin.product.product-man.update', $data['slug'] ) }}" method="post" enctype="multipart/form-data">
     @csrf
+    @method('PUT')
+
     <div class="row">
-        <div class="mb-3 sticky-top1">
-            <button type="submit" class="btn btn-primary">Tạo mới</button>
-            <button type="reset" class="btn btn-secondary">Làm lại</button>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary">Cập nhật</button>
         </div>
         <div class="row">
             <div class="col-xl-8">
@@ -55,6 +50,7 @@ enctype="multipart/form-data"
                                         placeholder="Tiêu đề"
                                         name="name"
                                         required
+                                        value="{{$data['name']}}"
                                     />
                                 </div>
 
@@ -68,6 +64,7 @@ enctype="multipart/form-data"
                                         id="slug"
                                         placeholder="Slug"
                                         name="slug"
+                                        value="{{$data['slug']}}"
                                         required
                                     />
                                 </div>
@@ -101,13 +98,21 @@ enctype="multipart/form-data"
                         >
                             <div class="accordion-body">
                                 <div class="mb-3 mt-3">
+                                    <input type="checkbox" name="status[]" value="noibat" @if (in_array('noibat',$explodeStatus)) checked  @endif > Nổi bật
+                                    <input type="checkbox" name="status[]" value="hienthi" @if (in_array('hienthi',$explodeStatus)) checked  @endif> Hiển thị
+                                </div>
+
+
+                                <div class="mb-3 mt-3">
                                     <label for="desc">Mô tả:</label>
                                     <textarea
                                         class="form-control"
                                         rows="3"
                                         id="desc"
                                         name="desc"
-                                    ></textarea>
+                                    >
+                                        {{$data['desc']}}
+                                    </textarea>
                                 </div>
 
                                 <div class="mb-3 mt-3">
@@ -117,7 +122,9 @@ enctype="multipart/form-data"
                                         rows="3"
                                         id="cke_content"
                                         name="content"
-                                    ></textarea>
+                                    >
+                                    {{$data['content']}}
+                                    </textarea>
                                 </div>
                             </div>
                         </div>
@@ -128,18 +135,9 @@ enctype="multipart/form-data"
             <div class="col-xl-4">
                 <div class="accordion mb-3" id="accordionPanelsStayOpenExample">
                     <div class="accordion-item">
-                        <h2
-                            class="accordion-header"
-                            id="panelsStayOpen-headingOne"
-                        >
-                            <button
-                                class="accordion-button"
-                                type="button"
-                                data-bs-toggle="collapse"
-                                data-bs-target="#danhmucsanpham"
-                                aria-expanded="true"
-                                aria-controls="danhmucsanpham"
-                            >
+                        <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#danhmucsanpham" aria-expanded="true" aria-controls="danhmucsanpham">
                                 Danh mục sản phẩm
                             </button>
                         </h2>
@@ -151,9 +149,9 @@ enctype="multipart/form-data"
                                         <div class="">
                                             <label for="type" class="form-label">Danh mục cấp 1:</label>
                                             <select class="form-select" id="type" name="id_list">
-                                                <option value="">  Chọn danh mục </option>
+                                                <option value=""> == Chọn danh mục ==</option>
                                                 @foreach ($splist as $v)
-                                                    <option value="{{$v['id']}}"> {{$v['name']}} </option>
+                                                    <option @if ($v['id'] == $data['id_list'])  selected  @endif value="{{$v['id']}}"> {{$v['name']}} </option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -162,9 +160,9 @@ enctype="multipart/form-data"
                                         <div class="">
                                             <label for="type" class="form-label">Danh mục cấp 2:</label>
                                             <select class="form-select" id="type" name="id_cat">
-                                                <option value="">  Chọn danh mục </option>
+                                                <option value=""> == Chọn danh mục ==</option>
                                                 @foreach ($spcat as $v)
-                                                    <option value="{{$v['id']}}"> {{$v['name']}} </option>
+                                                    <option @if ($v['id'] == $data['id_cat'])  selected  @endif value="{{$v['id']}}"> {{$v['name']}} </option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -197,24 +195,24 @@ enctype="multipart/form-data"
                             class="accordion-collapse collapse show"
                             aria-labelledby="panelsStayOpen-headingOne"
                         >
-                            <div class="accordion-body">
-                                <!-- Dropzone -->
-                                <form
-                                    action=""
-                                    method="post"
-                                    enctype="multipart/form-data"
-                                    id=""
-                                    class=""
-                                >
-                                    @csrf
-                                    <input type="file" name="photo" />
-                                </form>
+                            <div class="accordion-body text-center">
+                                <img
+                                    class="mb-2"
+                                    style="width: 200px; height: 200px"
+                                    src="{{
+                                        asset(
+                                            'backend/assets/img/products/'.$data['photo']
+                                        )
+                                    }}"
+                                    alt="{{ $data['name'] }}"
+                                />
+                                <input type="file" name="photo" />
+                            </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
             <div class="accordion mb-3" id="accordionPanelsStayOpenExample">
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="panelsStayOpen-headingOne">
@@ -264,7 +262,10 @@ enctype="multipart/form-data"
                                         value="1"
                                         id="stt"
                                         style="width: 50px"
+                                        value = {{$data['numb']}}
+
                                     />
+
                                 </div>
                             </div>
 
@@ -281,6 +282,7 @@ enctype="multipart/form-data"
                                                 id="price"
                                                 placeholder="Mã sản phẩm"
                                                 name="code"
+                                                value = {{$data['code']}}
                                             />
                                         </div>
                                     </div>
@@ -294,10 +296,12 @@ enctype="multipart/form-data"
                                         <div class="input-group">
                                             <input
                                                 type="number"
-                                                class="form-control regular_price"
+                                                class="form-control"
+                                                id="price"
                                                 placeholder="Giá cũ"
                                                 name="regular_price"
-                                                value=""
+                                                value = {{$data['regular_price']}}
+
                                             />
                                             <span class="input-group-text"
                                                 >VNĐ</span
@@ -313,11 +317,12 @@ enctype="multipart/form-data"
                                         <div class="input-group">
                                             <input
                                                 type="number"
-                                                class="form-control sale_price"
-                                                id="sale_price"
+                                                class="form-control"
+                                                id="price"
                                                 placeholder="Giá mới"
                                                 name="sale_price"
-                                                value=""
+                                                value = {{$data['sale_price']}}
+
                                             />
                                             <span class="input-group-text"
                                                 >VNĐ</span
@@ -334,10 +339,12 @@ enctype="multipart/form-data"
                                         <div class="input-group">
                                             <input
                                                 type="number"
-                                                class="form-control discount"
+                                                class="form-control"
                                                 id="price"
                                                 placeholder="Chiết khấu"
                                                 name="discount"
+                                                value = "{{$data['discount']}}"
+
                                                 readonly
                                             />
                                             <span class="input-group-text"
@@ -373,6 +380,7 @@ enctype="multipart/form-data"
                                             id="stock"
                                             placeholder="Tồn kho"
                                             name="stock"
+                                            value = " {{$data['stock']}} "
                                             readonly
                                         />
                                     </div>
@@ -417,5 +425,7 @@ enctype="multipart/form-data"
             </div>
         </div>
     </div>
+    <button type="submit" class="btn btn-primary">Tạo mới</button>
+    <button type="reset" class="btn btn-secondary">Làm lại</button>
 </form>
 @endsection

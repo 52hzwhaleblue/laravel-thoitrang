@@ -7,13 +7,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\TableProductList;
 use Functions;
+use Config;
 
 class ProductListController extends Controller
 {
+    public $config_status = ['noibat','hienthi'];
+
     public function index()
     {
         $data = TableProductList::all();
-        return view('admin.template.product.list.list', compact('data'));
+        $status = $this->config_status;
+        return view('admin.template.product.list.list', compact('data','status'));
     }
 
     public function create()
@@ -72,8 +76,7 @@ class ProductListController extends Controller
     {
         $sql = TableProductList::where('slug', $slug)->first();
         $data = json_decode($sql, true);
-        // dd($data);
-        // Status
+
         $status = $data['status'];
         $explodeStatus = explode(',', $status);
 

@@ -1,5 +1,11 @@
 @extends('admin.app') @section('title') Chi tiết Sản phẩm cấp 1 @endsection
 @section('content')
+@if(session()->has('warning'))
+<div class="alert alert-danger">
+    {{ session()->get('warning') }}
+</div>
+@endif
+
 <script src="{{ asset('backend/assets/js/jquery-3.2.1.min.js') }}"></script>
 <form
     action="{{ route('admin.product.product-list.store') }}"
@@ -8,12 +14,7 @@
 >
     @csrf
     <div class="row">
-        <div class="mb-3">
-            @if(session()->has('warning'))
-            <div class="alert alert-danger">
-                {{ session()->get('warning') }}
-            </div>
-            @endif
+        <div class="mb-3 sticky-top1">
             <button type="submit" class="btn btn-primary">Tạo mới</button>
             <button type="reset" class="btn btn-secondary">Làm lại</button>
         </div>
@@ -25,6 +26,7 @@
                             class="accordion-header"
                             id="panelsStayOpen-headingOne"
                         >
+
                             <button
                                 class="accordion-button"
                                 type="button"
@@ -72,9 +74,6 @@
                                         required
                                     />
                                 </div>
-
-                                <!-- <input class="a" type="text" value="some text">
-                                <input class="b" type="text" value=""> -->
                                 <h3></h3>
                             </div>
                         </div>
@@ -210,7 +209,5 @@
             </div>
         </div>
     </div>
-    <button type="submit" class="btn btn-primary">Tạo mới</button>
-    <button type="reset" class="btn btn-secondary">Làm lại</button>
 </form>
 @endsection

@@ -33,7 +33,14 @@ Route::group([
         Route::resource('product-list', ProductListController::class);
         Route::resource('product-cat', ProductCatController::class);
         Route::resource('product-man', ProductController::class);
+
+        // Xóa tất cả
+        Route::post('product-man/deleteAll', [ProductController::class,'deleteAll'])->name('deleteAll');
+
     });
+
+
+
 
     // Bài viết
     Route::group([

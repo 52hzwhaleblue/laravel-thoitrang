@@ -26,11 +26,8 @@
 
 })();
 
-function changeTitle(){
-    $(document).ready(function() {
-        alert('dsd');
-    });
 
+function changeTitle(){
     $( ".name" )
       .keyup(function() {
         var name = $( this ).val();
@@ -65,4 +62,32 @@ function changeTitle(){
       })
       .keyup();
 }
+function checkPrice(){
+    var regular_price = parseInt($('.regular_price').val());
+    var sale_price = 0;
+    $('.regular_price').keyup(function(){
+        regular_price = $(this).val();
+    }).keyup();
 
+    $('.sale_price').keyup(function(){
+        sale_price = parseInt($(this).val());
+        if(sale_price > regular_price){
+            $( ".regular_price" ).attr('value','').val(0);
+            $( ".sale_price" ).attr('value','').val(0);
+        }
+        var discount = ((regular_price - sale_price)/regular_price)*100;
+        $('.discount' ).attr('value',discount.toFixed(0));
+    }).keyup();
+}
+
+function checAll(){
+    $(".checkAll").click(function(){
+        $('input:checkbox').not('.arrStatus').prop('checked', this.checked);
+    });
+}
+
+$(document).ready(function() {
+    changeTitle();
+    checkPrice();
+    checAll();
+});
