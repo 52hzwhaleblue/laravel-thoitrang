@@ -41,8 +41,29 @@
                 ],
             ]
         ],
+
+        // Hình ảnh Video
+        'photo' =>[
+            'name' => 'Hình ảnh - Video',
+            'group' => '.photo.',
+            'data' => [
+                'slideshow' => [
+                    'nametype' => 'Slideshow',
+                    'type' => 'slideshow',
+                    'index' => 'admin.photo.slideshow.index',
+                ],
+                'video' => [
+                    'nametype' => 'Video',
+                    'type' => 'video',
+                    'index' => 'admin.photo.video.index',
+                ],
+                'banner' => [
+                    'nametype' => 'Banner Quảng Cáo',
+                    'type' => 'banner',
+                    'index' => 'admin.photo.banner.index',
+                ],
+            ]
+        ]
     ];
-
     return $menuArr;
-
 ?>

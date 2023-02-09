@@ -1,45 +1,29 @@
-@extends('admin.app') @section('title') Quản lý sản phẩm @endsection
+@php
+    $create = 'admin.photo.'.$type.'.create';
+    $edit = 'admin.photo.'.$type.'.edit';
+    $destroy = 'admin.photo.'.$type.'.destroy';
+@endphp
+
+@extends('admin.app')
+@section('title')
+    Quản lý {{ $type }}
+@endsection
+
 @section('content')
-@if(session()->has('message'))
-    <div class="alert alert-success">
-        {{ session()->get('message') }}
-    </div>
-@endif
-
-@if(session()->has('warning'))
-    <div class="alert alert-danger">
-        {{ session()->get('warning') }}
-    </div>
-@endif
-
 <div class="mb-3">
-    <a
-        href="{{ route('admin.product.product-man.create') }}"
-        class="btn btn-primary mr-2"
-        >Tạo mới
-    </a>
-
+    <a href=" {{route($create)}} " class="btn btn-primary mr-2">Tạo mới</a>
 </div>
 <div class="row">
     <div class="col-md-12">
         <div class="tile">
             <div class="tile-body">
                 <div class="table-responsive">
-                    <table
-                        class="table table-hover table-bordered "
-                        id="sampleTable"
-                    >
+                    <table class="table table-hover table-bordered" id="sampleTable">
                         <thead>
                             <tr>
-                                <th>
-                                    <div class="custom-control custom-checkbox my-checkbox">
-                                        <input type="checkbox" class="checkAll custom-control-input" id="selectall-checkbox">
-                                    </div>
-                                </th>
                                 <th width="10%">STT</th>
                                 <th>Hình</th>
                                 <th width="30%">Tiêu đề</th>
-                                <th>Gallery</th>
                                 <th>Nổi bật</th>
                                 <th>Hiển thị</th>
                                 <th>Thao tác</th>
@@ -152,15 +136,6 @@
                             @endforeach
                         </tbody>
                     </table>
-
-                    <form action="{{ route('admin.product.deleteAll') }}" method="post">
-                        @csrf
-                        @method('DELETE')
-                        <button class="btn btn-danger">
-                            Xóa tất cả
-                        </button>
-                    </form>
-
                 </div>
             </div>
         </div>

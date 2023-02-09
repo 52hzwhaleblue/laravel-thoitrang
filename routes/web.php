@@ -12,7 +12,8 @@ use App\Http\Controllers\Admin\ProductController;
 // Post Controller
 use App\Http\Controllers\Admin\PostController;
 
-
+// Photo Controller
+use App\Http\Controllers\Admin\PhotoController;
 
 // Admin Route
 Route::group([
@@ -26,9 +27,6 @@ Route::group([
         'prefix' => 'product',
         'as' => 'product.',
     ], function(){
-
-        // Check slug
-        Route::get('check-slug', [ProductListController::class,'checkSlug'])->name('checkSlug');
         // Sản phẩm
         Route::resource('product-list', ProductListController::class);
         Route::resource('product-cat', ProductCatController::class);
@@ -38,9 +36,6 @@ Route::group([
         Route::post('product-man/deleteAll', [ProductController::class,'deleteAll'])->name('deleteAll');
 
     });
-
-
-
 
     // Bài viết
     Route::group([
@@ -56,5 +51,20 @@ Route::group([
         // Hình thức thanh toán
         Route::resource('hinh-thuc-thanh-toan', PostController::class);
     });
+
+        // Hình ảnh Video
+        Route::group([
+            'prefix' => 'photo',
+            'as' => 'photo.',
+        ], function(){
+            // Slideshow
+            Route::resource('slideshow', PhotoController::class);
+
+            // Video
+            Route::resource('video', PhotoController::class);
+
+            // Banner
+            Route::resource('banner', PhotoController::class);
+        });
 
 });

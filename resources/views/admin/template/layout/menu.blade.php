@@ -1,7 +1,6 @@
-<?php
+@php
     $menus = config('menu');
-    // dd($menus);
-?>
+@endphp
 
 <!-- Sidebar menu-->
 <div class="app-sidebar__overlay" data-toggle="sidebar"></div>

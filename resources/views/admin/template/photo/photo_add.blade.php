@@ -1,79 +1,23 @@
-@extends('admin.app') @section('title') Chi tiết Sản phẩm @endsection
+@extends('admin.app') @section('title') Chi tiết {{ $type }} @endsection
 @section('content')
-<script src="{{
-    asset('backend/assets/js/jquery-3.2.1.min.js')
-}}"></script>
-<form action="{{ route('admin.product.product-man.update', $data['slug'] ) }}" method="post" enctype="multipart/form-data">
+@if(session()->has('warning'))
+    <div class="alert alert-danger">
+        {{ session()->get('warning') }}
+    </div>
+@endif
+<form
+action="{{ route('admin.product.product-man.store') }}"
+method="POST"
+enctype="multipart/form-data"
+ >
     @csrf
-    @method('PUT')
-
     <div class="row">
-        <div class="mb-3">
-            <button type="submit" class="btn btn-primary">Cập nhật</button>
+        <div class="mb-3 sticky-top1">
+            <button type="submit" class="btn btn-primary">Tạo mới</button>
+            <button type="reset" class="btn btn-secondary">Làm lại</button>
         </div>
         <div class="row">
             <div class="col-xl-8">
-                <div class="accordion mb-3" id="accordionPanelsStayOpenExample">
-                    <div class="accordion-item">
-                        <h2
-                            class="accordion-header"
-                            id="panelsStayOpen-headingOne"
-                        >
-                            <button
-                                class="accordion-button"
-                                type="button"
-                                data-bs-toggle="collapse"
-                                data-bs-target="#slug"
-                                aria-expanded="true"
-                                aria-controls="slug"
-                            >
-                                Đường dẫn
-                                <span class="pl-2 text-danger">
-                                    (Vui lòng không nhập trùng tiêu đề)
-                                </span>
-                            </button>
-                        </h2>
-                        <div
-                            id="slug"
-                            class="accordion-collapse collapse show"
-                            aria-labelledby="panelsStayOpen-headingOne"
-                        >
-                            <div class="accordion-body">
-                                <div class="mb-3 mt-3">
-                                    <label for="name" class="form-label"
-                                        >Tiêu đề:</label
-                                    >
-                                    <input
-                                        type="text"
-                                        class="name form-control"
-                                        id="name"
-                                        placeholder="Tiêu đề"
-                                        name="name"
-                                        required
-                                        value="{{$data['name']}}"
-                                    />
-                                </div>
-
-                                <div class="">
-                                    <label for="slug" class="form-label"
-                                        >Slug:</label
-                                    >
-                                    <input
-                                        type="text"
-                                        class="slug form-control"
-                                        id="slug"
-                                        placeholder="Slug"
-                                        name="slug"
-                                        value="{{$data['slug']}}"
-                                        required
-                                    />
-                                </div>
-                                <h3></h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="accordion mb-3" id="accordionPanelsStayOpenExample">
                     <div class="accordion-item">
                         <h2
@@ -98,15 +42,27 @@
                         >
                             <div class="accordion-body">
                                 <div class="mb-3 mt-3">
+                                    <label for="name" class="form-label"
+                                        >Tiêu đề:</label
+                                    >
+                                    <input
+                                        type="text"
+                                        class="name form-control"
+                                        id="name"
+                                        placeholder="Tiêu đề"
+                                        name="name"
+                                        required
+                                    />
+                                </div>
+
+                                <div class="mb-3 mt-3">
                                     <label for="desc">Mô tả:</label>
                                     <textarea
                                         class="form-control"
                                         rows="3"
                                         id="desc"
                                         name="desc"
-                                    >
-                                        {{$data['desc']}}
-                                    </textarea>
+                                    ></textarea>
                                 </div>
 
                                 <div class="mb-3 mt-3">
@@ -116,9 +72,7 @@
                                         rows="3"
                                         id="cke_content"
                                         name="content"
-                                    >
-                                    {{$data['content']}}
-                                    </textarea>
+                                    ></textarea>
                                 </div>
                             </div>
                         </div>
@@ -129,9 +83,18 @@
             <div class="col-xl-4">
                 <div class="accordion mb-3" id="accordionPanelsStayOpenExample">
                     <div class="accordion-item">
-                        <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#danhmucsanpham" aria-expanded="true" aria-controls="danhmucsanpham">
+                        <h2
+                            class="accordion-header"
+                            id="panelsStayOpen-headingOne"
+                        >
+                            <button
+                                class="accordion-button"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#danhmucsanpham"
+                                aria-expanded="true"
+                                aria-controls="danhmucsanpham"
+                            >
                                 Danh mục sản phẩm
                             </button>
                         </h2>
@@ -143,9 +106,9 @@
                                         <div class="">
                                             <label for="type" class="form-label">Danh mục cấp 1:</label>
                                             <select class="form-select" id="type" name="id_list">
-                                                <option value=""> == Chọn danh mục ==</option>
+                                                <option value="">  Chọn danh mục </option>
                                                 @foreach ($splist as $v)
-                                                    <option @if ($v['id'] == $data['id_list'])  selected  @endif value="{{$v['id']}}"> {{$v['name']}} </option>
+                                                    <option value="{{$v['id']}}"> {{$v['name']}} </option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -154,9 +117,9 @@
                                         <div class="">
                                             <label for="type" class="form-label">Danh mục cấp 2:</label>
                                             <select class="form-select" id="type" name="id_cat">
-                                                <option value=""> == Chọn danh mục ==</option>
+                                                <option value="">  Chọn danh mục </option>
                                                 @foreach ($spcat as $v)
-                                                    <option @if ($v['id'] == $data['id_cat'])  selected  @endif value="{{$v['id']}}"> {{$v['name']}} </option>
+                                                    <option value="{{$v['id']}}"> {{$v['name']}} </option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -189,24 +152,24 @@
                             class="accordion-collapse collapse show"
                             aria-labelledby="panelsStayOpen-headingOne"
                         >
-                            <div class="accordion-body text-center">
-                                <img
-                                    class="mb-2"
-                                    style="width: 200px; height: 200px"
-                                    src="{{
-                                        asset(
-                                            'backend/assets/img/products/'.$data['photo']
-                                        )
-                                    }}"
-                                    alt="{{ $data['name'] }}"
-                                />
-                                <input type="file" name="photo" />
-                            </div>
+                            <div class="accordion-body">
+                                <!-- Dropzone -->
+                                <form
+                                    action=""
+                                    method="post"
+                                    enctype="multipart/form-data"
+                                    id=""
+                                    class=""
+                                >
+                                    @csrf
+                                    <input type="file" name="photo" />
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
             <div class="accordion mb-3" id="accordionPanelsStayOpenExample">
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="panelsStayOpen-headingOne">
@@ -227,9 +190,22 @@
                         aria-labelledby="panelsStayOpen-headingOne"
                     >
                         <div class="accordion-body">
-                            <div class="mb-3 mt-3">
-                                <input type="checkbox" name="status[]" value="noibat" @if (in_array('noibat',$explodeStatus)) checked  @endif > Nổi bật
-                                <input type="checkbox" name="status[]" value="hienthi" @if (in_array('hienthi',$explodeStatus)) checked  @endif> Hiển thị
+                            <div class="d-flex mb-3">
+                                <div class="mb-3 mt-3">
+                                    <input
+                                        type="checkbox"
+                                        name="status[]"
+                                        value="noibat"
+                                    />
+                                    Nổi bật
+                                    <input
+                                        type="checkbox"
+                                        name="status[]"
+                                        value="hienthi"
+                                        checked
+                                    />
+                                    Hiển thị
+                                </div>
                             </div>
 
                             <div class="mb-3">
@@ -243,10 +219,7 @@
                                         value="1"
                                         id="stt"
                                         style="width: 50px"
-                                        value = {{$data['numb']}}
-
                                     />
-
                                 </div>
                             </div>
 
@@ -263,7 +236,6 @@
                                                 id="price"
                                                 placeholder="Mã sản phẩm"
                                                 name="code"
-                                                value = {{$data['code']}}
                                             />
                                         </div>
                                     </div>
@@ -277,12 +249,10 @@
                                         <div class="input-group">
                                             <input
                                                 type="number"
-                                                class="form-control"
-                                                id="price"
+                                                class="form-control regular_price"
                                                 placeholder="Giá cũ"
                                                 name="regular_price"
-                                                value = {{$data['regular_price']}}
-
+                                                value=""
                                             />
                                             <span class="input-group-text"
                                                 >VNĐ</span
@@ -298,12 +268,11 @@
                                         <div class="input-group">
                                             <input
                                                 type="number"
-                                                class="form-control"
-                                                id="price"
+                                                class="form-control sale_price"
+                                                id="sale_price"
                                                 placeholder="Giá mới"
                                                 name="sale_price"
-                                                value = {{$data['sale_price']}}
-
+                                                value=""
                                             />
                                             <span class="input-group-text"
                                                 >VNĐ</span
@@ -320,12 +289,10 @@
                                         <div class="input-group">
                                             <input
                                                 type="number"
-                                                class="form-control"
+                                                class="form-control discount"
                                                 id="price"
                                                 placeholder="Chiết khấu"
                                                 name="discount"
-                                                value = "{{$data['discount']}}"
-
                                                 readonly
                                             />
                                             <span class="input-group-text"
@@ -361,7 +328,6 @@
                                             id="stock"
                                             placeholder="Tồn kho"
                                             name="stock"
-                                            value = " {{$data['stock']}} "
                                             readonly
                                         />
                                     </div>
@@ -406,7 +372,5 @@
             </div>
         </div>
     </div>
-    <button type="submit" class="btn btn-primary">Tạo mới</button>
-    <button type="reset" class="btn btn-secondary">Làm lại</button>
 </form>
 @endsection

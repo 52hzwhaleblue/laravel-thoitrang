@@ -20,23 +20,12 @@ class ProductCatController extends Controller
         return view('admin.template.product.cat.cat',compact('data','status'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $splist = TableProductList::all();
         return view('admin.template.product.cat.cat_add',compact('splist'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $count = TableProductCat::all()->count();
@@ -81,23 +70,11 @@ class ProductCatController extends Controller
             ->with('message', 'Bạn đã tạo danh mục cấp 2 thành công!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($slug)
     {
         $sql = TableProductCat::where('slug', $slug)->first();
