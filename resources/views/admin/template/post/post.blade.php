@@ -1,7 +1,7 @@
 @php
-    $create = 'admin.photo.'.$type.'.create';
-    $edit = 'admin.photo.'.$type.'.edit';
-    $destroy = 'admin.photo.'.$type.'.destroy';
+    $create = 'admin.post.'.$type.'.create';
+    $edit = 'admin.post.'.$type.'.edit';
+    $destroy = 'admin.post.'.$type.'.destroy';
 
 @endphp
 

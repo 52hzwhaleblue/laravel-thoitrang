@@ -7,15 +7,15 @@
             'group' => '.product.',
             'data' =>[
                 'list' =>[
-                    'nametype' => 'Danh mục cấp 1',
+                    'title' => 'Danh mục cấp 1',
                     'index' => 'admin.product.product-list.index',
                 ],
                 'cat' =>[
-                    'nametype' => 'Danh mục cấp 2',
+                    'title' => 'Danh mục cấp 2',
                     'index' => 'admin.product.product-cat.index',
                 ],
                 'man' =>[
-                    'nametype' => 'Danh mục sản phẩm',
+                    'title' => 'Danh mục sản phẩm',
                     'index' => 'admin.product.product-man.index',
                 ]
             ]
@@ -27,16 +27,13 @@
             'group' => '.post.',
             'data' =>[
                 'tin-tuc' =>[
-                    'nametype' => 'Tin tức',
+                    'title' => 'Tin tức',
                     'type' => 'tin-tuc',
-                    'view' => 'news',
                     'index' => 'admin.post.tin-tuc.index',
                 ],
                 'tieu-chi' =>[
-                    'nametype' => 'Tiêu chí',
+                    'title' => 'Tiêu chí',
                     'type' => 'tieu-chi',
-                    'view' => 'news',
-                    'action' => 'tieu-chi',
                     'index' => 'admin.post.tieu-chi.index',
                 ],
             ]
@@ -48,17 +45,17 @@
             'group' => '.photo.',
             'data' => [
                 'slideshow' => [
-                    'nametype' => 'Slideshow',
+                    'title' => 'Slideshow',
                     'type' => 'slideshow',
                     'index' => 'admin.photo.slideshow.index',
                 ],
                 'video' => [
-                    'nametype' => 'Video',
+                    'title' => 'Video',
                     'type' => 'video',
                     'index' => 'admin.photo.video.index',
                 ],
                 'banner' => [
-                    'nametype' => 'Banner Quảng Cáo',
+                    'title' => 'Banner',
                     'type' => 'banner',
                     'index' => 'admin.photo.banner.index',
                 ],

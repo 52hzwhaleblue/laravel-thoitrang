@@ -12618,7 +12618,7 @@ be a descendant of the grid when it is being dragged.
     -ms-flex: 0 0 auto;
     flex: 0 0 auto;
     display: block;
-    width: 230px;
+    width: 250px;
     background-color: #007d71;
   }
 }
@@ -12812,7 +12812,7 @@ be a descendant of the grid when it is being dragged.
   bottom: 0;
   left: 0;
   padding-top: 70px;
-  width: 230px;
+  width: 250px;
   overflow: auto;
   z-index: 10;
   background-color: #222d32;
@@ -14465,6 +14465,7 @@ select#type {
     top: 50px;
     z-index: 99999999;
     background: #e5e5e5;
+    margin-left: 10px;
 }
 
 table.dataTable thead .sorting_asc:before{
