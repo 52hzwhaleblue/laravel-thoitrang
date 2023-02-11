@@ -2,6 +2,8 @@
 namespace App\Helpers;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Route;
+
 
 class Functions
 {
@@ -60,6 +62,13 @@ class Functions
         }
         // die($result);
         return $result;
+    }
+
+    function getTypeByCom(){
+        $currentURI = Route::getFacadeRoot()->current()->uri();
+        $com = explode('/', $currentURI);
+        $type = $com[2];
+        return $type;
     }
 }
 

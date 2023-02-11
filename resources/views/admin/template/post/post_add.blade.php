@@ -5,7 +5,7 @@
     {{ session()->get('warning') }}
 </div>
 @endif
-<form action="{{ route('admin.photo.'.$type.'.store') }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('admin.post.'.$type.'.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="row">
         <div class="mb-3 sticky-top1">
@@ -38,6 +38,27 @@
                                     <input type="text" class="name form-control" id="name" placeholder="Tiêu đề"
                                         name="name" required />
                                 </div>
+
+                                <div class="mb-3 mt-3">
+                                    <label for="desc">Mô tả:</label>
+                                    <textarea
+                                        class="form-control"
+                                        rows="3"
+                                        id="desc"
+                                        name="desc"
+                                    ></textarea>
+                                </div>
+
+                                <div class="mb-3 mt-3">
+                                    <label for="content">Nội dung:</label>
+                                    <textarea
+                                        class="form-control"
+                                        rows="3"
+                                        id="cke_content"
+                                        name="content"
+                                    ></textarea>
+                                </div>
+
                             </div>
                         </div>
                     </div>

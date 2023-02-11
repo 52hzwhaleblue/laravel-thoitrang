@@ -20,6 +20,7 @@ Route::group([
     'prefix' => 'admin',
     'as' => 'admin.',
 ],function(){
+
     Route::resource('/', HomeController::class);
 
     // Sản phẩm
@@ -42,14 +43,27 @@ Route::group([
         'prefix' => 'post',
         'as' => 'post.',
     ], function(){
-        // Tin tức
-        Route::resource('tin-tuc', PostController::class);
+        $menus = config('menu');
 
-        // Tiêu chí
-        Route::resource('tieu-chi', PostController::class);
 
-        // Hình thức thanh toán
-        Route::resource('hinh-thuc-thanh-toan', PostController::class);
+        foreach($menus as $m){
+            if($m['name'] == 'Bài viết'){
+                foreach($m['data'] as $m1){
+                    $type = $m1['type'];
+                    // dd($type);
+                    Route::resource($type, PostController::class);
+
+                }
+            }
+        }
+        // // Tin tức
+        // Route::resource('tin-tuc', PostController::class);
+
+        // // Tiêu chí
+        // Route::resource('tieu-chi', PostController::class);
+
+        // // Hình thức thanh toán
+        // Route::resource('hinh-thuc-thanh-toan', PostController::class);
     });
 
         // Hình ảnh Video
