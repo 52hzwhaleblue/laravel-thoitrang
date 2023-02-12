@@ -40,17 +40,37 @@ class PostController extends Controller
             $file->move(public_path('backend/assets/img/post'), $file_name);
         }
 
-        $photo = new TablePost();
-        $photo->name = $request->get('name');
-        $photo->desc = $request->get('desc');
-        $photo->content = $request->get('content');
-        $photo->photo = $file_name;
-        $photo->type = $type;
-        $photo->status = implode(',', $request->get('status'));
-        $photo->save();
+        $post = new TablePost();
+        $post->name = $request->get('name');
+        $post->desc = $request->get('desc');
+        $post->content = $request->get('content');
+        if ($request->has('photo')) {
+            $post->photo = $file_name;
+        }
+        $post->type = $type;
+        $post->status = implode(',', $request->get('status'));
+
+        $post->status = implode(',', $request->get('status'));
+        $post->slug = $request->get('slug');
+        $checkSlug = Functions::checkSlug($post);
+
+        if ($checkSlug == 'exist') {
+            return redirect()
+                ->route('admin.post.'.$type.'.create')
+                ->with(
+                    'warning',
+                    'Đường dẫn (' . $request->get('slug') . ') đã tồn tại'
+                );
+        } elseif ($checkSlug == 'empty') {
+            return redirect()
+                ->route('admin.post.'.$type.'.create')
+                ->with('warning', 'Đường dẫn không được trống');
+        }
+
+        $post->save();
 
         return redirect()
-            ->route('admin.photo.'.$type.'.index')
+            ->route('admin.post.'.$type.'.index')
             ->with('message', 'Bạn đã tạo ' .$type. ' thành công!');
     }
 
@@ -59,14 +79,13 @@ class PostController extends Controller
         //
     }
 
-    public function edit($id)
+    public function edit($slug)
     {
         $type = Functions::getTypeByCom();
 
-        $sql = TablePost::where('id',$id)->first();
+        $sql = TablePost::where('slug',$slug)->first();
         $data = json_decode($sql, true);
 
-        // dd($data);
         $status = $data['status'];
         $explodeStatus = explode(',', $status);
 
@@ -76,35 +95,48 @@ class PostController extends Controller
         );
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $slug)
     {
+        $count = TablePost::all()->count();
         $type = Functions::getTypeByCom();
 
-        $count = TablePost::all()->count();
-        $fix_status = implode(',', $request->get('status'));
         if ($request->has('photo')) {
             $file = $request->photo;
-            $ext = $request->photo->extension(); //lấy đuôi file png||jpg
+            $ext = $request->photo->extension();
             $file_name =
                 Date('Ymd') . '-' . $type . $count . '.' . $ext;
-            $file->move(public_path('backend/assets/img/post'), $file_name); //chuyển file vào đường dẫn chỉ định
+            $file->move(public_path('backend/assets/img/post'), $file_name);
         }
 
-        $photo = TablePost::where('id', $id)->first();
-
-        $photo->name = $request->get('name');
-        $photo->desc = $request->get('desc');
-        $photo->content = $request->get('content');
+        $post = TablePost::where('slug', $slug)->first();
+        $post->name = $request->get('name');
+        $post->desc = $request->get('desc');
+        $post->content = $request->get('content');
         if ($request->has('photo')) {
-            $photo->photo = $file_name;
+            $post->photo = $file_name;
         }
-        $photo->type = $type;
-        $photo->status = implode(',', $request->get('status'));
-        $photo->save();
+        $post->type = $type;
+        $post->status = implode(',', $request->get('status'));
+        $post->slug = $request->get('slug');
+        $checkSlug = Functions::checkSlug($post);
+
+        if ($checkSlug == 'exist') {
+            return redirect()
+                ->route('admin.post.'.$type.'.create')
+                ->with(
+                    'warning',
+                    'Đường dẫn (' . $request->get('slug') . ') đã tồn tại'
+                );
+        } elseif ($checkSlug == 'empty') {
+            return redirect()
+                ->route('admin.post.'.$type.'.create')
+                ->with('warning', 'Đường dẫn không được trống');
+        }
+        $post->save();
 
         return redirect()
             ->route('admin.post.'.$type.'.index')
-            ->with('message', 'Bạn đã cập nhật '. $type .' thành công!');
+            ->with('message', 'Bạn đã cập nhật ' .$type. ' thành công!');
     }
 
     public function destroy($id)

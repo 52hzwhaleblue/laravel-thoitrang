@@ -9,24 +9,23 @@ class Functions
 {
     private $d;
 
-    public function checkSlug($data = [])
+    public static  function checkSlug($data = [])
     {
-        $result = 'valid';
-        // Kiểm tra xem có slug tồn tại trong database chưa
-        $slug = $data->slug;
-        // die($slug);
+        $slug = $data['slug'];
+        $id = $data['id'];
 
-        $id = $data->id;
+        $result = 'valid';
+
         if (!empty($slug)) {
             $table = [
                 'table_product_lists',
                 "table_product_cats",
                 "table_products",
-                // "table_news",
+                "table_posts",
             ];
-            if(!empty($data['id']))  // cập nhậ mới có id
+            if(!empty($id))  // cập nhật mới có id
             {
-                $where = $data['id'];
+                $where = $id;
             }else{
                 $where = '';
             }
@@ -38,33 +37,22 @@ class Functions
                     ->where('slug', '=', $slug)
                     ->get();
 
-            // dd($check);
-
-
-                // dd(json_decode($check,true));
                 $arrChecks = json_decode($check,true);
 
                 foreach($arrChecks as $arrCheck){
-                    // if($arrCheck['slug'] == $slug)
-                    // {
-                    //     $result = 'exist';
-                    // }
-
                     if($arrCheck['id'] != '')
                     {
                         $result = 'exist';
                     }
-
                 }
             }
         } else {
             $result = 'empty';
         }
-        // die($result);
         return $result;
     }
 
-    function getTypeByCom(){
+    public static function getTypeByCom(){
         $currentURI = Route::getFacadeRoot()->current()->uri();
         $com = explode('/', $currentURI);
         $type = $com[2];

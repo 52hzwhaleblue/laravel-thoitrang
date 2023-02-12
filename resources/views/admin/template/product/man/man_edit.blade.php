@@ -1,5 +1,5 @@
-<blade
-    extends|(%26%2339%3Badmin.app%26%2339%3B)%20%40section(%26%2339%3Btitle%26%2339%3B)%20Chi%20ti%E1%BA%BFt%20S%E1%BA%A3n%20ph%E1%BA%A9m%20%40endsection />
+@extends('admin.app') @section('title') Chi tiết Sản phẩm  @endsection
+
 @section('content')
 <script src="{{
     asset('backend/assets/js/jquery-3.2.1.min.js')
