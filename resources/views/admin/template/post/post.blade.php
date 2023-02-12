@@ -62,14 +62,14 @@
                                         <a
                                             class="d-block"
                                             href=" {{
-                                                route('admin.photo.'.$type.'.edit', $v['id'])
+                                                route('admin.post.'.$type.'.edit', $v['slug'])
                                             }} "
                                         >
                                             <img
                                                 style="width: 60px; height: 60px"
                                                 src="{{
                                                     asset(
-                                                        'backend/assets/img/photo/'.$v['photo']
+                                                        'backend/assets/img/post/'.$v['photo']
                                                     )
                                                 }}"
                                                 alt="ss"
@@ -79,7 +79,7 @@
                                     <th class="align-middle">
                                         <a
                                             href=" {{
-                                                route('admin.photo.'.$type.'.edit', $v['id'])
+                                                route('admin.post.'.$type.'.edit', $v['slug'])
                                             }} "
                                         >
                                             {{$v['name']}}
@@ -105,12 +105,12 @@
 
                                     <th class="align-middle d-flex">
                                         <a href=" {{
-                                            route('admin.photo.'.$type.'.edit', $v['id'])
+                                            route('admin.post.'.$type.'.edit', $v['slug'])
                                         }} " class="btn btn-primary mr-2">
                                             Sửa
                                         </a>
 
-                                        <form action="{{ route('admin.photo.'.$type.'.destroy', $v->id) }}" method="post">
+                                        <form action="{{ route('admin.post.'.$type.'.destroy', $v->id) }}" method="post">
                                             @csrf
                                             @method('DELETE')
                                             <button class="btn btn-danger">
