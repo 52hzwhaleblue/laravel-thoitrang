@@ -15,6 +15,9 @@ use App\Http\Controllers\Admin\PostController;
 // Photo Controller
 use App\Http\Controllers\Admin\PhotoController;
 
+// Index Controller
+use App\Http\Controllers\IndexController;
+
 // Admin Route
 Route::group([
     'prefix' => 'admin',
@@ -82,3 +85,8 @@ Route::group([
         });
 
 });
+
+
+// =========== user
+ Route::get('/', [IndexController::class,'index']);
+

@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'SVNPoppinsSemiBold';
+    src: url('fonts/SVNPoppinsSemiBold.eot');
+    src: url('fonts/SVNPoppinsSemiBold.eot') format('embedded-opentype'),
+         url('fonts/SVNPoppinsSemiBold.woff2') format('woff2'),
+         url('fonts/SVNPoppinsSemiBold.woff') format('woff'),
+         url('fonts/SVNPoppinsSemiBold.ttf') format('truetype'),
+         url('fonts/SVNPoppinsSemiBold.svg#SVNPoppinsSemiBold') format('svg');
+}
