@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'SVNALoveOfThunder';
+    src: url('fonts/SVNALoveOfThunder.eot');
+    src: url('fonts/SVNALoveOfThunder.eot') format('embedded-opentype'),
+         url('fonts/SVNALoveOfThunder.woff2') format('woff2'),
+         url('fonts/SVNALoveOfThunder.woff') format('woff'),
+         url('fonts/SVNALoveOfThunder.ttf') format('truetype'),
+         url('fonts/SVNALoveOfThunder.svg#SVNALoveOfThunder') format('svg');
+}
