@@ -15,6 +15,9 @@ use App\Http\Controllers\Admin\PostController;
 // Photo Controller
 use App\Http\Controllers\Admin\PhotoController;
 
+// Static Controller
+use App\Http\Controllers\Admin\StaticController;
+
 // Index Controller
 use App\Http\Controllers\IndexController;
 
@@ -48,7 +51,6 @@ Route::group([
     ], function(){
         $menus = config('menu');
 
-
         foreach($menus as $m){
             if($m['name'] == 'Bài viết'){
                 foreach($m['data'] as $m1){
@@ -74,14 +76,47 @@ Route::group([
             'prefix' => 'photo',
             'as' => 'photo.',
         ], function(){
+
+            $menus = config('menu');
+
+            foreach($menus as $m){
+                if($m['name'] == 'Hình ảnh - Video'){
+                    foreach($m['data'] as $m1){
+                        $type = $m1['type'];
+                        // dd($type);
+                        Route::resource($type, PhotoController::class);
+
+                    }
+                }
+            }
+
             // Slideshow
-            Route::resource('slideshow', PhotoController::class);
+            // Route::resource('slideshow', PhotoController::class);
 
-            // Video
-            Route::resource('video', PhotoController::class);
+            // // Video
+            // Route::resource('video', PhotoController::class);
 
-            // Banner
-            Route::resource('banner', PhotoController::class);
+            // // Banner
+            // Route::resource('banner', PhotoController::class);
+        });
+
+        // Trang tĩnh
+        Route::group([
+            'prefix' => 'static',
+            'as' => 'static.',
+        ], function(){
+            $menus = config('menu');
+
+            foreach($menus as $m){
+                if($m['name'] == 'Trang tĩnh'){
+                    foreach($m['data'] as $m1){
+                        $type = $m1['type'];
+                        // dd($type);
+                        Route::resource($type, StaticController::class);
+
+                    }
+                }
+            }
         });
 
 });

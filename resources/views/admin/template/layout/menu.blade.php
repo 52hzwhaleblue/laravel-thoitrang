@@ -39,52 +39,6 @@
             </li>
         @endforeach
 
-        <li class="treeview">
-            <a class="app-menu__item" href="#" data-toggle="treeview"
-                ><i class="app-menu__icon fa fa-laptop"></i
-                ><span class="app-menu__label">Quản lý Trang tĩnh</span
-                ><i class="treeview-indicator fa fa-angle-right"></i
-            ></a>
-            <ul class="treeview-menu">
-                <li>
-                    <a class="treeview-item" href="bootstrap-components.html"
-                        ><i class="icon fa fa-circle-o"></i> Giới thiệu</a>
-                </li>
-                <li>
-                    <a
-                        class="treeview-item"
-                        href="https://fontawesome.com/v4.7.0/icons/"
-                        target="_blank"
-                        rel="noopener"
-                        ><i class="icon fa fa-circle-o"></i> Video</a
-                    >
-                </li>
-            </ul>
-        </li>
-
-        <li class="treeview">
-            <a class="app-menu__item" href="#" data-toggle="treeview"
-                ><i class="app-menu__icon fa fa-laptop"></i
-                ><span class="app-menu__label">Quản lý Hình ảnh - Video</span
-                ><i class="treeview-indicator fa fa-angle-right"></i
-            ></a>
-            <ul class="treeview-menu">
-                <li>
-                    <a class="treeview-item" href="bootstrap-components.html"
-                        ><i class="icon fa fa-circle-o"></i> Slideshow</a>
-                </li>
-                <li>
-                    <a
-                        class="treeview-item"
-                        href="https://fontawesome.com/v4.7.0/icons/"
-                        target="_blank"
-                        rel="noopener"
-                        ><i class="icon fa fa-circle-o"></i> Video</a
-                    >
-                </li>
-            </ul>
-        </li>
-
         <li>
             <a class="app-menu__item" href="charts.html"
                 ><i class="app-menu__icon fa fa-pie-chart"></i

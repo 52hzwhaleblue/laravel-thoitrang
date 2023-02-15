@@ -60,7 +60,42 @@
                     'index' => 'admin.photo.banner.index',
                 ],
             ]
-        ]
+        ],
+
+        // Quản lý trang tĩnh
+        'static' =>[
+            'name' => 'Trang tĩnh',
+            'group' => '.static.',
+            'data' => [
+                'gioi-thieu' => [
+                    'title' => 'Giới thiệu',
+                    'type' => 'gioi-thieu',
+                    'index' => 'admin.static.gioi-thieu.index',
+                ],
+                'lien-he' => [
+                    'title' => 'Liên hệ',
+                    'type' => 'lien-he',
+                    'index' => 'admin.static.lien-he.index',
+                ],
+                'slogan' => [
+                    'title' => 'slogan',
+                    'type' => 'slogan',
+                    'index' => 'admin.static.slogan.index',
+                ],
+                'copyright' => [
+                    'title' => 'copyright',
+                    'type' => 'copyright',
+                    'index' => 'admin.static.copyright.index',
+                ],
+                'footer' => [
+                    'title' => 'footer',
+                    'type' => 'footer',
+                    'index' => 'admin.static.footer.index',
+                ],
+            ]
+        ],
+
+
     ];
     return $menuArr;
 ?>
