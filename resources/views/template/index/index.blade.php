@@ -1,3 +1,6 @@
+@extends('layouts.client')
+
+@section('content')
 <div class="gioithieu-wrapper">
     <div class="wrap-content">
         <div class="gioithieu-left">
@@ -45,3 +48,5 @@
         </div>
     </div>
 </div>
+
+@endsection

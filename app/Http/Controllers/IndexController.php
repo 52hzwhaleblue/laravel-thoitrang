@@ -26,7 +26,7 @@ class IndexController extends Controller
 
 
 
-        return view('app',compact([
+        return view('template.index.index',compact([
             'slide',
         ]));
     }
