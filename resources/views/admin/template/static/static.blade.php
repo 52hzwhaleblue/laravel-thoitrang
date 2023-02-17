@@ -51,6 +51,7 @@
                                         placeholder="Tiêu đề"
                                         name="name"
                                         required
+                                        value=" {{ !empty($data['name'] ) ? $data['name'] : '' }} "
                                     />
                                 </div>
                                 <div class="mb-3 mt-3">
@@ -60,7 +61,9 @@
                                         rows="3"
                                         id="desc"
                                         name="desc"
-                                    ></textarea>
+                                    >
+                                    {{ !empty($data['desc'] ) ? $data['desc'] : '' }}
+                                </textarea>
                                 </div>
 
                                 <div class="mb-3 mt-3">
@@ -70,7 +73,8 @@
                                         rows="3"
                                         id="cke_content"
                                         name="content"
-                                    ></textarea>
+                                    >
+                                    {{ !empty($data['content'] ) ? $data['content'] : '' }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -93,7 +97,7 @@
                                 aria-expanded="true"
                                 aria-controls="anhsanpham"
                             >
-                                Hình ảnh {{$type}} 1
+                                Hình ảnh {{$type}}
                             </button>
                         </h2>
                         <div
@@ -110,43 +114,17 @@
                                     class=""
                                 >
                                     @csrf
+                                    @if(!empty($data['photo'])){
+                                        <img class="mb-2" style="width: 200px; height: 200px" src="{{
+                                            asset(
+                                                'backend/assets/img/static/'.$data['photo']
+                                            )
+                                        }}" alt="{{ $data['name'] }}" />
+                                    }@else
+
+                                    @endif
+
                                     <input type="file" name="photo" />
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion mb-3" id="accordionPanelsStayOpenExample">
-                    <div class="accordion-item">
-                        <h2
-                            class="accordion-header"
-                            id="panelsStayOpen-headingOne"
-                        >
-                            <button
-                                class="accordion-button"
-                                type="button"
-                                data-bs-toggle="collapse"
-                                data-bs-target="#anhsanpham"
-                                aria-expanded="true"
-                                aria-controls="anhsanpham"
-                            >
-                                Hình ảnh {{$type}} 2
-                            </button>
-                        </h2>
-                        <div
-                            id="anhsanpham"
-                            class="accordion-collapse collapse show"
-                            aria-labelledby="panelsStayOpen-headingOne"
-                        >
-                            <div class="accordion-body">
-                                <form
-                                    action=""
-                                    method="post"
-                                    enctype="multipart/form-data"
-                                    id=""
-                                    class=""
-                                >
-                                    @csrf
                                     <input type="file" name="photo1" />
                                 </form>
                             </div>

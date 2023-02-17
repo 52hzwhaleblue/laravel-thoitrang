@@ -13,7 +13,7 @@
 
     <div class="wrap-content">
         @if($ProfileComposer['com'] == '' || $ProfileComposer['com'] == 'index')
-            @include('template.index.index')
+            {{-- @include('index.sindex') --}}
         @endif
         @yield('content')
     </div>

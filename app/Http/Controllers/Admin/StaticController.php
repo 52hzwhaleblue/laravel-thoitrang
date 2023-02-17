@@ -17,7 +17,8 @@ class StaticController extends Controller
         $status = $this->config_status;
 
         // Lấy dữ liệu với type
-        $data = TableStatic::where('type', $type)->get();
+        $data = TableStatic::where('type', $type)->first();
+        // dd(json_decode($data,true));
         return view('admin.template.static.static',compact('data','type','status'));
     }
 
@@ -44,7 +45,7 @@ class StaticController extends Controller
             $file1 = $request->photo1;
             $ext1 = $request->photo1->extension();
             $file_name1 =
-                Date('Ymd') . '-' . $type . $count . '.' . $ext1;
+                Date('Ymd') . '-1' . $type . $count . '.' . $ext1;
             $file1->move(public_path('backend/assets/img/static'), $file_name1);
         }
 

@@ -78,17 +78,17 @@
                     'index' => 'admin.static.lien-he.index',
                 ],
                 'slogan' => [
-                    'title' => 'slogan',
+                    'title' => 'Slogan',
                     'type' => 'slogan',
                     'index' => 'admin.static.slogan.index',
                 ],
                 'copyright' => [
-                    'title' => 'copyright',
+                    'title' => 'Copyright',
                     'type' => 'copyright',
                     'index' => 'admin.static.copyright.index',
                 ],
                 'footer' => [
-                    'title' => 'footer',
+                    'title' => 'Footer',
                     'type' => 'footer',
                     'index' => 'admin.static.footer.index',
                 ],
