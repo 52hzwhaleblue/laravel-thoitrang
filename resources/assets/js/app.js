@@ -111,6 +111,29 @@ function OwlPage(){
         });
     }
 }
+
+function Home(){
+    $('.thumbs_img').each(function(){
+        var width = $(this).find('img').data('width');
+        var height = $(this).find('img').data('height');
+
+        // $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
+        $.ajax({
+            type: 'get',
+            url: '/thumbs_img',
+            data: {
+                'width': width,
+                'height': height,
+            },
+            success:function(data){
+                alert(data);
+            }
+        });
+    });
+
+}
+
 $(document).ready(function () {
+    Home();
     OwlPage();
 });

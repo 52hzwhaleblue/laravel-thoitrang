@@ -59,6 +59,11 @@
                     'type' => 'banner',
                     'index' => 'admin.photo.banner.index',
                 ],
+                'gioithieu-slide' => [
+                    'title' => 'Giới thiệu Slide',
+                    'type' => 'gioithieu-slide',
+                    'index' => 'admin.photo.gioithieu-slide.index',
+                ],
             ]
         ],
 

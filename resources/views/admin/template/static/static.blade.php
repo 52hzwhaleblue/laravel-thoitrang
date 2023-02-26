@@ -120,11 +120,19 @@
                                                 'backend/assets/img/static/'.$data['photo']
                                             )
                                         }}" alt="{{ $data['name'] }}" />
-                                    }@else
-
+                                    }
                                     @endif
 
                                     <input type="file" name="photo" />
+
+                                    @if(!empty($data['photo1'])){
+                                        <img class="mb-2" style="width: 200px; height: 200px" src="{{
+                                            asset(
+                                                'backend/assets/img/static/'.$data['photo1']
+                                            )
+                                        }}" alt="{{ $data['name'] }}" />
+                                    }
+                                    @endif
                                     <input type="file" name="photo1" />
                                 </form>
                             </div>
