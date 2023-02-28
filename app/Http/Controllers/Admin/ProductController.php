@@ -54,6 +54,13 @@ class ProductController extends Controller
                 Date('Ymd') . '-' . 'product' . $count . '.' . $ext;
             $file->move(public_path('backend/assets/img/products'), $file_name); //chuyển file vào đường dẫn chỉ định
         }
+        if ($request->has('photo1')) {
+            $file1 = $request->photo1;
+            $ext = $request->photo1->extension(); //lấy đuôi file png||jpg
+            $file_name1 =
+                Date('Ymd') . '-' . 'product1' . $count . '.' . $ext;
+            $file1->move(public_path('backend/assets/img/products'), $file_name1); //chuyển file vào đường dẫn chỉ định
+        }
 
         $product = new TableProduct();
 
@@ -62,6 +69,9 @@ class ProductController extends Controller
         $product->content = $request->get('content');
         if ($request->has('photo')) {
             $product->photo = $file_name;
+        }
+        if ($request->has('photo1')) {
+            $product->photo1 = $file_name1;
         }
         $product->id_list = $request->get('id_list');
         $product->id_cat = $request->get('id_cat');
@@ -139,6 +149,13 @@ class ProductController extends Controller
                 Date('Ymd') . '-' . 'product' . $count . '.' . $ext;
             $file->move(public_path('backend/assets/img/products'), $file_name); //chuyển file vào đường dẫn chỉ định
         }
+        if ($request->has('photo1')) {
+            $file1 = $request->photo1;
+            $ext = $request->photo1->extension(); //lấy đuôi file png||jpg
+            $file_name1 =
+                Date('Ymd') . '-' . 'product1' . $count . '.' . $ext;
+            $file1->move(public_path('backend/assets/img/products'), $file_name1); //chuyển file vào đường dẫn chỉ định
+        }
 
         $product = TableProduct::where('slug', $slug)->first();
 
@@ -149,6 +166,9 @@ class ProductController extends Controller
         $product->id_cat = $request->get('id_cat');
         if ($request->has('photo')) {
             $product->photo = $file_name;
+        }
+        if ($request->has('photo1')) {
+            $product->photo1 = $file_name1;
         }
         $product->status = implode(',', $request->get('status'));
         $product->slug = $request->get('slug');

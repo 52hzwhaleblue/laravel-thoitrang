@@ -140,6 +140,16 @@
                                     }}" alt="{{ $data['name'] }}" />
                                 <input type="file" name="photo" />
                             </div>
+
+                            <div class="accordion-body text-center">
+                                <img class="mb-2" style="width: 200px; height: 200px" src="{{
+                                        asset(
+                                            'backend/assets/img/products/'.$data['photo1']
+                                        )
+                                    }}" alt="{{ $data['name'] }}" />
+                                <input type="file" name="photo1" />
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -157,10 +167,10 @@
                     aria-labelledby="panelsStayOpen-headingOne">
                     <div class="accordion-body">
                         <div class="mb-3 mt-3">
-                            <input type="checkbox" name="status[]" value="noibat" @if
-                                (in_array('noibat',$explodeStatus)) checked @endif> Nổi bật
-                            <input type="checkbox" name="status[]" value="hienthi" @if
-                                (in_array('hienthi',$explodeStatus)) checked @endif> Hiển thị
+                            <input type="checkbox" name="status[]" value="noibat"
+                             @if(in_array('noibat',$explodeStatus)) checked @endif> Nổi bật
+                            <input type="checkbox" name="status[]" value="hienthi"
+                            @if(in_array('hienthi',$explodeStatus)) checked @endif> Hiển thị
                         </div>
 
                         <div class="mb-3">

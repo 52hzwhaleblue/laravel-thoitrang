@@ -198,7 +198,6 @@ enctype="multipart/form-data"
                             aria-labelledby="panelsStayOpen-headingOne"
                         >
                             <div class="accordion-body">
-                                <!-- Dropzone -->
                                 <form
                                     action=""
                                     method="post"
@@ -208,6 +207,7 @@ enctype="multipart/form-data"
                                 >
                                     @csrf
                                     <input type="file" name="photo" />
+                                    <input type="file" name="photo1" />
                                 </form>
                             </div>
                         </div>
