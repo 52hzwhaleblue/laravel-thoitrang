@@ -1,4 +1,7 @@
-// Slider
+function AosAnimation(){
+    AOS.init({});
+}
+
 function OwlData(obj){
     if(obj.length < 0) return false;
     var xsm_items = obj.attr("data-xsm-items");
@@ -112,10 +115,44 @@ function OwlPage(){
     }
 }
 
+
 function Home(){
+
+    $('.list-hot a:first').addClass('active');
+    var id = $('.list-hot a:first').data('id');
+    var tenkhongdau = $('.list-hot a:first').data('tenkhongdau');
+    $.ajax({
+        url: '/load_ajax_product',
+        type: 'GET',
+        data: {id:id,tenkhongdau:tenkhongdau},
+        success:function(data){
+            $('.load_ajax_product').html(data);
+            OwlPage();
+        }
+    });
+
+    $('.list-hot a').click(function(event) {
+        $('.list-hot a').removeClass('active');
+        $(this).addClass('active');
+        var id = $(this).data('id');
+        var tenkhongdau = $(this).data('tenkhongdau');
+        $.ajax({
+            url: '/load_ajax_product',
+            type: 'GET',
+            data: {id:id,tenkhongdau:tenkhongdau},
+            success:function(data){
+                $('.load_ajax_product').html(data);
+                OwlPage();
+
+            }
+        })
+    });
+
+
     $('.thumbs_img').each(function(){
         var width = $(this).find('img').data('width');
         var height = $(this).find('img').data('height');
+        // var image = $(this).find('img').data('image');
 
         // $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
         $.ajax({
@@ -124,9 +161,10 @@ function Home(){
             data: {
                 'width': width,
                 'height': height,
+                // 'image': image,
             },
             success:function(data){
-                alert(data);
+                // alert(data);
             }
         });
     });
@@ -136,4 +174,5 @@ function Home(){
 $(document).ready(function () {
     Home();
     OwlPage();
+    AosAnimation();
 });

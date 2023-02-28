@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\TablePhoto;
 use Functions;
+use Image;
 
 class PhotoController extends Controller
 {
@@ -39,6 +40,7 @@ class PhotoController extends Controller
                 Date('Ymd') . '-' . $type . $count . '.' . $ext;
             $file->move(public_path('backend/assets/img/photo'), $file_name);
         }
+
 
         $photo = new TablePhoto();
         $photo->name = $request->get('name');

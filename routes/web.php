@@ -125,4 +125,5 @@ Route::group([
 // =========== user
  Route::get('/', [IndexController::class,'index']);
  Route::get('/thumbs_img', [IndexController::class,'thumbs_img']);
+ Route::get('/load_ajax_product', [IndexController::class,'load_ajax_product']);
 

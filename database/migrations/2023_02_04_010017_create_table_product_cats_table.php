@@ -19,10 +19,10 @@ class CreateTableProductCatsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('id_list')->nullable();
 
-            $table->foreign('id_list')
-                ->references('id')
-                ->on('table_product_lists')
-                ->onDelete('cascade');
+            // $table->foreign('id_list')
+            //     ->references('id')
+            //     ->on('table_product_lists')
+            //     ->onDelete('cascade');
             $table->mediumText('content')->nullable()->default(null);
             $table->string('slug');
             $table->mediumText('desc')->nullable()->default(null);

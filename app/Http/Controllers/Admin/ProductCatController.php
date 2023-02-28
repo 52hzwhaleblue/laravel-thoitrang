@@ -30,6 +30,7 @@ class ProductCatController extends Controller
     {
         $count = TableProductCat::all()->count();
 
+
         if ($request->has('photo')) {
             $file = $request->photo;
             $ext = $request->photo->extension(); //lấy đuôi file png||jpg
@@ -63,6 +64,8 @@ class ProductCatController extends Controller
                 ->route('admin.product.product-cat.create')
                 ->with('warning', 'Đường dẫn không được trống');
         }
+        // dd(json_decode($productCat,true));
+
         $productCat->save();
 
         return redirect()

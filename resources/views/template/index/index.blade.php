@@ -3,6 +3,26 @@
 @section('content')
 
 @if(count($splistnb))
+<div class="w-pronb">
+    <div class="wrap-content ">
+        <div class="title-main mb-0"><span>Sản phẩm nổi bật</span></div>
+
+        <div class="w-pronb-container">
+            <div class="dm-noibat list-hot d-flex flex-wrap align-items-center justify-content-center">
+                <?php foreach($splistnb as $v){?>
+                    <a class="text-decoration-none" data-id="<?=$v['id']?>" data-tenkhongdau="<?=$v['slug']?>"><?=$v['name']?></a>
+                <?php }?>
+            </div>
+
+            <div class="load_ajax_product" data-aos="fade-up" data-aos-duration="1000">
+
+            </div>
+        </div>
+    </div>
+</div>
+@endif
+
+@if(count($splistnb))
 <div class="splistnb-wrapper">
     <div class="wrap-content">
         <div class="owl-page owl-carousel owl-theme thumbs_img " data-xsm-items="1:0" data-sm-items="2:10"
@@ -12,24 +32,26 @@
             data-navtext="" data-navcontainer="">
             @foreach ($splistnb as $v )
             <div class="splistnb-item">
-                <div class="splistnb-img">
-                    <img class="lazyload" data-width="430" data-height="575"
+                <div class="splistnb-img hover_sang3 scale-img">
+                    <img class="lazyload" data-width="430" data-height="575" data-image="{{$v->photo}}"
                         src="{{ asset('backend/assets/img/products/'.$v->photo) }}" alt="slide" />
                 </div>
-                <a class="splistnb-name d-block" href="{{$v->slug}}"> {{$v->name}} </a>
+                <h3 class="splistnb-name">
+                    <a class="text-split" href="{{$v->slug}}"> {{$v->name}} </a>
+                </h3>
             </div>
             @endforeach
-
         </div>
     </div>
 </div>
 @endif
 
 
+@if( !empty($gioithieu_slide) ||!empty($gioithieu))
 <div class="gioithieu-wrapper">
     <div class="wrap-content">
         <div class="gioithieu-left">
-            <div class="owl-gioithieu owl-page owl-carousel owl-theme thumbs_img" data-xsm-items="1:0"
+            <div class="owl-gioithieu owl-page owl-carousel owl-theme" data-xsm-items="1:0"
                 data-sm-items="2:10" data-md-items="3:15" data-lg-items="3:20" data-xlg-items="2:15" data-rewind="1"
                 data-autoplay="1" data-loop="0" data-lazyload="0" data-mousedrag="1" data-touchdrag="1"
                 data-smartspeed="800" data-autoplayspeed="800" data-autoplaytimeout="5000" data-dots="0"
@@ -65,5 +87,5 @@
         </div>
     </div>
 </div>
-
+@endif
 @endsection

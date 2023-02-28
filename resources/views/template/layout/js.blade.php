@@ -11,5 +11,9 @@
     <script type="text/javascript" src="{{ asset('assets/js/OwlCarousel2-2.3.4/dist/owl.carousel.min.js') }}">
     </script>
 
+    <!-- Aos Animation -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+
     <script type="text/javascript" src="{{ asset('assets/js/app.js') }}"></script>
 

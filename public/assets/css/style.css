@@ -2,8 +2,8 @@
 
 /* Huong dan du dung before Font Awesome 5
 .login::before {
-	font-family: "Font Awesome 5 Free"; 
-	font-weight: 900; 
+	font-family: "Font Awesome 5 Free";
+	font-weight: 900;
 	content: "";
 }
 */
@@ -73,7 +73,7 @@
 body {
 	font-size: 14px;
 	font-family: Barlow;
-	
+
 }
 
 img {
@@ -289,8 +289,8 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
 
 
 /*Cách sử dụng effect-banner*/
-/*<div class="effect-banner">	
-	<span class="effect-banner-image">	
+/*<div class="effect-banner">
+	<span class="effect-banner-image">
 		<a class="brand text-decoration-none" href="<?=$v[$sluglang]?>" title="<?=$v['name'.$lang]?>">
 			<?=$func->getImage(['class' => 'lazy w-100', 'sizes' => '150x150x2', 'upload' => UPLOAD_PRODUCT_L, 'image' => $v['photo'], 'alt' => $v['name'.$lang]])?>
 		</a>
@@ -361,13 +361,13 @@ a,a:hover{
 
 /* General */
 .slogan{
-	
+
 font-family: Barlow;
-	
+
 font-size: 15px;
-	
+
 text-align: center;
-	
+
 margin-bottom: 25px;
 }
 .title-main {
@@ -667,7 +667,7 @@ img:not([src]) {
 	z-index: 10;
 }
 .menu .wrap-content{
-	
+
 max-width: 1330px;
 }
 .menu ul {
@@ -1473,7 +1473,7 @@ li.giohang-icon {
 .pic-video:hover  img{
 	transform:rotate(360deg);
 	transition: .9s linear;
-	
+
 }
 .pic-video-2 {
 	position: relative;
@@ -1629,11 +1629,6 @@ a.name-newsnb:hover {
 	position: relative;
 }
 
-/*Product List*/
-.w-splistnb{
-    margin-bottom: 70px;
-}
-.w-splistnb .wrap-content{}
 
 /* Product */
 .w-pronb{
@@ -1702,17 +1697,17 @@ a.name-newsnb:hover {
 }
 
 .product-btn{
-	
+
 width: 200px;
-	
+
 padding: 12px 0;
-	
+
 text-align: center;
-	
+
 margin: auto;
-	
+
 background: #ebebeb;
-	
+
 border-radius: 100px;
 }
 
@@ -2315,13 +2310,13 @@ border-radius: 100px;
 	margin-bottom: 0;
 }
 .name-company-footer1{
-	
+
 font-family: RR;
-	
+
 font-size: 20px;
-	
+
 text-transform: uppercase;
-	
+
 text-align: center;
 }
 .footer-info {}
@@ -3810,40 +3805,40 @@ justify-content: center;
 }
 
 .brand-wrapper{
-	
+
 margin-bottom: 30px;
 }
 
 .brand-wrapper .wrap-content{
-	
+
 max-width: 1080px;
 }
 .brand-item{
-	
+
 text-align: center;
-	
+
 background: url(../images/brand-item.png) no-repeat center;
-	
+
 /* width: 231px; */
-	
+
 padding: 21px 0;
-	
+
 display: flex;
-	
+
 flex-direction: column;
-	
+
 align-items: center;
-	
+
 justify-content: center;
 }
 .brand-name{
-	
+
 font-family: Barlow;
-	
+
 font-size: 18px;
-	
+
 font-weight: 600;
-	
+
 text-transform: uppercase;
 color: #111;
 
@@ -3856,13 +3851,13 @@ color: #111;
 
 /*Sản phẩm*/
 .owl-sanpham .owl-dots{
-	
+
 position: absolute;
-	
+
 bottom: -38px;
-	
+
 left: 50%;
-	
+
 transform: translate(-50%);
 }
 
@@ -3875,25 +3870,25 @@ transform: translate(-50%);
 
 /*Banner Quàng cáo*/
 .bannerQC-info{
-	
+
 position: absolute;
-	
+
 color: #fff;
-	
+
 top: 50%;
-	
+
 left: 50%;
-	
+
 transform: translate(-50%,-50%);
-	
+
 text-align: center;
 }
 .bannerQC-name{
-	
+
 font-family: Barlow;
-	
+
 font-size: 20px;
-	
+
 margin-bottom: 0;
 }
 .bannerQC-name1{font-family: Barlow;font-size: 60px;font-weight: 600;text-transform: uppercase;margin-bottom: 0;}
@@ -3942,7 +3937,7 @@ margin-bottom: 0;
 
 .album2 { grid-area: album2; }
 
-.album2 img{ 
+.album2 img{
 	width: 460px !important;
 	height: 520px !important;
 }
@@ -3969,3 +3964,25 @@ margin-bottom: 0;
 .album-items{display: flex;flex-flow: row wrap;width: calc(100% + 20px);margin: 0 -10px;}
 
 .album-item{width: calc(100%/2 - 20px);margin: 0 10px 10px 10px;}
+
+/* Danh mục cấp 1 */
+.splistnb-wrapper{}
+.splistnb-wrapper .wrap-content{}
+.splistnb-item{
+    position: relative;
+}
+.splistnb-img{
+    border-radius: 10px;
+}
+.splistnb-img img{
+}
+.splistnb-name{text-align: center;position: absolute;bottom: calc(50% - 40px/2);left: 50%;transform: translate(-50%);width: calc(100% - 20px);background: #fff;border-radius: 10px;padding: 9px 0px;margin-bottom: 0;}
+.splistnb-name a{
+    font-family: Barlow;
+    font-size: 18px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #111;
+    -webkit-line-clamp: 1;
+}
+
