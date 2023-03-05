@@ -5,8 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\TableProductList;
-use App\Models\TableProductCat;
+use App\Models\TableCategory;
 use App\Models\TableProduct;
 use Functions;
 
@@ -30,10 +29,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $splist = TableProductList::all();
-        $spcat = TableProductCat::all();
+        $splist = TableCategory::all();
 
-        return view('admin.template.product.man.man_add',compact('splist', 'spcat'));
+        return view('admin.template.product.man.man_add',compact('splist'));
 
     }
 
@@ -73,8 +71,7 @@ class ProductController extends Controller
         if ($request->has('photo1')) {
             $product->photo1 = $file_name1;
         }
-        $product->id_list = $request->get('id_list');
-        $product->id_cat = $request->get('id_cat');
+        $product->id_category =(int)$request->get('id_category');
 
         $product->status = implode(',', $request->get('status'));
         $product->slug = $request->get('slug');
@@ -126,15 +123,14 @@ class ProductController extends Controller
     {
         $sql = TableProduct::where('slug', $slug)->first();
         $data = json_decode($sql, true);
-        $splist = TableProductList::all();
-        $spcat = TableProductCat::all();
+        $splist = TableCategory::all();
 
         $status = $data['status'];
         $explodeStatus = explode(',', $status);
 
         return view(
             'admin.template.product.man.man_edit',
-            compact('data', 'explodeStatus','splist','spcat')
+            compact('data', 'explodeStatus','splist')
         );
     }
 
@@ -162,8 +158,7 @@ class ProductController extends Controller
         $product->name = $request->get('name');
         $product->desc = $request->get('desc');
         $product->content = $request->get('content');
-        $product->id_list = $request->get('id_list');
-        $product->id_cat = $request->get('id_cat');
+        $product->id_category = $request->get('id_category');
         if ($request->has('photo')) {
             $product->photo = $file_name;
         }

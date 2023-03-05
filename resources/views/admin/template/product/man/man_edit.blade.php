@@ -93,29 +93,17 @@
                                     <div class="col-xl-6">
                                         <div class="">
                                             <label for="type" class="form-label">Danh mục cấp 1:</label>
-                                            <select class="form-select" id="type" name="id_list">
+                                            <select class="form-select" id="type" name="id_category">
                                                 <option value=""> == Chọn danh mục ==</option>
                                                 @foreach($splist as $v)
-                                                    <option @if ($v['id']==$data['id_list']) selected @endif
+                                                    <option @if ($v['id']==$data['id_category']) selected @endif
                                                         value="{{ $v['id'] }}">
                                                         {{ $v['name'] }} </option>
                                                 @endforeach
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-xl-6">
-                                        <div class="">
-                                            <label for="type" class="form-label">Danh mục cấp 2:</label>
-                                            <select class="form-select" id="type" name="id_cat">
-                                                <option value=""> == Chọn danh mục ==</option>
-                                                @foreach($spcat as $v)
-                                                    <option @if ($v['id']==$data['id_cat']) selected @endif
-                                                        value="{{ $v['id'] }}">
-                                                        {{ $v['name'] }} </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>

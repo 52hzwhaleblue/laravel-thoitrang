@@ -18,15 +18,15 @@ class CreateTableOrderDetailsTable extends Migration
         Schema::create('table_order_details', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('id_order')->nullable();
-            // $table->foreign('id_order')
-            //     ->references('id')
-            //     ->on('table_orders')
-            //     ->onDelete('cascade');
+            $table->foreign('id_order')
+                ->references('id')
+                ->on('table_orders')
+                ->onDelete('cascade');
             $table->unsignedInteger('id_product')->nullable();
-            // $table->foreign('id_product')
-            //     ->references('id')
-            //     ->on('table_products')
-            //     ->onDelete('cascade');
+            $table->foreign('id_product')
+                ->references('id')
+                ->on('table_products')
+                ->onDelete('cascade');
             $table->string('photo')->nullable()->default(null);
             $table->string('name')->nullable()->default(null);
             $table->string('code')->nullable()->default(null);

@@ -19,10 +19,10 @@ class CreateTableColorsTable extends Migration
             $table->increments('id');
             $table->integer('numb')->nullable();
             $table->unsignedInteger('id_product')->nullable();
-            // $table->foreign('id_product')
-            //     ->references('id')
-            //     ->on('table_products')
-            //     ->onDelete('cascade');
+            $table->foreign('id_product')
+                ->references('id')
+                ->on('table_products')
+                ->onDelete('cascade');
             $table->string('photo')->nullable()->default(null);
             $table->string('name')->nullable()->default(null);
             $table->string('color')->nullable()->default(null);

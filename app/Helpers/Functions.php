@@ -18,8 +18,7 @@ class Functions
 
         if (!empty($slug)) {
             $table = [
-                'table_product_lists',
-                "table_product_cats",
+                'table_categories',
                 "table_products",
                 "table_posts",
             ];

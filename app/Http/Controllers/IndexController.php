@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\TablePhoto;
 use App\Models\TableStatic;
 use App\Models\TableProduct;
-use App\Models\TableProductList;
+use App\Models\TableCategory;
 use App\Models\TablePost;
 use File;
 
@@ -24,7 +24,7 @@ class IndexController extends Controller
         $album = TablePhoto::where('type', 'album')->get();
 
         $pronb = TableProduct::whereJsonContains('status', 'noibat,hienthi')->get();
-        $splistnb = TableProductList::whereJsonContains('status', 'noibat,hienthi')->get();
+        $splistnb = TableCategory::whereJsonContains('status', 'noibat,hienthi')->get();
 
 
         // dd($pronb);
@@ -72,9 +72,17 @@ class IndexController extends Controller
         ';
         foreach ($data as $k =>$v){
         $output .='
-            <div>
-                <img src='.asset("backend/assets/img/products/$v->photo").' alt="" width="365"
-                    height="365" />
+            <div class="pronb-item">
+                <div class="pronb-image">
+                    <a class="pronb-img scale-img hover_sang3" href= '.$v->slug.' >
+                        <img src='.asset("backend/assets/img/products/$v->photo").' alt="" width="365"
+                            height="365" />
+                    </a>
+                    <a class="pronb-img1 scale-img hover_sang3" href= '.$v->slug.'>
+                        <img src='.asset("backend/assets/img/products/$v->photo1").' alt="" width="365"
+                            height="365" />
+                    </a>
+                </div>
             </div>
         '
         ;

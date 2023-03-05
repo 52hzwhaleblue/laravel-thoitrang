@@ -19,10 +19,10 @@ class CreateTableOrdersTable extends Migration
             $table->increments('id');
             $table->integer('numb')->nullable();
             $table->unsignedInteger('id_user')->nullable();
-            // $table->foreign('id_user')
-            // ->references('id')
-            // ->on('table_users')
-            // ->onDelete('cascade');
+            $table->foreign('id_user')
+            ->references('id')
+            ->on('table_users')
+            ->onDelete('cascade');
             $table->string('code')->nullable()->default(null);
             $table->string('fullname')->nullable()->default(null);
             $table->string('phone')->nullable()->default(null);
