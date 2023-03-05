@@ -26,8 +26,6 @@ class CreateTableStaticsTable extends Migration
             $table->string('file_attach')->nullable()->default(null);
             $table->string('type')->nullable()->default(null);
             $table->string('status')->nullable()->default(null);
-            $table->integer('date_created')->nullable();
-            $table->integer('date_updated')->nullable();
             $table->timestamps();
         });
 
