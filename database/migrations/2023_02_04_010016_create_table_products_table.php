@@ -22,8 +22,8 @@ class CreateTableProductsTable extends Migration
             $table->string('slug')->nullable();
             $table->double('regular_price')->nullable();
             $table->double('discount')->nullable();
-            $table->json('properties')->nullable();
             $table->double('sale_price')->nullable();
+            $table->json('properties')->nullable();
             $table->mediumText('options')->nullable()->default(null);
             $table->mediumText('desc')->nullable()->default(null);
             $table->mediumText('content')->nullable()->default(null);
@@ -32,7 +32,7 @@ class CreateTableProductsTable extends Migration
             $table->integer('view')->nullable();
             $table->integer('stock')->nullable();
             $table->unsignedInteger('category_id')->nullable();
-            $table->integer('status')->nullable()->default(null);
+            $table->integer('status')->nullable()->default(1);
             $table->foreign('category_id')->references('id')->on('table_categories')->onDelete('cascade');
             $table->timestamps();
         });

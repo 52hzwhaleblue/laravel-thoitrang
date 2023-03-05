@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('table_reviews', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('product_id')->nullable();
             $table->unsignedInteger('order_id')->nullable();
@@ -27,7 +27,7 @@ return new class extends Migration
         });
 
         Schema::create('table_review_detail', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->unsignedInteger('review_id');
             $table->string('photo')->nullable();
             $table->foreign('review_id')->references('id')->on('table_reviews')->cascadeOnDelete();

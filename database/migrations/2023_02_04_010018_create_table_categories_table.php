@@ -18,6 +18,7 @@ class CreateTableCategoriesTable extends Migration
         Schema::create('table_categories', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->nullable()->default(null);
+            $table->string('name_vi')->nullable()->default(null);
             $table->string('slug')->nullable()->default(null);
             $table->mediumText('content')->nullable()->default(null);
             $table->mediumText('desc')->nullable()->default(null);
@@ -25,7 +26,7 @@ class CreateTableCategoriesTable extends Migration
             $table->mediumText('options')->nullable()->default(null);
             $table->integer('numb')->nullable();
             $table->string('type')->nullable()->default(null);
-            $table->integer('status')->nullable()->default(null);
+            $table->integer('status')->nullable()->default(1);
             $table->timestamps();
         });
 

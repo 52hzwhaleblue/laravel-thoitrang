@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class TableOrderDetail extends Model
 {
@@ -15,16 +16,13 @@ class TableOrderDetail extends Model
      * @var array
      */
     protected $fillable = [
-        'id_order',
-        'id_product',
-        'photo',
-        'name',
-        'code',
+        'order_id',
+        'product_id',
         'color',
         'size',
-        'regular_price',
-        'sale_price',
         'quantity',
+        'created_at',
+        'update_at',
     ];
 
     /**
@@ -33,17 +31,14 @@ class TableOrderDetail extends Model
      * @var array
      */
     protected $casts = [
-        'regular_price' => 'double',
-        'sale_price' => 'double',
+        'created_at' => 'datetime:Y-m-d H:i:s',
+        'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
 
-    public function idOrder()
+    public function getCreatedAtAttribute($value)
     {
-        return $this->belongsTo(TableOrder::class);
-    }
-
-    public function idProduct()
-    {
-        return $this->belongsTo(TableProduct::class);
+        return Carbon::createFromFormat('Y-m-d\TH:i:s.u\Z', $value, 'UTC')
+            ->setTimezone('Asia/Ho_Chi_Minh')
+            ->toDateTimeString();
     }
 }
