@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TableProductCat extends Model
+class TableCategory extends Model
 {
     use HasFactory;
 
@@ -15,11 +15,10 @@ class TableProductCat extends Model
      * @var array
      */
     protected $fillable = [
-        'id_list',
-        'content',
         'slug',
-        'desc',
         'name',
+        'content',
+        'desc',
         'photo',
         'options',
         'numb',
@@ -38,8 +37,4 @@ class TableProductCat extends Model
         'status' => 'array',
     ];
 
-    public function product_list()
-    {
-        return $this->belongsTo(TableProductList::class,'id_list');
-    }
 }

@@ -3,11 +3,11 @@
 @section('content')
 
 @if(count($splistnb))
-<div class="w-pronb">
+<div class="pronb-wrapper">
     <div class="wrap-content ">
         <div class="title-main mb-0"><span>Sản phẩm nổi bật</span></div>
 
-        <div class="w-pronb-container">
+        <div class="pronb-container">
             <div class="dm-noibat list-hot d-flex flex-wrap align-items-center justify-content-center">
                 <?php foreach($splistnb as $v){?>
                     <a class="text-decoration-none" data-id="<?=$v['id']?>" data-tenkhongdau="<?=$v['slug']?>"><?=$v['name']?></a>
@@ -73,7 +73,6 @@
         </div>
         <div class="gioithieu-right">
             <p class="gioithieu-name">
-                {{$gioithieu->name}}
             </p>
             <p class="gioithieu-name1 text-split">
                 dasd

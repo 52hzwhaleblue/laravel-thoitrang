@@ -1631,11 +1631,11 @@ a.name-newsnb:hover {
 
 
 /* Product */
-.w-pronb{
+.pronb-wrapper{
     margin-bottom: 50px;
 }
 
-.w-pronb .wrap-content{
+.pronb-wrapper .wrap-content{
     max-width: 1366px;
 }
 
@@ -1644,7 +1644,7 @@ a.name-newsnb:hover {
     width: 66.69%;
     background: #363636;
 }
-.w-pronb-container{
+.pronb-container{
 	background: #fff;
 	padding: 0 15px;
 	position: relative;
@@ -1659,6 +1659,23 @@ a.name-newsnb:hover {
 	font-family: 'Barlow';
 	font-weight: bold;
 }
+
+.pronb-item{}
+.pronb-image{}
+.pronb-img{}
+.pronb-img1{
+    position: absolute;
+    top: 0;
+    left: 0;
+    visibility: hidden;
+    opacity: 0;
+    transition: all .5s;
+}
+.pronb-item:hover  .pronb-img1{
+visibility: visible;
+	opacity: 1;
+}
+
 .flex-product {
 	margin: 0 -10px;
 }

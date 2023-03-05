@@ -5,8 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\HomeController;
 
 // Product Controller
-use App\Http\Controllers\Admin\ProductListController;
-use App\Http\Controllers\Admin\ProductCatController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
 
 // Post Controller
@@ -35,8 +34,7 @@ Route::group([
         'as' => 'product.',
     ], function(){
         // Sản phẩm
-        Route::resource('product-list', ProductListController::class);
-        Route::resource('product-cat', ProductCatController::class);
+        Route::resource('product-list', CategoryController::class);
         Route::resource('product-man', ProductController::class);
 
         // Xóa tất cả

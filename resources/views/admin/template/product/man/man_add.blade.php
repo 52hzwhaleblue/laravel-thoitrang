@@ -150,7 +150,7 @@ enctype="multipart/form-data"
                                     <div class="col-xl-6">
                                         <div class="">
                                             <label for="type" class="form-label">Danh mục cấp 1:</label>
-                                            <select class="form-select" id="type" name="id_list">
+                                            <select class="form-select" id="type" name="id_category">
                                                 <option value="">  Chọn danh mục </option>
                                                 @foreach ($splist as $v)
                                                     <option value="{{$v['id']}}"> {{$v['name']}} </option>
@@ -158,17 +158,7 @@ enctype="multipart/form-data"
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-xl-6">
-                                        <div class="">
-                                            <label for="type" class="form-label">Danh mục cấp 2:</label>
-                                            <select class="form-select" id="type" name="id_cat">
-                                                <option value="">  Chọn danh mục </option>
-                                                @foreach ($spcat as $v)
-                                                    <option value="{{$v['id']}}"> {{$v['name']}} </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -271,14 +261,14 @@ enctype="multipart/form-data"
                             <div class="row">
                                 <div class="col-xl-4">
                                     <div class="mb-3">
-                                        <label for="price" class="form-label"
+                                        <label for="code" class="form-label"
                                             >Mã sản phẩm :</label
                                         >
                                         <div class="input-group">
                                             <input
                                                 type="text"
                                                 class="form-control"
-                                                id="price"
+                                                id="code"
                                                 placeholder="Mã sản phẩm"
                                                 name="code"
                                             />
@@ -288,7 +278,7 @@ enctype="multipart/form-data"
 
                                 <div class="col-xl-4">
                                     <div class="mb-3">
-                                        <label for="price" class="form-label"
+                                        <label for="regular_price" class="form-label"
                                             >Giá cũ :</label
                                         >
                                         <div class="input-group">
@@ -296,6 +286,7 @@ enctype="multipart/form-data"
                                                 type="number"
                                                 class="form-control regular_price"
                                                 placeholder="Giá cũ"
+                                                id="regular_price"
                                                 name="regular_price"
                                                 value=""
                                             />

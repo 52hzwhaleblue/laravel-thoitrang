@@ -10,10 +10,10 @@
                     'title' => 'Danh mục cấp 1',
                     'index' => 'admin.product.product-list.index',
                 ],
-                'cat' =>[
-                    'title' => 'Danh mục cấp 2',
-                    'index' => 'admin.product.product-cat.index',
-                ],
+                // 'cat' =>[
+                //     'title' => 'Danh mục cấp 2',
+                //     'index' => 'admin.product.product-cat.index',
+                // ],
                 'man' =>[
                     'title' => 'Danh mục sản phẩm',
                     'index' => 'admin.product.product-man.index',

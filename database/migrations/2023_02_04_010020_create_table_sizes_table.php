@@ -18,10 +18,10 @@ class CreateTableSizesTable extends Migration
         Schema::create('table_sizes', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('id_product');
-            // $table->foreign('id_product')
-            //     ->references('id')
-            //     ->on('table_products')
-            //     ->onDelete('cascade');
+            $table->foreign('id_product')
+                ->references('id')
+                ->on('table_products')
+                ->onDelete('cascade');
             $table->string('name')->nullable()->default(null);
             $table->string('type')->nullable()->default(null);
             $table->integer('numb')->nullable();
