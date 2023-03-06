@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class TablePhoto extends Model
 {
@@ -26,7 +27,19 @@ class TablePhoto extends Model
         'act',
         'numb',
         'status',
-        'date_created',
-        'date_updated',
+        'created_at',
+        'updated_at',
     ];
+
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d H:i:s',
+        'updated_at' => 'datetime:Y-m-d H:i:s',
+    ];
+
+    public function getCreatedAtAttribute($value)
+    {
+        return Carbon::createFromFormat('Y-m-d\TH:i:s.u\Z', $value, 'UTC')
+            ->setTimezone('Asia/Ho_Chi_Minh')
+            ->toDateTimeString();
+    }
 }

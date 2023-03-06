@@ -3,35 +3,24 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use App\Models\TableProduct;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class TableStatic extends Model
+class TableProductDetail extends Model
 {
     use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'photo',
-        'photo1',
-        'options',
-        'content',
-        'desc',
-        'name',
-        'file_attach',
-        'type',
-        'status',
+        'product_id',
         'created_at',
         'updated_at',
     ];
 
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
-        'update_at' => 'datetime:Y-m-d H:i:s',
+        'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
 
     public function getCreatedAtAttribute($value)
@@ -39,5 +28,10 @@ class TableStatic extends Model
         return Carbon::createFromFormat('Y-m-d\TH:i:s.u\Z', $value, 'UTC')
             ->setTimezone('Asia/Ho_Chi_Minh')
             ->toDateTimeString();
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(TableProduct::class);
     }
 }

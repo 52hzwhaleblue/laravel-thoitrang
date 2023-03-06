@@ -93,10 +93,10 @@
                                     <div class="col-xl-6">
                                         <div class="">
                                             <label for="type" class="form-label">Danh mục cấp 1:</label>
-                                            <select class="form-select" id="type" name="id_category">
+                                            <select class="form-select" id="type" name="category_id">
                                                 <option value=""> == Chọn danh mục ==</option>
                                                 @foreach($splist as $v)
-                                                    <option @if ($v['id']==$data['id_category']) selected @endif
+                                                    <option @if ($v['id']==$data['category_id']) selected @endif
                                                         value="{{ $v['id'] }}">
                                                         {{ $v['name'] }} </option>
                                                 @endforeach
@@ -155,10 +155,8 @@
                     aria-labelledby="panelsStayOpen-headingOne">
                     <div class="accordion-body">
                         <div class="mb-3 mt-3">
-                            <input type="checkbox" name="status[]" value="noibat"
-                             @if(in_array('noibat',$explodeStatus)) checked @endif> Nổi bật
-                            <input type="checkbox" name="status[]" value="hienthi"
-                            @if(in_array('hienthi',$explodeStatus)) checked @endif> Hiển thị
+                            <input type="checkbox" name="status" value="1"
+                            @if ($data['status'] == 1) checked  @endif > Hiển thị
                         </div>
 
                         <div class="mb-3">

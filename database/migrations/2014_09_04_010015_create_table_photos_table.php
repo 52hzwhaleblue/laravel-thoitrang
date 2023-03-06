@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTableSizesTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -15,19 +15,19 @@ class CreateTableSizesTable extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        Schema::create('table_sizes', function (Blueprint $table) {
+        Schema::create('table_photos', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('id_product');
-            $table->foreign('id_product')
-                ->references('id')
-                ->on('table_products')
-                ->onDelete('cascade');
+            $table->string('photo')->nullable()->default(null);
+            $table->mediumText('content')->nullable()->default(null);
+            $table->mediumText('desc')->nullable()->default(null);
             $table->string('name')->nullable()->default(null);
+            $table->mediumText('link')->nullable()->default(null);
+            $table->mediumText('link_video')->nullable()->default(null);
+            $table->mediumText('options')->nullable()->default(null);
             $table->string('type')->nullable()->default(null);
+            $table->string('act')->nullable()->default(null);
             $table->integer('numb')->nullable();
             $table->string('status')->nullable()->default(null);
-            $table->integer('date_created')->nullable();
-            $table->integer('date_updated')->nullable();
             $table->timestamps();
         });
 
@@ -41,6 +41,6 @@ class CreateTableSizesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('table_sizes');
+        Schema::dropIfExists('table_photos');
     }
-}
+};

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTablePostsTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -18,7 +18,7 @@ class CreateTablePostsTable extends Migration
         Schema::create('table_posts', function (Blueprint $table) {
             $table->increments('id');
             $table->string('photo')->nullable()->default(null);
-            $table->string('slug');
+            $table->string('slug')->nullable();
             $table->string('name')->nullable()->default(null);
             $table->mediumText('desc')->nullable()->default(null);
             $table->mediumText('content')->nullable()->default(null);
@@ -27,8 +27,6 @@ class CreateTablePostsTable extends Migration
             $table->json('status')->nullable()->default(null);
             $table->string('type')->nullable()->default(null);
             $table->integer('view')->nullable();
-            $table->integer('date_created')->nullable();
-            $table->integer('date_updated')->nullable();
             $table->timestamps();
         });
 
@@ -44,4 +42,4 @@ class CreateTablePostsTable extends Migration
     {
         Schema::dropIfExists('table_posts');
     }
-}
+};

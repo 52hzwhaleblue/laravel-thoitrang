@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Carbon\Carbon;
+use App\Models\TableProduct;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class TableCategory extends Model
 {
@@ -14,18 +16,19 @@ class TableCategory extends Model
      *
      * @var array
      */
+
     protected $fillable = [
-        'slug',
         'name',
+        'slug',
         'content',
         'desc',
         'photo',
         'options',
         'numb',
-        'status',
         'type',
-        'date_created',
-        'date_updated',
+        'status',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -35,6 +38,19 @@ class TableCategory extends Model
      */
     protected $casts = [
         'status' => 'array',
+        'created_at' => 'datetime:Y-m-d H:i:s',
+        'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
 
+    public function getCreatedAtAttribute($value)
+    {
+        return Carbon::createFromFormat('Y-m-d\TH:i:s.u\Z', $value, 'UTC')
+            ->setTimezone('Asia/Ho_Chi_Minh')
+            ->toDateTimeString();
+    }
+
+    public function product()
+    {
+        return $this->hasOne(TableProduct::class);
+    }
 }

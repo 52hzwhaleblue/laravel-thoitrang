@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTableStaticsTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -26,8 +26,6 @@ class CreateTableStaticsTable extends Migration
             $table->string('file_attach')->nullable()->default(null);
             $table->string('type')->nullable()->default(null);
             $table->string('status')->nullable()->default(null);
-            $table->integer('date_created')->nullable();
-            $table->integer('date_updated')->nullable();
             $table->timestamps();
         });
 
@@ -44,3 +42,4 @@ class CreateTableStaticsTable extends Migration
         Schema::dropIfExists('table_statics');
     }
 }
+;

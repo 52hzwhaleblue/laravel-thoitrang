@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTableOrderStatusesTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,13 @@ class CreateTableOrderStatusesTable extends Migration
      */
     public function up()
     {
-        Schema::disableForeignKeyConstraints();
-
-        Schema::create('table_order_statuses', function (Blueprint $table) {
+        Schema::create('table_product_details', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->nullable()->default(null);
-            $table->string('class_order')->nullable()->default(null);
+            $table->string('photo')->nullable()->default(null);
+            $table->unsignedInteger('product_id')->nullable();
+            $table->foreign('product_id')->references('id')->on('table_products')->onDelete('cascade');
             $table->timestamps();
         });
-
-        Schema::enableForeignKeyConstraints();
     }
 
     /**
@@ -32,6 +29,6 @@ class CreateTableOrderStatusesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('table_order_statuses');
+        Schema::dropIfExists('table_product_details');
     }
-}
+};

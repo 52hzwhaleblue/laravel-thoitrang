@@ -5,24 +5,39 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-
-class TableOrderDetail extends Model
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+class User extends Authenticatable
 {
-    use HasFactory;
+    use HasApiTokens, HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
+    protected $table = "table_users";
+
     protected $fillable = [
-        'order_id',
-        'product_id',
-        'color',
-        'size',
-        'quantity',
+        'username',
+        'fullName',
+        'phone',
+        'email',
+        'password',
+        'photo',
+        'role',
         'created_at',
-        'update_at',
+        'updated_at',
+    ];
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password',
     ];
 
     /**
@@ -31,8 +46,10 @@ class TableOrderDetail extends Model
      * @var array
      */
     protected $casts = [
+        'role' => 'integer',
+        'email_verified_at' => 'datetime:Y-m-d H:i:s',
         'created_at' => 'datetime:Y-m-d H:i:s',
-        'updated_at' => 'datetime:Y-m-d H:i:s',
+        'update_at' => 'datetime:Y-m-d H:i:s',
     ];
 
     public function getCreatedAtAttribute($value)

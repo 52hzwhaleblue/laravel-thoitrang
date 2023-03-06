@@ -39,7 +39,7 @@ return [
      * Thumbnail settings are grouped in presets.
      * So that you can have different settings for e.g. profile and album pictures.
      */
-    'presets' => [
+    'presets' =>  [
         'default' => [
             /**
              * Store the generated images here.
@@ -55,7 +55,8 @@ return [
             /**
              * add default params for this preset
              */
-            'smartcrop' => '64x64',
+            'width' => '65',
+            'height' => '65',
         ],
     ],
 

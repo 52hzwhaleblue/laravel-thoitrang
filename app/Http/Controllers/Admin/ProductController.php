@@ -71,18 +71,9 @@ class ProductController extends Controller
         if ($request->has('photo1')) {
             $product->photo1 = $file_name1;
         }
-        $product->id_category =(int)$request->get('id_category');
+        $product->category_id =(int)$request->get('category_id');
 
-        if (empty($product->id_category)) {
-            return redirect()
-                ->route('admin.product.product-man.create')
-                ->with(
-                    'warning',
-                    'Vui lòng chọn danh mục cấp 1'
-                );
-        }
-
-        $product->status = implode(',', $request->get('status'));
+        $product->status =$request->get('status');
         $product->slug = $request->get('slug');
         $checkSlug = Functions::checkSlug($product);
 
@@ -167,7 +158,7 @@ class ProductController extends Controller
         $product->name = $request->get('name');
         $product->desc = $request->get('desc');
         $product->content = $request->get('content');
-        $product->id_category = $request->get('id_category');
+        $product->category_id = $request->get('category_id');
         if ($request->has('photo')) {
             $product->photo = $file_name;
         }
