@@ -11,13 +11,11 @@ use Config;
 
 class CategoryController extends Controller
 {
-    public $config_status = ['noibat','hienthi'];
 
     public function index()
     {
         $data = TableCategory::all();
-        $status = $this->config_status;
-        return view('admin.template.product.list.list', compact('data','status'));
+        return view('admin.template.product.list.list', compact('data'));
     }
 
     public function create()
@@ -45,7 +43,7 @@ class CategoryController extends Controller
         if ($request->has('photo')) {
             $Category->photo = $file_name;
         }
-        $Category->status = implode(',', $request->get('status'));
+        $Category->status = $request->get('status');
         $Category->slug = $request->get('slug');
         $checkSlug = Functions::checkSlug($Category);
 

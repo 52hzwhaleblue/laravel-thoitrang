@@ -29,10 +29,12 @@ return new class extends Migration
             $table->mediumText('content')->nullable()->default(null);
             $table->integer('numb')->nullable();
             $table->string('type')->nullable()->default(null);
+            $table->string('photo')->nullable()->default(null);
+            $table->string('photo1')->nullable()->default(null);
             $table->integer('view')->nullable();
             $table->integer('stock')->nullable();
             $table->unsignedInteger('category_id')->nullable();
-            $table->integer('status')->nullable()->default(1);
+            $table->integer('status')->default(1);
             $table->foreign('category_id')->references('id')->on('table_categories')->onDelete('cascade');
             $table->timestamps();
         });

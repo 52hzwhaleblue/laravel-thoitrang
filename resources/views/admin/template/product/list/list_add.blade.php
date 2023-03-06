@@ -106,14 +106,8 @@
                                 <div class="mb-3 mt-3">
                                     <input
                                         type="checkbox"
-                                        name="status[]"
-                                        value="noibat"
-                                    />
-                                    Nổi bật
-                                    <input
-                                        type="checkbox"
-                                        name="status[]"
-                                        value="hienthi"
+                                        name="status"
+                                        value="1"
                                         checked
                                     />
                                     Hiển thị

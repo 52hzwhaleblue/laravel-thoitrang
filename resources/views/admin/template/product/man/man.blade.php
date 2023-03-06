@@ -40,7 +40,6 @@
                                 <th>Hình</th>
                                 <th width="30%">Tiêu đề</th>
                                 <th>Gallery</th>
-                                <th>Nổi bật</th>
                                 <th>Hiển thị</th>
                                 <th>Thao tác</th>
                             </tr>
@@ -117,23 +116,19 @@
                                             </ul>
                                         </div>
                                     </th>
-                                    @foreach ($status as $k => $eachStatus)
-                                        <th class="align-middle">
-                                            <div
-                                                class="custom-control custom-checkbox my-checkbox"
-                                            >
-                                                <input
-                                                    type="checkbox"
-                                                    class="custom-control-input show-checkbox arrStatus"
-                                                    id="show-checkbox-{{$eachStatus }}-{{ $v['id'] }}"
-                                                    data-table="product_lists"
-                                                    data-id="{{ $v['id'] }}"
-                                                    data-attr="{{ $eachStatus }}"
-                                                    @if (in_array($eachStatus,explode(',',$v['status']))) checked @endif
-                                                />
-                                            </div>
-                                        </th>
-                                    @endforeach
+                                    <th class="align-middle">
+                                        <div
+                                            class="custom-control custom-checkbox my-checkbox"
+                                        >
+                                            <input
+                                                type="checkbox"
+                                                class="custom-control-input show-checkbox arrStatus"
+                                                data-table="product_lists"
+                                                data-id="{{ $v['id'] }}"
+                                                @if ($v['status'] == 1) checked @endif
+                                            />
+                                        </div>
+                                    </th>
 
                                     <th class="align-middle d-flex">
                                         <a href=" {{route('admin.product.product-man.edit', $v['slug'] )}} " class="btn btn-primary mr-2">

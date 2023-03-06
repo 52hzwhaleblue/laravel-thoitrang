@@ -37,6 +37,7 @@ class TableCategory extends Model
      * @var array
      */
     protected $casts = [
+        'status' => 'array',
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];

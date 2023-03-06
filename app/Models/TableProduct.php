@@ -48,6 +48,7 @@ class TableProduct extends Model
         'discount' => 'double',
         'sale_price' => 'double',
         'properties' => 'array',
+        'status' => 'array',
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
