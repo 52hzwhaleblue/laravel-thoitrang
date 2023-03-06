@@ -73,6 +73,15 @@ class ProductController extends Controller
         }
         $product->id_category =(int)$request->get('id_category');
 
+        if (empty($product->id_category)) {
+            return redirect()
+                ->route('admin.product.product-man.create')
+                ->with(
+                    'warning',
+                    'Vui lòng chọn danh mục cấp 1'
+                );
+        }
+
         $product->status = implode(',', $request->get('status'));
         $product->slug = $request->get('slug');
         $checkSlug = Functions::checkSlug($product);

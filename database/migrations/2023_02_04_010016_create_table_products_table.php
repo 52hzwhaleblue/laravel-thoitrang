@@ -25,7 +25,7 @@ class CreateTableProductsTable extends Migration
             $table->string('name')->nullable()->default(null);
             $table->string('photo')->nullable()->default(null);
             $table->string('photo1')->nullable()->default(null);
-            $table->mediumText('options')->nullable()->default(null);
+            $table->json('properties')->nullable();
             $table->mediumText('content')->nullable()->default(null);
             $table->mediumText('desc')->nullable()->default(null);
             $table->string('slug');
