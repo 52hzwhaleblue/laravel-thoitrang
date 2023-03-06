@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use App\Models\TableCategory;
+use App\Models\TableProductDetail;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class TableProduct extends Model
 {
@@ -57,13 +59,14 @@ class TableProduct extends Model
             ->toDateTimeString();
     }
 
-    public function idList()
+    public function productDetail()
     {
-        return $this->belongsTo(TableProductList::class);
+        return $this->hasMany(TableProductDetail::class,'product_id','id');
     }
 
-    public function idCat()
+    public function category()
     {
-        return $this->belongsTo(TableProductCat::class);
+        return $this->belongsTo(TableCategory::class);
     }
+
 }

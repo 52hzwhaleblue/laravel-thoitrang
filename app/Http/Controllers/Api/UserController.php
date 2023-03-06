@@ -34,7 +34,7 @@ class UserController extends BaseController
 
             if ($request->has('image')) {
                 
-                $url = $this->uploadFile($request,"avatar/",64,64);
+                $url = $this->uploadFile($request,"avatar/",85,85);
     
                 DB::table('table_users')->where('id',Auth::id())->update(["photo" => $url]);
             }

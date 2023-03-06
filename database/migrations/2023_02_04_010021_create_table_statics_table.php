@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTableStaticsTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -42,3 +42,4 @@ class CreateTableStaticsTable extends Migration
         Schema::dropIfExists('table_statics');
     }
 }
+;

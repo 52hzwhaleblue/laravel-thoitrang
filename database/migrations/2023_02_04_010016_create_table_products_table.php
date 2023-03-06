@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTableProductsTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -37,15 +37,6 @@ class CreateTableProductsTable extends Migration
             $table->timestamps();
         });
 
-
-        Schema::create('table_product_details', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('photo')->nullable()->default(null);
-            $table->unsignedInteger('product_id')->nullable();
-            $table->foreign('product_id')->references('id')->on('table_products')->onDelete('cascade');
-            $table->timestamps();
-        });
-
         Schema::enableForeignKeyConstraints();
     }
 
@@ -58,4 +49,4 @@ class CreateTableProductsTable extends Migration
     {
         Schema::dropIfExists('table_products');
     }
-}
+};

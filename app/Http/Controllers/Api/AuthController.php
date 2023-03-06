@@ -76,7 +76,7 @@ class AuthController extends BaseController
             ->exists();
 
             if(!$checkEmaiAndPhone){
-                $url = $this->uploadFile($request,"avatar/",64,64);
+                $url = $this->uploadFile($request,"avatar/",85,85);
                 
                 DB::table('table_users')->insert([
                     "username" => $request->TableUsername,

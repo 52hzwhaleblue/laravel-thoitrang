@@ -53,7 +53,7 @@ class BaseController extends Controller
                 $thumbnail_image = Image::make($file)->resize($width, $height, function ($constraint) {
                     $constraint->aspectRatio();
                     $constraint->upsize();
-                });
+                })->encode(null, 180);;
                 
                 // Save thumbnail to storage
                 $thumbnail_path = 'thumbnails/'. $dir  . $path_file;

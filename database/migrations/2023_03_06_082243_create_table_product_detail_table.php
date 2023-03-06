@@ -13,21 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::disableForeignKeyConstraints();
-
-        Schema::create('table_order_details', function (Blueprint $table) {
+        Schema::create('table_product_details', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('order_id')->nullable();
+            $table->string('photo')->nullable()->default(null);
             $table->unsignedInteger('product_id')->nullable();
-            $table->string('color')->nullable()->default(null);
-            $table->string('size')->nullable()->default(null);
-            $table->integer('quantity')->nullable();
-            $table->foreign('order_id')->references('id')->on('table_orders')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('table_products')->onDelete('cascade');
             $table->timestamps();
         });
-
-        Schema::enableForeignKeyConstraints();
     }
 
     /**
@@ -37,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('table_order_details');
+        Schema::dropIfExists('table_product_details');
     }
 };

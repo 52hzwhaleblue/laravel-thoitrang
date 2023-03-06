@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use App\Models\TableProduct;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -45,5 +46,10 @@ class TableCategory extends Model
         return Carbon::createFromFormat('Y-m-d\TH:i:s.u\Z', $value, 'UTC')
             ->setTimezone('Asia/Ho_Chi_Minh')
             ->toDateTimeString();
+    }
+
+    public function product()
+    {
+        return $this->hasOne(TableProduct::class);
     }
 }

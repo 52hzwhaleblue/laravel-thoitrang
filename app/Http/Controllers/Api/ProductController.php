@@ -6,28 +6,23 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Api\BaseController as BaseController;
+use App\Models\TablePost;
 use App\Models\TableProduct;
 
 class ProductController extends BaseController
 {
     public function fetchAll(Request $request){   
         try {     
-            $products = TableProduct::with(['category'])->get();
+            $page = request()->query('page'); // Lấy query param page, mặc định là 1 nếu không có
+            $limit = request()->query('limit',5);
+            $offset = ($page - 1) * $limit; // Lấy query param limit, mặc định là 10 nếu không có
+            $products = TableProduct::with(['category','productDetail'])->offset($offset)->limit($limit)->get();
             $products->map(function ($product) {
-                    $product->sold = intval( DB::table('order_details')
+                    $product->sold = intval( DB::table('table_order_details')
                     ->where('product_id', $product->id)
                     ->sum('quantity'));
-                    // $product->newCollection = collect(['item1', 'item2', 'item3']);
-                    $product->image_list = $product->productDetail->map(function ($detail) {
-                        return [
-                            "image" =>[
-                                'url' => $detail->image->url,
-                                'id' => $detail->image->id,
-                            ]
-                        ];
-                    });
                     return $product;
-            });
+            });  
             return $this->sendResponse($products, "Fetch Product successfully!!!");
             
         } catch (\Throwable $th) { 
