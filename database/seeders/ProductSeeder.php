@@ -28,7 +28,7 @@ class Productseeder extends Seeder
           "desc" => "Giới thiệu đến bạn chiếc áo polo nam
             chiếc áo sẽ giúp cho các chàng trai trở nên lịch lãm,
             sang trọng và trẻ trung hơn. Với collection này thì Coolmate
-            sẽ mang cho bạn một mẫu áo polo nam với nhưng họa tiết 
+            sẽ mang cho bạn một mẫu áo polo nam với nhưng họa tiết
             đơn giản nhưng rất trẻ trung và dễ mix đồ chắc chắn nên
               có trong tủ đồ áo nam của bạn",
           "properties" => json_encode([
@@ -44,6 +44,7 @@ class Productseeder extends Seeder
           "updated_at" => date("Y-m-d H:i:s"),
         ]
       );
+
       //2
       DB::table('table_products')->insert(
         [
@@ -63,6 +64,7 @@ class Productseeder extends Seeder
             "origin" => "Việt Nam",
             "colors" => ["f7f1e3"],
           ]),
+
           "view" => random_int(50,500),
           "category_id" => 4,
           "photo" => "20230307-product1.jpg",
@@ -71,7 +73,7 @@ class Productseeder extends Seeder
           "updated_at" => date("Y-m-d H:i:s"),
         ]
       );
-      //4 - Nữ 
+      //4 - Nữ
       DB::table('table_products')->insert(
         [
           "code" => "PROF" . date('Ymd'),
@@ -80,7 +82,7 @@ class Productseeder extends Seeder
           "regular_price" => 520000,
           "sale_price" => 25000,
           "discount" => 4.8,
-          "desc" => "Giày cao cấp giá sale đó ạ. 
+          "desc" => "Giày cao cấp giá sale đó ạ.
             Gót cao 9p, đen thì có cả 9p và 6p nhoa.
             Những đơn hàng đầu tiên của sp luôn dc giá thấp hơn nhìu nên chị em tranh thủ đặt nha. 😍😍\n
             Giày của shop em là khỏi phải nói về độ đẹp của nó rồi ạ.100 khách mua đều 100 khách khen đẹp và giá quá tốt.
@@ -154,6 +156,7 @@ class Productseeder extends Seeder
       DB::table('table_products')->insert(
         [
           "code" => "PROF" . date('Ymd'),
+
           "name" => "Áo ba lỗ cho bé trai bé gái mùa hè,áo lưới bé trai xuất xịn",
           "slug" => "ao-thun-ba-lo",
           "regular_price" => random_int(100000,600000),
@@ -164,6 +167,7 @@ class Productseeder extends Seeder
             "origin" => "Việt Nam",
             "colors" => ["ff4d4d","3ae374"],//red-green
           ]),
+
            "view" => random_int(50,500),
           "category_id" => 2,
           "photo" => "20230307-product1.jpg",
@@ -207,13 +211,14 @@ class Productseeder extends Seeder
             "sale_price" => 20000,
             "discount" => 4,
             "stock" => random_int(10,60),
-            "desc" => "💥Váy mang phong cách thời trang thời thượng các bạn trẻ; đặc biệt không những giúp 
+            "desc" => "💥Váy mang phong cách thời trang thời thượng các bạn trẻ; đặc biệt không những giúp
              (Được sử dụng nhiều trong dịp Lễ hội, Đi chơi, Da ngoại, Dạo phố, Du lịch...)",
             "properties" => json_encode([
               "sizes" => ["M (47-52kg)","L(53-62kg)","S (40-46kg)"],
               "origin" => "Việt Nam",
               "colors" => ["000000","f6b93b"],
             ]),
+
              "view" => random_int(50,500),
             "category_id" =>2,
             "photo" => "20230307-product1.jpg",
@@ -243,6 +248,7 @@ class Productseeder extends Seeder
               "origin" => "China",
               "colors" => ["000000"],
             ]),
+
              "view" => random_int(50,500),
             "category_id" => 2,
              "photo" => "20230307-product1.jpg",
@@ -255,13 +261,14 @@ class Productseeder extends Seeder
       DB::table('table_products')->insert(
         [
             "code" => "PROF" . date('Ymd'),
+
             "name" => "quần jean nam cao cấp ống túm thể thao CGJ 351",
             "slug" => "quan-jean",
             "regular_price" => 150000,
             "stock" => random_int(10,60),
             "desc" => "Quần jean luôn đa dạng về mẫu mã, kiểu dáng cũng như màu sắc. Do đó, các bạn nam có thể tha hồ lựa chọn kiểu dáng ưng ý để khoe cá tính trẻ trung, năng động mỗi khi xuống phố.
             Mẫu Quần Jean với những đường rách ngẫu hứng phối wash nhẹ phía trước rất đẹp mắt. Thiết kế hiện đại, trẻ trung, form quần ống côn trang nhã.\n
-            Màu xanh đen thông dụng, cho bạn nhiều lựa chọn khi phối đồ. 
+            Màu xanh đen thông dụng, cho bạn nhiều lựa chọn khi phối đồ.
             Chất liệu jean cao cấp, đảm bảo chắc chắn, bền đẹp và vẫn có độ co dãn nhất định khi mặc.\n
               Hai túi trước và hai túi sau tiện lợi, có độ sâu rộng phù hợp.
               Bạn có thể vô tư lựa chọn vì quần có rất nhiều size.",
@@ -270,6 +277,7 @@ class Productseeder extends Seeder
               "origin" => "Việt Nam",
               "colors" => ["82ccdd"],
             ]),
+
              "view" => random_int(50,500),
             "category_id" => 2,
              "photo" => "20230307-product1.jpg",

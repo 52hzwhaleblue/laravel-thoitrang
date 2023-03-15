@@ -14,6 +14,10 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
+        $list_id = [
+           1,2,3,4,5
+        ];
+
         $list_name = [
             "All","Clothing","Handbag","Shoes","Watch","Sunglasses"
         ];
@@ -34,6 +38,7 @@ class CategorySeeder extends Seeder
             "guoc_cao_no_white.jpg"
         
         ];
+
         $list_category = [
             "thumbnails/categories/All.png",
             "thumbnails/categories/t-shirt.png",
@@ -45,6 +50,7 @@ class CategorySeeder extends Seeder
 
         for($i = 0; $i < 6; $i++){
             DB::table('table_categories')->insert([
+                "id" => $list_id[$i],
                 "name" => $list_name[$i],
                 "name_vi" => $list_name_vi[$i],
                 "slug" => $list_slug[$i],

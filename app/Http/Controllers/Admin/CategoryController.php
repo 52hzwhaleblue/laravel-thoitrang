@@ -87,7 +87,6 @@ class CategoryController extends Controller
     public function update(Request $request, $slug)
     {
         $count = TableCategory::all()->count();
-        $fix_status = implode(',', $request->get('status'));
         if ($request->has('photo')) {
             $file = $request->photo;
             $ext = $request->photo->extension(); //lấy đuôi file png||jpg
@@ -100,11 +99,11 @@ class CategoryController extends Controller
         // dd($Category);
         $Category->name = $request->get('name');
         $Category->desc = $request->get('desc');
+        $Category->status = (int)$request->get('status');
         $Category->content = $request->get('content');
         if ($request->has('photo')) {
             $Category->photo = $file_name;
         }
-        $Category->status = implode(',', $request->get('status'));
         $Category->slug = $request->get('slug');
 
         $checkSlug = Functions::checkSlug($Category);
