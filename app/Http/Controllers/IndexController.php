@@ -45,7 +45,8 @@ class IndexController extends Controller
         $tenkhongdau =  $request->get('tenkhongdau');
 
         $data = TableProduct::where('category_id', $id)->get();
-
+        return $data;
+        die('dsd');
         $output = '
         <div class="owl-page owl-carousel owl-theme"
             data-xsm-items = "2:10"

@@ -28,8 +28,8 @@ return new class extends Migration
             $table->double('ship_price')->nullable()->default(0);
             $table->mediumText('requirements')->nullable()->default(null);
             $table->mediumText('notes')->nullable()->default(null);
-            $table->integer('status')->nullable(0);
-            $table->foreign('user_id')->references('id')->on('table_users')->cascadeOnDelete();     
+            $table->integer('status')->default(1);
+            $table->foreign('user_id')->references('id')->on('table_users')->cascadeOnDelete();
             $table->timestamps();
         });
 

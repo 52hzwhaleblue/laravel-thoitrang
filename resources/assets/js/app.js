@@ -148,27 +148,6 @@ function Home(){
         })
     });
 
-
-    $('.thumbs_img').each(function(){
-        var width = $(this).find('img').data('width');
-        var height = $(this).find('img').data('height');
-        // var image = $(this).find('img').data('image');
-
-        // $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
-        $.ajax({
-            type: 'get',
-            url: '/thumbs_img',
-            data: {
-                'width': width,
-                'height': height,
-                // 'image': image,
-            },
-            success:function(data){
-                // alert(data);
-            }
-        });
-    });
-
 }
 
 $(document).ready(function () {

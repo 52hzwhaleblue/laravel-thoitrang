@@ -24,19 +24,19 @@ class CategorySeeder extends Seeder
 
         $list_name_vi = [
             "Tất cả","Quần-Áo","Túi xách","Giày","Đồng hồ", "Mắt kính"
-        ];  
+        ];
         $list_slug= [
             "ao_ba_lo_do.jpg" ,
             "ao_cotton_kid.jpg",
-       
+
             "ao_phong_unisex_black_white_2.jpg",
-        
-       
+
+
             "ao-polo-nam-Aristino-xanh.jpg",
             "dam_han_quoc_den_nau-nhat.jpg",
-        
+
             "guoc_cao_no_white.jpg"
-        
+
         ];
 
         $list_category = [
@@ -50,7 +50,6 @@ class CategorySeeder extends Seeder
 
         for($i = 0; $i < 6; $i++){
             DB::table('table_categories')->insert([
-                "id" => $list_id[$i],
                 "name" => $list_name[$i],
                 "name_vi" => $list_name_vi[$i],
                 "slug" => $list_slug[$i],
