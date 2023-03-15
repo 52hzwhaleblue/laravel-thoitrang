@@ -18,7 +18,7 @@ use App\Models\TableOrder;
 class UserController extends BaseController
 {
     public function me(Request $request){
-        $user = User::find(Auth::id());
+        $user = DB::table('table_users')->find(Auth::id());
       
         return $this->sendResponse($user,"Get success!!");
     }
@@ -48,7 +48,7 @@ class UserController extends BaseController
                 if($phoneExist){
                     return $this->sendError('Phone error',"The phone already exists",201);
                 }else{
-                    DB::table('users')->where('id',Auth::id())->update(["phone" =>$request->phone]);
+                    DB::table('table_users')->where('id',Auth::id())->update(["phone" =>$request->phone]);
                 }
              
             }
@@ -66,7 +66,7 @@ class UserController extends BaseController
                DB::table('table_users')->where('id',Auth::id())->update(["username" =>$request->username]);
             }
 
-            return $this->sendResponse( DB::table('table_users')->get(),"Updated profile user successfully!!");
+            return $this->sendResponse( DB::table('table_users')->where('id',Auth::id())->first(),"Updated profile user successfully!!");
 
 
         } catch (\Throwable $th) {    

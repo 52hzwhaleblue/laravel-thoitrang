@@ -35,8 +35,19 @@ class ProductDetailSeeder extends Seeder
             "thumbnails/products/jean_nam_xanh.jpg"=> 10,
             "thumbnails/products/Vay_de_tiec_nau.jpg"=> 8,
             "thumbnails/products/vay_di_tiec_den.jpg"=> 8,
+            "thumbnails/products/quan_jean_nu_ong_rong_2.jpg"=> 11,
+            "thumbnails/products/quan_jean_nu_ong_rong.jpg"=>11,
+            "thumbnails/products/the-thao-nu-de-hoi.jpg"=>12,
+            "thumbnails/products/tui-da-nu-hang-hieu.jpg"=>13,
+            "thumbnails/products/mat_kinh_pedro_vang.jpg"=>14,
+            "thumbnails/products/mat_kinh_pedro_den.jpg"=>14,
+            "thumbnails/products/mat_kinh_pedro_xanh_blue.jpg"=>14,
+            "thumbnails/products/mat_kinh_pedro_xanh_blue.jpg"=>15,
+            "thumbnails/products/mat_kinh_chong_buc_xa_xanh_blue.jpeg"=>15,
+            "thumbnails/products/mat_kinh_chong_buc_xa_den.png"=>15,
+            "thumbnails/products/dong_ho.png"=>16,
         ];
-
+     
         foreach ($list_product as $value => $key) {
             DB::table('table_product_details')->insert([
                 "product_id" =>  $key,

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use App\Models\TableReview;
 use App\Models\TableCategory;
 use App\Models\TableProductDetail;
 use Illuminate\Database\Eloquent\Model;
@@ -68,6 +69,10 @@ class TableProduct extends Model
     public function category()
     {
         return $this->belongsTo(TableCategory::class);
+    }
+
+    public function review(){
+        return $this-> hasMany(TableReview::class);
     }
 
 }

@@ -3,11 +3,13 @@
 namespace App\Models;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\TableReview;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -27,6 +29,7 @@ class User extends Authenticatable
         'password',
         'photo',
         'role',
+        'login_provider',
         'created_at',
         'updated_at',
     ];
@@ -57,5 +60,9 @@ class User extends Authenticatable
         return Carbon::createFromFormat('Y-m-d\TH:i:s.u\Z', $value, 'UTC')
             ->setTimezone('Asia/Ho_Chi_Minh')
             ->toDateTimeString();
+    }
+
+    public function review(){
+        return $this-> hasMany(TableReview::class);
     }
 }

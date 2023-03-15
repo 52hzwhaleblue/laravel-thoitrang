@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('password')->nullable();
             $table->integer('role')->default(1);
             $table->string('photo')->nullable();
+            $table->string('login_provider')->nullable()->default("");
             $table->rememberToken();
             $table->timestamps();
         });

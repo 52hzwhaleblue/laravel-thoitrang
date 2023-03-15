@@ -73,11 +73,13 @@ class ProductController extends Controller
         }
         $product->category_id =(int)$request->get('category_id');
 
+
         if(empty($product->category_id)){
             return redirect()
                 ->route('admin.product.product-man.index')
                 ->with('warning', 'Vui lòng chọn danh mục cấp 1');
         }
+
 
         $product->status = (int)$request->get('status');
         $product->slug = $request->get('slug');
@@ -178,6 +180,9 @@ class ProductController extends Controller
         if ($request->has('photo1')) {
             $product->photo1 = $file_name1;
         }
+
+        $product->status = (int)$request->get('status');
+
         $product->slug = $request->get('slug');
 
         $checkSlug = Functions::checkSlug($product);
