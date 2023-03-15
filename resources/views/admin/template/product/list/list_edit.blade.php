@@ -98,8 +98,8 @@
                         >
                             <div class="accordion-body">
                                 <div class="mb-3 mt-3">
-                                    <input type="checkbox" name="status[]" value="noibat" @if (in_array('noibat',$explodeStatus)) checked  @endif > Nổi bật
-                                    <input type="checkbox" name="status[]" value="hienthi" @if (in_array('hienthi',$explodeStatus)) checked  @endif> Hiển thị
+                                    <input type="checkbox" name="status" value="1"
+                                    @if ($data['status'] == 1) checked  @endif > Hiển thị
                                 </div>
 
 

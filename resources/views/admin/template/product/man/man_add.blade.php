@@ -150,7 +150,7 @@ enctype="multipart/form-data"
                                     <div class="col-xl-6">
                                         <div class="">
                                             <label for="type" class="form-label">Danh mục cấp 1:</label>
-                                            <select class="form-select" id="type" name="id_category">
+                                            <select class="form-select" id="type" name="category_id">
                                                 <option value="">  Chọn danh mục </option>
                                                 @foreach ($splist as $v)
                                                     <option value="{{$v['id']}}"> {{$v['name']}} </option>
@@ -229,14 +229,8 @@ enctype="multipart/form-data"
                                 <div class="mb-3 mt-3">
                                     <input
                                         type="checkbox"
-                                        name="status[]"
-                                        value="noibat"
-                                    />
-                                    Nổi bật
-                                    <input
-                                        type="checkbox"
-                                        name="status[]"
-                                        value="hienthi"
+                                        name="status"
+                                        value="1"
                                         checked
                                     />
                                     Hiển thị

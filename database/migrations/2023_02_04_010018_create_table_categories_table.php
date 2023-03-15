@@ -26,7 +26,7 @@ return new class extends Migration
             $table->mediumText('options')->nullable()->default(null);
             $table->integer('numb')->nullable();
             $table->string('type')->nullable()->default(null);
-            $table->integer('status')->nullable()->default(1);
+            $table->json('status')->nullable();
             $table->timestamps();
         });
 

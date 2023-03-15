@@ -10,7 +10,7 @@
         <div class="pronb-container">
             <div class="dm-noibat list-hot d-flex flex-wrap align-items-center justify-content-center">
                 <?php foreach($splistnb as $v){?>
-                    <a class="text-decoration-none" data-id="<?=$v['id']?>" data-tenkhongdau="<?=$v['slug']?>"><?=$v['name']?></a>
+                    <a class="text-decoration-none" data-id="<?=$v->id?>" data-tenkhongdau="<?=$v->slug?>"><?=$v->name?></a>
                 <?php }?>
             </div>
 

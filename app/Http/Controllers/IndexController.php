@@ -24,14 +24,11 @@ class IndexController extends Controller
         $bannerQC = TablePhoto::where('type', 'banner-quangcao')->get();
         $album = TablePhoto::where('type', 'album')->get();
 
-        $pronb = TableProduct::whereJsonContains('status', 'noibat,hienthi')->get();
-        $splistnb = TableCategory::whereJsonContains('status', 'noibat,hienthi')->get();
-
+        $pronb = TableProduct::where('status', 1)->get();
+        $splistnb = TableCategory::where('status', 1)->get();
+        $postnb = TablePost::where('status', 1)->get();
 
         // dd($pronb);
-        $postnb = TablePost::whereJsonContains('status', 'noibat')->get();
-
-
 
         return view('template.index.index',compact([
             'slide',
@@ -47,7 +44,7 @@ class IndexController extends Controller
         $id =  $request->get('id');
         $tenkhongdau =  $request->get('tenkhongdau');
 
-        $data = TableProduct::where('id_list', $id)->get();
+        $data = TableProduct::where('category_id', $id)->get();
 
         $output = '
         <div class="owl-page owl-carousel owl-theme"
