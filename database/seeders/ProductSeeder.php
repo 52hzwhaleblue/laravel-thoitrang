@@ -20,6 +20,7 @@ class Productseeder extends Seeder
         [
           "code" => "PROF" . date('Ymd'),
           "name" => "Áo polo nam Aristino",
+          "slug" => "ao-polo-name-aristino",
           "regular_price" => 250000,
           "sale_price" => 10000,
           "discount" => 4,
@@ -37,6 +38,8 @@ class Productseeder extends Seeder
           ]),
           "view" => random_int(50,5000),
           "category_id" => 2,
+          "photo" => "20230307-product1.jpg",
+          "photo1" => "20230307-product11.jpg",
           "created_at" => date("Y-m-d H:i:s"),
           "updated_at" => date("Y-m-d H:i:s"),
         ]
@@ -46,6 +49,7 @@ class Productseeder extends Seeder
         [
           "code" => "PROF" . date('Ymd'),
           "name" => "Sandal dây đế bánh mì nữ 5cm nhẹ êm mềm dễ đi quai mảnh rẻ bền đẹp phong cách cá tính",
+          "slug" => "sandal-nu",
           "regular_price" => random_int(100000,600000),
           "stock" => random_int(10,60),
           "desc" => "• Sản phẩm làm từ chất liệu cao cấp,chắc chắn, mềm mại, dẻo dai.\n
@@ -61,6 +65,8 @@ class Productseeder extends Seeder
           ]),
           "view" => random_int(50,500),
           "category_id" => 4,
+          "photo" => "20230307-product1.jpg",
+          "photo1" => "20230307-product11.jpg",
           "created_at" => date("Y-m-d H:i:s"),
           "updated_at" => date("Y-m-d H:i:s"),
         ]
@@ -70,6 +76,7 @@ class Productseeder extends Seeder
         [
           "code" => "PROF" . date('Ymd'),
           "name" => "Guốc cao gót nơ lụa to xinh xắn sang chảnh hàng đẹp.",
+          "slug" => "guoc-cao-got-nu",
           "regular_price" => 520000,
           "sale_price" => 25000,
           "discount" => 4.8,
@@ -88,6 +95,8 @@ class Productseeder extends Seeder
           ]),
           "view" => random_int(50,500),
           "category_id" => 4,
+          "photo" => "20230307-product1.jpg",
+          "photo1" => "20230307-product11.jpg",
           "created_at" => date("Y-m-d H:i:s"),
           "updated_at" => date("Y-m-d H:i:s"),
         ]
@@ -97,6 +106,7 @@ class Productseeder extends Seeder
         [
           "code" => "PROF" . date('Ymd'),
           "name" => "Áo thun tay lỡ unisex SADTAGRAM TEE - Áo phông F&S nam nữ",
+          "slug" => "ao-thun",
           "regular_price" => 180000,
           "stock" => random_int(10,60),
           "desc" => " Áo thun tay lỡ form rộng kiểu dáng sadboiz ngày nay
@@ -110,6 +120,8 @@ class Productseeder extends Seeder
           ]),
            "view" => random_int(50,500),
           "category_id" => 2,
+          "photo" => "20230307-product1.jpg",
+          "photo1" => "20230307-product11.jpg",
           "created_at" => date("Y-m-d H:i:s"),
           "updated_at" => date("Y-m-d H:i:s"),
         ]
@@ -119,6 +131,7 @@ class Productseeder extends Seeder
         [
           "code" => "PROF" . date('Ymd'),
           "name" => "BỘ COTTON THỂ THAO CHO BÉ TRAI",
+          "slug" => "ao-the-thao",
           "regular_price" => 100000,
           "stock" => random_int(10,60),
           "desc" => "Quần chíp đùi in hình cho bé gái nhiều màu sắc dễ thương kết hợp cùng với hình in đáng yêu cho bé sự thích thú khi mặc.\n
@@ -131,6 +144,8 @@ class Productseeder extends Seeder
           ]),
            "view" => random_int(50,500),
           "category_id" => 2,
+          "photo" => "20230307-product1.jpg",
+          "photo1" => "20230307-product11.jpg",
           "created_at" => date("Y-m-d H:i:s"),
           "updated_at" => date("Y-m-d H:i:s"),
         ]
@@ -140,6 +155,7 @@ class Productseeder extends Seeder
         [
           "code" => "PROF" . date('Ymd'),
           "name" => "Áo ba lỗ cho bé trai bé gái mùa hè,áo lưới bé trai xuất xịn",
+          "slug" => "ao-thun-ba-lo",
           "regular_price" => random_int(100000,600000),
           "stock" => random_int(10,60),
           "desc" => "Áo lưới trẻ em là món đồ mà shop chúng tôi muốn gợi ý cho các mẹ trong thời tiết nóng bức này",
@@ -150,6 +166,8 @@ class Productseeder extends Seeder
           ]),
            "view" => random_int(50,500),
           "category_id" => 2,
+          "photo" => "20230307-product1.jpg",
+          "photo1" => "20230307-product11.jpg",
           "created_at" => date("Y-m-d H:i:s"),
           "updated_at" => date("Y-m-d H:i:s"),
         ]
@@ -158,6 +176,7 @@ class Productseeder extends Seeder
       DB::table('table_products')->insert(
         [
           "code" => "PROF" . date('Ymd'),
+          "slug" => "ao-khoac-hoodie",
           "name" => "ÁO HOODIE UNISEX Nam Nữ BASIC CAO CẤP",
           "regular_price" => 350000,
           "sale_price" => 15000,
@@ -172,6 +191,8 @@ class Productseeder extends Seeder
           ]),
            "view" => random_int(50,500),
           "category_id" => 2,
+          "photo" => "20230307-product1.jpg",
+          "photo1" => "20230307-product11.jpg",
           "created_at" => date("Y-m-d H:i:s"),
           "updated_at" => date("Y-m-d H:i:s"),
         ]
@@ -180,6 +201,7 @@ class Productseeder extends Seeder
       DB::table('table_products')->insert(
           [
             "code" => "PROF" . date('Ymd'),
+            "slug" => "vay-du-tiec",
             "name" => "Váy đi tiệc dáng xoè dài tay thắt nơ cổ có khoá kéo",
             "regular_price" => 500000,
             "sale_price" => 20000,
@@ -194,14 +216,19 @@ class Productseeder extends Seeder
             ]),
              "view" => random_int(50,500),
             "category_id" =>2,
+            "photo" => "20230307-product1.jpg",
+            "photo1" => "20230307-product11.jpg",
             "created_at" => date("Y-m-d H:i:s"),
             "updated_at" => date("Y-m-d H:i:s"),
           ]
       );
+
+
       //3 - Nữ
       DB::table('table_products')->insert(
           [
             "code" => "PROF" . date('Ymd'),
+            "slug" => "dam-so-mi",
             "name" => "Đầm sơ mi nhún eo chất liệu chiffon phong cách Hàn Quốc cho nữ",
             "regular_price" => 500000,
             "sale_price" => 20000,
@@ -218,6 +245,8 @@ class Productseeder extends Seeder
             ]),
              "view" => random_int(50,500),
             "category_id" => 2,
+             "photo" => "20230307-product1.jpg",
+          "photo1" => "20230307-product11.jpg",  
             "created_at" => date("Y-m-d H:i:s"),
             "updated_at" => date("Y-m-d H:i:s"),
           ]
@@ -227,6 +256,7 @@ class Productseeder extends Seeder
         [
             "code" => "PROF" . date('Ymd'),
             "name" => "quần jean nam cao cấp ống túm thể thao CGJ 351",
+            "slug" => "quan-jean",
             "regular_price" => 150000,
             "stock" => random_int(10,60),
             "desc" => "Quần jean luôn đa dạng về mẫu mã, kiểu dáng cũng như màu sắc. Do đó, các bạn nam có thể tha hồ lựa chọn kiểu dáng ưng ý để khoe cá tính trẻ trung, năng động mỗi khi xuống phố.
@@ -242,6 +272,8 @@ class Productseeder extends Seeder
             ]),
              "view" => random_int(50,500),
             "category_id" => 2,
+             "photo" => "20230307-product1.jpg",
+          "photo1" => "20230307-product11.jpg",  
             "created_at" => date("Y-m-d H:i:s"),
             "updated_at" => date("Y-m-d H:i:s"),
           ]
@@ -250,6 +282,7 @@ class Productseeder extends Seeder
       DB::table('table_products')->insert(
           [
             "code" => "PROF" . date('Ymd'),
+            "slug" => "quan-jean-nu",
             "name" => "Quần jean nữ ống rộng phong cách Ulzzang School",
             "regular_price" => 300000,
             "sale_price" => null,
@@ -263,6 +296,8 @@ class Productseeder extends Seeder
             ]),
             "view" => random_int(50,500),
             "category_id" => 2,
+             "photo" => "20230307-product1.jpg",
+          "photo1" => "20230307-product11.jpg",  
             "created_at" => date("Y-m-d H:i:s"),
             "updated_at" => date("Y-m-d H:i:s"),
           ]
@@ -272,6 +307,7 @@ class Productseeder extends Seeder
        DB::table('table_products')->insert(
         [
           "code" => "PROF" . date('Ymd'),
+          "slug" => "giay-the-thao-nu",
           "name" => "Giày Thể Thao Nữ TU2128",
           "regular_price" => 300000,
           "sale_price" => null,
@@ -285,6 +321,8 @@ class Productseeder extends Seeder
           ]),
            "view" => random_int(50,500),
           "category_id" => 4,
+           "photo" => "20230307-product1.jpg",
+          "photo1" => "20230307-product11.jpg",  
           "created_at" => date("Y-m-d H:i:s"),
           "updated_at" => date("Y-m-d H:i:s"),
         ]
@@ -295,6 +333,7 @@ class Productseeder extends Seeder
           [
             "code" => "PROF" . date('Ymd'),
             "name" => "Túi xách da nữ handmade VLS 8001",
+            "slug" => "tui-xach",
             "regular_price" => 800000,
             "sale_price" => 40000,
             "discount" => 5,
@@ -308,6 +347,8 @@ class Productseeder extends Seeder
             ]),
              "view" => random_int(50,500),
             "category_id" => 3,
+             "photo" => "20230307-product1.jpg",
+          "photo1" => "20230307-product11.jpg",  
             "created_at" => date("Y-m-d H:i:s"),
             "updated_at" => date("Y-m-d H:i:s"),
           ]
@@ -317,6 +358,7 @@ class Productseeder extends Seeder
           [
             "code" => "PROF" . date('Ymd'),
             "name" => "Mắt Kính Pedro / 4M / MKPD5",
+            "slug" => "mat-kinh-nam-nu",
             "regular_price" => 250000,
             "sale_price" => null,
             "discount" => null,
@@ -329,6 +371,8 @@ class Productseeder extends Seeder
             ]),
              "view" => random_int(50,500),
             "category_id" => 6,
+             "photo" => "20230307-product1.jpg",
+          "photo1" => "20230307-product11.jpg",  
             "created_at" => date("Y-m-d H:i:s"),
             "updated_at" => date("Y-m-d H:i:s"),
           ]
@@ -337,6 +381,7 @@ class Productseeder extends Seeder
       DB::table('table_products')->insert(
         [
           "code" => "PROF" . date('Ymd'),
+          "slug" => "mat-kinh",
           "name" => "Mắt kính chống bức xạ phong cách thời trang sành điệu",
           "regular_price" => 105000,
           "sale_price" => null,
@@ -350,6 +395,8 @@ class Productseeder extends Seeder
           ]),
            "view" => random_int(50,500),
           "category_id" => 6,
+           "photo" => "20230307-product1.jpg",
+          "photo1" => "20230307-product11.jpg",  
           "created_at" => date("Y-m-d H:i:s"),
           "updated_at" => date("Y-m-d H:i:s"),
         ]
@@ -358,6 +405,7 @@ class Productseeder extends Seeder
       DB::table('table_products')->insert(
         [
           "code" => "PROF" . date('Ymd'),
+          "slug" => "dong-ho-nam",
           "name" => "Đồng Hồ Nam Crnaira Japan C3079 Siêu Mỏng Dây Thép Lụa Cao Cấp",
           "regular_price" => 300000,
           "sale_price" => null,
@@ -373,6 +421,8 @@ class Productseeder extends Seeder
           ]),
            "view" => random_int(50,500),
           "category_id" => 5,
+           "photo" => "20230307-product1.jpg",
+          "photo1" => "20230307-product11.jpg",  
           "created_at" => date("Y-m-d H:i:s"),
           "updated_at" => date("Y-m-d H:i:s"),
         ]
