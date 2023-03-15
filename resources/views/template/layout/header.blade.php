@@ -11,9 +11,9 @@
             <div class="menu">
                 <div class="wrap-content">
                     <ul class="d-flex align-items-center justify-content-between">
-                        <li><a class="transition" href="" title=""> Trang chủ </a></li>
+                        <li><a class="transition" href="\" title=""> Trang chủ </a></li>
                         <li><a class="transition" href="" title=""> Giới thiệu </a></li>
-                        <li><a class="transition" href="" title=""> Sản phẩm </a></li>
+                        <li><a class="transition" href="{{route('san-pham')}}" title="Sản phẩm"> Sản phẩm </a></li>
                         <li><a class="transition" href="" title=""> Dịch vụ </a></li>
                         <li><a class="transition" href="" title=""> Tin tức </a></li>
                         <li><a class="transition" href="" title=""> Album ảnh </a></li>

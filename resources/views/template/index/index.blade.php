@@ -14,7 +14,7 @@
                 <?php }?>
             </div>
 
-            <div class="load_ajax_product" data-aos="fade-up" data-aos-duration="1000">
+            <div class="load_ajax_product" >
 
             </div>
         </div>

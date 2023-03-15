@@ -20,6 +20,7 @@ class Productseeder extends Seeder
         [
           "code" => "PROF" . date('Ymd'),
           "name" => "Áo polo nam Aristino",
+          "slug" => "ao-polo-name-aristino",
           "regular_price" => 250000,
           "sale_price" => 10000,
           "discount" => 4,
@@ -27,7 +28,7 @@ class Productseeder extends Seeder
           "desc" => "Giới thiệu đến bạn chiếc áo polo nam
             chiếc áo sẽ giúp cho các chàng trai trở nên lịch lãm,
             sang trọng và trẻ trung hơn. Với collection này thì Coolmate
-            sẽ mang cho bạn một mẫu áo polo nam với nhưng họa tiết 
+            sẽ mang cho bạn một mẫu áo polo nam với nhưng họa tiết
             đơn giản nhưng rất trẻ trung và dễ mix đồ chắc chắn nên
               có trong tủ đồ áo nam của bạn",
           "properties" => json_encode([
@@ -35,16 +36,20 @@ class Productseeder extends Seeder
             "origin" => "Việt Nam",
             "colors" => ["00a8ff","dcdde1","2d3436"],
           ]),
-          "category_id" => 2,
+          "photo" => "20230307-product1.jpg",
+          "photo1" => "20230307-product11.jpg",
+          "category_id" => 1,
+          "status" => 1,
           "created_at" => date("Y-m-d H:i:s"),
           "updated_at" => date("Y-m-d H:i:s"),
         ]
       );
-      //4 - Nữ 
+      //4 - Nữ
       DB::table('table_products')->insert(
         [
           "code" => "PROF" . date('Ymd'),
-          "name" => "Sandal dây đế bánh mì nữ 5cm nhẹ êm mềm dễ đi quai mảnh rẻ bền đẹp phong cách cá tính",
+          "name" => "Sandal nữ",
+          "slug" => "sandal-nu",
           "regular_price" => random_int(100000,600000),
           "stock" => random_int(10,60),
           "desc" => "• Sản phẩm làm từ chất liệu cao cấp,chắc chắn, mềm mại, dẻo dai.\n
@@ -58,20 +63,24 @@ class Productseeder extends Seeder
             "origin" => "Việt Nam",
             "colors" => ["f7f1e3"],
           ]),
-          "category_id" => 4,
+          "category_id" => 2,
+          "photo" => "20230307-product1.jpg",
+          "photo1" => "20230307-product11.jpg",
+          "status" => 1,
           "created_at" => date("Y-m-d H:i:s"),
           "updated_at" => date("Y-m-d H:i:s"),
         ]
       );
-      //4 - Nữ 
+      //4 - Nữ
       DB::table('table_products')->insert(
         [
           "code" => "PROF" . date('Ymd'),
-          "name" => "Guốc cao gót nơ lụa to xinh xắn sang chảnh hàng đẹp.",
+          "name" => "Guốc cao gót nữ",
+          "slug" => "guoc-cao-got-nu",
           "regular_price" => 520000,
           "sale_price" => 25000,
           "discount" => 4.8,
-          "desc" => "Giày cao cấp giá sale đó ạ. 
+          "desc" => "Giày cao cấp giá sale đó ạ.
             Gót cao 9p, đen thì có cả 9p và 6p nhoa.
             Những đơn hàng đầu tiên của sp luôn dc giá thấp hơn nhìu nên chị em tranh thủ đặt nha. 😍😍\n
             Giày của shop em là khỏi phải nói về độ đẹp của nó rồi ạ.100 khách mua đều 100 khách khen đẹp và giá quá tốt.
@@ -84,28 +93,10 @@ class Productseeder extends Seeder
             "origin" => "Việt Nam",
             "colors" => ["ffffff","000000"],
           ]),
-          "category_id" => 4,
-          "created_at" => date("Y-m-d H:i:s"),
-          "updated_at" => date("Y-m-d H:i:s"),
-        ]
-      );
-       //1 - Nữ,Nam 
-      DB::table('table_products')->insert(
-        [
-          "code" => "PROF" . date('Ymd'),
-          "name" => "Áo thun tay lỡ unisex SADTAGRAM TEE - Áo phông F&S nam nữ",
-          "regular_price" => random_int(100000,600000),
-          "stock" => random_int(10,60),
-          "desc" => " Áo thun tay lỡ form rộng kiểu dáng sadboiz ngày nay
-           đang trở nên phổ biến trong giới trẻ với sự đa dạng thiết kế kiểu
-            dáng độc đáo bắt mắt, là sự lựa chọn không thể bỏ qua của áo thun nam,
-             áo thun nữ, áo thun cặp đôi và áo thun hội nhóm ",
-          "properties" => json_encode([
-            "sizes" => ["S (29-35kg:M31-M41)","XXL (trên 63kg:M7)","M (36-44kg:M42-M52)","L (45-51kg:M53-M59)"],
-            "origin" => "Việt Nam",
-            "colors" => ["ffffff","000000"],
-          ]),
-          "category_id" => 1,
+          "category_id" => 3,
+          "photo" => "20230307-product1.jpg",
+          "photo1" => "20230307-product11.jpg",
+          "status" => 1,
           "created_at" => date("Y-m-d H:i:s"),
           "updated_at" => date("Y-m-d H:i:s"),
         ]
@@ -114,7 +105,8 @@ class Productseeder extends Seeder
       DB::table('table_products')->insert(
         [
           "code" => "PROF" . date('Ymd'),
-          "name" => "BỘ COTTON THỂ THAO CHO BÉ TRAI",
+          "name" => "bộ cotton bé trai",
+          "slug" => "bo-cotton-be-trai",
           "regular_price" => random_int(100000,600000),
           "stock" => random_int(10,60),
           "desc" => "Quần chíp đùi in hình cho bé gái nhiều màu sắc dễ thương kết hợp cùng với hình in đáng yêu cho bé sự thích thú khi mặc.\n
@@ -125,7 +117,10 @@ class Productseeder extends Seeder
             "origin" => "Việt Nam",
             "colors" => ["ffffff","ff5252","34ace0",'4b4b4b',"fff200"],//white-red-blue-black_light-yellow
           ]),
-          "category_id" => 5,
+          "category_id" => 4,
+          "photo" => "20230307-product1.jpg",
+          "photo1" => "20230307-product11.jpg",
+          "status" => 1,
           "created_at" => date("Y-m-d H:i:s"),
           "updated_at" => date("Y-m-d H:i:s"),
         ]
@@ -134,7 +129,8 @@ class Productseeder extends Seeder
       DB::table('table_products')->insert(
         [
           "code" => "PROF" . date('Ymd'),
-          "name" => "Áo ba lỗ cho bé trai bé gái mùa hè,áo lưới bé trai xuất xịn",
+          "name" => "Áo ba lỗ cho bé trai",
+          "slug" => "ao-ba-lo-cho-be-trai",
           "regular_price" => random_int(100000,600000),
           "stock" => random_int(10,60),
           "desc" => "Áo lưới trẻ em là món đồ mà shop chúng tôi muốn gợi ý cho các mẹ trong thời tiết nóng bức này",
@@ -144,6 +140,9 @@ class Productseeder extends Seeder
             "colors" => ["ff4d4d","3ae374"],//red-green
           ]),
           "category_id" => 5,
+          "photo" => "20230307-product1.jpg",
+          "photo1" => "20230307-product11.jpg",
+          "status" => 1,
           "created_at" => date("Y-m-d H:i:s"),
           "updated_at" => date("Y-m-d H:i:s"),
         ]
@@ -152,7 +151,8 @@ class Productseeder extends Seeder
       DB::table('table_products')->insert(
         [
           "code" => "PROF" . date('Ymd'),
-          "name" => "ÁO HOODIE UNISEX Nam Nữ BASIC CAO CẤP",
+          "name" => "áo hoodie",
+          "slug" => "ao-hoodie",
           "regular_price" => 350000,
           "sale_price" => 15000,
           "discount" => 4.2,
@@ -165,6 +165,9 @@ class Productseeder extends Seeder
             "colors" => ["ffffff","000000","3ae374"],
           ]),
           "category_id" => 1,
+          "photo" => "20230307-product1.jpg",
+          "photo1" => "20230307-product11.jpg",
+          "status" => 1,
           "created_at" => date("Y-m-d H:i:s"),
           "updated_at" => date("Y-m-d H:i:s"),
         ]
@@ -173,17 +176,21 @@ class Productseeder extends Seeder
       DB::table('table_products')->insert(
           [
             "code" => "PROF" . date('Ymd'),
-            "name" => "Váy đi tiệc dáng xoè dài tay thắt nơ cổ có khoá kéo",
+            "name" => "Váy đi tiệc",
+            "slug" => "vay-di-tiec",
             "regular_price" => random_int(100000,600000),
             "stock" => random_int(10,60),
-            "desc" => "💥Váy mang phong cách thời trang thời thượng các bạn trẻ; đặc biệt không những giúp 
+            "desc" => "💥Váy mang phong cách thời trang thời thượng các bạn trẻ; đặc biệt không những giúp
              (Được sử dụng nhiều trong dịp Lễ hội, Đi chơi, Da ngoại, Dạo phố, Du lịch...)",
             "properties" => json_encode([
               "sizes" => ["M (47-52kg)","L(53-62kg)","S (40-46kg)"],
               "origin" => "Việt Nam",
               "colors" => ["000000","f6b93b"],
             ]),
-            "category_id" =>3,
+            "category_id" =>1,
+            "photo" => "20230307-product1.jpg",
+          "photo1" => "20230307-product11.jpg",
+            "status" => 1,
             "created_at" => date("Y-m-d H:i:s"),
             "updated_at" => date("Y-m-d H:i:s"),
           ]
@@ -192,7 +199,8 @@ class Productseeder extends Seeder
       DB::table('table_products')->insert(
           [
             "code" => "PROF" . date('Ymd'),
-            "name" => "Đầm sơ mi nhún eo chất liệu chiffon phong cách Hàn Quốc cho nữ",
+            "name" => "Đầm sơ mi",
+            "slug" => "dam-so-mi",
             "regular_price" => random_int(100000,600000),
             "stock" => random_int(10,60),
             "desc" => "Phong cách: ngọt ngào và tươi mát / phong cách Nhật Bản\n
@@ -204,7 +212,10 @@ class Productseeder extends Seeder
               "origin" => "China",
               "colors" => ["000000"],
             ]),
-            "category_id" => 3,
+            "category_id" => 1,
+            "photo" => "20230307-product1.jpg",
+          "photo1" => "20230307-product11.jpg",
+            "status" => 1,
             "created_at" => date("Y-m-d H:i:s"),
             "updated_at" => date("Y-m-d H:i:s"),
           ]
@@ -213,12 +224,13 @@ class Productseeder extends Seeder
       DB::table('table_products')->insert(
           [
             "code" => "PROF" . date('Ymd'),
-            "name" => "quần jean nam cao cấp ống túm thể thao CGJ 351",
+            "name" => "quần jean nam",
+            "slug" => "quan-jean-nam",
             "regular_price" => random_int(100000,600000),
             "stock" => random_int(10,60),
             "desc" => "Quần jean luôn đa dạng về mẫu mã, kiểu dáng cũng như màu sắc. Do đó, các bạn nam có thể tha hồ lựa chọn kiểu dáng ưng ý để khoe cá tính trẻ trung, năng động mỗi khi xuống phố.
             Mẫu Quần Jean với những đường rách ngẫu hứng phối wash nhẹ phía trước rất đẹp mắt. Thiết kế hiện đại, trẻ trung, form quần ống côn trang nhã.\n
-            Màu xanh đen thông dụng, cho bạn nhiều lựa chọn khi phối đồ. 
+            Màu xanh đen thông dụng, cho bạn nhiều lựa chọn khi phối đồ.
             Chất liệu jean cao cấp, đảm bảo chắc chắn, bền đẹp và vẫn có độ co dãn nhất định khi mặc.\n
               Hai túi trước và hai túi sau tiện lợi, có độ sâu rộng phù hợp.
               Bạn có thể vô tư lựa chọn vì quần có rất nhiều size.",
@@ -227,7 +239,10 @@ class Productseeder extends Seeder
               "origin" => "Việt Nam",
               "colors" => ["82ccdd"],
             ]),
-            "category_id" => 2,
+            "category_id" => 1,
+            "photo" => "20230307-product1.jpg",
+          "photo1" => "20230307-product11.jpg",
+            "status" => 1,
             "created_at" => date("Y-m-d H:i:s"),
             "updated_at" => date("Y-m-d H:i:s"),
           ]
