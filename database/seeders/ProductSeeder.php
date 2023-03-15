@@ -15,7 +15,7 @@ class Productseeder extends Seeder
     public function run()
     {
          /* Creating 20 table_products with random data. */
-      //2 - Nam desc
+      //1 - Nam desc
       DB::table('table_products')->insert(
         [
           "code" => "PROF" . date('Ymd'),
@@ -35,12 +35,13 @@ class Productseeder extends Seeder
             "origin" => "Việt Nam",
             "colors" => ["00a8ff","dcdde1","2d3436"],
           ]),
+          "view" => random_int(50,5000),
           "category_id" => 2,
           "created_at" => date("Y-m-d H:i:s"),
           "updated_at" => date("Y-m-d H:i:s"),
         ]
       );
-      //4 - Nữ 
+      //2
       DB::table('table_products')->insert(
         [
           "code" => "PROF" . date('Ymd'),
@@ -58,6 +59,7 @@ class Productseeder extends Seeder
             "origin" => "Việt Nam",
             "colors" => ["f7f1e3"],
           ]),
+          "view" => random_int(50,500),
           "category_id" => 4,
           "created_at" => date("Y-m-d H:i:s"),
           "updated_at" => date("Y-m-d H:i:s"),
@@ -84,6 +86,7 @@ class Productseeder extends Seeder
             "origin" => "Việt Nam",
             "colors" => ["ffffff","000000"],
           ]),
+          "view" => random_int(50,500),
           "category_id" => 4,
           "created_at" => date("Y-m-d H:i:s"),
           "updated_at" => date("Y-m-d H:i:s"),
@@ -94,7 +97,7 @@ class Productseeder extends Seeder
         [
           "code" => "PROF" . date('Ymd'),
           "name" => "Áo thun tay lỡ unisex SADTAGRAM TEE - Áo phông F&S nam nữ",
-          "regular_price" => random_int(100000,600000),
+          "regular_price" => 180000,
           "stock" => random_int(10,60),
           "desc" => " Áo thun tay lỡ form rộng kiểu dáng sadboiz ngày nay
            đang trở nên phổ biến trong giới trẻ với sự đa dạng thiết kế kiểu
@@ -105,7 +108,8 @@ class Productseeder extends Seeder
             "origin" => "Việt Nam",
             "colors" => ["ffffff","000000"],
           ]),
-          "category_id" => 1,
+           "view" => random_int(50,500),
+          "category_id" => 2,
           "created_at" => date("Y-m-d H:i:s"),
           "updated_at" => date("Y-m-d H:i:s"),
         ]
@@ -115,7 +119,7 @@ class Productseeder extends Seeder
         [
           "code" => "PROF" . date('Ymd'),
           "name" => "BỘ COTTON THỂ THAO CHO BÉ TRAI",
-          "regular_price" => random_int(100000,600000),
+          "regular_price" => 100000,
           "stock" => random_int(10,60),
           "desc" => "Quần chíp đùi in hình cho bé gái nhiều màu sắc dễ thương kết hợp cùng với hình in đáng yêu cho bé sự thích thú khi mặc.\n
             Chất vải 100% cotton co giãn, thấm hút mồ hôi, lưng thun mềm giúp bé thoải mái khi măc.\n
@@ -125,7 +129,8 @@ class Productseeder extends Seeder
             "origin" => "Việt Nam",
             "colors" => ["ffffff","ff5252","34ace0",'4b4b4b',"fff200"],//white-red-blue-black_light-yellow
           ]),
-          "category_id" => 5,
+           "view" => random_int(50,500),
+          "category_id" => 2,
           "created_at" => date("Y-m-d H:i:s"),
           "updated_at" => date("Y-m-d H:i:s"),
         ]
@@ -143,12 +148,13 @@ class Productseeder extends Seeder
             "origin" => "Việt Nam",
             "colors" => ["ff4d4d","3ae374"],//red-green
           ]),
-          "category_id" => 5,
+           "view" => random_int(50,500),
+          "category_id" => 2,
           "created_at" => date("Y-m-d H:i:s"),
           "updated_at" => date("Y-m-d H:i:s"),
         ]
       );
-      //1 - All
+     
       DB::table('table_products')->insert(
         [
           "code" => "PROF" . date('Ymd'),
@@ -164,7 +170,8 @@ class Productseeder extends Seeder
             "origin" => "Việt Nam",
             "colors" => ["ffffff","000000","3ae374"],
           ]),
-          "category_id" => 1,
+           "view" => random_int(50,500),
+          "category_id" => 2,
           "created_at" => date("Y-m-d H:i:s"),
           "updated_at" => date("Y-m-d H:i:s"),
         ]
@@ -174,7 +181,9 @@ class Productseeder extends Seeder
           [
             "code" => "PROF" . date('Ymd'),
             "name" => "Váy đi tiệc dáng xoè dài tay thắt nơ cổ có khoá kéo",
-            "regular_price" => random_int(100000,600000),
+            "regular_price" => 500000,
+            "sale_price" => 20000,
+            "discount" => 4,
             "stock" => random_int(10,60),
             "desc" => "💥Váy mang phong cách thời trang thời thượng các bạn trẻ; đặc biệt không những giúp 
              (Được sử dụng nhiều trong dịp Lễ hội, Đi chơi, Da ngoại, Dạo phố, Du lịch...)",
@@ -183,7 +192,8 @@ class Productseeder extends Seeder
               "origin" => "Việt Nam",
               "colors" => ["000000","f6b93b"],
             ]),
-            "category_id" =>3,
+             "view" => random_int(50,500),
+            "category_id" =>2,
             "created_at" => date("Y-m-d H:i:s"),
             "updated_at" => date("Y-m-d H:i:s"),
           ]
@@ -193,8 +203,10 @@ class Productseeder extends Seeder
           [
             "code" => "PROF" . date('Ymd'),
             "name" => "Đầm sơ mi nhún eo chất liệu chiffon phong cách Hàn Quốc cho nữ",
-            "regular_price" => random_int(100000,600000),
-            "stock" => random_int(10,60),
+            "regular_price" => 500000,
+            "sale_price" => 20000,
+            "discount" => 4,
+            "stock" => random_int(10,50),
             "desc" => "Phong cách: ngọt ngào và tươi mát / phong cách Nhật Bản\n
             Các yếu tố / hàng thủ công phổ biến: màu trơn, nút\n
             Phong cách: Váy chữ A\nĐộ dài tay áo: Tay áo dài\nChiều dài váy: Váy giữa\n
@@ -204,17 +216,18 @@ class Productseeder extends Seeder
               "origin" => "China",
               "colors" => ["000000"],
             ]),
-            "category_id" => 3,
+             "view" => random_int(50,500),
+            "category_id" => 2,
             "created_at" => date("Y-m-d H:i:s"),
             "updated_at" => date("Y-m-d H:i:s"),
           ]
         );
       //2- Nam
       DB::table('table_products')->insert(
-          [
+        [
             "code" => "PROF" . date('Ymd'),
             "name" => "quần jean nam cao cấp ống túm thể thao CGJ 351",
-            "regular_price" => random_int(100000,600000),
+            "regular_price" => 150000,
             "stock" => random_int(10,60),
             "desc" => "Quần jean luôn đa dạng về mẫu mã, kiểu dáng cũng như màu sắc. Do đó, các bạn nam có thể tha hồ lựa chọn kiểu dáng ưng ý để khoe cá tính trẻ trung, năng động mỗi khi xuống phố.
             Mẫu Quần Jean với những đường rách ngẫu hứng phối wash nhẹ phía trước rất đẹp mắt. Thiết kế hiện đại, trẻ trung, form quần ống côn trang nhã.\n
@@ -227,10 +240,142 @@ class Productseeder extends Seeder
               "origin" => "Việt Nam",
               "colors" => ["82ccdd"],
             ]),
+             "view" => random_int(50,500),
             "category_id" => 2,
             "created_at" => date("Y-m-d H:i:s"),
             "updated_at" => date("Y-m-d H:i:s"),
           ]
-        );
+      );
+      //id -11 -> quần jean nữ ống rộng
+      DB::table('table_products')->insert(
+          [
+            "code" => "PROF" . date('Ymd'),
+            "name" => "Quần jean nữ ống rộng phong cách Ulzzang School",
+            "regular_price" => 300000,
+            "sale_price" => null,
+            "discount" => null,
+            "stock" => random_int(10,50),
+            "desc" => "Chất liệu Jeans Cotton mềm mát độ dày vừa phải cùng với form baggy suông rộng đem lại cảm giác thoải mái khi mặc thường xuyên",
+            "properties" => json_encode([
+              "sizes" => ["Size S","Size M","Size L"],
+              "origin" => "Việt Nam",
+              "colors" => ["000000","48dbfb"],
+            ]),
+            "view" => random_int(50,500),
+            "category_id" => 2,
+            "created_at" => date("Y-m-d H:i:s"),
+            "updated_at" => date("Y-m-d H:i:s"),
+          ]
+      );
+    
+       //id -12 -> Giày Thể Thao Nữ TU2128
+       DB::table('table_products')->insert(
+        [
+          "code" => "PROF" . date('Ymd'),
+          "name" => "Giày Thể Thao Nữ TU2128",
+          "regular_price" => 300000,
+          "sale_price" => null,
+          "discount" => null,
+          "stock" => random_int(10,50),
+          "desc" => "Chính hãng 100%, đẹp thoải mái, tự tin cá tính",
+          "properties" => json_encode([
+            "sizes" => [35,36,37,38],
+            "origin" => "Việt Nam",
+            "colors" => ["F7F1E5"],
+          ]),
+           "view" => random_int(50,500),
+          "category_id" => 4,
+          "created_at" => date("Y-m-d H:i:s"),
+          "updated_at" => date("Y-m-d H:i:s"),
+        ]
+      );
+
+        //id -13 -> Giày Thể Thao Nữ TU2128
+      DB::table('table_products')->insert(
+          [
+            "code" => "PROF" . date('Ymd'),
+            "name" => "Túi xách da nữ handmade VLS 8001",
+            "regular_price" => 800000,
+            "sale_price" => 40000,
+            "discount" => 5,
+            "stock" => random_int(10,50),
+            "desc" => "Nếu bạn muốn sở hữu một chiếc túi xách nữ đẳng cấp, 
+            mang đậm chất nữ tính thì túi xách nữ da thật Gento mã VLS 8001 là một lựa chọn hợp lý.",
+            "properties" => json_encode([
+              "sizes" => [],
+              "origin" => "Việt Nam",
+              "colors" => [],
+            ]),
+             "view" => random_int(50,500),
+            "category_id" => 3,
+            "created_at" => date("Y-m-d H:i:s"),
+            "updated_at" => date("Y-m-d H:i:s"),
+          ]
+      );
+      //id;14
+      DB::table('table_products')->insert(
+          [
+            "code" => "PROF" . date('Ymd'),
+            "name" => "Mắt Kính Pedro / 4M / MKPD5",
+            "regular_price" => 250000,
+            "sale_price" => null,
+            "discount" => null,
+            "stock" => random_int(10,50),
+            "desc" => "Phong cách thời trang trẻ trung đẹp với các bạn trẻ",
+            "properties" => json_encode([
+              "sizes" => [],
+              "origin" => "Việt Nam",
+              "colors" => ["000000","fed330","45aaf2"],
+            ]),
+             "view" => random_int(50,500),
+            "category_id" => 6,
+            "created_at" => date("Y-m-d H:i:s"),
+            "updated_at" => date("Y-m-d H:i:s"),
+          ]
+      );
+       //id;15
+      DB::table('table_products')->insert(
+        [
+          "code" => "PROF" . date('Ymd'),
+          "name" => "Mắt kính chống bức xạ phong cách thời trang sành điệu",
+          "regular_price" => 105000,
+          "sale_price" => null,
+          "discount" => null,
+          "stock" => random_int(10,50),
+          "desc" => "Kính/mắt kính dùng máy tính là mắt kính có mục đích đặc biệt/mắt kính dùng để tối ưu hóa thị lực. Thiết kế kính/mắt kính dành cho cả nam và nữ sử dụng, giá cả phải chăng, và thoải mái hơn. Kính/mắt kính được làm bằng chất liệu acetate chất lượng đảm bảo độ bền cực cao và tạo sự thoải mái tối đa cho người đeo.",
+          "properties" => json_encode([
+            "sizes" => [],
+            "origin" => "Việt Nam",
+            "colors" => ["ffffff","45aaf2"],
+          ]),
+           "view" => random_int(50,500),
+          "category_id" => 6,
+          "created_at" => date("Y-m-d H:i:s"),
+          "updated_at" => date("Y-m-d H:i:s"),
+        ]
+      );
+    //id;16
+      DB::table('table_products')->insert(
+        [
+          "code" => "PROF" . date('Ymd'),
+          "name" => "Đồng Hồ Nam Crnaira Japan C3079 Siêu Mỏng Dây Thép Lụa Cao Cấp",
+          "regular_price" => 300000,
+          "sale_price" => null,
+          "discount" => null,
+          "stock" => random_int(10,50),
+          "desc" => "Máy Siêu Mỏng, (hiện những đồng hồ đầy đủ chức năng này rất hiếm vì chi phí sản xuất rất cao)\n
+          •	Kiểu dáng năng động và lịch lãm (phong cách doanh nhân châu âu)\n
+          •	Chống nước sinh hoạt + Mặt kính Mineral rất trong và chồng trầy sinh hoạt.",
+          "properties" => json_encode([
+            "sizes" => [],
+            "origin" => "Châu âu",
+            "colors" => ["000000"],
+          ]),
+           "view" => random_int(50,500),
+          "category_id" => 5,
+          "created_at" => date("Y-m-d H:i:s"),
+          "updated_at" => date("Y-m-d H:i:s"),
+        ]
+      );
     }
 }

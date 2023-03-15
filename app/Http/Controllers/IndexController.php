@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
+use File;
+use App\Models\TablePost;
 use App\Models\TablePhoto;
 use App\Models\TableStatic;
 use App\Models\TableProduct;
+use Illuminate\Http\Request;
 use App\Models\TableCategory;
-use App\Models\TablePost;
-use File;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File as ABC;
 
 class IndexController extends Controller
 {
@@ -106,7 +107,7 @@ class IndexController extends Controller
         // die($size);
         $path = public_path().'/thumbs/'.$size ;
         if(!file_exists($path)){
-            File::makeDirectory($path);
+            ABC::makeDirectory($path);
         }
 
 

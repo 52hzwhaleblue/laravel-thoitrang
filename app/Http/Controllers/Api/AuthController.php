@@ -32,7 +32,7 @@ class AuthController extends BaseController
             }
             
             $tableUser = User::where('phone',$request->phone)->first();
-
+                
             $token = $tableUser->createToken('auth-login'.$tableUser->id, ['expires_at' => now()])->plainTextToken;
 
             return $this->sendResponse($token,'user Logged In Successfully');
@@ -53,8 +53,7 @@ class AuthController extends BaseController
     }
 
     public function register(Request $request)
-    {
-        
+    {     
         try {
             $validateTableUser = Validator::make($request->all(), 
             [
@@ -128,6 +127,7 @@ class AuthController extends BaseController
                 "username" => "username@" .Str::random(6),
                 "fullName" => $request->fullname,
                 "email" => $request->email,
+                "login_provider" => "google",
             ]);
             
             $token = $TableUser->createToken('auth-login-google'.$TableUser->id, ['expires_at' => now()])->plainTextToken;
