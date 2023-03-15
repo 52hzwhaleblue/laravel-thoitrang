@@ -393,6 +393,7 @@ class Productseeder extends Seeder
             "origin" => "Việt Nam",
             "colors" => ["ffffff","45aaf2"],
           ]),
+          //tao comment chỗ này
            "view" => random_int(50,500),
           "category_id" => 6,
            "photo" => "20230307-product1.jpg",
