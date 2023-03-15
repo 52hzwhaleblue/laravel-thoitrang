@@ -73,7 +73,13 @@ class ProductController extends Controller
         }
         $product->category_id =(int)$request->get('category_id');
 
-        $product->status =$request->get('status');
+        if(empty($product->category_id)){
+            return redirect()
+                ->route('admin.product.product-man.index')
+                ->with('warning', 'Vui lòng chọn danh mục cấp 1');
+        }
+
+        $product->status = (int)$request->get('status');
         $product->slug = $request->get('slug');
         $checkSlug = Functions::checkSlug($product);
 
@@ -137,7 +143,6 @@ class ProductController extends Controller
     public function update(Request $request, $slug)
     {
         $count = TableProduct::all()->count();
-        $fix_status = implode(',', $request->get('status'));
         if ($request->has('photo')) {
             $file = $request->photo;
             $ext = $request->photo->extension(); //lấy đuôi file png||jpg
@@ -155,17 +160,24 @@ class ProductController extends Controller
 
         $product = TableProduct::where('slug', $slug)->first();
 
+        $product->status = (int)$request->get('status');
         $product->name = $request->get('name');
         $product->desc = $request->get('desc');
         $product->content = $request->get('content');
-        $product->category_id = $request->get('category_id');
+        $product->category_id =(int)$request->get('category_id');
+
+
+        if(empty($product->category_id)){
+            return redirect()
+                ->route('admin.product.product-man.index')
+                ->with('warning', 'Vui lòng chọn danh mục cấp 1');
+        }
         if ($request->has('photo')) {
             $product->photo = $file_name;
         }
         if ($request->has('photo1')) {
             $product->photo1 = $file_name1;
         }
-        $product->status = implode(',', $request->get('status'));
         $product->slug = $request->get('slug');
 
         $checkSlug = Functions::checkSlug($product);

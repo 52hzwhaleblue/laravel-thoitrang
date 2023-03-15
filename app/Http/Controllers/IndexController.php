@@ -69,7 +69,7 @@ class IndexController extends Controller
         ';
         foreach ($data as $k =>$v){
         $output .='
-            <div class="pronb-item">
+            <div class="pronb-item" data-aos="fade-up" data-aos-duration="1500">
                 <div class="pronb-image">
                     <a class="pronb-img scale-img hover_sang3" href= '.$v->slug.' >
                         <img src='.asset("backend/assets/img/products/$v->photo").' alt="" width="365"
@@ -105,7 +105,28 @@ class IndexController extends Controller
         if(!file_exists($path)){
             File::makeDirectory($path);
         }
+    }
 
+    public function san_pham()
+    {
+        $product = DB::table('table_products')->paginate(8);
 
+        return view('template.product.product',compact([
+            'product',
+        ]));
+    }
+
+    public function chi_tiet_san_pham($slug)
+    {
+        $product = DB::table('table_products')->paginate(8);
+        $product_detail = DB::table('table_products')
+        ->where('slug', $slug)
+        ->get();
+        // dd($product_detail);
+
+        return view('template.product.detail',compact([
+            'product_detail',
+            'product',
+        ]));
     }
 }

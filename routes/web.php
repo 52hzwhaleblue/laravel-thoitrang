@@ -122,6 +122,10 @@ Route::group([
 
 // =========== user
  Route::get('/', [IndexController::class,'index']);
+ Route::get('/san-pham', [IndexController::class,'san_pham'])->name('san-pham');
+ Route::get('/{slug}', [IndexController::class,'chi_tiet_san_pham'])->name('chi_tiet_san_pham');
+
+
  Route::get('/thumbs_img', [IndexController::class,'thumbs_img']);
  Route::get('/load_ajax_product', [IndexController::class,'load_ajax_product']);
 
