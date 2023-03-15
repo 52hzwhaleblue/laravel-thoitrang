@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('name')->nullable()->default(null);
             $table->string('file_attach')->nullable()->default(null);
             $table->string('type')->nullable()->default(null);
-            $table->string('status')->nullable()->default(null);
+            $table->integer('status')->default(1);
             $table->timestamps();
         });
 

@@ -24,7 +24,7 @@ return new class extends Migration
             $table->mediumText('content')->nullable()->default(null);
             $table->mediumText('options')->nullable()->default(null);
             $table->integer('numb')->nullable();
-            $table->json('status')->nullable()->default(null);
+            $table->integer('status')->default(1);
             $table->string('type')->nullable()->default(null);
             $table->integer('view')->nullable();
             $table->timestamps();

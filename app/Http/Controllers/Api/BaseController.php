@@ -43,7 +43,7 @@ class BaseController extends Controller
 
     public function uploadFile($request, $dir, $width, $height)
     {
-        if ($request->has('image')) {    
+        if ($request->has('image')) {
             foreach ($request->file('image') as $file) {
                 $filename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
                 $extension = $file->getClientOriginalExtension();
@@ -54,10 +54,57 @@ class BaseController extends Controller
                     $constraint->aspectRatio();
                     $constraint->upsize();
                 })->encode(null);
-                
+
                 // Save thumbnail to storage
                 $thumbnail_path = 'thumbnails/'. $dir  . $path_file;
-                
+
+                Storage::disk('public')->put($thumbnail_path, (string) $thumbnail_image->encode());
+
+                return $thumbnail_path;
+            }
+        }
+    }
+
+    public function uploadPhoto($request, $dir, $width, $height)
+    {
+        if ($request->has('photo')) {
+                $file = $request->file('photo');
+                $filename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                $extension = $file->getClientOriginalExtension();
+                $path_file = $filename . '_' . uniqid() . '.' . $extension;
+
+                // Resize image
+                $thumbnail_image = Image::make($file)->resize($width, $height, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                })->encode(null);
+
+                // Save thumbnail to storage
+                $thumbnail_path = 'thumbnails/'. $dir  . $path_file;
+
+                Storage::disk('public')->put($thumbnail_path, (string) $thumbnail_image->encode());
+
+                return $thumbnail_path;
+
+        }
+    }
+    public function uploadPhoto1($request, $dir, $width, $height)
+    {
+        if ($request->has('photo1')) {
+            foreach ($request->file('photo1') as $file) {
+                $filename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                $extension = $file->getClientOriginalExtension();
+                $path_file = $filename . '_' . uniqid() . '.' . $extension;
+
+                // Resize image
+                $thumbnail_image = Image::make($file)->resize($width, $height, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                })->encode(null);
+
+                // Save thumbnail to storage
+                $thumbnail_path = 'thumbnails/'. $dir  . $path_file;
+
                 Storage::disk('public')->put($thumbnail_path, (string) $thumbnail_image->encode());
 
                 return $thumbnail_path;

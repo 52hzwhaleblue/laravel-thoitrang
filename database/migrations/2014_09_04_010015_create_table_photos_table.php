@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('type')->nullable()->default(null);
             $table->string('act')->nullable()->default(null);
             $table->integer('numb')->nullable();
-            $table->string('status')->nullable()->default(null);
+            $table->integer('status')->default(1);
             $table->timestamps();
         });
 
