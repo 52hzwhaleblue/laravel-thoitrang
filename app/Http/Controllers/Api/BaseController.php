@@ -91,7 +91,7 @@ class BaseController extends Controller
     public function uploadPhoto1($request, $dir, $width, $height)
     {
         if ($request->has('photo1')) {
-            foreach ($request->file('photo1') as $file) {
+                $file = $request->file('photo1');
                 $filename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
                 $extension = $file->getClientOriginalExtension();
                 $path_file = $filename . '_' . uniqid() . '.' . $extension;
@@ -108,7 +108,7 @@ class BaseController extends Controller
                 Storage::disk('public')->put($thumbnail_path, (string) $thumbnail_image->encode());
 
                 return $thumbnail_path;
-            }
+
         }
     }
 
