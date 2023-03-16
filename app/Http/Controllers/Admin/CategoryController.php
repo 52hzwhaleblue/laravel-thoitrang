@@ -122,7 +122,6 @@ class CategoryController extends BaseController
         }
 
         $Category->save();
-
         return redirect()
             ->route('admin.product.product-list.index')
             ->with('message', 'Bạn đã cập nhật danh mục cấp 1 thành công!');
