@@ -44,9 +44,10 @@ class IndexController extends Controller
         $id =  $request->get('id');
         $tenkhongdau =  $request->get('tenkhongdau');
 
-        $data = TableProduct::where('category_id', $id)->get();
-        return $data;
-        die('dsd');
+        $data = DB::table('table_products')
+        ->where('category_id', $id)
+        ->get();
+
         $output = '
         <div class="owl-page owl-carousel owl-theme"
             data-xsm-items = "2:10"
@@ -74,11 +75,11 @@ class IndexController extends Controller
             <div class="pronb-item" data-aos="fade-up" data-aos-duration="1500">
                 <div class="pronb-image">
                     <a class="pronb-img scale-img hover_sang3" href= '.$v->slug.' >
-                        <img src='.asset("backend/assets/img/products/$v->photo").' alt="" width="365"
+                        <img src='.asset("http://localhost:8000/storage/$v->photo").' alt="" width="365"
                             height="365" />
                     </a>
                     <a class="pronb-img1 scale-img hover_sang3" href= '.$v->slug.'>
-                        <img src='.asset("backend/assets/img/products/$v->photo1").' alt="" width="365"
+                        <img src='.asset("http://localhost:8000/storage/$v->photo1").' alt="" width="365"
                             height="365" />
                     </a>
                 </div>

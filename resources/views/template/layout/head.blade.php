@@ -10,3 +10,6 @@
 
 
 <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
