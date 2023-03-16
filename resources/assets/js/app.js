@@ -121,9 +121,14 @@ function Home(){
     $('.list-hot a:first').addClass('active');
     var id = $('.list-hot a:first').data('id');
     var tenkhongdau = $('.list-hot a:first').data('tenkhongdau');
+    $.ajaxSetup({
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
     $.ajax({
         url: '/load_ajax_product',
-        type: 'GET',
+        type: 'POST',
         data: {id:id,tenkhongdau:tenkhongdau},
         success:function(data){
             $('.load_ajax_product').html(data);
@@ -136,9 +141,16 @@ function Home(){
         $(this).addClass('active');
         var id = $(this).data('id');
         var tenkhongdau = $(this).data('tenkhongdau');
+
+        $.ajaxSetup({
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
         $.ajax({
             url: '/load_ajax_product',
-            type: 'GET',
+            type: 'POST',
             data: {id:id,tenkhongdau:tenkhongdau},
             success:function(data){
                 $('.load_ajax_product').html(data);
