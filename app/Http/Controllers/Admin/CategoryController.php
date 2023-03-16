@@ -31,7 +31,6 @@ class CategoryController extends BaseController
         $url = $this->uploadPhoto($request,"categories/",415,655);
 
 
-        DB::table('table_categories')->insert(["photo" => $url]);
 
 
         $Category = new TableCategory();
@@ -58,7 +57,6 @@ class CategoryController extends BaseController
                 ->route('admin.product.product-list.create')
                 ->with('warning', 'Đường dẫn không được trống');
         }
-        dd($Category);
         $Category->save();
 
         return redirect()

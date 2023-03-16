@@ -8,8 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\TableCategory;
 use App\Models\TableProduct;
 use Functions;
+use App\Http\Controllers\Api\BaseController as BaseController;
 
-class ProductController extends Controller
+class ProductController extends BaseController
 {
     public $config_status = ['noibat','hienthi'];
 
@@ -45,20 +46,9 @@ class ProductController extends Controller
     {
         $count = TableProduct::all()->count();
 
-        if ($request->has('photo')) {
-            $file = $request->photo;
-            $ext = $request->photo->extension(); //lấy đuôi file png||jpg
-            $file_name =
-                Date('Ymd') . '-' . 'product' . $count . '.' . $ext;
-            $file->move(public_path('backend/assets/img/products'), $file_name); //chuyển file vào đường dẫn chỉ định
-        }
-        if ($request->has('photo1')) {
-            $file1 = $request->photo1;
-            $ext = $request->photo1->extension(); //lấy đuôi file png||jpg
-            $file_name1 =
-                Date('Ymd') . '-' . 'product1' . $count . '.' . $ext;
-            $file1->move(public_path('backend/assets/img/products'), $file_name1); //chuyển file vào đường dẫn chỉ định
-        }
+        $url = $this->uploadPhoto($request,"products/",415,655);
+        $url1 = $this->uploadPhoto1($request,"products/",415,655);
+
 
         $product = new TableProduct();
 
@@ -66,10 +56,10 @@ class ProductController extends Controller
         $product->desc = $request->get('desc');
         $product->content = $request->get('content');
         if ($request->has('photo')) {
-            $product->photo = $file_name;
+            $product->photo = $url;
         }
         if ($request->has('photo1')) {
-            $product->photo1 = $file_name1;
+            $product->photo1 = $url1;
         }
         $product->category_id =(int)$request->get('category_id');
 
