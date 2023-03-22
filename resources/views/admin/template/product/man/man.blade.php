@@ -109,8 +109,8 @@
                                                 <li>
                                                     <a
                                                         class="dropdown-item"
-                                                        href="#"
-                                                        >Action</a
+                                                        href="{{ route('admin.imagezone.show',$v['id']) }}"
+                                                        >Ảnh chi tiết sản phẩm</a
                                                     >
                                                 </li>
                                             </ul>

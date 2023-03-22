@@ -14,6 +14,7 @@ class TableProductDetail extends Model
     protected $fillable = [
         'photo',
         'product_id',
+        'image_name',
         'created_at',
         'updated_at',
     ];

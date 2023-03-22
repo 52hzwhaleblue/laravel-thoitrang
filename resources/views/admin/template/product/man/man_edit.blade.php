@@ -123,7 +123,7 @@
                             <div class="accordion-body text-center">
                                 <img class="mb-2" style="width: 200px; height: 200px" src="{{
                                         asset(
-                                            'backend/assets/img/products/'.$data['photo']
+                                            'http://localhost:8000/storage/'.$data['photo']
                                         )
                                     }}" alt="{{ $data['name'] }}" />
                                 <input type="file" name="photo" />
@@ -132,7 +132,7 @@
                             <div class="accordion-body text-center">
                                 <img class="mb-2" style="width: 200px; height: 200px" src="{{
                                         asset(
-                                            'backend/assets/img/products/'.$data['photo1']
+                                            'http://localhost:8000/storage/'.$data['photo1']
                                         )
                                     }}" alt="{{ $data['name'] }}" />
                                 <input type="file" name="photo1" />

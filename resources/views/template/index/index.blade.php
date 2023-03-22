@@ -38,7 +38,7 @@
                         src="{{ asset('http://localhost:8000/storage/'.$v->photo) }}" alt="slide" />
                 </div>
                 <h3 class="splistnb-name">
-                    <a class="text-split" href="{{$v->slug}}"> {{$v->name}} </a>
+                    <a class="text-split" href="{{$v->slug}}?id=$v->id"> {{$v->name}} </a>
                 </h3>
             </div>
             @endforeach
