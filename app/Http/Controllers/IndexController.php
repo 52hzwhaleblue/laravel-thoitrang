@@ -74,11 +74,12 @@ class IndexController extends Controller
         $output .='
             <div class="pronb-item" data-aos="fade-up" data-aos-duration="1500">
                 <div class="pronb-image">
-                    <a class="pronb-img scale-img hover_sang3" href= '.$v->slug.' >
+                    <a class="pronb-img scale-img hover_sang3" href= '.$v->slug.'/'.$v->id.' >
+
                         <img src='.asset("http://localhost:8000/storage/$v->photo").' alt="" width="365"
                             height="365" />
                     </a>
-                    <a class="pronb-img1 scale-img hover_sang3" href= '.$v->slug.'>
+                    <a class="pronb-img1 scale-img hover_sang3" href= '.$v->slug.'/'.$v->id.' >
                         <img src='.asset("http://localhost:8000/storage/$v->photo1").' alt="" width="365"
                             height="365" />
                     </a>
@@ -96,20 +97,6 @@ class IndexController extends Controller
 
     }
 
-
-    public function thumbs_img(Request $request)
-    {
-        $width =  $request->get('width');
-        $height =  $request->get('height');
-
-        $size = $width.'x'.$height;
-        // die($size);
-        $path = public_path().'/thumbs/'.$size ;
-        if(!file_exists($path)){
-            ABC::makeDirectory($path);
-        }
-    }
-
     public function san_pham()
     {
         $product = DB::table('table_products')->paginate(8);
@@ -119,16 +106,22 @@ class IndexController extends Controller
         ]));
     }
 
-    public function chi_tiet_san_pham($slug)
+    public function chi_tiet_san_pham(Request $request,$slug,$id)
     {
         $product = DB::table('table_products')->paginate(8);
-        $product_detail = DB::table('table_products')
+
+        $rowDetail = DB::table('table_products')
         ->where('slug', $slug)
         ->get();
-        // dd($product_detail);
+
+        $rowDetailPhoto = DB::table('table_product_details')
+        ->where('product_id', $id)
+        ->get();
+        // dd($rowDetailPhoto);
 
         return view('template.product.detail',compact([
-            'product_detail',
+            'rowDetailPhoto',
+            'rowDetail',
             'product',
         ]));
     }

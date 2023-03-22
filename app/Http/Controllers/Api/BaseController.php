@@ -112,4 +112,28 @@ class BaseController extends Controller
         }
     }
 
+    public function uploadRowDetailPhoto($request, $dir, $width, $height)
+    {
+        if ($request->has('file')) {
+                $file = $request->file('file');
+                $filename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                $extension = $file->getClientOriginalExtension();
+                $path_file = $filename . '_' . uniqid() . '.' . $extension;
+
+                // Resize image
+                $thumbnail_image = Image::make($file)->resize($width, $height, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                })->encode(null);
+
+                // Save thumbnail to storage
+                $thumbnail_path = 'thumbnails/'. $dir  . $path_file;
+
+                Storage::disk('public')->put($thumbnail_path, (string) $thumbnail_image->encode());
+
+                return $thumbnail_path;
+
+        }
+    }
+
 }

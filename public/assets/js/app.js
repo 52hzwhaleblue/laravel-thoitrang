@@ -117,7 +117,6 @@ function OwlPage(){
 
 
 function Home(){
-
     $('.list-hot a:first').addClass('active');
     var id = $('.list-hot a:first').data('id');
     var tenkhongdau = $('.list-hot a:first').data('tenkhongdau');
@@ -159,11 +158,35 @@ function Home(){
             }
         })
     });
-
 }
 
+
+function Slick(){
+    if($('.rowDetailPhoto-for').length > 0){
+        $('.rowDetailPhoto-for').slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows: false,
+            fade: true,
+            arrows: false,
+            asNavFor: '.rowDetailPhoto-nav'
+          });
+          $('.rowDetailPhoto-nav').slick({
+            slidesToShow: 9,
+            slidesToScroll: 1,
+            asNavFor: '.rowDetailPhoto-for',
+            dots: false,
+            centerMode: false,
+            vertical: true,
+            focusOnSelect: true,
+            arrows: false,
+          });
+
+    }
+}
 $(document).ready(function () {
     Home();
+    Slick();
     OwlPage();
     AosAnimation();
 });

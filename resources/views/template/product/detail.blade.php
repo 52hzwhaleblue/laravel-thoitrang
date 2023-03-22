@@ -1,39 +1,66 @@
 @extends('layouts.client')
 @section('content')
 <div class="grid-pro-detail d-flex flex-wrap justify-content-between align-items-start">
+
+
     <div class="left-pro-detail">
-        <a id="Zoom-1" class="MagicZoom" data-options="zoomMode: off; hint: off; rightClick: true; selectorTrigger: hover; expandCaption: false; history: false;" href="<?=$product_detail[0]->slug ?>" title="<?= $product_detail[0]->name ?>">
-            <img src="{{ asset('http://127.0.0.1:8000/storage/' . $product_detail[0]->photo) }}" />
-        </a>
+        <div class="rowDetailPhoto-for">
+            <?php foreach ($rowDetailPhoto as $k => $v) { ?>
+                <div class="rowDetailPhoto-img">
+                    <img class="w-100" src="{{ asset('http://127.0.0.1:8000/storage/' . $v->photo) }}" />
+                </div>
+            <?php } ?>
+        </div>
+
+        <?php if(count($rowDetailPhoto)) {?>
+            <div class="rowDetailPhoto-scroll">
+                <div class="rowDetailPhoto-nav">
+                    <?php foreach ($rowDetailPhoto as $k => $v) { ?>
+                        <div class="rowDetailPhoto-item">
+                            <img class="" src="{{ asset('http://127.0.0.1:8000/storage/' . $v->photo) }}" />
+                        </div>
+                    <?php } ?>
+                </div>
+            </div>
+        <?php } ?>
+
     </div>
 
     <div class="right-pro-detail">
-        <p class="title-pro-detail mb-2"><?= $product_detail[0]->name  ?></p>
+        <p class="title-pro-detail mb-2"><?= $rowDetail[0]->name  ?></p>
 
         <ul class="attr-pro-detail">
             <li class="w-clear">
-                <label class="attr-label-pro-detail">Giá:</label>
+                <label class="attr-label-pro-detail">Giá: </label>
                 <div class="attr-content-pro-detail">
-                    <?php if ($product_detail[0]->sale_price ) { ?>
-                        <span class="price-new-pro-detail"><?= $product_detail[0]->sale_price  ?></span>
-                        <span class="price-old-pro-detail"><?= $product_detail[0]->regular_price ?></span>
+                    <?php if ($rowDetail[0]->sale_price ) { ?>
+                        <span class="price-new-pro-detail"> <?= number_format($rowDetail[0]->sale_price) ?>đ </span>
+                        <span class="price-old-pro-detail"><?= number_format($rowDetail[0]->regular_price) ?>đ</span>
                     <?php } else { ?>
-                        <span class="price-new-pro-detail"><?= ($product_detail[0]->regular_price) ? $product_detail[0]->regular_price : 'liên hệ' ?></span>
+                        <span class="price-new-pro-detail"><?= ($rowDetail[0]->regular_price) ? number_format($rowDetail[0]->regular_price).'đ' : 'liên hệ' ?></span>
                     <?php } ?>
                 </div>
             </li>
             <?php if (!empty($rowDetail['code'])) { ?>
                 <li class="w-clear">
                     <label class="attr-label-pro-detail">Mã sản phẩm:</label>
-                    <div class="attr-content-pro-detail"><?= $product_detail[0]->code ?></div>
+                    <div class="attr-content-pro-detail"><?= $rowDetail[0]->code ?></div>
                 </li>
             <?php } ?>
             <li class="w-clear">
                 <label class="attr-label-pro-detail">Lượt xem:</label>
-                <div class="attr-content-pro-detail"><?= $product_detail[0]->view ?></div>
+                <div class="attr-content-pro-detail"><?= $rowDetail[0]->view ?></div>
             </li>
+
+            <li>
+                <div class="cart-pro-detail d-flex flex-wrap align-items-center justify-content-between">
+                    <a class="transition addnow addcart text-decoration-none d-flex align-items-center justify-content-center" data-id="<?=$rowDetail[0]->id ?>" data-action="addnow"><i class="bi bi-cart2"></i><span> Thêm vào giỏ hàng </span></a>
+                    <a class="transition buynow addcart text-decoration-none d-flex align-items-center justify-content-center" data-id="<?=$rowDetail[0]->id ?>" data-action="buynow"><i class="bi bi-cart2"></i><span>Mua ngay</span></a>
+                </div>
+            </li>
+
         </ul>
-        <div class="desc-pro-detail content-text"><?= $product_detail[0]->desc ?>
+        <div class="desc-pro-detail content-text"><?= $rowDetail[0]->desc ?>
         </div>
     </div>
 </div>
@@ -50,7 +77,7 @@
         </ul>
         <div class="tab-content pt-4 pb-4" id="tabsProDetailContent">
             <div class="tab-pane fade show active content-text" id="info-pro-detail" role="tabpanel">
-                <?= $product_detail[0]->content ?>
+                <?= $rowDetail[0]->content ?>
             </div>
 
         </div>

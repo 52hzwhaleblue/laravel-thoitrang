@@ -359,6 +359,25 @@ a,a:hover{
 .box-readmore ul li a:hover{color:#767676;}
 
 /* Product Detail */
+.rowDetailPhoto-scroll{
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    max-height: 580px;
+    overflow: hidden;
+    width: 60px;
+}
+.rowDetailPhoto-slick{}
+.rowDetailPhoto-item{
+    height: 55px !important;
+    width: 55px !important;
+    border: 2px #000000 solid !important;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.rowDetailPhoto-item img{
+}
 .grid-pro-detail {
 	margin-bottom: 3rem;
 }
@@ -815,7 +834,6 @@ img:not([src]) {
 	position: relative;
 }
 .header .wrap-content{
-	max-width:1330px;
 }
 
 .header-left{
