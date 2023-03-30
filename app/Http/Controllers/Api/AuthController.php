@@ -14,10 +14,10 @@ use App\Models\User;
 
 class AuthController extends BaseController
 {
-  
+
     public function login(Request $request){
-      
-            $validateTableUser = Validator::make($request->all(), 
+
+            $validateTableUser = Validator::make($request->all(),
             [
                 'phone' => 'required',
                 'password' => 'required'
@@ -30,14 +30,14 @@ class AuthController extends BaseController
             if(!Auth::attempt($request->only(['phone', 'password']))){
                 return $this->sendError('Phone & Password does not match with our record.',"",201);
             }
-            
+
             $tableUser = User::where('phone',$request->phone)->first();
-                
+
             $token = $tableUser->createToken('auth-login'.$tableUser->id, ['expires_at' => now()])->plainTextToken;
 
             return $this->sendResponse($token,'user Logged In Successfully');
 
-        
+
     }
 
     public function logout(Request $request){
@@ -46,16 +46,16 @@ class AuthController extends BaseController
 
             return $this->sendResponse([],"Logout success!!");
 
-        } catch (\Throwable $th) {        
+        } catch (\Throwable $th) {
 
             return $this->sendError( $th->getMessage(),500);
         }
     }
 
     public function register(Request $request)
-    {     
+    {
         try {
-            $validateTableUser = Validator::make($request->all(), 
+            $validateTableUser = Validator::make($request->all(),
             [
                 'username' => 'required',
                 'fullname' => 'required',
@@ -68,7 +68,7 @@ class AuthController extends BaseController
             if($validateTableUser->fails()){
                 return $this->sendError('validation error',$validateTableUser->errors(),401);
             }
-            
+
             $checkEmaiAndPhone = DB::table('table_users')
             ->where('phone', $request->phone)
             ->orWhere('email', $request->email)
@@ -76,9 +76,9 @@ class AuthController extends BaseController
 
             if(!$checkEmaiAndPhone){
                 $url = $this->uploadFile($request,"avatar/",85,85);
-                
+
                 DB::table('table_users')->insert([
-                    "username" => $request->TableUsername,
+                    "username" => $request->username,
                     "fullname" => $request->fullname,
                     "email" => $request->email,
                     "phone" => $request->phone,
@@ -91,14 +91,14 @@ class AuthController extends BaseController
             }
             return $this->sendResponse([],'User Sign Up Successfully');
 
-        } catch (\Throwable $th) {    
+        } catch (\Throwable $th) {
 
             return $this->sendError( $th->getMessage(),500);
 
         }
     }
 
-    
+
     public function loginWithGoogle(Request $request){
 
         try {
@@ -109,11 +109,11 @@ class AuthController extends BaseController
                 $TableUser = User::where('email',$request->email)->first();
 
                 $token = $TableUser->createToken('auth-login'.$TableUser->id, ['expires_at' => now()])->plainTextToken;
-    
-                return $this->sendResponse($token,'User Logged In Successfully');    
+
+                return $this->sendResponse($token,'User Logged In Successfully');
             }
 
-            $validateTableUser = Validator::make($request->all(), 
+            $validateTableUser = Validator::make($request->all(),
             [
                 'fullname' => 'required',
                 'email' => 'required',
@@ -122,21 +122,22 @@ class AuthController extends BaseController
             if($validateTableUser->fails()){
                 return $this->sendError('validation error',$validateTableUser->errors(),401);
             }
-            
+
             $TableUser = User::create([
                 "username" => "username@" .Str::random(6),
                 "fullName" => $request->fullname,
                 "email" => $request->email,
                 "login_provider" => "google",
             ]);
-            
+
             $token = $TableUser->createToken('auth-login-google'.$TableUser->id, ['expires_at' => now()])->plainTextToken;
 
             return $this->sendResponse($token,'TableUser Logged In Successfully');
-            
-        } catch (\Throwable $th) {    
+
+        } catch (\Throwable $th) {
             return $this->sendError( $th->getMessage(),500);
         }
     }
 
 }
+

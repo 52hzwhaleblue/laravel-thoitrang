@@ -375,6 +375,7 @@ a,a:hover{
     margin-bottom: 10px;
     border-radius: 10px;
     overflow: hidden;
+    cursor: pointer;
 }
 .rowDetailPhoto-item img{
 }
@@ -997,6 +998,7 @@ max-width: 1330px;
 .menu ul li {
 	position: relative;
 	z-index: 1;
+	cursor: pointer;
 }
 
 .menu ul li.line {
@@ -4317,4 +4319,5 @@ margin-bottom: 0;
     color: #111;
     -webkit-line-clamp: 1;
 }
+
 

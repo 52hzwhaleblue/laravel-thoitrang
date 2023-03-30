@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use App\Models\TableCategory;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File as ABC;
-
+use Illuminate\Support\Facades\Auth;
 class IndexController extends Controller
 {
     public function index()
@@ -125,4 +125,5 @@ class IndexController extends Controller
             'product',
         ]));
     }
+
 }

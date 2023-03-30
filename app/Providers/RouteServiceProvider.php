@@ -17,7 +17,10 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/home';
+    // HOME ĐƯỢC DÙNG ĐỂ SAU KHI LOGIN THÀNH CÔNG ->
+
+    public const HOME = '/';
+    // public const HOME = '/dashboard';
 
     /**
      * The controller namespace for the application.
@@ -50,7 +53,7 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('api')
                 ->prefix('api/v2.0')
                 ->group(base_path('routes/api/product.php'));
-            
+
             Route::middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));

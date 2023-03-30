@@ -1,8 +1,6 @@
 @extends('layouts.client')
 @section('content')
 <div class="grid-pro-detail d-flex flex-wrap justify-content-between align-items-start">
-
-
     <div class="left-pro-detail">
         <div class="rowDetailPhoto-for">
             <?php foreach ($rowDetailPhoto as $k => $v) { ?>

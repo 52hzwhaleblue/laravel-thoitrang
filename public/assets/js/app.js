@@ -117,6 +117,7 @@ function OwlPage(){
 
 
 function Home(){
+
     $('.list-hot a:first').addClass('active');
     var id = $('.list-hot a:first').data('id');
     var tenkhongdau = $('.list-hot a:first').data('tenkhongdau');
@@ -184,6 +185,8 @@ function Slick(){
 
     }
 }
+
+
 $(document).ready(function () {
     Home();
     Slick();

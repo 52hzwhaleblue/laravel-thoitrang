@@ -2,6 +2,12 @@
 
 @section('content')
 
+@if(session()->has('message'))
+    <div class="alert alert-success">
+        {{ session()->get('message') }}
+    </div>
+@endif
+
 @if(count($splistnb))
 <div class="pronb-wrapper">
     <div class="wrap-content ">

@@ -1,6 +1,6 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 // Admin Controller
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\ImageZoneController;
@@ -20,6 +20,19 @@ use App\Http\Controllers\Admin\StaticController;
 
 // Index Controller
 use App\Http\Controllers\IndexController;
+
+// Index Controller
+
+// Email Auth
+
+Auth::routes(['verify' => true]);
+
+Route::middleware('auth')->group(function () {
+    Route::get('/', [IndexController::class ,'index'])->name('index');
+
+});
+
+
 
 Route::get('admin/image/show/{id}', [ImageZoneController::class,'show'])->name('admin.imagezone.show');
 Route::post('admin/image/upload/{id}', [ImageZoneController::class,'upload'])->name('admin.imagezone.upload');
@@ -63,14 +76,6 @@ Route::group([
                 }
             }
         }
-        // // Tin tức
-        // Route::resource('tin-tuc', PostController::class);
-
-        // // Tiêu chí
-        // Route::resource('tieu-chi', PostController::class);
-
-        // // Hình thức thanh toán
-        // Route::resource('hinh-thuc-thanh-toan', PostController::class);
     });
 
         // Hình ảnh Video
@@ -91,15 +96,6 @@ Route::group([
                     }
                 }
             }
-
-            // Slideshow
-            // Route::resource('slideshow', PhotoController::class);
-
-            // // Video
-            // Route::resource('video', PhotoController::class);
-
-            // // Banner
-            // Route::resource('banner', PhotoController::class);
         });
 
         // Trang tĩnh
@@ -125,11 +121,23 @@ Route::group([
 
 
 // =========== user
- Route::get('/', [IndexController::class,'index']);
- Route::get('/san-pham', [IndexController::class,'san_pham'])->name('san-pham');
- Route::get('/{slug}/{id}', [IndexController::class,'chi_tiet_san_pham'])->name('chi_tiet_san_pham');
- Route::get('/gio-hang', [IndexController::class,'gio-hang'])->name('gio-hang');
+//Route logout user account
+// Route::post("logout_user", function() {
+//     Auth::logout();
+//     return redirect("/");
+// })->name('logout.user');
 
 
- Route::post('/load_ajax_product', [IndexController::class,'load_ajax_product']);
+// Route login user account
+Route::get('login_user', function() {
+    return redirect("login");
+})->name("login.user");
+
+
+Route::get('/', [IndexController::class,'index'])->name('index');
+Route::get('/san-pham', [IndexController::class,'san_pham'])->name('san-pham');
+Route::get('/{slug}/{id}', [IndexController::class,'chi_tiet_san_pham'])->name('chi_tiet_san_pham');
+Route::get('/gio-hang', [IndexController::class,'gio-hang'])->name('gio-hang');
+Route::post('/load_ajax_product', [IndexController::class,'load_ajax_product']);
+
 

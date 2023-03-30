@@ -117,6 +117,7 @@ function OwlPage(){
 
 
 function Home(){
+
     $('.list-hot a:first').addClass('active');
     var id = $('.list-hot a:first').data('id');
     var tenkhongdau = $('.list-hot a:first').data('tenkhongdau');
@@ -162,22 +163,30 @@ function Home(){
 
 
 function Slick(){
-    if($('.chitiethinhanh-slick').length > 0){
-        $('.chitiethinhanh-slick').slick({
-            dots: false,
-            infinite: true,
-            autoplaySpeed: 3000,
-            slidesToShow: 5,
+    if($('.rowDetailPhoto-for').length > 0){
+        $('.rowDetailPhoto-for').slick({
+            slidesToShow: 1,
             slidesToScroll: 1,
-            adaptiveHeight: true,
+            arrows: false,
+            fade: true,
+            arrows: false,
+            asNavFor: '.rowDetailPhoto-nav'
+          });
+          $('.rowDetailPhoto-nav').slick({
+            slidesToShow: 9,
+            slidesToScroll: 1,
+            asNavFor: '.rowDetailPhoto-for',
+            dots: false,
+            centerMode: false,
             vertical: true,
-            autoplay: true,
-            infinite: true,
-            arrows:false
-        });
+            focusOnSelect: true,
+            arrows: false,
+          });
 
     }
 }
+
+
 $(document).ready(function () {
     Home();
     Slick();
