@@ -19,15 +19,12 @@
                     <a class="text-decoration-none" data-id="<?=$v->id?>" data-tenkhongdau="<?=$v->slug?>"><?=$v->name?></a>
                 <?php }?>
             </div>
-
-
-            <div class="load_ajax_product" >
-
-            </div>
+            <div class="load_ajax_product" >  </div>
         </div>
     </div>
 </div>
 @endif
+
 
 @if(count($splistnb))
 <div class="splistnb-wrapper">

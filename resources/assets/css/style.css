@@ -915,6 +915,8 @@ img:not([src]) {
 	animation: light-left 2.5s infinite alternate linear;
 }
 
+.cart-header{}
+.cart-header span{}
 .info-header {
 	margin-bottom: 0px;
 }
@@ -1977,8 +1979,14 @@ a.name-newsnb:hover {
 	font-weight: bold;
 }
 
-.pronb-item{}
-.pronb-image{}
+.pronb-item{
+    position: relative;
+}
+.pronb-image{
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
 .pronb-img{}
 .pronb-img1{
     position: absolute;
@@ -1992,6 +2000,60 @@ a.name-newsnb:hover {
 visibility: visible;
 	opacity: 1;
 }
+
+.pronb-info{}
+.pronb-name{
+    font-size: 14px;
+    color: var(--color-black);
+    margin-bottom: 10px;
+    font-family: Barlow;
+    font-weight: bold;
+    text-align: center;
+}
+.pronb-price{
+    /* text-align: center; */
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.pronb-price span{}
+.pronb-price span.price-new{}
+.pronb-price span.price-old{}
+.pronb-price span.discount{
+    color: red;
+    font-weight: bold;
+    margin-left: 10px;
+}
+.pronb-item:hover .pronb-btn{
+	opacity: 1;
+	visibility: visible;
+	bottom: 20px;
+}
+.pronb-btn{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: .5s;
+    /* z-index: 2; */
+}
+.pronb-btn a{
+    width: 48%;
+    text-align: center;
+    color: #000;
+    font-size: 15px;
+    background: #fff;
+    padding: 10px 5px;
+    border-radius: 10px;
+}
+.pronb-btn a.add-to-cart{}
+.pronb-btn a.buynow{}
 
 .flex-product {
 	margin: 0 -10px;
@@ -4319,5 +4381,7 @@ margin-bottom: 0;
     color: #111;
     -webkit-line-clamp: 1;
 }
+
+
 
 

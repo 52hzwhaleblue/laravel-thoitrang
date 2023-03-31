@@ -75,7 +75,6 @@ class IndexController extends Controller
             <div class="pronb-item" data-aos="fade-up" data-aos-duration="1500">
                 <div class="pronb-image">
                     <a class="pronb-img scale-img hover_sang3" href= '.$v->slug.'/'.$v->id.' >
-
                         <img src='.asset("http://localhost:8000/storage/$v->photo").' alt="" width="365"
                             height="365" />
                     </a>
@@ -83,7 +82,29 @@ class IndexController extends Controller
                         <img src='.asset("http://localhost:8000/storage/$v->photo1").' alt="" width="365"
                             height="365" />
                     </a>
+
+                    <div class="pronb-btn">
+                        <a href="" class="add-to-cart d-block">
+                            Thêm vào giỏ hàng
+                        </a>
+                        <a href="" class="buynow d-block">
+                            mua ngay
+                        </a>
+                    </div>
                 </div>
+                <div class="pronb-info">
+                    <h3 class="mb-0">
+                        <a class="pronb-name text-split" href= '.$v->slug.'/'.$v->id.'>
+                            '.$v->name.'
+                        </a>
+                    </h3>
+                    <div class="pronb-price">
+                        <span class="price-new">  '.number_format($v->sale_price).'  </span>
+                        <span class="price-old"> '.number_format($v->regular_price).' </span>
+                        <span class="discount"> '.$v->discount.'%</span>
+                    </div>
+                </div>
+
             </div>
         '
         ;

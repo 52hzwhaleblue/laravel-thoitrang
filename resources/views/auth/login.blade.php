@@ -1,4 +1,4 @@
-{{-- @extends('layouts.app')
+{{-- @extends('layouts.client')
 
 @section('content')
 <div class="container">
@@ -48,6 +48,8 @@
                                         {{ __('Remember Me') }}
                                     </label>
                                 </div>
+                        <p>Not a member? <a href="{{ route('register') }}" >Register</a></p>
+
                             </div>
                         </div>
 
@@ -87,8 +89,8 @@ enctype="multipart/form-data">
 @csrf
     <!-- Email input -->
     <div class="form-outline mb-4">
-        <label class="form-label" for="form2Example1">Phone</label>
-        <input type="phone"  name="phone" id="form2Example1" class="form-control" />
+        <label class="form-label" for="form2Example1">Email</label>
+        <input type="email"  name="email" id="form2Example1" class="form-control" />
     </div>
 
     <!-- Password input -->
