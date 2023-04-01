@@ -117,13 +117,17 @@ function OwlPage(){
 
 
 function Home(){
-
     $('.list-hot a:first').addClass('active');
     var id = $('.list-hot a:first').data('id');
     var tenkhongdau = $('.list-hot a:first').data('tenkhongdau');
+    $.ajaxSetup({
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
     $.ajax({
         url: '/load_ajax_product',
-        type: 'GET',
+        type: 'POST',
         data: {id:id,tenkhongdau:tenkhongdau},
         success:function(data){
             $('.load_ajax_product').html(data);
@@ -136,9 +140,16 @@ function Home(){
         $(this).addClass('active');
         var id = $(this).data('id');
         var tenkhongdau = $(this).data('tenkhongdau');
+
+        $.ajaxSetup({
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
         $.ajax({
             url: '/load_ajax_product',
-            type: 'GET',
+            type: 'POST',
             data: {id:id,tenkhongdau:tenkhongdau},
             success:function(data){
                 $('.load_ajax_product').html(data);
@@ -147,32 +158,29 @@ function Home(){
             }
         })
     });
-
-
-    $('.thumbs_img').each(function(){
-        var width = $(this).find('img').data('width');
-        var height = $(this).find('img').data('height');
-        // var image = $(this).find('img').data('image');
-
-        // $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
-        $.ajax({
-            type: 'get',
-            url: '/thumbs_img',
-            data: {
-                'width': width,
-                'height': height,
-                // 'image': image,
-            },
-            success:function(data){
-                // alert(data);
-            }
-        });
-    });
-
 }
 
+
+function Slick(){
+    if($('.chitiethinhanh-slick').length > 0){
+        $('.chitiethinhanh-slick').slick({
+            dots: false,
+            infinite: true,
+            autoplaySpeed: 3000,
+            slidesToShow: 5,
+            slidesToScroll: 1,
+            adaptiveHeight: true,
+            vertical: true,
+            autoplay: true,
+            infinite: true,
+            arrows:false
+        });
+
+    }
+}
 $(document).ready(function () {
     Home();
+    Slick();
     OwlPage();
     AosAnimation();
 });

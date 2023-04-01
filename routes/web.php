@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 // Admin Controller
 use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\ImageZoneController;
 
 // Product Controller
 use App\Http\Controllers\Admin\CategoryController;
@@ -19,6 +20,9 @@ use App\Http\Controllers\Admin\StaticController;
 
 // Index Controller
 use App\Http\Controllers\IndexController;
+
+Route::get('admin/image/show/{id}', [ImageZoneController::class,'show'])->name('admin.imagezone.show');
+Route::post('admin/image/upload/{id}', [ImageZoneController::class,'upload'])->name('admin.imagezone.upload');
 
 // Admin Route
 Route::group([
@@ -123,9 +127,9 @@ Route::group([
 // =========== user
  Route::get('/', [IndexController::class,'index']);
  Route::get('/san-pham', [IndexController::class,'san_pham'])->name('san-pham');
- Route::get('/{slug}', [IndexController::class,'chi_tiet_san_pham'])->name('chi_tiet_san_pham');
+ Route::get('/{slug}/{id}', [IndexController::class,'chi_tiet_san_pham'])->name('chi_tiet_san_pham');
+ Route::get('/gio-hang', [IndexController::class,'gio-hang'])->name('gio-hang');
 
 
- Route::get('/thumbs_img', [IndexController::class,'thumbs_img']);
- Route::get('/load_ajax_product', [IndexController::class,'load_ajax_product']);
+ Route::post('/load_ajax_product', [IndexController::class,'load_ajax_product']);
 

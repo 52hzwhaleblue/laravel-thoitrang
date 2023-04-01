@@ -11,9 +11,13 @@
     <script type="text/javascript" src="{{ asset('assets/js/OwlCarousel2-2.3.4/dist/owl.carousel.min.js') }}">
     </script>
 
+    <!-- Slick -->
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="{{ asset('assets/slick1.8.1/slick.min.js') }}"></script>
+
     <!-- Aos Animation -->
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-
 
     <script type="text/javascript" src="{{ asset('assets/js/app.js') }}"></script>
 

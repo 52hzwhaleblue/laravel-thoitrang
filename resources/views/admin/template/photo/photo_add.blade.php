@@ -27,9 +27,7 @@
                             <div class="accordion-body">
                                 <div class="d-flex mb-3">
                                     <div class="">
-                                        <input type="checkbox" name="status[]" value="noibat" />
-                                        Nổi bật
-                                        <input type="checkbox" name="status[]" value="hienthi" checked />
+                                        <input type="checkbox" name="status" value="1" checked />
                                         Hiển thị
                                     </div>
                                 </div>

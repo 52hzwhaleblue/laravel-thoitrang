@@ -14,6 +14,7 @@
                 <?php }?>
             </div>
 
+
             <div class="load_ajax_product" >
 
             </div>
@@ -34,10 +35,10 @@
             <div class="splistnb-item">
                 <div class="splistnb-img hover_sang3 scale-img">
                     <img class="lazyload" data-width="430" data-height="575" data-image="{{$v->photo}}"
-                        src="{{ asset('backend/assets/img/products/'.$v->photo) }}" alt="slide" />
+                        src="{{ asset('http://localhost:8000/storage/'.$v->photo) }}" alt="slide" />
                 </div>
                 <h3 class="splistnb-name">
-                    <a class="text-split" href="{{$v->slug}}"> {{$v->name}} </a>
+                    <a class="text-split" href="{{$v->slug}}?id=$v->id"> {{$v->name}} </a>
                 </h3>
             </div>
             @endforeach

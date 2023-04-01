@@ -8,8 +8,9 @@ use Illuminate\Support\Facades\DB;
 use App\Models\TableCategory;
 use Functions;
 use Config;
+use App\Http\Controllers\Api\BaseController as BaseController;
 
-class CategoryController extends Controller
+class CategoryController extends BaseController
 {
 
     public function index()
@@ -27,13 +28,10 @@ class CategoryController extends Controller
     {
         $count = TableCategory::all()->count();
 
-        if ($request->has('photo')) {
-            $file = $request->photo;
-            $ext = $request->photo->extension(); //lấy đuôi file png||jpg
-            $file_name =
-                Date('Ymd') . '-' . 'Category' . $count . '.' . $ext;
-            $file->move(public_path('backend/assets/img/products'), $file_name); //chuyển file vào đường dẫn chỉ định
-        }
+        $url = $this->uploadPhoto($request,"categories/",415,655);
+
+
+
 
         $Category = new TableCategory();
 
@@ -41,9 +39,9 @@ class CategoryController extends Controller
         $Category->desc = $request->get('desc');
         $Category->content = $request->get('content');
         if ($request->has('photo')) {
-            $Category->photo = $file_name;
+            $Category->photo = $url;
         }
-        $Category->status = $request->get('status');
+        $Category->status = (int)$request->get('status');
         $Category->slug = $request->get('slug');
         $checkSlug = Functions::checkSlug($Category);
 
@@ -122,7 +120,6 @@ class CategoryController extends Controller
         }
 
         $Category->save();
-
         return redirect()
             ->route('admin.product.product-list.index')
             ->with('message', 'Bạn đã cập nhật danh mục cấp 1 thành công!');

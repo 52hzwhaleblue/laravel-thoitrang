@@ -46,7 +46,7 @@ class PhotoController extends Controller
         $photo->name = $request->get('name');
         $photo->photo = $file_name;
         $photo->type = $type;
-        $photo->status = implode(',', $request->get('status'));
+        $photo->status = (int)$request->get('status');
         $photo->save();
 
         return redirect()
@@ -97,7 +97,7 @@ class PhotoController extends Controller
             $photo->photo = $file_name;
         }
         $photo->type = $type;
-        $photo->status = implode(',', $request->get('status'));
+        $photo->status = (int) $request->get('status');
         $photo->save();
 
         return redirect()

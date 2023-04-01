@@ -73,7 +73,7 @@
                                                 style="width: 60px; height: 60px"
                                                 src="{{
                                                     asset(
-                                                        'backend/assets/img/products/'.$v['photo']
+                                                        'http://localhost:8000/storage/'.$v['photo']
                                                     )
                                                 }}"
                                                 alt="ss"
@@ -109,8 +109,8 @@
                                                 <li>
                                                     <a
                                                         class="dropdown-item"
-                                                        href="#"
-                                                        >Action</a
+                                                        href="{{ route('admin.imagezone.show',$v['id']) }}"
+                                                        >Ảnh chi tiết sản phẩm</a
                                                     >
                                                 </li>
                                             </ul>

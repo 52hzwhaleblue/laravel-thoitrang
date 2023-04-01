@@ -80,6 +80,78 @@ class BaseController extends Controller
             return $paths[0];
         }
     }
+
+    public function uploadPhoto($request, $dir, $width, $height)
+    {
+        if ($request->has('photo')) {
+                $file = $request->file('photo');
+                $filename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                $extension = $file->getClientOriginalExtension();
+                $path_file = $filename . '_' . uniqid() . '.' . $extension;
+
+                // Resize image
+                $thumbnail_image = Image::make($file)->resize($width, $height, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                })->encode(null);
+
+                // Save thumbnail to storage
+                $thumbnail_path = 'thumbnails/'. $dir  . $path_file;
+
+                Storage::disk('public')->put($thumbnail_path, (string) $thumbnail_image->encode());
+
+                return $thumbnail_path;
+
+        }
+    }
+    public function uploadPhoto1($request, $dir, $width, $height)
+    {
+        if ($request->has('photo1')) {
+                $file = $request->file('photo1');
+                $filename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                $extension = $file->getClientOriginalExtension();
+                $path_file = $filename . '_' . uniqid() . '.' . $extension;
+
+                // Resize image
+                $thumbnail_image = Image::make($file)->resize($width, $height, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                })->encode(null);
+
+                // Save thumbnail to storage
+                $thumbnail_path = 'thumbnails/'. $dir  . $path_file;
+
+                Storage::disk('public')->put($thumbnail_path, (string) $thumbnail_image->encode());
+
+                return $thumbnail_path;
+
+        }
+    }
+
+    public function uploadRowDetailPhoto($request, $dir, $width, $height)
+    {
+        if ($request->has('file')) {
+                $file = $request->file('file');
+                $filename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                $extension = $file->getClientOriginalExtension();
+                $path_file = $filename . '_' . uniqid() . '.' . $extension;
+
+                // Resize image
+                $thumbnail_image = Image::make($file)->resize($width, $height, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                })->encode(null);
+
+                // Save thumbnail to storage
+                $thumbnail_path = 'thumbnails/'. $dir  . $path_file;
+
+                Storage::disk('public')->put($thumbnail_path, (string) $thumbnail_image->encode());
+
+                return $thumbnail_path;
+
+        }
+    }
+
     
 
     public function sendNoti ($interests,$title,$body){
