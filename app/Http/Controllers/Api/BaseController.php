@@ -154,21 +154,76 @@ class BaseController extends Controller
 
     
 
-    public function sendNoti ($interests,$title,$body){
+    public function sendNotiAllDevice($interests,$title,$body,$image= null,$type){
         $beamsClient = new PushNotifications(array(
             "instanceId" => env('PUSHER_BEAMS_INSTANCE_ID'),
             "secretKey" =>  env('PUSHER_BEAMS_SECRET_KEY'),
         ));
 
+        $options = [
+            "apns" => [
+                "aps" => [
+                    "alert" => [
+                        "title" =>$title,
+                        "body" => $body,
+                    ],
+                    "mutable-content" => 1,
+                ],
+                "data" => [
+                    "name" => "adam",
+                    "type" => "user",
+                 ],
+           
+            ],
+            "fcm" => [
+                "notification" => [
+                    "title" =>$title,
+                    "body" => $body,
+                ],
+                "data" => [
+                    "image" => $image,
+                    "type" => $type,
+                 ],
+            ],
+            
+        ];
         $publishResponse = $beamsClient->publishToInterests(
-            array($interests), // interests
-            array("fcm" => array("notification" => array(
-              "title" => $title,
-              "body" => $body,
-            ))),
+            [$interests], // interests
+            $options,
         );
         return $publishResponse;
     }
+
+    public function sendNotiToUser($userId,$title,$body,$image= null,$type= null){
+        $beamsClient = new PushNotifications(array(
+            "instanceId" => env('PUSHER_BEAMS_INSTANCE_ID'),
+            "secretKey" =>  env('PUSHER_BEAMS_SECRET_KEY'),
+        ));
+
+        $options = [
+            "apns" => [
+                "aps" => [
+                  "alert" => $title,
+                ],
+            ],
+            "fcm" => [
+                "notification" => [
+                  "title" => $title,
+                  "body" => $body,
+                ],
+                "data" => [
+                    "image" => $image,
+                    "type" => $type,
+                 ],
+              ],
+        ];
+        $publishResponse = $beamsClient->publishToUsers(
+            [(string)$userId], // interests
+            $options,
+        );
+        return $publishResponse;
+    }
+
 
     public function pusher($channel,$event,$data){
         $pusher = new Pusher(

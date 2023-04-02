@@ -180,15 +180,17 @@ class UserController extends BaseController
 
             $user_id = $request->input('user_id');
 
-            $chats = TableChat::create([
+            $chats = [
                 "room_chat_id" => (int) $room_chat_id_request,
                 "receiver_id" => (int)$user_id,
                 "sender_id" => 2,
                 "message" =>$chatMessage,
                 "created_at" => date('Y-m-d H:i:s') ,
                 "updated_at" =>date('Y-m-d H:i:s') ,
-            ]);             
+            ];   
+
             $this->pusher('room-chat-user-'.$user_id, 'chat-message',  $chats);
+            
             return $this->sendResponse([],"Chat successfully");
 
         } catch (\Throwable $th) {    
