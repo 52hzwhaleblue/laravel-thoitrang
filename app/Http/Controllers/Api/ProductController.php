@@ -51,13 +51,13 @@ class ProductController extends BaseController
         }
     }
 
-    public function fetchPoppularSearch(Request $request){   
+    public function fetchPoppular(Request $request){   
         try {     
             $page = request()->query('page',1);
             $limit = 4;
             $offset = ($page - 1) * $limit;
             $products = DB::table('table_products')
-            ->where('view', '>=', 10)
+            ->where('view', '>=', 150)
             ->whereIn('id', function ($query) {
                 $query->select('product_id')
                     ->from('table_order_details')

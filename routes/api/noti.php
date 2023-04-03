@@ -18,10 +18,12 @@ use App\Http\Controllers\Api\NotificationController;
 
 Route::middleware('auth:sanctum')->group(function(){
     
+    Route::controller(NotificationController::class)->group(function(){
     
-});
+        Route::post('/noti/fetch','fetchData');
 
-Route::controller(NotificationController::class)->group(function(){
+        Route::post('/noti/create','create');
 
-    Route::post('/noti/create','sendNoti');
+    });
+    
 });

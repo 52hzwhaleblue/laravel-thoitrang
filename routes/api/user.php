@@ -1,9 +1,11 @@
 <?php
 
-use App\Http\Controllers\Api\BaseController;
-use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\Console\Input\Input;
+use App\Http\Controllers\Api\BaseController;
+use App\Http\Controllers\Api\UserController;
+use Pusher\PushNotifications\PushNotifications;
 
 
 /*
@@ -39,4 +41,17 @@ Route::middleware('auth:sanctum')->group(function(){
 });
 Route::controller(UserController::class)->group(function(){
     Route::post('/user/test-chat-admin','testChat');
+});
+
+Route::middleware('auth:sanctum')->get('/pusher/beams-auth', function (Request $request) {
+
+    $userID = $request->user()->id;
+
+    $beamsClient = new PushNotifications(array(
+        "instanceId" => env('PUSHER_BEAMS_INSTANCE_ID'),
+        "secretKey" =>  env('PUSHER_BEAMS_SECRET_KEY'),
+    ));
+  
+    $beamsToken = $beamsClient->generateToken($userID);
+    return response()->json($beamsToken);
 });

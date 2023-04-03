@@ -30,7 +30,7 @@ Route::middleware('auth:sanctum')->group(function(){
     
         Route::post('/product/fetch-product-all','fetchAll');
 
-        Route::post('/product/fetch-popular-search','fetchPoppularSearch');
+        Route::post('/product/fetch-popular','fetchPoppular');
 
         Route::post('/product/search','search');
 
