@@ -13,9 +13,22 @@ class NotificationController extends BaseController
 
    public function fetchData(Request $request){
       try{
+         $page = request()->query('page',1);
          
+         $limit = 5;
 
+         $offset = ($page - 1) * $limit;
 
+         $notifications = DB::table('table_notifications')
+            ->where(function ($query) {
+               $query->where('user_id', Auth::id())
+                     ->orWhere('user_id', null);
+            })
+            ->skip($offset)
+            ->take($limit)
+            ->get();
+
+         return $this->sendResponse($notifications,"Fetch notification successfully");
 
       }catch (\Throwable $th) {
 

@@ -115,7 +115,7 @@ class UserController extends BaseController
 
             $room_chat_id_request = $request->input('room_chat_id');
 
-            $admin = DB::table('table_users')->where('rule',0)->first();
+            $admin = DB::table('table_users')->where('role',0)->first();
 
             if(empty($room_chat_id_request)){
                 $room_chat_id =  DB::table('table_room_chats')->insertGetId([
