@@ -21,7 +21,10 @@ use App\Http\Controllers\Admin\StaticController;
 // Index Controller
 use App\Http\Controllers\IndexController;
 
-// Index Controller
+// Cart Controller
+use App\Http\Controllers\CartController;
+
+
 
 // Email Auth
 
@@ -136,8 +139,22 @@ Route::get('login_user', function() {
 
 Route::get('/', [IndexController::class,'index'])->name('index');
 Route::get('/san-pham', [IndexController::class,'san_pham'])->name('san-pham');
-Route::get('/{slug}/{id}', [IndexController::class,'chi_tiet_san_pham'])->name('chi_tiet_san_pham');
+// Route::get('/{slug}/{id}', [IndexController::class,'chi_tiet_san_pham'])->name('chi_tiet_san_pham');
 Route::get('/gio-hang', [IndexController::class,'gio-hang'])->name('gio-hang');
 Route::post('/load_ajax_product', [IndexController::class,'load_ajax_product']);
+
+
+// Giỏ hàng
+Route::get('/cart', [CartController::class,'index'])->name('cart.index');
+Route::get('/cart/add/{id}', [CartController::class,'add'])->name('cart.add');
+Route::patch('/cart/update', [CartController::class,'update'])->name('cart.update');
+Route::get('/cart/destroy', [CartController::class,'destroy'])->name('cart.destroy');
+Route::get('/cart/remove/{rowId}', [CartController::class,'remove'])->name('cart.remove');
+
+// Giỏ hàng nâng cấp ajax
+Route::get('/cart/update_ajax', [CartController::class,'update_ajax'])->name('cart.update_ajax');
+Route::get('/cart/checkout', [CartController::class,'checkout'])->name('cart.checkout');
+
+
 
 

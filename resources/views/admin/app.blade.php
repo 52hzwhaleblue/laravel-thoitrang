@@ -25,12 +25,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
 
     <!-- Main CSS-->
-    <link rel="stylesheet" type="text/css" href="{{ asset('backend/assets/css/main.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/backend/assets/css/main.css') }}" />
 
     <!-- Font-icon css-->
     <link rel="stylesheet" type="text/css" href="{{
                 asset(
-                    'backend/assets/css/font-awesome/4.7.0/css/font-awesome.min.css'
+                    'public/backend/assets/css/font-awesome/4.7.0/css/font-awesome.min.css'
                 )
             }}" />
 
@@ -67,20 +67,20 @@
 
     <!-- Essential javascripts for application to work-->
     <script src="{{
-                asset('backend/assets/js/jquery-3.2.1.min.js')
+                asset('public/backend/assets/js/jquery-3.2.1.min.js')
             }}"></script>
-    <script src="{{ asset('backend/assets/js/popper.min.js') }}"></script>
+    <script src="{{ asset('public/backend/assets/js/popper.min.js') }}"></script>
     <script src="{{
-                asset('backend/assets/js/bootstrap.min.js')
+                asset('public/backend/assets/js/bootstrap.min.js')
             }}"></script>
-    <script src="{{ asset('backend/assets/js/main.js') }}"></script>
+    <script src="{{ asset('public/backend/assets/js/main.js') }}"></script>
     <!-- The javascript plugin to display page loading on top-->
     <script src="{{
-                asset('backend/assets/js/plugins/pace.min.js')
+                asset('public/backend/assets/js/plugins/pace.min.js')
             }}"></script>
 
     <script src="{{
-                asset('backend/assets/js/ckeditor/ckeditor.js')
+                asset('public/backend/assets/js/ckeditor/ckeditor.js')
             }}"></script>
     <script type="text/javascript">
         CKEDITOR.replace("cke_content");
@@ -89,10 +89,10 @@
 
     <!-- Data table plugin-->
     <script type="text/javascript" src="{{
-                asset('backend/assets/js/plugins/jquery.dataTables.min.js')
+                asset('public/backend/assets/js/plugins/jquery.dataTables.min.js')
             }}"></script>
     <script type="text/javascript" src="{{
-                asset('backend/assets/js/plugins/dataTables.bootstrap.min.js')
+                asset('public/backend/assets/js/plugins/dataTables.bootstrap.min.js')
             }}"></script>
     <script type="text/javascript">
         $("#sampleTable").DataTable();

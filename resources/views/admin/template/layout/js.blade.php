@@ -3,20 +3,20 @@
 
 <!-- Essential javascripts for application to work-->
 <script src="{{
-            asset('backend/assets/js/jquery-3.2.1.min.js')
+            asset('public/backend/assets/js/jquery-3.2.1.min.js')
         }}"></script>
-<script src="{{ asset('backend/assets/js/popper.min.js') }}"></script>
+<script src="{{ asset('public/backend/assets/js/popper.min.js') }}"></script>
 <script src="{{
-            asset('backend/assets/js/bootstrap.min.js')
+            asset('public/backend/assets/js/bootstrap.min.js')
         }}"></script>
-<script src="{{ asset('backend/assets/js/main.js') }}"></script>
+<script src="{{ asset('public/backend/assets/js/main.js') }}"></script>
 <!-- The javascript plugin to display page loading on top-->
 <script src="{{
-            asset('backend/assets/js/plugins/pace.min.js')
+            asset('public/backend/assets/js/plugins/pace.min.js')
         }}"></script>
 
 <script src="{{
-            asset('backend/assets/js/ckeditor/ckeditor.js')
+            asset('public/backend/assets/js/ckeditor/ckeditor.js')
         }}"></script>
 <script type="text/javascript">
     CKEDITOR.replace("cke_content");
@@ -25,10 +25,10 @@
 
 <!-- Data table plugin-->
 <script type="text/javascript" src="{{
-            asset('backend/assets/js/plugins/jquery.dataTables.min.js')
+            asset('public/backend/assets/js/plugins/jquery.dataTables.min.js')
         }}"></script>
 <script type="text/javascript" src="{{
-            asset('backend/assets/js/plugins/dataTables.bootstrap.min.js')
+            asset('public/backend/assets/js/plugins/dataTables.bootstrap.min.js')
         }}"></script>
 <script type="text/javascript">
     $("#sampleTable").DataTable();

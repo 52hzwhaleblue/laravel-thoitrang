@@ -179,6 +179,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        // Giỏ hàng https://github.com/hardevine/LaravelShoppingcart
+        Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
+
 
     ],
 
@@ -232,7 +235,10 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Functions' => App\Helpers\Functions::class,
-        'Image' => Intervention\Image\Facades\Image::class
+        'Image' => Intervention\Image\Facades\Image::class,
+
+        // Giỏ hàng https://github.com/hardevine/LaravelShoppingcart
+        'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
     ],
 
 ];

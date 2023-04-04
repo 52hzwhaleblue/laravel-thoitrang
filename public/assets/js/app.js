@@ -1,3 +1,41 @@
+function Cart(){
+    $('.giohang-qty').change(function(){
+        let id = $(this).data('id');
+        let qty = $(this).val();
+        let price = $(this).data('price');
+        let rowId = $(this).data('rowid');
+        data = {
+            id:id,
+            qty:qty,
+            price:price,
+            rowId:rowId
+        };
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url: '/cart/update_ajax',
+            data: data,
+            dataType: "JSON",
+            method: "GET",
+            success: function(data) {
+                $(".giohang-subTotal-"+id).text(data["subTotal"]);
+                // $(".giohang-tongtien span").text(data["total"]);
+                return false;
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+            }
+        });
+    });
+}
+
+
+
 function AosAnimation(){
     AOS.init({});
 }
@@ -189,6 +227,7 @@ function Slick(){
 
 $(document).ready(function () {
     Home();
+    Cart();
     Slick();
     OwlPage();
     AosAnimation();

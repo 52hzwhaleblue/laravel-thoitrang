@@ -12,10 +12,7 @@
     font-family: 'SVN-Poppins-SemiBold';
     src: url('../fonts/SVN-Poppins-SemiBold/SVNPoppinsSemiBold.eot');
     src: url('../fonts/SVN-Poppins-SemiBold/SVNPoppinsSemiBold.eot') format('embedded-opentype'),
-         url('../fonts/SVN-Poppins-SemiBold/SVNPoppinsSemiBold.woff2') format('woff2'),
          url('../fonts/SVN-Poppins-SemiBold/SVNPoppinsSemiBold.woff') format('woff'),
-         url('../fonts/SVN-Poppins-SemiBold/SVNPoppinsSemiBold.ttf') format('truetype'),
-         url('../fonts/SVN-Poppins-SemiBold/SVNPoppinsSemiBold.svg#SVNPoppinsSemiBold') format('svg');
 }
 
 
@@ -23,10 +20,7 @@
     font-family: 'SVN-ALoveThunder';
     src: url('../fonts/SVN-ALoveThunder/SVNALoveOfThunder.eot');
     src: url('../fonts/SVN-ALoveThunder/SVNALoveOfThunder.eot') format('embedded-opentype'),
-         url('../fonts/SVN-ALoveThunder/SVNALoveOfThunder.woff2') format('woff2'),
          url('../fonts/SVN-ALoveThunder/SVNALoveOfThunder.woff') format('woff'),
-         url('../fonts/SVN-ALoveThunder/SVNALoveOfThunder.ttf') format('truetype'),
-         url('../fonts/SVN-ALoveThunder/SVNALoveOfThunder.svg#SVNALoveOfThunder') format('svg');
 }
 
 
