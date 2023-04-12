@@ -24,6 +24,8 @@ Route::middleware('auth:sanctum')->group(function(){
 
         Route::post('/noti/create','create');
 
+        Route::post('/noti/update-read-noti','updateReadNoti');
+
     });
     
 });

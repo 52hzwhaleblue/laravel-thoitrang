@@ -34,6 +34,8 @@ Route::middleware('auth:sanctum')->group(function(){
 
         Route::post('/product/search','search');
 
+        Route::post('/product/get-detail','getDetail');
+
     });
 
     Route::controller(ReviewController::class)->group(function(){

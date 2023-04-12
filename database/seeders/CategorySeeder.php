@@ -48,8 +48,11 @@ class CategorySeeder extends Seeder
             "thumbnails/categories/sunglasses.png",
         ];
 
+        $query = DB::table('table_categories');
+
         for($i = 0; $i < 6; $i++){
-            DB::table('table_categories')->insert([
+            
+            $query->insert([
                 "name" => $list_name[$i],
                 "name_vi" => $list_name_vi[$i],
                 "slug" => $list_slug[$i],

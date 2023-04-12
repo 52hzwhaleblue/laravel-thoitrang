@@ -30,16 +30,16 @@ class OrderSeeder extends Seeder
             'notes' => ".....Note",
             'total_price' => 500000,
             'status' => -1, //-1 is order successfully
-            "created_at" => date("Y-m-d H:i:s"),
-            "updated_at" => date("Y-m-d H:i:s"),
+            "created_at" =>now(),
+            "updated_at" =>now(),
         ]);
         
         $faker_size = [
-            "M (42-50kg)",
+            "M",
              "35",
              "36",
-             "M (36-44kg:M42-M52)",
-             "Size 5: 12kg - 14kg.",
+             "M",
+             "XL",
         ];  
 
         $faker_color= [
@@ -49,16 +49,17 @@ class OrderSeeder extends Seeder
              "ffffff",
              "ffffff",
         ];  
+        $query = DB::table('table_order_details');
 
         for($i = 0; $i< 5; ++$i){
-            DB::table('table_order_details')->insert([
+            $query->insert([
                 'order_id' => $order->id,
                 'product_id' => $i+1,
                 'quantity' => random_int(1,10),
                 'size' => $faker_size[$i],
                 'color'=> $faker_color[$i],
-                "created_at" => date("Y-m-d H:i:s"),
-                "updated_at" => date("Y-m-d H:i:s"),
+                "created_at" => now(),
+                "updated_at" => now(),
             ]);
         }
     }
