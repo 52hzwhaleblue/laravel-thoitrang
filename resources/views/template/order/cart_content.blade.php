@@ -34,14 +34,6 @@
             <th>
                 <a href="{{route('cart.remove',$row->rowId)}}" onclick="alert('Bạn có muốn xóa sản phẩm này không');">Xóa</a>
             </th>
-            <th>
-                <p
-                data-rowid="{{$row->rowId}}"
-                data-id="{{$row->id}}"
-                class="remove-ajax remove-ajax-{{$row->rowId}}">
-                Xóa ajax
-            </p>
-            </th>
         </tr>
     @endforeach
 @else

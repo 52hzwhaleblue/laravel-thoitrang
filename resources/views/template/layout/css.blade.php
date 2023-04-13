@@ -1,11 +1,11 @@
 <!-- Bootstrap -->
 {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" /> --}}
-<link href="http://xuongjeannamc665.com/assets/bootstrap-icons/font/bootstrap-icons.css?v=wHTYRXT04y" rel="stylesheet">
-<link href="http://xuongjeannamc665.com/assets/bootstrap/bootstrap.css?v=7S3KUgW6Ef" rel="stylesheet">
+{{-- <link href="http://xuongjeannamc665.com/assets/bootstrap-icons/font/bootstrap-icons.css?v=wHTYRXT04y" rel="stylesheet">
+<link href="http://xuongjeannamc665.com/assets/bootstrap/bootstrap.css?v=7S3KUgW6Ef" rel="stylesheet"> --}}
 
 <!-- Bootstrap -->
-{{-- <link rel="stylesheet" href=" {{ asset('public/assets/boostrap-icons/font/bootstrap-icons.css') }} ">
-<link rel="stylesheet" href=" {{ asset('public/assets/boostrap.css') }} "> --}}
+<link rel="stylesheet" href=" {{ asset('public/assets/bootstrap/bootstrap-icons.css') }} ">
+<link rel="stylesheet" href=" {{ asset('public/assets/bootstrap/bootstrap.css') }} ">
 
 
 <!-- OwlCarousel -->

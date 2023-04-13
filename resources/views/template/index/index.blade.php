@@ -6,8 +6,44 @@
     <div class="alert alert-success">
         {{ session()->get('message') }}
     </div>
+
 @endif
 
+@if(session()->has('CheckLogin'))
+    <p class="ToastyFunction"></p>
+@endif
+
+@if(session()->has('CartToast'))
+    <p class="ToastyFunction"></p>
+@endif
+
+
+
+
+
+<div class="toast" id="CheckLoginToast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <strong class="mr-auto">Thông báo</strong>
+      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="toast-body">
+        @if(session()->has('CheckLogin'))
+            <p class="text-danger">
+                {{ session()->get('CheckLogin') }}
+            </p>
+        @endif
+
+        @if(session()->has('CartToast'))
+        <p class="text-success">
+            {{ session()->get('CartToast') }}
+        </p>
+    @endif
+
+  </div>
+
+</div>
 @if(count($splistnb))
 <div class="pronb-wrapper">
     <div class="wrap-content ">

@@ -1,12 +1,12 @@
-<script src="{{
-        asset('public/backend/assets/js/jquery-3.2.1.min.js')
-    }}"></script>
+<script src="{{asset('public/backend/assets/js/jquery-3.2.1.min.js')}}"></script>
+
+<!-- Popper.js first, then Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
-{{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script> --}}
-<script type="text/javascript" src="http://xuongjeannamc665.com/assets/bootstrap/bootstrap.js?v=vk4oFgawIV"></script>
-{{-- <script type="text/javascript" src="{{ asset('public/assets/bootstrap/bootstrap.js') }}">
-</script> --}}
+<script type="text/javascript" src="{{ asset('public/assets/bootstrap/bootstrap.js') }}">
+</script>
 
 <!-- Slick -->
 <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>

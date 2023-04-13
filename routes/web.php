@@ -25,22 +25,10 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\CartController;
 
 
-
-// Email Auth
-
-Auth::routes(['verify' => true]);
-
-Route::middleware('auth')->group(function () {
-    Route::get('/', [IndexController::class ,'index'])->name('index');
-
-});
-
-
-
+// Admin Route
 Route::get('admin/image/show/{id}', [ImageZoneController::class,'show'])->name('admin.imagezone.show');
 Route::post('admin/image/upload/{id}', [ImageZoneController::class,'upload'])->name('admin.imagezone.upload');
 
-// Admin Route
 Route::group([
     'prefix' => 'admin',
     'as' => 'admin.',
@@ -124,6 +112,11 @@ Route::group([
 
 
 // =========== user
+// Email Auth
+Auth::routes(['verify' => true]);
+
+
+
 //Route logout user account
 // Route::post("logout_user", function() {
 //     Auth::logout();
@@ -137,23 +130,29 @@ Route::get('login_user', function() {
 })->name("login.user");
 
 
-Route::get('/', [IndexController::class,'index'])->name('index');
+// Route::get('/', [IndexController::class,'index'])->name('index');
 Route::get('/san-pham', [IndexController::class,'san_pham'])->name('san-pham');
 // Route::get('/{slug}/{id}', [IndexController::class,'chi_tiet_san_pham'])->name('chi_tiet_san_pham');
-Route::get('/gio-hang', [IndexController::class,'gio-hang'])->name('gio-hang');
 Route::post('/load_ajax_product', [IndexController::class,'load_ajax_product']);
 
+Route::get('/', [IndexController::class ,'index'])->name('index');
 
-// Giỏ hàng
-Route::get('/cart', [CartController::class,'index'])->name('cart.index');
-Route::get('/cart/add/{id}', [CartController::class,'add'])->name('cart.add');
-Route::patch('/cart/update', [CartController::class,'update'])->name('cart.update');
-Route::get('/cart/destroy', [CartController::class,'destroy'])->name('cart.destroy');
-Route::get('/cart/remove/{rowId}', [CartController::class,'remove'])->name('cart.remove');
 
-// Giỏ hàng nâng cấp ajax
-Route::get('/cart/update_ajax', [CartController::class,'update_ajax'])->name('cart.update_ajax');
-Route::get('/cart/checkout', [CartController::class,'checkout'])->name('cart.checkout');
+Route::middleware("CheckLogin")->group(function() {
+    // Giỏ hàng
+    Route::get('/cart', [CartController::class,'index'])->name('cart.index')->middleware('CheckLogin');
+    Route::get('/cart/add/{id}', [CartController::class,'add'])->name('cart.add');
+    Route::patch('/cart/update', [CartController::class,'update'])->name('cart.update');
+    Route::get('/cart/destroy', [CartController::class,'destroy'])->name('cart.destroy');
+    Route::get('/cart/remove/{rowId}', [CartController::class,'remove'])->name('cart.remove');
+    Route::post('/cart/store', [CartController::class,'store'])->name('cart.store');
+    Route::get('/cart/checkout', [CartController::class,'checkout'])->name('cart.checkout');
+
+    // Giỏ hàng nâng cấp ajax
+    Route::get('/cart/update_ajax', [CartController::class,'update_ajax'])->name('cart.update_ajax');
+});
+
+
 
 
 

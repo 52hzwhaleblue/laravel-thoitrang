@@ -224,9 +224,25 @@ function Slick(){
     }
 }
 
+function Toasty(){
+    $('.ToastyFunction').click(function(){
+        var option =
+        {
+            animation : true,
+            delay : 10000
+        };
+        var toastHTMLElement = document.getElementById( 'CheckLoginToast' );
+        var toastElement = new bootstrap.Toast( toastHTMLElement, option );
+        toastElement.show( );
+    });
+
+    $('.ToastyFunction').trigger('click');
+
+}
 
 $(document).ready(function () {
     Home();
+    Toasty();
     Cart();
     Slick();
     OwlPage();

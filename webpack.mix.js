@@ -14,7 +14,5 @@ const mix = require('laravel-mix');
  mix.copyDirectory("resources/backend", "public/backend");
 
  mix.copyDirectory("resources/assets", "public/assets");
- mix.copyDirectory("resources/assets/aos", "public/assets/aos");
- mix.copyDirectory("resources/assets/bootstrap", "public/assets/bootstrap");
- mix.copyDirectory("resources/assets/bootstrap-icons", "public/assets/bootstrap-icons");
+//  mix.copyDirectory("resources/assets/aos", "public/assets/aos");
 

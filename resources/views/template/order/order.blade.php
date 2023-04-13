@@ -16,7 +16,6 @@
                         <th>Đơn giá</th>
                         <th>Tạm tính</th>
                         <th>Xóa</th>
-                        <th>Xóa Ajax</th>
                     </tr>
                 </thead>
                 <tbody class="giohang-tbody">

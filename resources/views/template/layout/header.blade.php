@@ -40,12 +40,14 @@
                         </li>
                         @endguest
 
-                        @auth
+                        {{-- @auth --}}
                         <li class="cart-header">
-                            <i class="fas fa-shopping-cart"></i>
-                            <span> 0 </span>
+                            <a href="{{ route('cart.index') }}">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span> {{ Cart::count() }} </span>
+                            </a>
                         </li>
-                        @endauth
+                        {{-- @endauth --}}
                     </ul>
                 </div>
             </div>
