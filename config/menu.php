@@ -1,6 +1,19 @@
 <?php
 
     $menuArr = [
+        // Options
+        'option' =>[
+            'name' => 'Options',
+            'group' => '.option.',
+            'data' => [
+                'promo-code' => [
+                    'title' => 'Promo Code',
+                    'type' => 'promo-code',
+                    'index' => 'admin.option.promo-code.index',
+                ],
+            ]
+        ],
+
         // Sản phẩm
         'product' => [
             'name' => 'Sản phẩm',
@@ -10,10 +23,6 @@
                     'title' => 'Danh mục cấp 1',
                     'index' => 'admin.product.product-list.index',
                 ],
-                // 'cat' =>[
-                //     'title' => 'Danh mục cấp 2',
-                //     'index' => 'admin.product.product-cat.index',
-                // ],
                 'man' =>[
                     'title' => 'Danh mục sản phẩm',
                     'index' => 'admin.product.product-man.index',

@@ -18,6 +18,10 @@ use App\Http\Controllers\Admin\PhotoController;
 // Static Controller
 use App\Http\Controllers\Admin\StaticController;
 
+// Option Controller
+use App\Http\Controllers\Admin\OptionController;
+
+
 // Index Controller
 use App\Http\Controllers\IndexController;
 
@@ -33,7 +37,6 @@ Route::group([
     'prefix' => 'admin',
     'as' => 'admin.',
 ],function(){
-
     Route::resource('/', HomeController::class);
 
     // Sản phẩm
@@ -69,46 +72,65 @@ Route::group([
         }
     });
 
-        // Hình ảnh Video
-        Route::group([
-            'prefix' => 'photo',
-            'as' => 'photo.',
-        ], function(){
+    // Options
+    Route::group([
+        'prefix' => 'option',
+        'as' => 'option.',
+    ], function(){
+        $menus = config('menu');
 
-            $menus = config('menu');
+        foreach($menus as $m){
+            if($m['name'] == 'Options'){
+                foreach($m['data'] as $m1){
+                    $type = $m1['type'];
+                    // dd($type);
+                    Route::resource($type, OptionController::class);
 
-            foreach($menus as $m){
-                if($m['name'] == 'Hình ảnh - Video'){
-                    foreach($m['data'] as $m1){
-                        $type = $m1['type'];
-                        // dd($type);
-                        Route::resource($type, PhotoController::class);
-
-                    }
                 }
             }
-        });
+        }
+    });
 
-        // Trang tĩnh
-        Route::group([
-            'prefix' => 'static',
-            'as' => 'static.',
-        ], function(){
-            $menus = config('menu');
+    // Hình ảnh Video
+    Route::group([
+        'prefix' => 'photo',
+        'as' => 'photo.',
+    ], function(){
+        $menus = config('menu');
+        foreach($menus as $m){
+            if($m['name'] == 'Hình ảnh - Video'){
+                foreach($m['data'] as $m1){
+                    $type = $m1['type'];
+                    // dd($type);
+                    Route::resource($type, PhotoController::class);
 
-            foreach($menus as $m){
-                if($m['name'] == 'Trang tĩnh'){
-                    foreach($m['data'] as $m1){
-                        $type = $m1['type'];
-                        // dd($type);
-                        Route::resource($type, StaticController::class);
-
-                    }
                 }
             }
-        });
+        }
+    });
+
+    // Trang tĩnh
+    Route::group([
+        'prefix' => 'static',
+        'as' => 'static.',
+    ], function(){
+        $menus = config('menu');
+
+        foreach($menus as $m){
+            if($m['name'] == 'Trang tĩnh'){
+                foreach($m['data'] as $m1){
+                    $type = $m1['type'];
+                    // dd($type);
+                    Route::resource($type, StaticController::class);
+
+                }
+            }
+        }
+    });
 
 });
+
+
 
 
 // =========== user
@@ -151,9 +173,3 @@ Route::middleware("CheckLogin")->group(function() {
     // Giỏ hàng nâng cấp ajax
     Route::get('/cart/update_ajax', [CartController::class,'update_ajax'])->name('cart.update_ajax');
 });
-
-
-
-
-
-

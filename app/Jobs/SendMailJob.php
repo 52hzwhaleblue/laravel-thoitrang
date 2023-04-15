@@ -8,6 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Mail;
 
 class SendMailJob implements ShouldQueue
 {
@@ -19,11 +20,11 @@ class SendMailJob implements ShouldQueue
      * @return void
      */
     protected $dataMail;
-    protected $userMail;
-    public function __construct($dataMail,$userMail)
+    protected $dataUser;
+    public function __construct($dataMail,$dataUser)
     {
         $this->dataMail = $dataMail;
-        $this->userMail = $userMail;
+        $this->dataUser = $dataUser;
     }
 
     /**
@@ -33,6 +34,8 @@ class SendMailJob implements ShouldQueue
      */
     public function handle()
     {
+        return $dataUser['email'];
+
         Mail::to($dataUser['email'])->send(new SendMail($dataMail));
         session(
             [
@@ -50,4 +53,5 @@ class SendMailJob implements ShouldQueue
         );
 
     }
+
 }

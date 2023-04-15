@@ -149,7 +149,7 @@ class CartController extends Controller
             }
         });
 
-                        // Gửi Mail cho khách hàng
+        // Gửi Mail cho khách hàng
         $dataMail = [
             "code_order" => $code_order,
             "fullname" => $dataUser['fullname'],
@@ -164,7 +164,7 @@ class CartController extends Controller
         session(
             [
                 "fullname" => $dataMail['fullname'],
-                // "code_order" => $code_order,
+                "code_order" => $code_order,
                 // "qty_empty" => $qty_empty,
                 // "price_empty" => $price_empty,
                 // "sub_total_empty" => $sub_total_empty,
