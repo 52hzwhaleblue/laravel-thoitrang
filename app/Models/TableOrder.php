@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use App\Models\TableReview;
+use App\Models\TableOrderDetail;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -62,4 +64,15 @@ class TableOrder extends Model
     {
         return $this->belongsTo(TableOrderStatus::class);
     }
+
+    public function orderDetail()
+    {
+        return $this->hasMany(TableOrderDetail::class,'order_id','id');
+    }
+
+    public function review()
+    {
+        return $this->hasOne(TableReview::class,'order_id','id');
+    }
+    
 }
