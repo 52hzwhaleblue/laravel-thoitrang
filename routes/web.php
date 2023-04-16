@@ -154,7 +154,7 @@ Route::get('login_user', function() {
 
 // Route::get('/', [IndexController::class,'index'])->name('index');
 Route::get('/san-pham', [IndexController::class,'san_pham'])->name('san-pham');
-// Route::get('/{slug}/{id}', [IndexController::class,'chi_tiet_san_pham'])->name('chi_tiet_san_pham');
+Route::get('/chi-tiet-san-pham/{slug}/{id}', [IndexController::class,'chi_tiet_san_pham'])->name('chi_tiet_san_pham');
 Route::post('/load_ajax_product', [IndexController::class,'load_ajax_product']);
 
 Route::get('/', [IndexController::class ,'index'])->name('index');

@@ -3,46 +3,42 @@
 @section('content')
 
 @if(session()->has('message'))
-    <div class="alert alert-success">
-        {{ session()->get('message') }}
-    </div>
+<div class="alert alert-success">
+    {{ session()->get('message') }}
+</div>
 
 @endif
 
 @if(session()->has('CheckLogin'))
-    <p class="ToastyFunction"></p>
+<p class="ToastyFunction"></p>
 @endif
 
 @if(session()->has('CartToast'))
-    <p class="ToastyFunction"></p>
+<p class="ToastyFunction"></p>
 @endif
-
-
-
 
 
 <div class="toast" id="CheckLoginToast" role="alert" aria-live="assertive" aria-atomic="true">
     <div class="toast-header">
-      <strong class="mr-auto">Thông báo</strong>
-      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
+        <strong class="mr-auto">Thông báo</strong>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
     </div>
     <div class="toast-body">
         @if(session()->has('CheckLogin'))
-            <p class="text-danger">
-                {{ session()->get('CheckLogin') }}
-            </p>
+        <p class="text-danger">
+            {{ session()->get('CheckLogin') }}
+        </p>
         @endif
 
         @if(session()->has('CartToast'))
         <p class="text-success">
             {{ session()->get('CartToast') }}
         </p>
-    @endif
+        @endif
 
-  </div>
-
+    </div>
 </div>
 @if(count($splistnb))
 <div class="pronb-wrapper">
@@ -52,10 +48,12 @@
         <div class="pronb-container">
             <div class="dm-noibat list-hot d-flex flex-wrap align-items-center justify-content-center">
                 <?php foreach($splistnb as $v){?>
-                    <a class="text-decoration-none" data-id="<?=$v->id?>" data-tenkhongdau="<?=$v->slug?>"><?=$v->name?></a>
+                <a class="text-decoration-none" data-id="<?=$v->id?>" data-tenkhongdau="<?=$v->slug?>">
+                    <?=$v->name?>
+                </a>
                 <?php }?>
             </div>
-            <div class="load_ajax_product" >  </div>
+            <div class="load_ajax_product"> </div>
         </div>
     </div>
 </div>
@@ -91,17 +89,14 @@
 <div class="gioithieu-wrapper">
     <div class="wrap-content">
         <div class="gioithieu-left">
-            <div class="owl-gioithieu owl-page owl-carousel owl-theme" data-xsm-items="1:0"
-                data-sm-items="2:10" data-md-items="3:15" data-lg-items="3:20" data-xlg-items="2:15" data-rewind="1"
-                data-autoplay="1" data-loop="0" data-lazyload="0" data-mousedrag="1" data-touchdrag="1"
-                data-smartspeed="800" data-autoplayspeed="800" data-autoplaytimeout="5000" data-dots="0"
-                data-animations="" data-nav="1" data-navtext="" data-navcontainer="">
+            <div class="owl-gioithieu owl-page owl-carousel owl-theme" data-xsm-items="1:0" data-sm-items="2:10"
+                data-md-items="3:15" data-lg-items="3:20" data-xlg-items="2:15" data-rewind="1" data-autoplay="1"
+                data-loop="0" data-lazyload="0" data-mousedrag="1" data-touchdrag="1" data-smartspeed="800"
+                data-autoplayspeed="800" data-autoplaytimeout="5000" data-dots="0" data-animations="" data-nav="1"
+                data-navtext="" data-navcontainer="">
                 @foreach ($gioithieu_slide as $v )
                 <div>
-                    <img
-                    data-width="420"
-                    data-height="620"
-                    class="" src="{{
+                    <img data-width="420" data-height="620" class="" src="{{
                             asset(
                                 'backend/assets/img/photo/'.$v['photo']
                             )

@@ -23,9 +23,16 @@
                 </tbody>
             </table>
 
-            <a href="{{ route('cart.checkout') }}"> Thanh toán </a>
-            <a href="{{route('cart.destroy')}}" onclick="alert('Bạn có muốn xóa giỏ hàng không');">Xóa tất cả</a>
-            <div class="giohang-tongtien"> Tổng tiền: {{ number_format(Cart::total(),0,',','.') }} vnđ</div>
+
+            <div class="giohang-tongtien ">
+                <p class="mb-0">Tổng tiền: {{ number_format(Cart::total(),0,',','.') }} vnđ </p>
+            </div>
+            <div class="giohang-btns ">
+                <a href="{{ route('cart.checkout') }}" class="btn btn-primary mr-2"> Thanh toán </a>
+
+                <a class="btn btn-danger" href="{{route('cart.destroy')}}"
+                    onclick="alert('Bạn có muốn xóa giỏ hàng không');">Xóa tất cả</a>
+            </div>
         </form>
     </div>
 </div>

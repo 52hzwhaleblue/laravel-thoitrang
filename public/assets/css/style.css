@@ -4377,6 +4377,24 @@ margin-bottom: 0;
     -webkit-line-clamp: 1;
 }
 
+/* Giỏ hàng */
+.giohang-wrapper{}
+.giohang-wrapper .wrap-content{}
+.giohang-tbody{}
+.giohang-tongtien{
+    align-items: center;
+    justify-content: flex-end;
+    display: flex;
+    margin-bottom: 20px;
+}
 
+.giohang-tongtien p{
+    font-size: 18px;
+    font-weight: bold;
+}
 
+.giohang-btns{
+    justify-content: flex-end;
+    display: flex;
+}
 

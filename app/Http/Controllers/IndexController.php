@@ -74,11 +74,11 @@ class IndexController extends Controller
         $output .='
             <div class="pronb-item" data-aos="fade-up" data-aos-duration="1500">
                 <div class="pronb-image">
-                    <a class="pronb-img scale-img" href= '.$v->slug.'/'.$v->id.' >
+                    <a class="pronb-img scale-img" href= chi-tiet-san-pham/'.$v->slug.'/'.$v->id.' >
                         <img src='.asset("http://localhost:8000/storage/$v->photo").' alt="" width="365"
                             height="365" />
                     </a>
-                    <a class="pronb-img1 scale-img" href= '.$v->slug.'/'.$v->id.' >
+                    <a class="pronb-img1 scale-img" href= chi-tiet-san-pham/'.$v->slug.'/'.$v->id.' >
                         <img src='.asset("http://localhost:8000/storage/$v->photo1").' alt="" width="365"
                             height="365" />
                     </a>
@@ -94,7 +94,7 @@ class IndexController extends Controller
                 </div>
                 <div class="pronb-info">
                     <h3 class="mb-0">
-                        <a class="pronb-name text-split" href= '.$v->slug.'/'.$v->id.'>
+                        <a class="pronb-name text-split" href= chi-tiet-san-pham/'.$v->slug.'/'.$v->id.'>
                             '.$v->name.'
                         </a>
                     </h3>
@@ -134,6 +134,8 @@ class IndexController extends Controller
         $rowDetail = DB::table('table_products')
         ->where('slug', $slug)
         ->get();
+
+        // dd($rowDetail);
 
         $rowDetailPhoto = DB::table('table_product_details')
         ->where('product_id', $id)
