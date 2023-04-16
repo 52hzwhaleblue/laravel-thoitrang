@@ -44,5 +44,6 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('reviews');
+        Schema::dropIfExists('table_review_detail');
     }
 };

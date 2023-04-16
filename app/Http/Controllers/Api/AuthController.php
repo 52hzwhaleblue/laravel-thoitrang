@@ -109,10 +109,27 @@ class AuthController extends BaseController
 
             $ischeck = User::where('phone',$phone)->exists();
 
-            if($ischeck){
+            if(!$ischeck){
                 return $this->sendResponse([201],"Failed");
             }
             return $this->sendResponse([200],"Successfully");
+
+        }catch(\Throwable $th){
+            return $this->sendError( $th->getMessage(),null,500);
+        }
+    }
+
+    public function forgotPassword(){
+        try{
+            $phone = request()->input('phone');
+
+            $newpass = request()->input('new_password');
+
+            User::where('phone',$phone)->update([
+                "password" => Hash::make($newpass),
+            ]);
+  
+            return $this->sendResponse(200,"Change password successfully");
 
         }catch(\Throwable $th){
             return $this->sendError( $th->getMessage(),null,500);

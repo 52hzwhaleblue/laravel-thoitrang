@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\TableCategory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -14,9 +15,6 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        $list_id = [
-           1,2,3,4,5
-        ];
 
         $list_name = [
             "All","Clothing","Handbag","Shoes","Watch","Sunglasses"
@@ -28,15 +26,10 @@ class CategorySeeder extends Seeder
         $list_slug= [
             "ao_ba_lo_do.jpg" ,
             "ao_cotton_kid.jpg",
-
             "ao_phong_unisex_black_white_2.jpg",
-
-
             "ao-polo-nam-Aristino-xanh.jpg",
             "dam_han_quoc_den_nau-nhat.jpg",
-
             "guoc_cao_no_white.jpg"
-
         ];
 
         $list_category = [

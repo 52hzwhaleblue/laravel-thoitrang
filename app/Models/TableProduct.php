@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use App\Models\TableReview;
+use Illuminate\Support\Str;
 use App\Models\TableCategory;
+use App\Models\TablePromotion;
 use App\Models\TableOrderDetail;
 use App\Models\TableProductDetail;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Support\Str;
 
 class TableProduct extends Model
 {
@@ -63,7 +64,9 @@ class TableProduct extends Model
             ->toDateTimeString();
     }
 
-
+    public function promotion(){
+        return $this->belongsTo(TablePromotion::class);
+    }
 
     public function productDetail()
     {

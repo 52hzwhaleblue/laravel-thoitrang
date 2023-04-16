@@ -11,38 +11,18 @@ use App\Jobs\InsertReviewDetailJob;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Api\BaseController as BaseController;
+use App\Models\TableReview;
 
 class ReviewController extends BaseController
 {
-    public function fetchData(Request $request,DB $db){   
+    public function fetchData(){   
         try {    
             $product_id = request()->query('id_product');
-
-            $page = request()->query('page',1);
             
-            $limit = 8;
-
-            $user_query = $db::table("table_users");
-
-            $review_query = $db::table("table_reviews")->where('product_id',$product_id);
-
-            $review_detail_query = $db::table("table_review_detail")->select("id","photo");
-
-            $reviews = $review_query
-            ->when($page > 1, function ($query) use ($page, $limit) {
-                    $offset = ($page - 1) * $limit;
-                    return $query->skip($offset);
-            })
-            ->take($limit)
+            $reviews = TableReview::with(['user','images'])
+            ->where('product_id',$product_id)
             ->get();
 
-            $reviews->map(function($review) use ($user_query,$review_detail_query){
-                    $review->user = $user_query->where("id",$review->user_id)
-                                    ->first();
-                    $review->images = $review_detail_query
-                                    ->where("review_id",$review->id)
-                                    ->get();
-            });
 
             return $this->sendResponse($reviews, "Fetch reviews successfully!!!");
            

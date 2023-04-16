@@ -29,6 +29,8 @@ Route::controller(AuthController::class)->group(function(){
     Route::post('/auth/register', 'register');
 
     Route::post('/auth/check-phone','checkPhone');
+
+    Route::post('/auth/forgot-password','forgotPassword');
     
 });
 // Route để xác thực người dùng trước khi tham gia vào channel

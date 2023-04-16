@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\user\PasswordRequest;
 use App\Http\Controllers\Api\BaseController as BaseController;
+use App\Models\TableRoomChat;
 
 class UserController extends BaseController
 {
@@ -115,44 +116,59 @@ class UserController extends BaseController
         }
     }
 
-    public function createChat(Request $request, DB $db){
-    try {
-        $chatMessage = $request->input('message');
-        $room_chat_id_request = $request->input('room_chat_id');
-        $admin = $db::table('table_users')->where('role', 0)->first();
-        $userId = Auth::id();
-       
-        $db::transaction(function () use ($db, $userId, $chatMessage, $room_chat_id_request, $admin) {
-            if (is_null($room_chat_id_request)) {
-                $room_chat_id = $db::table('table_room_chats')->insertGetId([
-                    "user_id" => $userId,
-                    "created_at" => now(),
-                    "updated_at" => now(),
-                ]);
-                $db::table('table_chats')->insert([
-                    "room_chat_id" => $room_chat_id,
-                    "sender_id" => $userId,
-                    "receiver_id" => $admin->id,
-                    "message" => $chatMessage,
-                    "created_at" => now(),
-                    "updated_at" => now(),
-                ]);
-            } else {
-                $db::table('table_chats')->insert([
-                    "room_chat_id" => $room_chat_id_request,
-                    "receiver_id" => $admin->id,
-                    "sender_id" => $userId,
-                    "message" => $chatMessage,
-                    "created_at" => now(),
-                    "updated_at" => now(),
-                ]);
-            }
-        });
+    public function createChat(Request $request, TableRoomChat $room_chat_eloquent, TableChat $chat_eloquent)
+    {
+        try {
+            $chatMessage = $request->input('message');
 
-        return $this->sendResponse([], "Chat successfully");
-        } catch (\Throwable $th) {
-            return $this->sendError($th->getMessage(), null, 500);
-        }
+            $admin = User::where('role', 0)->firstOrFail();
+
+            $userId = Auth::id();
+
+            $roomChatUser = $room_chat_eloquent::where('user_id',$userId);
+
+            $existsRoomChat = $roomChatUser->exists();
+
+            $time = now();
+    
+            $result = DB::transaction(function () use ($roomChatUser,$userId, $chatMessage, $existsRoomChat, $admin, $room_chat_eloquent, $chat_eloquent, $time) {
+    
+                if (!$existsRoomChat) {
+    
+                    $room_chat = $room_chat_eloquent::create([
+                        "user_id" => $userId,
+                        "created_at" => $time,
+                        "updated_at" => $time,
+                    ]);
+    
+                    $result = $room_chat->chats()->create([
+                        "sender_id" => $userId,
+                        "receiver_id" => $admin->id,
+                        "message" => $chatMessage,
+                        "created_at" => $time,
+                        "updated_at" => $time,
+                    ]);
+    
+                } else {
+    
+                    $result = $chat_eloquent->create([
+                        "room_chat_id" => $roomChatUser->first()->id,
+                        "receiver_id" => $admin->id,
+                        "sender_id" => $userId,
+                        "message" => $chatMessage,
+                        "created_at" => $time,
+                        "updated_at" => $time,
+                    ]);
+                }
+    
+                return $result;
+            });
+    
+            return $this->sendResponse($result, "Chat successfully");
+    
+        } catch (\Throwable $th) {    
+            return $this->sendError( $th->getMessage(),null,500);
+        }  
     }
 
     public function fetchChat(DB $db){
@@ -185,12 +201,12 @@ class UserController extends BaseController
             $user_id = $request->input('user_id');
 
             $chats = [
+                "id" => 10,
                 "room_chat_id" => (int) $room_chat_id_request,
                 "receiver_id" => (int)$user_id,
-                "sender_id" => 2,
+                "sender_id" => 11,
                 "message" =>$chatMessage,
-                "created_at" => date('Y-m-d H:i:s') ,
-                "updated_at" =>date('Y-m-d H:i:s') ,
+                "created_at" => date('Y-m-d H:i:s'),
             ];   
 
             $this->pusher('room-chat-user-'.$user_id, 'chat-message',  $chats);

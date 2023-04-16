@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Api\BaseController as BaseController;
 use App\Models\TableProduct;
+use App\Models\TablePromotion;
 
 class ProductController extends BaseController
 {
@@ -16,9 +17,7 @@ class ProductController extends BaseController
 
             $type = request()->query('type',1);
 
-            $limit = 10;
-            
-            $offset = ($page - 1) * $limit;
+            $limit = 8;
          
             $products = TableProduct::with(['category','productDetail'])
                 ->withCount('orderDetail as sold')
@@ -26,14 +25,18 @@ class ProductController extends BaseController
                 ->when($type != 1,function($query) use ($type){
                     return $query->where('category_id',$type);
                 })
-                ->offset($offset)->limit($limit)
-                ->get();
-                
-            $products->map(function ($product) {
+                ->when($page > 0,function($query) use ($limit,$page){
+                    $offset = ($page - 1) * $limit;
+                    return $query->skip($offset);
+                })
+                ->take($limit)
+                ->get()
+                ->map(function ($product) {
                     $product->star =  (double)$product->star;
                     $product->is_popular = $product->view > 350;
                      return $product;
-            });  
+                }); 
+            
           
             return $this->sendResponse($products, "Fetch Product successfully!!!");
             
@@ -64,8 +67,8 @@ class ProductController extends BaseController
             $id = request()->query('id_product');
 
             $product = TableProduct::with(["productDetail"])
-             ->withCount('orderDetail as sold')
-                ->withAvg('reviews as star', 'star')
+            ->withCount('orderDetail as sold')
+            ->withAvg('reviews as star', 'star')
             ->find($id);
 
             $product->star =  (double)$product->star;
@@ -79,7 +82,6 @@ class ProductController extends BaseController
 
     }
     
-
     public function search(Request $request){
         try {    
             $keyword = request()->query('keyword');
@@ -87,24 +89,47 @@ class ProductController extends BaseController
             $limit = 8;
             $offset = ($page - 1) * $limit;
 
-            $products = DB::table('table_products')
-            ->whereRaw("name LIKE '%".$keyword."%' COLLATE utf8mb4_unicode_ci")
-            ->skip($offset)
+            $products = TableProduct::with(['category','productDetail'])
+            ->withCount('orderDetail as sold')
+            ->whereTranslationLike('name', '%'.$keyword.'%')
+            ->withAvg('reviews as star', 'star')
+            ->when($page > 0,function($query) use ($limit,$page){
+                $offset = ($page - 1) * $limit;
+                return $query->skip($offset);
+            })
             ->take($limit)
             ->get()
-            ->map(function($product) {
-                $product->sold = intval( DB::table('table_order_details')
-                ->where('product_id', $product->id)
-                ->sum('quantity'));
-                $product->properties = json_decode($product->properties, true);
-                $product->product_detail = DB::table('table_product_details')->where('product_id',$product->id)->select('id','photo')->get();
-                $product->category = DB::table('table_categories')->select('id','photo','name','name_vi')->find($product->category_id);
-                return $product;
-            });
+            ->map(function ($product) {
+                $product->star =  (double)$product->star;
+                $product->is_popular = $product->view > 350;
+                 return $product;
+            }); 
+        
 
             return $this->sendResponse($products, "Fetch search successfully!!!");
         } catch (\Throwable $th) { 
             return $this->sendError( $th->getMessage(),500);
         }
     }
+
+    public function fetchPromotion(){
+        try{
+            $page = request()->query('page');
+
+            $limit = 5;
+
+            $promotions = TablePromotion::when($page > 0,function($query) use ($limit,$page){
+                $offset = ($page - 1) * $limit;
+                return $query->skip($offset);
+            })
+            ->take($limit)
+            ->get();
+
+            return $this->sendResponse($promotions, "Fetch successfully!!!");
+
+        }catch(\Throwable $th){
+            return $this->sendError( $th->getMessage(),500);
+        }
+    }
+
 }

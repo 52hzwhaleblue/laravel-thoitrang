@@ -30,4 +30,8 @@ class TableChat extends Model
             ->setTimezone('Asia/Ho_Chi_Minh')
             ->toDateTimeString();
     }
+
+    public function roomChat(){
+        return $this->belongsTo(TableRoomChat::class,'room_chat_id','id');
+    }
 }

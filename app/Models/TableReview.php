@@ -47,11 +47,11 @@ class TableReview extends Model
     }
 
     public function product(){
-        return $this->belongsTo(TableProduct::class);
+        return $this->belongsTo(TableProduct::class,'product_id','id');
     }
 
-    public function reviewDetail(){
-        return $this->hasMany(TableReviewDetail::class);
+    public function images(){
+        return $this->hasMany(TableReviewDetail::class,'review_id','id');
     }
 
     public function order(){

@@ -36,6 +36,9 @@ Route::middleware('auth:sanctum')->group(function(){
 
         Route::post('/product/get-detail','getDetail');
 
+        Route::post('/product/get-promotion','fetchPromotion');
+
+
     });
 
     Route::controller(ReviewController::class)->group(function(){
