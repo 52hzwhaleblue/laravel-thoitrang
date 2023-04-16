@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\TableOrder;
 use App\Models\TableProduct;
 use App\Models\TableReviewDetail;
 use Illuminate\Database\Eloquent\Model;
@@ -46,10 +47,14 @@ class TableReview extends Model
     }
 
     public function product(){
-        return $this->belongsTo(TableProduct::class);
+        return $this->belongsTo(TableProduct::class,'product_id','id');
     }
 
-     public function reviewDetail(){
-        return $this->hasMany(TableReviewDetail::class);
+    public function images(){
+        return $this->hasMany(TableReviewDetail::class,'review_id','id');
+    }
+
+    public function order(){
+        return $this->belongsTo(TableOrder::class);
     }
 }

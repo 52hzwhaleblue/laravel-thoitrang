@@ -20,8 +20,19 @@ return new class extends Migration
             $table->string('title')->nullable();
             $table->string('subtitle')->nullable();
             $table->integer('is_read')->nullable()->default(0);
+            $table->string('type')->nullable()->default("");
             $table->foreign('user_id') ->references('id')->on('table_users')->cascadeOnDelete();
             $table->foreign('order_id') ->references('id')->on('table_orders')->cascadeOnDelete();
+            $table->timestamps();
+        });
+
+        Schema::create('table_notification_detail', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('notification_id');
+            $table->unsignedInteger('user_id')->nullable();
+            $table->integer('is_read')->nullable()->default(0);
+            $table->foreign('notification_id') ->references('id')->on('table_notifications')->cascadeOnDelete();
+            $table->foreign('user_id') ->references('id')->on('table_users')->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -33,6 +44,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('notifications');
+        Schema::dropIfExists('table_notifications');
+        Schema::dropIfExists('table_notification_detail');
     }
 };

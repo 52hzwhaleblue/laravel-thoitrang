@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\TablePhoto;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -14,6 +15,8 @@ class PhotoSeeder extends Seeder
      */
     public function run()
     {
+        $photoEloquent = new TablePhoto();
+
         $listPhoto = [
             "thumbnails/slider/slider_3_63fd7e70ae1d6.jpg",
             "thumbnails/slider/slider_63fd7d37aa353.jpg",
@@ -21,7 +24,7 @@ class PhotoSeeder extends Seeder
         ];
 
         foreach($listPhoto as $index => $item){
-            DB::table('table_photos')->insert([
+            $photoEloquent->create([
                 "photo" => $item,
                 "created_at" => date("Y-m-d H:i:s"),
                 "updated_at" => date("Y-m-d H:i:s"),

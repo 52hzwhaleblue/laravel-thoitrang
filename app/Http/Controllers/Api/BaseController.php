@@ -46,6 +46,7 @@ class BaseController extends Controller
     public function uploadFile($request, $dir, $width, $height, $callback = null)
     {
         $files = $request->file('image');
+
         $count = count($files);
     
         if ($count == 0) {
@@ -67,8 +68,9 @@ class BaseController extends Controller
     
             // Save thumbnail to storage
             $thumbnailPath = 'thumbnails/' . $dir . $path;
+
             Storage::disk('public')->put($thumbnailPath, (string) $thumbnail);
-    
+
             $paths[] = $thumbnailPath;
         }
     

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedInteger('order_id')->nullable();
             $table->integer('star')->nullable();
             $table->string('content')->nullable();
+            $table->string('status')->nullable();
             $table->foreign('product_id')->references('id')->on('table_products')->cascadeOnDelete();
             $table->foreign('order_id')->references('id')->on('table_orders')->cascadeOnDelete();
             $table->foreign('user_id')->references('id')->on('table_users')->cascadeOnDelete();
@@ -43,5 +44,6 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('reviews');
+        Schema::dropIfExists('table_review_detail');
     }
 };
