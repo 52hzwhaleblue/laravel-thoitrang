@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Product;
+use Illuminate\Support\Str;
+use App\Models\TableProduct;
 use Illuminate\Http\Request;
+use App\Models\TablePromotion;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Api\BaseController as BaseController;
-use App\Models\TableProduct;
-use App\Models\TablePromotion;
 
 class ProductController extends BaseController
 {
@@ -82,16 +83,17 @@ class ProductController extends BaseController
 
     }
     
-    public function search(Request $request){
+    public function search(){
         try {    
             $keyword = request()->query('keyword');
+
             $page = request()->query('page');
+
             $limit = 8;
-            $offset = ($page - 1) * $limit;
 
             $products = TableProduct::with(['category','productDetail'])
             ->withCount('orderDetail as sold')
-            ->whereTranslationLike('name', '%'.$keyword.'%')
+            ->whereRaw("name LIKE '%$keyword%'")
             ->withAvg('reviews as star', 'star')
             ->when($page > 0,function($query) use ($limit,$page){
                 $offset = ($page - 1) * $limit;
