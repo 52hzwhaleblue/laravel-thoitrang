@@ -24,7 +24,7 @@
         @foreach ($slide as $v )
         <div class="slideshow-item">
             <img
-                src="{{ asset('backend/assets/img/photo/'.$v['photo']) }}"
+                src="{{ asset('public/backend/assets/img/photo/'.$v['photo']) }}"
                 alt="slide"
             />
         </div>

@@ -14,10 +14,40 @@
                         <li><a class="transition" href="\" title=""> Trang chủ </a></li>
                         <li><a class="transition" href="" title=""> Giới thiệu </a></li>
                         <li><a class="transition" href="{{route('san-pham')}}" title="Sản phẩm"> Sản phẩm </a></li>
-                        <li><a class="transition" href="" title=""> Dịch vụ </a></li>
                         <li><a class="transition" href="" title=""> Tin tức </a></li>
                         <li><a class="transition" href="" title=""> Album ảnh </a></li>
                         <li><a class="transition" href="" title=""> Liên hệ </a></li>
+
+                        @auth
+                        <li class="mr-3">
+                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
+                            </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </li>
+                        @endauth
+
+
+                        @guest
+                        <li class="mr-3">
+                            <a href="{{route('login')}}">
+                                <i class="fa fa-user"></i>
+                            </a>
+                        </li>
+                        @endguest
+
+                        {{-- @auth --}}
+                        <li class="cart-header">
+                            <a href="{{ route('cart.index') }}">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span> {{ Cart::count() }} </span>
+                            </a>
+                        </li>
+                        {{-- @endauth --}}
                     </ul>
                 </div>
             </div>
