@@ -15,6 +15,7 @@ class TableNotification extends Model
         'is_read',
         'title',
         'subtitle',
+        'type',
         'created_at',
         'updated_at',
     ];

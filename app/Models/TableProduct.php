@@ -4,7 +4,10 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use App\Models\TableReview;
+use Illuminate\Support\Str;
 use App\Models\TableCategory;
+use App\Models\TablePromotion;
+use App\Models\TableOrderDetail;
 use App\Models\TableProductDetail;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -61,6 +64,10 @@ class TableProduct extends Model
             ->toDateTimeString();
     }
 
+    public function promotion(){
+        return $this->belongsTo(TablePromotion::class);
+    }
+
     public function productDetail()
     {
         return $this->hasMany(TableProductDetail::class,'product_id','id');
@@ -71,8 +78,26 @@ class TableProduct extends Model
         return $this->belongsTo(TableCategory::class);
     }
 
-    public function review(){
-        return $this-> hasMany(TableReview::class);
+    public function reviews(){
+        return $this->hasMany(TableReview::class,'product_id','id');
     }
+
+    public function orderDetail()
+    {
+        return $this->hasMany(TableOrderDetail::class, 'product_id','id');
+    }
+
+    public function scopePopular($query)
+    {
+        return $query->where('view', '>=', 150)
+            ->whereIn('id', function ($query) {
+                $query->select('product_id')
+                    ->from('table_order_details')
+                    ->groupBy('product_id')
+                    ->havingRaw('SUM(quantity) > 3');
+            });
+    }
+
+
 
 }

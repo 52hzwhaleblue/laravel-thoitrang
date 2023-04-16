@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class TableReviewDetail extends Model
 {
     use HasFactory;
+    
+    protected $table = "table_review_detail";
 
     protected $fillable = [
         'review_id',
@@ -37,7 +39,7 @@ class TableReviewDetail extends Model
 
     public  function review(){
 
-        return $this->belongsTo(TableReview::class);
+        return $this->belongsTo(TableReview::class,'review_id','id');
         
     }
 }

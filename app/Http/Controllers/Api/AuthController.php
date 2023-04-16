@@ -52,8 +52,8 @@ class AuthController extends BaseController
         }
     }
 
-    public function register(Request $request)
-    {
+    public function register(Request $request,DB $db)
+    {     
         try {
             $validateTableUser = Validator::make($request->all(),
             [
@@ -68,8 +68,9 @@ class AuthController extends BaseController
             if($validateTableUser->fails()){
                 return $this->sendError('validation error',$validateTableUser->errors(),401);
             }
-
-            $checkEmaiAndPhone = DB::table('table_users')
+            $query = $db::table('table_users');
+            
+            $checkEmaiAndPhone = $query
             ->where('phone', $request->phone)
             ->orWhere('email', $request->email)
             ->exists();
@@ -78,10 +79,10 @@ class AuthController extends BaseController
                 $url = "";
                 
                 if($request->hasFile('image')){
-                    $url = $this->uploadFile($request,"avatar/",85,85);
+                    $url = $this->uploadFile($request,"avatars/",150,150);
                 }
-               
-                DB::table('table_users')->insert([
+                
+                $query->insert([
                     "username" => $request->username,
                     "fullname" => $request->fullname,
                     "email" => $request->email,
@@ -102,15 +103,49 @@ class AuthController extends BaseController
         }
     }
 
+    public function checkPhone(){
+        try{
+            $phone = request()->input('phone');
+
+            $ischeck = User::where('phone',$phone)->exists();
+
+            if(!$ischeck){
+                return $this->sendResponse([201],"Failed");
+            }
+            return $this->sendResponse([200],"Successfully");
+
+        }catch(\Throwable $th){
+            return $this->sendError( $th->getMessage(),null,500);
+        }
+    }
+
+    public function forgotPassword(){
+        try{
+            $phone = request()->input('phone');
+
+            $newpass = request()->input('new_password');
+
+            User::where('phone',$phone)->update([
+                "password" => Hash::make($newpass),
+            ]);
+  
+            return $this->sendResponse(200,"Change password successfully");
+
+        }catch(\Throwable $th){
+            return $this->sendError( $th->getMessage(),null,500);
+        }
+    }
 
     public function loginWithGoogle(Request $request){
 
         try {
+            $query_user =  User::where('email',$request->email);
+
             //check the account already in database
-            $checkEmail =  DB::table('table_users')->where('email',$request->email)->exists();
+            $checkEmail =  $query_user->exists();
 
             if($checkEmail){
-                $TableUser = User::where('email',$request->email)->first();
+                $TableUser = $query_user->first();
 
                 $token = $TableUser->createToken('auth-login'.$TableUser->id, ['expires_at' => now()])->plainTextToken;
 
