@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedInteger('order_id')->nullable();
             $table->string('title')->nullable();
             $table->string('subtitle')->nullable();
+            $table->integer('is_read')->nullable()->default(0);
             $table->foreign('user_id') ->references('id')->on('table_users')->cascadeOnDelete();
             $table->foreign('order_id') ->references('id')->on('table_orders')->cascadeOnDelete();
             $table->timestamps();

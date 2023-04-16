@@ -12,11 +12,13 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "hardevine/shoppingcart": "^3.2",
         "intervention/image": "^2.7",
+        "laravel-notification-channels/pusher-push-notifications": "^4.1",
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
         "livewire/livewire": "^2.11"
+        "pusher/pusher-php-server": "^7.2"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

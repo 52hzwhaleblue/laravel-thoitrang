@@ -40,12 +40,6 @@ class OrderSeeder extends Seeder
              "36",
              "M (36-44kg:M42-M52)",
              "Size 5: 12kg - 14kg.",
-             "12kg - 14kg.",
-             "L (53-64kg)",
-             "XXL (76-85kg)",
-             "S (40-46kg)",
-             "M 47.5-52.5kg",
-             "Dưới 48kg",
         ];  
 
         $faker_color= [
@@ -54,18 +48,12 @@ class OrderSeeder extends Seeder
              "f7f1e3",
              "ffffff",
              "ffffff",
-             "ff5252",
-             "ff4d4d",
-             "ffffff",
-             "000000",
-             "000000",
-             "82ccdd",
         ];  
 
-        for($i = 1; $i<= 10; ++$i){
+        for($i = 0; $i< 5; ++$i){
             DB::table('table_order_details')->insert([
                 'order_id' => $order->id,
-                'product_id' => $i,
+                'product_id' => $i+1,
                 'quantity' => random_int(1,10),
                 'size' => $faker_size[$i],
                 'color'=> $faker_color[$i],

@@ -15,6 +15,7 @@ class TableReview extends Model
 
     protected $fillable = [
         'user_id',
+        'order_id',
         'product_id',
         'content',
         'star',

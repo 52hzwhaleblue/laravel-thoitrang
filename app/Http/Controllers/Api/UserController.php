@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
+use Pusher\Pusher;
 use App\Models\User;
+use App\Models\Image;
 use App\Models\Order;
+use App\Models\TableOrder;
 use Illuminate\Http\Request;
 use App\Http\Requests\EditRequest;
 use Illuminate\Support\Facades\DB;
@@ -12,8 +15,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\user\PasswordRequest;
 use App\Http\Controllers\Api\BaseController as BaseController;
-use App\Models\Image;
-use App\Models\TableOrder;
+use App\Models\TableChat;
 
 class UserController extends BaseController
 {
@@ -96,11 +98,100 @@ class UserController extends BaseController
         }
     }
 
-    public function fetchNewOrder(Request $request){
+    public function fetchOrder(Request $request){
         try{
 
             $dataFetch = TableOrder::where('user_id',Auth::id())->get();
-            return $this->sendResponse($dataFetch,"Fetch new order successfully!!");
+            return $this->sendResponse($dataFetch,"Fetch order successfully!!");
+
+        } catch (\Throwable $th) {    
+            return $this->sendError( $th->getMessage(),null,500);
+        }
+    }
+
+    public function createChat(Request $request){
+        try{
+            $chatMessage = $request->input('message');
+
+            $room_chat_id_request = $request->input('room_chat_id');
+
+            $admin = DB::table('table_users')->where('role',0)->first();
+
+            if(empty($room_chat_id_request)){
+                $room_chat_id =  DB::table('table_room_chats')->insertGetId([
+                    "user_id" => Auth::id(),
+                    "created_at" => date('Y-m-d H:i:s') ,
+                    "updated_at" =>date('Y-m-d H:i:s') ,
+                ]);
+
+                DB::table('table_chats')->insert([
+                    "room_chat_id" => $room_chat_id,
+                    "sender_id" => Auth::id(),
+                    "receiver_id" => $admin->id,
+                    "message" =>$chatMessage ,
+                    "created_at" => date('Y-m-d H:i:s') ,
+                    "updated_at" =>date('Y-m-d H:i:s') ,
+                ]);
+
+                return $this->sendResponse([],"Chat successfully");
+            }
+
+            DB::table('table_chats')->insert([
+                "room_chat_id" => $room_chat_id_request,
+                "receiver_id" => $admin->id,
+                "sender_id" => Auth::id(),
+                "message" =>$chatMessage,
+                "created_at" => date('Y-m-d H:i:s') ,
+                "updated_at" =>date('Y-m-d H:i:s') ,
+            ]);                
+            return $this->sendResponse([],"Chat successfully");
+
+        } catch (\Throwable $th) {    
+            return $this->sendError( $th->getMessage(),null,500);
+        }
+    }
+
+    public function fetchChat(Request $request){
+        try{          
+            $room_chat = DB::table('table_room_chats')->where('user_id',Auth::id())->first();
+
+            if(empty($room_chat)){    
+
+                return $this->sendResponse([] ,"Fetch chat successfully");
+            }
+
+            $chats = DB::table('table_chats')
+            ->where('room_chat_id', $room_chat->id)
+            ->get();
+
+            return $this->sendResponse($chats,"Fetch chat successfully");
+
+        } catch (\Throwable $th) {    
+            return $this->sendError( $th->getMessage(),null,500);
+        }
+    }
+
+
+    public function testChat(Request $request){
+        try{
+            $chatMessage = $request->input('message');
+
+            $room_chat_id_request = $request->input('room_chat_id');
+
+            $user_id = $request->input('user_id');
+
+            $chats = [
+                "room_chat_id" => (int) $room_chat_id_request,
+                "receiver_id" => (int)$user_id,
+                "sender_id" => 2,
+                "message" =>$chatMessage,
+                "created_at" => date('Y-m-d H:i:s') ,
+                "updated_at" =>date('Y-m-d H:i:s') ,
+            ];   
+
+            $this->pusher('room-chat-user-'.$user_id, 'chat-message',  $chats);
+            
+            return $this->sendResponse([],"Chat successfully");
 
         } catch (\Throwable $th) {    
             return $this->sendError( $th->getMessage(),null,500);

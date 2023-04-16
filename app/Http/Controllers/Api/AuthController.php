@@ -62,7 +62,7 @@ class AuthController extends BaseController
                 'email' => 'required',
                 'phone' => 'required',
                 'password' => 'required',
-                'image' => 'required',
+                'image' => 'nullable',
             ]);
 
             if($validateTableUser->fails()){
@@ -75,8 +75,12 @@ class AuthController extends BaseController
             ->exists();
 
             if(!$checkEmaiAndPhone){
-                $url = $this->uploadFile($request,"avatar/",85,85);
-
+                $url = "";
+                
+                if($request->hasFile('image')){
+                    $url = $this->uploadFile($request,"avatar/",85,85);
+                }
+               
                 DB::table('table_users')->insert([
                     "username" => $request->username,
                     "fullname" => $request->fullname,
