@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use App\Models\TableCategory;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File as ABC;
-
+use Illuminate\Support\Facades\Auth;
 class IndexController extends Controller
 {
     public function index()
@@ -19,6 +19,7 @@ class IndexController extends Controller
         // slide,gioithieu,pronb,banner_sanpham,splistnb,bannerQC,album,postnb
         $slide = TablePhoto::where('type', 'slideshow')->get();
         $gioithieu = TableStatic::where('type', 'gioi-thieu')->first();
+
         $gioithieu_slide = TablePhoto::where('type', 'gioithieu-slide')->get();
         $banner_sanpham = TablePhoto::where('type', 'banner-sanpham')->get();
         $bannerQC = TablePhoto::where('type', 'banner-quangcao')->get();
@@ -28,7 +29,7 @@ class IndexController extends Controller
         $splistnb = TableCategory::where('status', 1)->get();
         $postnb = TablePost::where('status', 1)->get();
 
-        // dd($pronb);
+        // return $gioithieu->name;
 
         return view('template.index.index',compact([
             'slide',
@@ -74,16 +75,37 @@ class IndexController extends Controller
         $output .='
             <div class="pronb-item" data-aos="fade-up" data-aos-duration="1500">
                 <div class="pronb-image">
-                    <a class="pronb-img scale-img hover_sang3" href= '.$v->slug.'/'.$v->id.' >
-
+                    <a class="pronb-img scale-img" href= chi-tiet-san-pham/'.$v->slug.'/'.$v->id.' >
                         <img src='.asset("http://localhost:8000/storage/$v->photo").' alt="" width="365"
                             height="365" />
                     </a>
-                    <a class="pronb-img1 scale-img hover_sang3" href= '.$v->slug.'/'.$v->id.' >
+                    <a class="pronb-img1 scale-img" href= chi-tiet-san-pham/'.$v->slug.'/'.$v->id.' >
                         <img src='.asset("http://localhost:8000/storage/$v->photo1").' alt="" width="365"
                             height="365" />
                     </a>
+
+                    <div class="pronb-btn">
+                        <a href='.route('cart.add',$v->id).' class="add-to-cart d-block">
+                            Thêm vào giỏ hàng
+                        </a>
+                        <a href="" class="buynow d-block">
+                            mua ngay
+                        </a>
+                    </div>
                 </div>
+                <div class="pronb-info">
+                    <h3 class="mb-0">
+                        <a class="pronb-name text-split" href= chi-tiet-san-pham/'.$v->slug.'/'.$v->id.'>
+                            '.$v->name.'
+                        </a>
+                    </h3>
+                    <div class="pronb-price">
+                        <span class="price-new">  '.number_format($v->sale_price).'  </span>
+                        <span class="price-old"> '.number_format($v->regular_price).' </span>
+                        <span class="discount"> '.$v->discount.'%</span>
+                    </div>
+                </div>
+
             </div>
         '
         ;
@@ -114,6 +136,8 @@ class IndexController extends Controller
         ->where('slug', $slug)
         ->get();
 
+        // dd($rowDetail);
+
         $rowDetailPhoto = DB::table('table_product_details')
         ->where('product_id', $id)
         ->get();
@@ -125,4 +149,5 @@ class IndexController extends Controller
             'product',
         ]));
     }
+
 }

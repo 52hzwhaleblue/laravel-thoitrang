@@ -16,6 +16,10 @@ class HomeController extends Controller
 
     public function index()
     {
+        $menus = config('menu');
+
+    // dd($menus);
+
         return view('admin.app');
     }
 
