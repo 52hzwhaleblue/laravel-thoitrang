@@ -169,6 +169,7 @@ Route::middleware("CheckLogin")->group(function() {
     Route::get('/cart/remove/{rowId}', [CartController::class,'remove'])->name('cart.remove');
     Route::post('/cart/store', [CartController::class,'store'])->name('cart.store');
     Route::get('/cart/checkout', [CartController::class,'checkout'])->name('cart.checkout');
+    Route::post('/cart/ma-giam-gia', [CartController::class,'ma_giam_gia'])->name('cart.ma_giam_gia');
 
     // Giỏ hàng nâng cấp ajax
     Route::get('/cart/update_ajax', [CartController::class,'update_ajax'])->name('cart.update_ajax');

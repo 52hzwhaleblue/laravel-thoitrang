@@ -85,35 +85,30 @@
 @endif
 
 
-@if( !empty($gioithieu_slide) ||!empty($gioithieu))
+@if(!empty($gioithieu))
 <div class="gioithieu-wrapper">
     <div class="wrap-content">
         <div class="gioithieu-left">
-            <div class="owl-gioithieu owl-page owl-carousel owl-theme" data-xsm-items="1:0" data-sm-items="2:10"
-                data-md-items="3:15" data-lg-items="3:20" data-xlg-items="2:15" data-rewind="1" data-autoplay="1"
-                data-loop="0" data-lazyload="0" data-mousedrag="1" data-touchdrag="1" data-smartspeed="800"
-                data-autoplayspeed="800" data-autoplaytimeout="5000" data-dots="0" data-animations="" data-nav="1"
-                data-navtext="" data-navcontainer="">
-                @foreach ($gioithieu_slide as $v )
-                <div>
-                    <img data-width="420" data-height="620" class="" src="{{
-                            asset(
-                                'backend/assets/img/photo/'.$v['photo']
-                            )
-                        }}" alt="{{ $v['name'] }}" />
+            <div class="gioithieu-box">
+                <div class="gioithieu-img">
+                    <img class="lazyload" src="{{ asset('http://localhost:8000/storage/'.$gioithieu->photo) }}"
+                        alt="slide" />
                 </div>
-                @endforeach
-
+                <div class="gioithieu-img1">
+                    <img class="lazyload" src="{{ asset('http://localhost:8000/storage/'.$gioithieu->photo1) }}"
+                        alt="slide" />
+                </div>
             </div>
         </div>
         <div class="gioithieu-right">
             <p class="gioithieu-name">
             </p>
             <p class="gioithieu-name1 text-split">
-                dasd
+                {{$gioithieu->name}}
             </p>
             <p class="gioithieu-desc text-split">
-                dasdasd
+                {{$gioithieu->desc}}
+
             </p>
             <div class="gioithieu-btn hover_xemthem">
                 <a href="gioi-thieu">Xem chi tiết</a>

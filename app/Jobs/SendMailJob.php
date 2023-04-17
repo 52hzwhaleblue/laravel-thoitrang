@@ -9,6 +9,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\SendMail;
 
 class SendMailJob implements ShouldQueue
 {
@@ -19,8 +20,8 @@ class SendMailJob implements ShouldQueue
      *
      * @return void
      */
-    protected $dataMail;
-    protected $dataUser;
+     public $dataMail;
+     public $dataUser;
     public function __construct($dataMail,$dataUser)
     {
         $this->dataMail = $dataMail;
@@ -34,12 +35,12 @@ class SendMailJob implements ShouldQueue
      */
     public function handle()
     {
-        return $dataUser['email'];
+        // return $this->dataUser['email'];
 
-        Mail::to($dataUser['email'])->send(new SendMail($dataMail));
+        Mail::to($this->dataUser['email'])->send(new SendMail($this->dataMail));
         session(
             [
-                "fullname" => $dataMail['fullname'],
+                "fullname" => $this->dataMail['fullname'],
                 // "code_order" => $code_order,
                 // "qty_empty" => $qty_empty,
                 // "price_empty" => $price_empty,

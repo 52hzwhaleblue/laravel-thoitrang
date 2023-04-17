@@ -1981,6 +1981,7 @@ a.name-newsnb:hover {
     border-radius: 10px;
     overflow: hidden;
     position: relative;
+    margin-bottom: 15px;
 }
 .pronb-img{}
 .pronb-img1{
@@ -1998,7 +1999,7 @@ visibility: visible;
 
 .pronb-info{}
 .pronb-name{
-    font-size: 14px;
+    font-size: 19px;
     color: var(--color-black);
     margin-bottom: 10px;
     font-family: Barlow;
@@ -2011,7 +2012,9 @@ visibility: visible;
     flex-wrap: wrap;
     align-items: center;
 }
-.pronb-price span{}
+.pronb-price span{
+    font-size: 19px;
+}
 .pronb-price span.price-new{}
 .pronb-price span.price-old{}
 .pronb-price span.discount{
@@ -4102,18 +4105,15 @@ coccocgrammar {
 
 margin-bottom: 60px;
 }
-.gioithieu-wrapper .wrap-content{
-
-max-width: 1260px;
-
-display: flex;
-
-flex-wrap: wrap;
+.gioithieu-wrapper .wrap-content{max-width: 1260px;display: flex;flex-wrap: wrap;justify-content: space-between;}
+.gioithieu-left{width: 73.105691%;}
+.gioithieu-box{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
-.gioithieu-left{
-
-width: 67.105691%;
-}
+.gioithieu-img{}
+.gioithieu-img1{}
 .gioithieu-name{
 
 font-family: Barlow;
@@ -4158,24 +4158,7 @@ position: relative;
 
 padding-bottom: 5px;
 }
-.gioithieu-right{
-
-width: 38.178862%;
-
-margin-left: -65px;
-
-position: relative;
-
-z-index: 9;
-
-display: flex;
-
-flex-direction: column;
-
-align-items: center;
-
-justify-content: center;
-}
+.gioithieu-right{width: 38.178862%;margin-left: -65px;position: relative;z-index: 9;display: flex;flex-direction: column;align-items: center;justify-content: center;position: absolute;right: 0;}
 
 .gioithieu-btn a::after{
 	content:"";

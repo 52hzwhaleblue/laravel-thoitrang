@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\TableProduct;
+use App\Models\TablePromotion;
 use Illuminate\Http\Request;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Validator;
@@ -12,6 +13,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendMail;
+use App\Jobs\SendMailJob;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -95,7 +97,10 @@ class CartController extends Controller
 
     public function checkout(){
 
-        // return Cart::content();
+
+        // foreach (Cart::content() as $key => $value) {
+        //         dd($value->id);
+        //     }
         return view('template.order.checkout');
     }
 
@@ -118,6 +123,7 @@ class CartController extends Controller
             'ward' => $request->get('ward'),
             'payment_method' => $request->get('payment_method'),
         ];
+
         $user_id = $request->get('user_id');
         $code_order = 'UNI'.Str::random(5).now();
         // $db::beginTransaction(); // bat dau giao dich
@@ -159,24 +165,23 @@ class CartController extends Controller
             "total" => Cart::total(),
             "time_now" => Carbon::now()->format('d/m/Y m:h:s')
         ];
+        // Mail::to($dataUser['email'])->send(new SendMail($dataMail));
+        // session(
+        //     [
+        //         "fullname" => $dataMail['fullname'],
+        //         // "code_order" => $code_order,
+        //         // "qty_empty" => $qty_empty,
+        //         // "price_empty" => $price_empty,
+        //         // "sub_total_empty" => $sub_total_empty,
+        //         // "total_price" => $total_price,
+        //         // "name_customer" => $name_customer,
+        //         // "email_customer" => $email_customer,
+        //         // "address_customer" => $address_customer,
+        //         // "phone_customer" => $phone_customer
+        //     ]
+        // );
 
-        Mail::to($dataUser['email'])->send(new SendMail($dataMail));
-        session(
-            [
-                "fullname" => $dataMail['fullname'],
-                "code_order" => $code_order,
-                // "qty_empty" => $qty_empty,
-                // "price_empty" => $price_empty,
-                // "sub_total_empty" => $sub_total_empty,
-                // "total_price" => $total_price,
-                // "name_customer" => $name_customer,
-                // "email_customer" => $email_customer,
-                // "address_customer" => $address_customer,
-                // "phone_customer" => $phone_customer
-            ]
-        );
-
-        // dispatch(new SendMailJob($dataMail,$dataUser['email'])); // thêm vào hàng đợi
+        dispatch(new SendMailJob($dataMail,$dataUser)); // thêm vào hàng đợi
         // Hủy Cart Session sau khi dặt hàng thành công
         Cart::destroy();
         return redirect()->route('index')->with('CartToast',' Bạn đã thanh toán thành công');
@@ -210,5 +215,61 @@ class CartController extends Controller
             "ward" => "Phường/Xã",
         ]
         );
+    }
+
+    public function ma_giam_gia(){
+        $promo_code = request()->input('promo_code');
+        $promotion_elo =  TablePromotion::where('code',$promo_code);
+
+        $promotion = $promotion_elo->first();
+
+        $is_check_exists = false;
+
+        if(!empty($promotion->product_id)){
+            //check order has product_id in table promotion
+            $dataCart= Cart::content();
+
+            foreach ($dataCart as $key => $value) {
+                if($value->id == $promotion->product_id){
+                    $id = (int)$value->id;
+            // dd($id);
+
+                    $is_check_exists = !$is_check_exists;
+                    break;
+                }
+            }
+            // dd($is_check_exists);
+
+            if(!$is_check_exists){
+                 return "Mã khuyến mãi này chỉ áp dụng khi đơn hàng bạn có product_id là".$promotion->product_id;
+            }
+        }
+
+
+
+        //check total order
+        $total = Cart::total();
+
+        $is_check_total = $total >= $promotion->order_price_conditions;
+
+            // dd($is_check_total);
+
+
+
+        if(!$is_check_total){
+            return "Đơn hàng của bạn không đạt điều kiện khi tổng đơn nhỏ hơn".$promotion->order_price_conditions;
+        }
+
+        //success
+        $promotion_elo->update([
+            "limit" => --$promotion->limit,
+        ]);
+        // dd($total);
+
+        return $total - $promotion->discount_price;
+
+
+
+
     }
 }

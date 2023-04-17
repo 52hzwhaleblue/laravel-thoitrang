@@ -19,6 +19,7 @@ class IndexController extends Controller
         // slide,gioithieu,pronb,banner_sanpham,splistnb,bannerQC,album,postnb
         $slide = TablePhoto::where('type', 'slideshow')->get();
         $gioithieu = TableStatic::where('type', 'gioi-thieu')->first();
+
         $gioithieu_slide = TablePhoto::where('type', 'gioithieu-slide')->get();
         $banner_sanpham = TablePhoto::where('type', 'banner-sanpham')->get();
         $bannerQC = TablePhoto::where('type', 'banner-quangcao')->get();
@@ -28,7 +29,7 @@ class IndexController extends Controller
         $splistnb = TableCategory::where('status', 1)->get();
         $postnb = TablePost::where('status', 1)->get();
 
-        // dd($pronb);
+        // return $gioithieu->name;
 
         return view('template.index.index',compact([
             'slide',
