@@ -163,8 +163,12 @@ class CartController extends Controller
             "email" => $dataUser['email'],
             "phone" => $dataUser['phone'],
             "total" => Cart::total(),
-            "time_now" => Carbon::now()->format('d/m/Y m:h:s')
+            "time_now" => Carbon::now()->format('d/m/Y m:h:s'),
+            'dataCart' =>Cart::content(),
         ];
+
+        // return $dataMail;
+
         // Mail::to($dataUser['email'])->send(new SendMail($dataMail));
         // session(
         //     [

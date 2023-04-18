@@ -16,6 +16,8 @@ class ProductController extends BaseController
 
     public function index()
     {
+        TableProduct::factory()->count(5)->create();
+
         $data = TableProduct::all();
         $status = $this->config_status;
 

@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\File as ABC;
 use Illuminate\Support\Facades\Auth;
 class IndexController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         // slide,gioithieu,pronb,banner_sanpham,splistnb,bannerQC,album,postnb
         $slide = TablePhoto::where('type', 'slideshow')->get();
@@ -29,7 +29,7 @@ class IndexController extends Controller
         $splistnb = TableCategory::where('status', 1)->get();
         $postnb = TablePost::where('status', 1)->get();
 
-        // return $gioithieu->name;
+        // return $request->session()->all();
 
         return view('template.index.index',compact([
             'slide',
