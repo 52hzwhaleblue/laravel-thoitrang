@@ -12,7 +12,7 @@ use App\Http\Controllers\Api\BaseController as BaseController;
 
 class ProductController extends BaseController
 {
-    public function fetchAll(Request $request,DB $db){   
+    public function fetchAll(){   
         try {     
             $page = request()->query('page');
 
@@ -21,6 +21,7 @@ class ProductController extends BaseController
             $limit = 8;
          
             $products = TableProduct::with(['category','productDetail'])
+                ->Stock()
                 ->withCount('orderDetail as sold')
                 ->withAvg('reviews as star', 'star')
                 ->when($type != 1,function($query) use ($type){
@@ -89,17 +90,21 @@ class ProductController extends BaseController
 
             $page = request()->query('page');
 
-            $limit = 8;
+            // $limit = 8;
+
+            if(empty($keyword)){
+                return $this->sendResponse([], "Fetch search successfully!!!");
+            }
 
             $products = TableProduct::with(['category','productDetail'])
             ->withCount('orderDetail as sold')
             ->whereRaw("name LIKE '%$keyword%'")
             ->withAvg('reviews as star', 'star')
-            ->when($page > 0,function($query) use ($limit,$page){
-                $offset = ($page - 1) * $limit;
-                return $query->skip($offset);
-            })
-            ->take($limit)
+            // ->when($page > 0,function($query) use ($limit,$page){
+            //     $offset = ($page - 1) * $limit;
+            //     return $query->skip($offset);
+            // })
+            // ->take($limit)
             ->get()
             ->map(function ($product) {
                 $product->star =  (double)$product->star;
