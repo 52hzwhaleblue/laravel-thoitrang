@@ -11,30 +11,38 @@ use Illuminate\Support\Facades\Auth;
 class NotificationController extends BaseController
 {
 
-   public function fetchData(Request $request)
+   public function fetchData(Request $request,DB $dB)
    {
     try {
         $page = $request->query('page', 1);
         $type = $request->query('type');
 
         $limit = 10;
+
         $offset = ($page - 1) * $limit;
+
+        $query = $dB::table('table_notifications');
+
+        $query_detail = $dB::table('table_notification_detail');
+
+
+        $user_id = Auth::id();
 
         $notifications = null;
 
         if(empty($type)){
-            $notifications = DB::table('table_notifications')
-            ->where('user_id', Auth::id())
+            $notifications = $query
+            ->where('user_id', $user_id)
             ->orWhere('user_id',null)
             ->orderByDesc('created_at')
             ->skip($offset)
             ->take($limit)
             ->get()
-            ->map(function ($notification) {
+            ->map(function ($notification) use ($query_detail,$user_id){
                if($notification->type == "daily"){
-                  $notification->detail = DB::table('table_notification_detail')
+                  $notification->detail = $query_detail
                   ->where('notification_id', $notification->id)
-                  ->where('user_id', Auth::id())
+                  ->where('user_id', $user_id)
                   ->first(['id', 'notification_id', 'user_id', 'is_read']);
                }else{
                   $notification->detail = null;
@@ -43,28 +51,28 @@ class NotificationController extends BaseController
             });
         }else{
           if($type == "daily"){
-            $notifications = DB::table('table_notifications')
-            ->when($type, function ($query, $type) {
-                return $query->where('type', $type);
+            $notifications = $query
+            ->when($type, function ($query2, $type) {
+                return $query2->where('type', $type);
             })
             ->orderByDesc('created_at')
             ->skip($offset)
             ->take($limit)
             ->get()
-            ->map(function ($notification) {
-                $notification->detail = DB::table('table_notification_detail')
+            ->map(function ($notification)use ($query_detail,$user_id) {
+                $notification->detail =$query_detail
                     ->where('notification_id', $notification->id)
-                    ->where('user_id', Auth::id())
+                    ->where('user_id', $user_id)
                     ->first(['id', 'notification_id', 'user_id', 'is_read']);
 
                 return $notification;
             });
           }else{
-            $notifications = DB::table('table_notifications')
-            ->when($type, function ($query, $type) {
-                return $query->where('type', $type);
+            $notifications = $query
+            ->when($type, function ($query2, $type) {
+                return $query2->where('type', $type);
             })
-            ->where('user_id', Auth::id())
+            ->where('user_id',  $user_id)
             ->orderByDesc('created_at')
             ->skip($offset)
             ->take($limit)
@@ -102,7 +110,7 @@ class NotificationController extends BaseController
    public function create(Request $request){
         
 
-      return $this->sendNotiToUser(Auth::id(),$request->title,$request->subtitle,null,"notification");
+      return $this->sendNotiToUser(Auth::id(),$request->title,$request->body,null,"notification");
    }
 
    public function updateReadNoti(Request $request){
