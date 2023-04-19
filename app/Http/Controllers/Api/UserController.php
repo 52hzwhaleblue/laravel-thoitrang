@@ -226,18 +226,16 @@ class UserController extends BaseController
 
             $query = $db::table("table_orders")->find($orderId);
 
-            $currentStatus =(int) request()->input('current_status');
-
             $title = "";
 
             $body = "";
 
-            if( $currentStatus == 1){
+            if( $query->status == 1){
                 $title = "Đơn hàng ".$query->code.' đã được xác nhận';
                 $body = "Chú ý theo dõi trạng thái đơn hàng để được giao đúng thời gian";
             }
 
-            if( $currentStatus == 2){
+            if($query->status == 2){
                 $title = "Đơn hàng".$query->code.' đang được vận chuyển';
                 $body = "Chú ý theo dõi trạng thái đơn hàng để được giao đúng thời gian";
             }
