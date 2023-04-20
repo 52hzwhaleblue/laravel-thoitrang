@@ -57,6 +57,40 @@ class Functions
         $type = $com[2];
         return $type;
     }
+
+    public static function getThumbWidth($type){
+        $width = 0;
+        $menus = config('menu');
+
+        foreach($menus as $m){
+            if($m['name'] == 'Hình ảnh - Video'){
+                foreach($m['data'] as $m1){
+                    foreach ($m1['thumbs'] as $k => $v) {
+                        $width = $m1['thumbs']['width'];
+                    }
+                    break;
+                }
+            }
+        }
+        return $width;
+    }
+
+    public static function getThumbHeight($type){
+        $height = 0;
+        $menus = config('menu');
+
+        foreach($menus as $m){
+            if($m['name'] == 'Hình ảnh - Video'){
+                foreach($m['data'] as $m1){
+                    foreach ($m1['thumbs'] as $k => $v) {
+                        $height = $m1['thumbs']['height'];
+                    }
+                    break;
+                }
+            }
+        }
+        return $height;
+    }
 }
 
 ?>

@@ -16,13 +16,11 @@ class ProductController extends BaseController
 
     public function index()
     {
-        TableProduct::factory()->count(5)->create();
-
+        // TableProduct::factory()->count(5)->create();
         $data = TableProduct::all();
         $status = $this->config_status;
 
         return view('admin.template.product.man.man',compact('data','status'));
-
     }
 
     /**
@@ -33,24 +31,15 @@ class ProductController extends BaseController
     public function create()
     {
         $splist = TableCategory::all();
-
         return view('admin.template.product.man.man_add',compact('splist'));
-
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $count = TableProduct::all()->count();
 
         $url = $this->uploadPhoto($request,"products/",415,655);
         $url1 = $this->uploadPhoto1($request,"products/",415,655);
-
 
         $product = new TableProduct();
 
@@ -71,7 +60,6 @@ class ProductController extends BaseController
                 ->route('admin.product.product-man.index')
                 ->with('warning', 'Vui lòng chọn danh mục cấp 1');
         }
-
 
         $product->status = (int)$request->get('status');
         $product->slug = $request->get('slug');
@@ -137,20 +125,10 @@ class ProductController extends BaseController
     public function update(Request $request, $slug)
     {
         $count = TableProduct::all()->count();
-        if ($request->has('photo')) {
-            $file = $request->photo;
-            $ext = $request->photo->extension(); //lấy đuôi file png||jpg
-            $file_name =
-                Date('Ymd') . '-' . 'product' . $count . '.' . $ext;
-            $file->move(public_path('backend/assets/img/products'), $file_name); //chuyển file vào đường dẫn chỉ định
-        }
-        if ($request->has('photo1')) {
-            $file1 = $request->photo1;
-            $ext = $request->photo1->extension(); //lấy đuôi file png||jpg
-            $file_name1 =
-                Date('Ymd') . '-' . 'product1' . $count . '.' . $ext;
-            $file1->move(public_path('backend/assets/img/products'), $file_name1); //chuyển file vào đường dẫn chỉ định
-        }
+
+        $url = $this->uploadPhoto($request,"products/",415,655);
+        $url1 = $this->uploadPhoto1($request,"products/",415,655);
+
 
         $product = TableProduct::where('slug', $slug)->first();
 
@@ -167,10 +145,10 @@ class ProductController extends BaseController
                 ->with('warning', 'Vui lòng chọn danh mục cấp 1');
         }
         if ($request->has('photo')) {
-            $product->photo = $file_name;
+            $product->photo = $url;
         }
         if ($request->has('photo1')) {
-            $product->photo1 = $file_name1;
+            $product->photo1 = $url1;
         }
 
         $product->status = (int)$request->get('status');

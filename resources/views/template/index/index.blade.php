@@ -94,27 +94,32 @@
         <div class="gioithieu-left">
             <div class="gioithieu-box">
                 <div class="gioithieu-img">
-                    <img class="lazyload" src="{{ asset('http://localhost:8000/storage/'.$gioithieu->photo) }}"
-                        alt="slide" />
+                    <a href="gioi-thieu" class="scale-img hover_sang3">
+                        <img class="lazyload" src="{{ asset('http://localhost:8000/storage/'.$gioithieu->photo) }}"
+                            alt="slide" />
+                    </a>
                 </div>
                 <div class="gioithieu-img1">
-                    <img class="lazyload" src="{{ asset('http://localhost:8000/storage/'.$gioithieu->photo1) }}"
-                        alt="slide" />
+                    <a href="gioi-thieu" class="scale-img hover_sang3">
+                        <img class="lazyload" src="{{ asset('http://localhost:8000/storage/'.$gioithieu->photo1) }}"
+                            alt="slide" />
+                    </a>
                 </div>
             </div>
-        </div>
-        <div class="gioithieu-right">
-            <p class="gioithieu-name">
-            </p>
-            <p class="gioithieu-name1 text-split">
-                {{$gioithieu->name}}
-            </p>
-            <p class="gioithieu-desc text-split">
-                {{$gioithieu->desc}}
 
-            </p>
-            <div class="gioithieu-btn hover_xemthem">
-                <a href="gioi-thieu">Xem chi tiết</a>
+            <div class="gioithieu-right">
+                <p class="gioithieu-name">
+                </p>
+                <p class="gioithieu-name1 text-split">
+                    {{$gioithieu->name}}
+                </p>
+                <div class="gioithieu-desc text-split">
+                    {!! $gioithieu->desc !!}
+
+                </div>
+                <div class="gioithieu-btn hover_xemthem">
+                    <a href="gioi-thieu">Xem chi tiết</a>
+                </div>
             </div>
         </div>
     </div>

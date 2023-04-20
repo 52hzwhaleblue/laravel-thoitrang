@@ -2,26 +2,27 @@
 @section('content')
 <div class="grid-pro-detail d-flex flex-wrap justify-content-between align-items-start">
     <div class="left-pro-detail">
-        <div class="rowDetailPhoto-for">
-            <?php foreach ($rowDetailPhoto as $k => $v) { ?>
-            <div class="rowDetailPhoto-img">
-                <img class="w-100" src="{{ asset('http://127.0.0.1:8000/storage/' . $v->photo) }}" />
-            </div>
-            <?php } ?>
-        </div>
-
-        <?php if(count($rowDetailPhoto)) {?>
-        <div class="rowDetailPhoto-scroll">
-            <div class="rowDetailPhoto-nav">
+        @if(!empty($rowDetailPhoto))
+            <div class="rowDetailPhoto-for">
                 <?php foreach ($rowDetailPhoto as $k => $v) { ?>
-                <div class="rowDetailPhoto-item">
-                    <img class="" src="{{ asset('http://127.0.0.1:8000/storage/' . $v->photo) }}" />
+                <div class="rowDetailPhoto-img">
+                    <img class="w-100" src="{{ asset('http://127.0.0.1:8000/storage/' . $v->photo) }}" />
                 </div>
                 <?php } ?>
             </div>
-        </div>
-        <?php } ?>
 
+            <div class="rowDetailPhoto-scroll">
+                <div class="rowDetailPhoto-nav">
+                    <?php foreach ($rowDetailPhoto as $k => $v) { ?>
+                    <div class="rowDetailPhoto-item">
+                        <img class="" src="{{ asset('http://127.0.0.1:8000/storage/' . $v->photo) }}" />
+                    </div>
+                    <?php } ?>
+                </div>
+            </div>
+        @else
+            <img class="lazyload w-100" src="{{ asset('http://localhost:8000/storage/'.$rowDetail[0]->photo ) }}" alt="slide" />
+        @endif
     </div>
 
     <div class="right-pro-detail">
@@ -65,10 +66,10 @@
             <li>
                 <div class="cart-pro-detail d-flex flex-wrap align-items-center justify-content-between">
                     <a class="transition addnow addcart text-decoration-none d-flex align-items-center justify-content-center"
-                        data-id="<?=$rowDetail[0]->id ?>" data-action="addnow"><i class="bi bi-cart2"></i><span> Thêm
+                        data-id="<?=$rowDetail[0]->id ?>" data-action="addnow"><span> Thêm
                             vào giỏ hàng </span></a>
                     <a class="transition buynow addcart text-decoration-none d-flex align-items-center justify-content-center"
-                        data-id="<?=$rowDetail[0]->id ?>" data-action="buynow"><i class="bi bi-cart2"></i><span>Mua
+                        data-id="<?=$rowDetail[0]->id ?>" data-action="buynow"><span>Mua
                             ngay</span></a>
                 </div>
             </li>

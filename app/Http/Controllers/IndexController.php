@@ -113,10 +113,7 @@ class IndexController extends Controller
         $output .='
             </div>
         ';
-
-
         return response()->json($output);
-
     }
 
     public function san_pham()

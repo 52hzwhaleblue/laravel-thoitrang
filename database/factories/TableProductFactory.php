@@ -16,11 +16,8 @@ class TableProductFactory extends Factory
     public function definition()
     {
         $created_at = now();
-
         $faker = Faker::create('vi_VN');
-
         $updated_at = now();
-
         return [
             'name'=>$faker->name(),
             'slug'=>$faker->slug(),
