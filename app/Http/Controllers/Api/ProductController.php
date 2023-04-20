@@ -88,10 +88,6 @@ class ProductController extends BaseController
         try {    
             $keyword = request()->query('keyword');
 
-            $page = request()->query('page');
-
-            // $limit = 8;
-
             if(empty($keyword)){
                 return $this->sendResponse([], "Fetch search successfully!!!");
             }
@@ -100,11 +96,6 @@ class ProductController extends BaseController
             ->withCount('orderDetail as sold')
             ->whereRaw("name LIKE '%$keyword%'")
             ->withAvg('reviews as star', 'star')
-            // ->when($page > 0,function($query) use ($limit,$page){
-            //     $offset = ($page - 1) * $limit;
-            //     return $query->skip($offset);
-            // })
-            // ->take($limit)
             ->get()
             ->map(function ($product) {
                 $product->star =  (double)$product->star;
@@ -134,6 +125,17 @@ class ProductController extends BaseController
 
             return $this->sendResponse($promotions, "Fetch successfully!!!");
 
+        }catch(\Throwable $th){
+            return $this->sendError( $th->getMessage(),500);
+        }
+    }
+
+    public function updateLimitPromo(TablePromotion $db){
+        try{    
+            $id = request()->input('id_promotion');
+            $promo = $db::find($id);
+            $db::where('id',$promo->id)->update(["limit" => $promo->limit - 1]);
+            return $this->sendResponse([], "Update limit successfully!!!");
         }catch(\Throwable $th){
             return $this->sendError( $th->getMessage(),500);
         }
