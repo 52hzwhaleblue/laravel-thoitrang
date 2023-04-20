@@ -1,6 +1,6 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 // Admin Controller
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\ImageZoneController;
@@ -18,18 +18,25 @@ use App\Http\Controllers\Admin\PhotoController;
 // Static Controller
 use App\Http\Controllers\Admin\StaticController;
 
+// Option Controller
+use App\Http\Controllers\Admin\OptionController;
+
+
 // Index Controller
 use App\Http\Controllers\IndexController;
 
+// Cart Controller
+use App\Http\Controllers\CartController;
+
+
+// Admin Route
 Route::get('admin/image/show/{id}', [ImageZoneController::class,'show'])->name('admin.imagezone.show');
 Route::post('admin/image/upload/{id}', [ImageZoneController::class,'upload'])->name('admin.imagezone.upload');
 
-// Admin Route
 Route::group([
     'prefix' => 'admin',
     'as' => 'admin.',
 ],function(){
-
     Route::resource('/', HomeController::class);
 
     // Sản phẩm
@@ -63,73 +70,107 @@ Route::group([
                 }
             }
         }
-        // // Tin tức
-        // Route::resource('tin-tuc', PostController::class);
-
-        // // Tiêu chí
-        // Route::resource('tieu-chi', PostController::class);
-
-        // // Hình thức thanh toán
-        // Route::resource('hinh-thuc-thanh-toan', PostController::class);
     });
 
-        // Hình ảnh Video
-        Route::group([
-            'prefix' => 'photo',
-            'as' => 'photo.',
-        ], function(){
+    // Options
+    Route::group([
+        'prefix' => 'option',
+        'as' => 'option.',
+    ], function(){
+        $menus = config('menu');
 
-            $menus = config('menu');
+        foreach($menus as $m){
+            if($m['name'] == 'Options'){
+                foreach($m['data'] as $m1){
+                    $type = $m1['type'];
+                    // dd($type);
+                    Route::resource($type, OptionController::class);
 
-            foreach($menus as $m){
-                if($m['name'] == 'Hình ảnh - Video'){
-                    foreach($m['data'] as $m1){
-                        $type = $m1['type'];
-                        // dd($type);
-                        Route::resource($type, PhotoController::class);
-
-                    }
                 }
             }
+        }
+    });
 
-            // Slideshow
-            // Route::resource('slideshow', PhotoController::class);
+    // Hình ảnh Video
+    Route::group([
+        'prefix' => 'photo',
+        'as' => 'photo.',
+    ], function(){
+        $menus = config('menu');
+        foreach($menus as $m){
+            if($m['name'] == 'Hình ảnh - Video'){
+                foreach($m['data'] as $m1){
+                    $type = $m1['type'];
+                    // dd($type);
+                    Route::resource($type, PhotoController::class);
 
-            // // Video
-            // Route::resource('video', PhotoController::class);
-
-            // // Banner
-            // Route::resource('banner', PhotoController::class);
-        });
-
-        // Trang tĩnh
-        Route::group([
-            'prefix' => 'static',
-            'as' => 'static.',
-        ], function(){
-            $menus = config('menu');
-
-            foreach($menus as $m){
-                if($m['name'] == 'Trang tĩnh'){
-                    foreach($m['data'] as $m1){
-                        $type = $m1['type'];
-                        // dd($type);
-                        Route::resource($type, StaticController::class);
-
-                    }
                 }
             }
-        });
+        }
+    });
+
+    // Trang tĩnh
+    Route::group([
+        'prefix' => 'static',
+        'as' => 'static.',
+    ], function(){
+        $menus = config('menu');
+
+        foreach($menus as $m){
+            if($m['name'] == 'Trang tĩnh'){
+                foreach($m['data'] as $m1){
+                    $type = $m1['type'];
+                    // dd($type);
+                    Route::resource($type, StaticController::class);
+
+                }
+            }
+        }
+    });
 
 });
 
 
+
+
 // =========== user
- Route::get('/', [IndexController::class,'index']);
- Route::get('/san-pham', [IndexController::class,'san_pham'])->name('san-pham');
- Route::get('/{slug}/{id}', [IndexController::class,'chi_tiet_san_pham'])->name('chi_tiet_san_pham');
- Route::get('/gio-hang', [IndexController::class,'gio-hang'])->name('gio-hang');
+// Email Auth
+Auth::routes(['verify' => true]);
 
 
- Route::post('/load_ajax_product', [IndexController::class,'load_ajax_product']);
 
+//Route logout user account
+// Route::post("logout_user", function() {
+//     Auth::logout();
+//     return redirect("/");
+// })->name('logout.user');
+
+
+// Route login user account
+Route::get('login_user', function() {
+    return redirect("login");
+})->name("login.user");
+
+
+// Route::get('/', [IndexController::class,'index'])->name('index');
+Route::get('/san-pham', [IndexController::class,'san_pham'])->name('san-pham');
+Route::get('/chi-tiet-san-pham/{slug}/{id}', [IndexController::class,'chi_tiet_san_pham'])->name('chi_tiet_san_pham');
+Route::post('/load_ajax_product', [IndexController::class,'load_ajax_product']);
+
+Route::get('/', [IndexController::class ,'index'])->name('index');
+
+
+Route::middleware("CheckLogin")->group(function() {
+    // Giỏ hàng
+    Route::get('/cart', [CartController::class,'index'])->name('cart.index')->middleware('CheckLogin');
+    Route::get('/cart/add/{id}', [CartController::class,'add'])->name('cart.add');
+    Route::patch('/cart/update', [CartController::class,'update'])->name('cart.update');
+    Route::get('/cart/destroy', [CartController::class,'destroy'])->name('cart.destroy');
+    Route::get('/cart/remove/{rowId}', [CartController::class,'remove'])->name('cart.remove');
+    Route::post('/cart/store', [CartController::class,'store'])->name('cart.store');
+    Route::get('/cart/checkout', [CartController::class,'checkout'])->name('cart.checkout');
+    Route::post('/cart/ma-giam-gia', [CartController::class,'ma_giam_gia'])->name('cart.ma_giam_gia');
+
+    // Giỏ hàng nâng cấp ajax
+    Route::get('/cart/update_ajax', [CartController::class,'update_ajax'])->name('cart.update_ajax');
+});

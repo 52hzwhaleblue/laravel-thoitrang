@@ -1,3 +1,41 @@
+function Cart(){
+    $('.giohang-qty').change(function(){
+        let id = $(this).data('id');
+        let qty = $(this).val();
+        let price = $(this).data('price');
+        let rowId = $(this).data('rowid');
+        data = {
+            id:id,
+            qty:qty,
+            price:price,
+            rowId:rowId
+        };
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url: '/cart/update_ajax',
+            data: data,
+            dataType: "JSON",
+            method: "GET",
+            success: function(data) {
+                $(".giohang-subTotal-"+id).text(data["subTotal"]);
+                // $(".giohang-tongtien span").text(data["total"]);
+                return false;
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+            }
+        });
+    });
+}
+
+
+
 function AosAnimation(){
     AOS.init({});
 }
@@ -117,6 +155,7 @@ function OwlPage(){
 
 
 function Home(){
+
     $('.list-hot a:first').addClass('active');
     var id = $('.list-hot a:first').data('id');
     var tenkhongdau = $('.list-hot a:first').data('tenkhongdau');
@@ -184,8 +223,27 @@ function Slick(){
 
     }
 }
+
+function Toasty(){
+    $('.ToastyFunction').click(function(){
+        var option =
+        {
+            animation : true,
+            delay : 10000
+        };
+        var toastHTMLElement = document.getElementById( 'CheckLoginToast' );
+        var toastElement = new bootstrap.Toast( toastHTMLElement, option );
+        toastElement.show( );
+    });
+
+    $('.ToastyFunction').trigger('click');
+
+}
+
 $(document).ready(function () {
     Home();
+    Toasty();
+    Cart();
     Slick();
     OwlPage();
     AosAnimation();

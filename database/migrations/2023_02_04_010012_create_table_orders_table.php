@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('shipping_fullname')->nullable()->default(null);
             $table->string('shipping_phone')->nullable()->default(null);
             $table->string('shipping_address')->nullable()->default(null);
-            $table->string('order_payment')->nullable();
+            $table->string('payment_method')->nullable();
             $table->double('temp_price')->nullable();
             $table->double('total_price')->nullable();
             $table->double('ship_price')->nullable()->default(0);

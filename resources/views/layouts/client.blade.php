@@ -19,6 +19,7 @@
     </div>
 
     @include('template.layout.footer')
+    @include('template.layout.modal')
     @include('template.layout.js')
 </body>
 </html>
