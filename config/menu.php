@@ -1,18 +1,18 @@
 <?php
 
     $menuArr = [
-        // Options
         'option' =>[
             'name' => 'Options',
             'group' => '.option.',
             'data' => [
-                'promo-code' => [
-                    'title' => 'Promo Code',
-                    'type' => 'promo-code',
-                    'index' => 'admin.option.promo-code.index',
+                'ma-giam-gia' => [
+                    'title' => 'Mã giảm giá',
+                    'type' => 'ma-giam-gia',
+                    'index' => 'admin.option.ma-giam-gia.index',
                 ],
             ]
         ],
+
 
         // Sản phẩm
         'product' => [
@@ -87,6 +87,25 @@
                     'thumbs' => [
                         'width'=>420,
                         'height'=>620,
+                    ]
+                ],
+                'quang-cao' => [
+                    'title' => 'Quảng cáo',
+                    'type' => 'quang-cao',
+                    'index' => 'admin.photo.quang-cao.index',
+                    'thumbs' => [
+                        'width'=>870,
+                        'height'=>665,
+                    ]
+                ],
+
+                'thu-vien-anh' => [
+                    'title' => 'Thư viện ảnh',
+                    'type' => 'thu-vien-anh',
+                    'index' => 'admin.photo.thu-vien-anh.index',
+                    'thumbs' => [
+                        'width'=>830,
+                        'height'=>520,
                     ]
                 ],
             ]

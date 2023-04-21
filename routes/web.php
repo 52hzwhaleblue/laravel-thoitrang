@@ -21,6 +21,8 @@ use App\Http\Controllers\Admin\StaticController;
 // Option Controller
 use App\Http\Controllers\Admin\OptionController;
 
+// Promo Controller
+use App\Http\Controllers\Admin\PromoController;
 
 // Index Controller
 use App\Http\Controllers\IndexController;
@@ -90,6 +92,9 @@ Route::group([
             }
         }
     });
+
+    // Promotion
+    // Route::resource('promo-code', PromoController::class);
 
     // Hình ảnh Video
     Route::group([

@@ -21,9 +21,10 @@ class IndexController extends Controller
         $gioithieu = TableStatic::where('type', 'gioi-thieu')->first();
 
         $gioithieu_slide = TablePhoto::where('type', 'gioithieu-slide')->get();
+        $quangcao = TablePhoto::where('type', 'quang-cao')->get();
         $banner_sanpham = TablePhoto::where('type', 'banner-sanpham')->get();
         $bannerQC = TablePhoto::where('type', 'banner-quangcao')->get();
-        $album = TablePhoto::where('type', 'album')->get();
+        $album = TablePhoto::where('type', 'thu-vien-anh')->get();
 
         $pronb = TableProduct::where('status', 1)->get();
         $splistnb = TableCategory::where('status', 1)->get();
@@ -37,6 +38,8 @@ class IndexController extends Controller
             'gioithieu',
             'gioithieu_slide',
             'pronb',
+            'quangcao',
+            'album',
         ]));
     }
 
