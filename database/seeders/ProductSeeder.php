@@ -678,6 +678,9 @@ class Productseeder extends Seeder
           "sizes" => [],
           "origin" => "Việt Nam",
           "colors" => ["ffffff"],
+
+
+
         ]),
         "photo" => "20230306-product1.jpg",
         "photo1" => "20230306-product11.jpg",
@@ -719,7 +722,7 @@ class Productseeder extends Seeder
         $product_5,
         $product_6,
         $product_7,
-        $product_8,       
+        $product_8,
         $product_9,
         $product_10,
         $product_11,

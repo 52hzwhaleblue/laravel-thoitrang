@@ -38,7 +38,6 @@
                             <div class="accordion-body">
 
                                 <div class="">
-                                    <input type="checkbox" name="status[]" value="noibat" @if (in_array('noibat',$explodeStatus)) checked  @endif > Nổi bật
                                     <input type="checkbox" name="status[]" value="hienthi" @if (in_array('hienthi',$explodeStatus)) checked  @endif> Hiển thị
                                 </div>
 
@@ -55,6 +54,18 @@
                                         required
                                         value="{{$data['name']}}"
                                     />
+                                </div>
+                                <div class="mb-3 mt-3">
+                                    <label for="desc">Mô tả:</label>
+                                        <textarea class="form-control" rows="3" id="cke_desc" name="desc">
+                                        {{ !empty($data['desc'] ) ? $data['desc'] : '' }}
+                                        </textarea>
+                                </div>
+
+                                <div class="mb-3 mt-3">
+                                    <label for="content">Nội dung:</label>
+                                    <textarea class="form-control" rows="3" id="cke_content" name="content">
+                                    {{ !empty($data['content'] ) ? $data['content'] : '' }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -74,11 +85,9 @@
                         <div id="anhsanpham" class="accordion-collapse collapse show"
                             aria-labelledby="panelsStayOpen-headingOne">
                             <div class="accordion-body text-center">
-                                <img class="mb-2" style="width: 200px; height: 200px" src="{{
-                                        asset(
-                                            'backend/assets/img/products/'.$data['photo']
-                                        )
-                                    }}" alt="{{ $data['name'] }}" />
+                                <img class="mb-2" style="width: 200px; height: 200px"
+                                src="{{ asset('http://localhost:8000/storage/' . $data['photo']) }}"
+                                    alt="{{ $data['name'] }}" />
                                 <input type="file" name="photo" />
                             </div>
                         </div>

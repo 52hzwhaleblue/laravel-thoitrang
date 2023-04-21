@@ -14,22 +14,23 @@ use Illuminate\Support\Facades\File as ABC;
 use Illuminate\Support\Facades\Auth;
 class IndexController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         // slide,gioithieu,pronb,banner_sanpham,splistnb,bannerQC,album,postnb
         $slide = TablePhoto::where('type', 'slideshow')->get();
         $gioithieu = TableStatic::where('type', 'gioi-thieu')->first();
 
         $gioithieu_slide = TablePhoto::where('type', 'gioithieu-slide')->get();
+        $quangcao = TablePhoto::where('type', 'quang-cao')->get();
         $banner_sanpham = TablePhoto::where('type', 'banner-sanpham')->get();
         $bannerQC = TablePhoto::where('type', 'banner-quangcao')->get();
-        $album = TablePhoto::where('type', 'album')->get();
+        $album = TablePhoto::where('type', 'thu-vien-anh')->get();
 
         $pronb = TableProduct::where('status', 1)->get();
         $splistnb = TableCategory::where('status', 1)->get();
         $postnb = TablePost::where('status', 1)->get();
 
-        // return $gioithieu->name;
+        // return $request->session()->all();
 
         return view('template.index.index',compact([
             'slide',
@@ -37,6 +38,8 @@ class IndexController extends Controller
             'gioithieu',
             'gioithieu_slide',
             'pronb',
+            'quangcao',
+            'album',
         ]));
     }
 
@@ -113,10 +116,7 @@ class IndexController extends Controller
         $output .='
             </div>
         ';
-
-
         return response()->json($output);
-
     }
 
     public function san_pham()

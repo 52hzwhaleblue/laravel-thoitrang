@@ -35,24 +35,7 @@ class SendMailJob implements ShouldQueue
      */
     public function handle()
     {
-        // return $this->dataUser['email'];
-
         Mail::to($this->dataUser['email'])->send(new SendMail($this->dataMail));
-        session(
-            [
-                "fullname" => $this->dataMail['fullname'],
-                // "code_order" => $code_order,
-                // "qty_empty" => $qty_empty,
-                // "price_empty" => $price_empty,
-                // "sub_total_empty" => $sub_total_empty,
-                // "total_price" => $total_price,
-                // "name_customer" => $name_customer,
-                // "email_customer" => $email_customer,
-                // "address_customer" => $address_customer,
-                // "phone_customer" => $phone_customer
-            ]
-        );
-
     }
 
 }

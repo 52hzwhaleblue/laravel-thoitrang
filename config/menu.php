@@ -1,18 +1,18 @@
 <?php
 
     $menuArr = [
-        // Options
         'option' =>[
             'name' => 'Options',
             'group' => '.option.',
             'data' => [
-                'promo-code' => [
-                    'title' => 'Promo Code',
-                    'type' => 'promo-code',
-                    'index' => 'admin.option.promo-code.index',
+                'ma-giam-gia' => [
+                    'title' => 'Mã giảm giá',
+                    'type' => 'ma-giam-gia',
+                    'index' => 'admin.option.ma-giam-gia.index',
                 ],
             ]
         ],
+
 
         // Sản phẩm
         'product' => [
@@ -57,21 +57,56 @@
                     'title' => 'Slideshow',
                     'type' => 'slideshow',
                     'index' => 'admin.photo.slideshow.index',
+                    'thumbs' => [
+                        'width'=>1366,
+                        'height'=>600,
+                    ]
                 ],
                 'video' => [
                     'title' => 'Video',
                     'type' => 'video',
                     'index' => 'admin.photo.video.index',
+                    'thumbs' => [
+                        'width'=>0,
+                        'height'=>0,
+                    ]
                 ],
                 'banner' => [
                     'title' => 'Banner',
                     'type' => 'banner',
                     'index' => 'admin.photo.banner.index',
+                    'thumbs' => [
+                        'width'=>0,
+                        'height'=>0,
+                    ]
                 ],
                 'gioithieu-slide' => [
                     'title' => 'Giới thiệu Slide',
                     'type' => 'gioithieu-slide',
                     'index' => 'admin.photo.gioithieu-slide.index',
+                    'thumbs' => [
+                        'width'=>420,
+                        'height'=>620,
+                    ]
+                ],
+                'quang-cao' => [
+                    'title' => 'Quảng cáo',
+                    'type' => 'quang-cao',
+                    'index' => 'admin.photo.quang-cao.index',
+                    'thumbs' => [
+                        'width'=>870,
+                        'height'=>665,
+                    ]
+                ],
+
+                'thu-vien-anh' => [
+                    'title' => 'Thư viện ảnh',
+                    'type' => 'thu-vien-anh',
+                    'index' => 'admin.photo.thu-vien-anh.index',
+                    'thumbs' => [
+                        'width'=>830,
+                        'height'=>520,
+                    ]
                 ],
             ]
         ],
