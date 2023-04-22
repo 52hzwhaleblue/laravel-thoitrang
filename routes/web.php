@@ -15,6 +15,9 @@ use App\Http\Controllers\Admin\PostController;
 // Photo Controller
 use App\Http\Controllers\Admin\PhotoController;
 
+// PhotoStatic Controller
+use App\Http\Controllers\Admin\PhotoStaticController;
+
 // Static Controller
 use App\Http\Controllers\Admin\StaticController;
 
@@ -96,7 +99,7 @@ Route::group([
     // Promotion
     // Route::resource('promo-code', PromoController::class);
 
-    // Hình ảnh Video
+    // Hình ảnh - Video
     Route::group([
         'prefix' => 'photo',
         'as' => 'photo.',
@@ -108,6 +111,23 @@ Route::group([
                     $type = $m1['type'];
                     // dd($type);
                     Route::resource($type, PhotoController::class);
+
+                }
+            }
+        }
+    });
+
+    // Hình ảnh Tĩnh
+    Route::group([
+        'prefix' => 'photo-static',
+        'as' => 'photo-static.',
+    ], function(){
+        $menus = config('menu');
+        foreach($menus as $m){
+            if($m['name'] == 'Hình ảnh Tĩnh'){
+                foreach($m['data'] as $m1){
+                    $type = $m1['type'];
+                    Route::resource($type, PhotoStaticController::class);
 
                 }
             }

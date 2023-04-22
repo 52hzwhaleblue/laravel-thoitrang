@@ -58,34 +58,32 @@ class Functions
         return $type;
     }
 
-    public static function getThumbWidth($type){
+    public static function getThumbWidth($name){
         $width = 0;
         $menus = config('menu');
 
         foreach($menus as $m){
-            if($m['name'] == 'Hình ảnh - Video'){
+            if($m['name'] == $name){
                 foreach($m['data'] as $m1){
                     foreach ($m1['thumbs'] as $k => $v) {
                         $width = $m1['thumbs']['width'];
                     }
-                    break;
                 }
             }
         }
         return $width;
     }
 
-    public static function getThumbHeight($type){
+    public static function getThumbHeight($name){
         $height = 0;
         $menus = config('menu');
 
         foreach($menus as $m){
-            if($m['name'] == 'Hình ảnh - Video'){
+            if($m['name'] == $name){
                 foreach($m['data'] as $m1){
                     foreach ($m1['thumbs'] as $k => $v) {
                         $height = $m1['thumbs']['height'];
                     }
-                    break;
                 }
             }
         }

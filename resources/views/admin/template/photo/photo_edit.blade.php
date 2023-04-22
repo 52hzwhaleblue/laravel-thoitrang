@@ -38,7 +38,7 @@
                             <div class="accordion-body">
 
                                 <div class="">
-                                    <input type="checkbox" name="status[]" value="hienthi" @if (in_array('hienthi',$explodeStatus)) checked  @endif> Hiển thị
+                                    <input type="checkbox" name="status" value="hienthi"  ($data['status']) ? checked :"" > Hiển thị
                                 </div>
 
                                 <div class="mb-3 mt-3">

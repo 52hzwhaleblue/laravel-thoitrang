@@ -158,10 +158,10 @@
                         {!! $v->desc !!}
                     </div>
                     <a href="gioi-thieu">
-                        <button class="quangcao-btn">
+                        <button class="quangcao-btn button-wave">
                             <span>Xem thêm</span>
-                            <div>
-                        </div></button>
+                            <div></div>
+                        </button>
                     </a>
                 </div>
             </div>
@@ -177,30 +177,54 @@
         <div class="title-main mb-0 "><span>album hình ảnh</span></div>
         <div class="album-grid ">
             @foreach ($album as $k => $v )
-
-                <?php
-                    if($k == 2){
-                        $thumbs = "460x520x1";
-                    }else{
-                        $thumbs = "400x250x1";
-                    }
-                    ?>
                 <div class="album<?=$k?> ">
-                    <a class="hover_sang3 h-100"  href="{{ $v['slug'] }}" title="{{ $v['name'] }}">
+                    <a class="hover_sang3 h-100 scale-img"  href="{{ $v['slug'] }}" title="{{ $v['name'] }}">
                         <img class="lazyload h-100"
                         src="{{ asset('http://localhost:8000/storage/'.$v->photo) }}" alt="{{ $v['name'] }}" />
                     </a>
                 </div>
             @endforeach
         </div>
-        <div class="product-btn hover_xemthem">
-            <a href="thu-vien-anh"> xem thêm hình ảnh</a>
-        </div>
+        <a href="thu-vien-anh">
+            <button class="album-btn button-wave m-auto">
+                <span>Xem thêm</span>
+                <div></div>
+            </button>
+        </a>
     </div>
 </div>
 @endif
 
 
+@if(!empty($dichvu))
+<div class="dichvu-wrapper">
+    <div class="wrap-content">
+        <div class="title-main mb-0 "><span>Dịch vụ của chúng tôi</span></div>
 
+        <div class="owl-page owl-carousel owl-theme thumbs_img " data-xsm-items="1:0" data-sm-items="2:10"
+            data-md-items="3:15" data-lg-items="3:20" data-xlg-items="2:15" data-rewind="1" data-autoplay="0"
+            data-loop="0" data-lazyload="0" data-mousedrag="1" data-touchdrag="1" data-smartspeed="800"
+            data-autoplayspeed="800" data-autoplaytimeout="5000" data-dots="0" data-animations="" data-nav="1"
+            data-navtext="" data-navcontainer="">
+            @foreach ($dichvu as $k =>$v)
+            <div class="dichvu-item">
+                <a class="dichvu-img hover_sang3 scale-img" href="{{$v->slug}}">
+                    <img class="lazyload"
+                        src="{{ asset('http://localhost:8000/storage/'.$v->photo) }}" alt="slide" />
+                </a>
+                <div class="dichvu-info">
+                    <h3 class="dichvu-name">
+                        <a class="text-split" href="{{$v->slug}}"> {{$v->name}} </a>
+                    </h3>
+                    <div class="dichvu-desc">
+                        {!! $v->desc !!}
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</div>
+@endif
 
 @endsection

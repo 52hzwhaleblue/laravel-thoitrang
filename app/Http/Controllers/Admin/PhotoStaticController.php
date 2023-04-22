@@ -9,7 +9,7 @@ use Functions;
 use Image;
 use App\Http\Controllers\Api\BaseController as BaseController;
 
-class PhotoController extends BaseController
+class PhotoStaticController extends BaseController
 {
     public $width;
     public $height;
@@ -17,7 +17,7 @@ class PhotoController extends BaseController
     public $name;
 
     public function __construct() {
-        $this->name = "Hình ảnh - Video";
+        $this->name = "Hình ảnh Tĩnh";
         $this->type = Functions::getTypeByCom();
         $this->width = Functions::getThumbWidth($this->name);
         $this->height = Functions::getThumbHeight($this->name);
@@ -27,14 +27,16 @@ class PhotoController extends BaseController
     {
         // Lấy dữ liệu với type
         $type = $this->type;
-        $data = TablePhoto::where('type', $this->type)->get();
-        return view('admin.template.photo.photo',compact('data','type'));
+        $data = TablePhoto::where('type', $type)->first();
+        // dd($data);
+        // dd(count($data));
+        return view('admin.template.photo_static.photo_static',compact('data','type'));
     }
 
     public function create()
     {
-        $type = Functions::getTypeByCom();
-        return view('admin.template.photo.photo_add',compact('type'));
+        $type = $this->type;
+        return view('admin.template.photo_static.photo_static_add',compact('type'));
     }
 
     public function store(Request $request)
@@ -53,7 +55,7 @@ class PhotoController extends BaseController
         $photo->save();
 
         return redirect()
-            ->route('admin.photo.'.$this->type.'.index')
+            ->route('admin.photo-static.'.$this->type.'.index')
             ->with('message', 'Bạn đã tạo ' .$this->type. ' thành công!');
     }
 
@@ -64,19 +66,20 @@ class PhotoController extends BaseController
 
     public function edit($id)
     {
-        $type = Functions::getTypeByCom();
-        $sql = TablePhoto::where('id',$id)->first();
-        $data = json_decode($sql, true);
+        $type = $this->type;
+        $data = TablePhoto::where('id', $id)->get();
+
+        // $data = json_decode($sql, true);
+
 
         return view(
-            'admin..template.photo.photo_edit',
+            'admin..template.photo_static.photo_static_edit',
             compact('data','type')
         );
     }
 
     public function update(Request $request, $id)
     {
-        $type = Functions::getTypeByCom();
         $url = $this->uploadPhoto($request,"photo/", $this->width, $this->height);
         $photo = TablePhoto::where('id', $id)->first();
 
@@ -86,23 +89,21 @@ class PhotoController extends BaseController
         if ($request->has('photo')) {
             $photo->photo = $url;
         }
-        $photo->type = $type;
+        $photo->type = $this->type;
         $photo->status = (int) $request->get('status');
         $photo->save();
 
         return redirect()
-            ->route('admin.photo.'.$type.'.index')
-            ->with('message', 'Bạn đã cập nhật '. $type .' thành công!');
+            ->route('admin.photo-static.'.$this->type.'.index')
+            ->with('message', 'Bạn đã cập nhật '. $this->type .' thành công!');
     }
 
     public function destroy($id)
     {
-        $type = Functions::getTypeByCom();
-
         $photo = TablePhoto::find($id);
         if($photo !=null){
             $photo->delete();
-            return redirect()->route('admin.photo.'.$type.'.index')->with('message', 'Bạn đã xóa '.$type.' thành công!');
+            return redirect()->route('admin.photo-static.'.$this->type.'.index')->with('message', 'Bạn đã xóa '.$this->type.' thành công!');
         }
     }
 }

@@ -28,7 +28,7 @@ class IndexController extends Controller
 
         $pronb = TableProduct::where('status', 1)->get();
         $splistnb = TableCategory::where('status', 1)->get();
-        $postnb = TablePost::where('status', 1)->get();
+        $dichvu = TablePost::where('type', 'dich-vu')->get();
 
         // return $request->session()->all();
 
@@ -40,6 +40,7 @@ class IndexController extends Controller
             'pronb',
             'quangcao',
             'album',
+            'dichvu',
         ]));
     }
 
