@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use App\Models\TableNotificationDetail;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -31,4 +32,9 @@ class TableNotification extends Model
             ->setTimezone('Asia/Ho_Chi_Minh')
             ->toDateTimeString();
     }
+
+    public function notificationDetail(){
+        return $this->hasMany(TableNotificationDetail::class,'notification_id','id');
+    }
+
 }

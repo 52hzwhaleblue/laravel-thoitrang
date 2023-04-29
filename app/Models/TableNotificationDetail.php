@@ -3,27 +3,27 @@
 namespace App\Models;
 
 use Carbon\Carbon;
-use App\Models\TableProduct;
+use App\Models\TableNotification;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class TableProductDetail extends Model
+class TableNotificationDetail extends Model
 {
     use HasFactory;
 
+    protected $table = "table_notification_detail";
+
     protected $fillable = [
-        'photo',
-        'product_id',
-        'name',
-        'color',
-        'stock',
+        'user_id',
+        'notification_id',
+        'is_read',
         'created_at',
         'updated_at',
     ];
 
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
-        'updated_at' => 'datetime:Y-m-d H:i:s',
+        'update_at' => 'datetime:Y-m-d H:i:s',
     ];
 
     public function getCreatedAtAttribute($value)
@@ -33,8 +33,12 @@ class TableProductDetail extends Model
             ->toDateTimeString();
     }
 
-    public function product()
+    public function notifications(){
+        return $this->belongsTo(TableNotification::class,'notification_id','id');
+    }
+
+    public function scopeIsRead($query,$userId)
     {
-        return $this->belongsTo(TableProduct::class);
+        return  $query->where('user_id', '=', $userId);
     }
 }

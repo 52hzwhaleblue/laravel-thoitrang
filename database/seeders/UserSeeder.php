@@ -31,7 +31,7 @@ class UserSeeder extends Seeder
             'phone'=> "xxxxxx",
             'email'=> "xxxxx@gmail.com",
             'password' => Hash::make('123456789'),
-            "photo" =>  "thumbnails/avatars/avatar.jpg",
+            "photo" =>  "thumbnails/avatars/42ea1f2bdeefb978bb7cbab49cfc08b2_644be05a96383.png",
             "role" => 0,
             "created_at" => $created_at,
             "updated_at" => $updated_at,

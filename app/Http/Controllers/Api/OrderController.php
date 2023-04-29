@@ -16,7 +16,7 @@ use App\Models\TableOrderDetail;
 
 class OrderController extends BaseController
 {
-    public function fetchAll(Request $request){   
+    public function fetchAll(){   
         try {     
             $userId = Auth::id();
 
@@ -62,53 +62,54 @@ class OrderController extends BaseController
         try {         
             $validator = Validator::make($request->all(), 
             [
-                'shipping_fullname' => "nullable",
-                'shipping_phone' => "nullable",
-                'shipping_address' => "nullable",
-                'order_payment' => "nullable",
-                'temp_price' => "nullable",
-                'total_price' => "nullable",
-                'ship_price' =>"nullable",
-                'requirements' => "nullable",
-                'notes' => "nullable",
-                'list_product' => "nullable",
+                'shipping_fullname' => "nullable|required",
+                'shipping_phone' => "nullable|required",
+                'shipping_address' => "nullable|required",
+                'payment_method' => "nullable|required",
+                'temp_price' => "nullable|required",
+                'total_price' => "nullable|required",
+                'ship_price' =>"nullable|required",
+                'notes' => "nullable|required",
+                'list_product' => "nullable|required",
             ]);
-         
+           
+           
      
             if($validator->fails()){
                 return $this->sendError('validation error',$validator->errors(),401);
             }
 
-            $db::transaction(function () use ($request,$db) {
-
+            $db::transaction(function () use ($request) {
+                $time = now();
                 $order = TableOrder::create([
                     'code' => 'HDKR' . Str::random(5). date('Ymd'),
                     'user_id' => Auth::id(),
                     'shipping_fullname' => $request->shipping_fullname,
                     'shipping_phone' => $request->shipping_phone,
                     'shipping_address' => $request->shipping_address,
-                    'order_payment' => $request->order_payment,
+                    'payment_method' => $request->payment_method,
                     'temp_price' => $request->temp_price,
                     'total_price' => $request->total_price,
                     'ship_price' => $request->ship_price,
-                    'requirements' => $request->requirements,
                     'notes' => $request->notes,
                     'status' => 1,
-                    'created_at' => now(),
-                    'updated_at' => now()
+                    'created_at' =>  $time,
+                    'updated_at' =>  $time 
                 ]);
 
                 $list = json_decode($request->input("list_product"));
-
+                
+                $tableDetail = new TableOrderDetail();
                 foreach( $list as $item){
-                    TableOrderDetail::create([
+                    $tableDetail::create([
                         'order_id' => $order->id,
-                        'product_id' => $item->product_id,
+                        'product_id' => $item->product->id,
                         'color' => $item->color,
                         'size' => $item->size,
                         'quantity' => $item->quantity,
-                        'created_at' => now(),
-                        'updated_at' => now()
+                        'photo' => $item->photo,
+                        'created_at' =>  $time ,
+                        'updated_at' =>  $time 
                     ]);
                 }
 

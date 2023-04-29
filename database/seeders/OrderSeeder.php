@@ -39,7 +39,7 @@ class OrderSeeder extends Seeder
                 'shipping_fullname' => $faker->name(),
                 'shipping_phone' =>  $faker->phoneNumber(),
                 'shipping_address'=>  $faker->address(),
-                'order_payment' => "COD",
+                'payment_method' => "COD",
                 'temp_price' => 500000,
                 'ship_price' => 0,
                 'notes' => ".....Note",

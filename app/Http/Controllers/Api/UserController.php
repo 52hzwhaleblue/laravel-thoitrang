@@ -12,16 +12,18 @@ use Illuminate\Http\Request;
 use App\Http\Requests\EditRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\user\PasswordRequest;
 use App\Http\Controllers\Api\BaseController as BaseController;
 use App\Models\TableRoomChat;
+use App\Http\Controllers\Api\XMPPConnectionManager;
 
 class UserController extends BaseController
-{
+{  
+
+
     public function me(){
         $user = DB::table('table_users')->find(Auth::id());
       
@@ -226,18 +228,16 @@ class UserController extends BaseController
 
             $query = $db::table("table_orders")->find($orderId);
 
-            $currentStatus =(int) request()->input('current_status');
-
             $title = "";
 
             $body = "";
 
-            if( $currentStatus == 1){
+            if( $query->status == 1){
                 $title = "Đơn hàng ".$query->code.' đã được xác nhận';
                 $body = "Chú ý theo dõi trạng thái đơn hàng để được giao đúng thời gian";
             }
 
-            if( $currentStatus == 2){
+            if($query->status == 2){
                 $title = "Đơn hàng".$query->code.' đang được vận chuyển';
                 $body = "Chú ý theo dõi trạng thái đơn hàng để được giao đúng thời gian";
             }

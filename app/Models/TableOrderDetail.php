@@ -23,6 +23,7 @@ class TableOrderDetail extends Model
         'color',
         'size',
         'quantity',
+        'photo',
         'created_at',
         'update_at',
     ];

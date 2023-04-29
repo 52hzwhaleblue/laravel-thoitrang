@@ -22,17 +22,15 @@ class Productseeder extends Seeder
 
       $product_1 = [
         "code" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Áo thun ba lỗ nam sành điệu đẹp",
-        "slug" => "ao-thun-ba-lo",
+        "name" => "Áo thun nam ba lỗ sành điệu đẹp",
+        "slug" => "ao-thun",
         "regular_price" => 99000,
         "sale_price" => null,
         "discount" => 0,
-        "stock" => random_int(10,50),
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
           "sizes" => ["M","L","XL"],
           "origin" => "Việt Nam",
-          "colors" => ["232645","95a5a5"],
         ]),
         "photo" => "20230306-product1.jpg",
         "photo1" => "20230306-product11.jpg",
@@ -50,12 +48,10 @@ class Productseeder extends Seeder
         "regular_price" => 540000,
         "sale_price" => 26000,
         "discount" => 5,
-        "stock" => random_int(10,50),
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
           "sizes" => ["L","XL"],
           "origin" => "Việt Nam",
-          "colors" => ["000000"],
         ]),
         "photo" => "20230306-product1.jpg",
         "photo1" => "20230306-product11.jpg",
@@ -73,12 +69,10 @@ class Productseeder extends Seeder
         "regular_price" => 220000,
         "sale_price" => null,
         "discount" => null,
-        "stock" => random_int(10,50),
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
           "sizes" => ["M","L","XL"],
           "origin" => "Việt Nam",
-          "colors" => ["ffffff","e64c3c","26ae50"],
         ]),
         "photo" => "20230306-product1.jpg",
         "photo1" => "20230306-product11.jpg",
@@ -91,17 +85,15 @@ class Productseeder extends Seeder
 
       $product_4= [
         "code" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Áo thun đẹp chất vải nhẹ mát mẻ vào",
+        "name" => "Áo thun nam đẹp chất vải nhẹ mát mẻ vào",
         "slug" => "ao-thun",
         "regular_price" => 99000,
         "sale_price" => null,
         "discount" => null,
-        "stock" => random_int(10,50),
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
           "sizes" => ["M","L","XL"],
           "origin" => "Việt Nam",
-          "colors" => ["495934","000000"],
         ]),
         "photo" => "20230306-product1.jpg",
         "photo1" => "20230306-product11.jpg",
@@ -114,17 +106,15 @@ class Productseeder extends Seeder
 
       $product_5= [
         "code" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Áo thun tay dài đẹp chất vải nhẹ lịch lãm",
+        "name" => "Áo thun nam tay dài đẹp chất vải nhẹ lịch lãm",
         "slug" => "ao-thun",
         "regular_price" => 150000,
         "sale_price" => null,
         "discount" => null,
-        "stock" => random_int(10,50),
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
           "sizes" => ["M","L","XL"],
           "origin" => "Việt Nam",
-          "colors" => ["ffffff","556578"],
         ]),
         "photo" => "20230306-product1.jpg",
         "photo1" => "20230306-product11.jpg",
@@ -142,12 +132,10 @@ class Productseeder extends Seeder
         "regular_price" => 320000,
         "sale_price" => 12800,
         "discount" => 4,
-        "stock" => random_int(10,50),
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
           "sizes" => [],
           "origin" => "Việt Nam",
-          "colors" => ["000000"],
         ]),
         "photo" => "20230306-product1.jpg",
         "photo1" => "20230306-product11.jpg",
@@ -165,12 +153,10 @@ class Productseeder extends Seeder
         "regular_price" => 180000,
         "sale_price" => null,
         "discount" => null,
-        "stock" => random_int(10,50),
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
           "sizes" => [],
           "origin" => "Việt Nam",
-          "colors" => ["4834d4"],
         ]),
         "photo" => "20230306-product1.jpg",
         "photo1" => "20230306-product11.jpg",
@@ -188,12 +174,10 @@ class Productseeder extends Seeder
         "regular_price" => 330000,
         "sale_price" => 15500,
         "discount" => 5,
-        "stock" => random_int(10,50),
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
           "sizes" => [],
           "origin" => "Việt Nam",
-          "colors" => ["b88491","b6a1c5"],
         ]),
         "photo" => "20230306-product1.jpg",
         "photo1" => "20230306-product11.jpg",
@@ -211,12 +195,10 @@ class Productseeder extends Seeder
         "regular_price" => 150000,
         "sale_price" => null,
         "discount" => null,
-        "stock" => random_int(10,50),
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
           "sizes" => [],
           "origin" => "Việt Nam",
-          "colors" => ["000000"],
         ]),
         "photo" => "20230306-product1.jpg",
         "photo1" => "20230306-product11.jpg",
@@ -234,7 +216,6 @@ class Productseeder extends Seeder
         "regular_price" => 330000,
         "sale_price" => 15500,
         "discount" => 5,
-        "stock" => random_int(10,50),
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
           "sizes" => [],
@@ -252,17 +233,15 @@ class Productseeder extends Seeder
 
       $product_11= [
         "code" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Túi xách lớn satchel 2 ngăn",
+        "name" => "Túi xách lớn satchel 2 ngăn cho nam nữ văn phòng",
         "slug" => "tui-xach",
         "regular_price" => 260000,
         "sale_price" => null,
         "discount" => null,
-        "stock" => random_int(10,50),
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
           "sizes" => [],
           "origin" => "Việt Nam",
-          "colors" => ["000000","e4cfc4","e5e1dc"],
         ]),
         "photo" => "20230306-product1.jpg",
         "photo1" => "20230306-product11.jpg",
@@ -275,17 +254,15 @@ class Productseeder extends Seeder
 
       $product_12= [
         "code" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Túi xách da đeo chéo",
+        "name" => "Túi xách da đeo chéo nam thời trang phong cách",
         "slug" => "tui-xach",
         "regular_price" => 150000,
         "sale_price" => null,
         "discount" => null,
-        "stock" => random_int(10,50),
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
           "sizes" => [],
           "origin" => "Việt Nam",
-          "colors" => ["b48d82"],
         ]),
         "photo" => "20230306-product1.jpg",
         "photo1" => "20230306-product11.jpg",
@@ -298,17 +275,15 @@ class Productseeder extends Seeder
 
       $product_13= [
         "code" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Túi xách văn phòng đựng laptop",
+        "name" => "Túi xách văn phòng đựng laptop cho cả nam lẫn nữ",
         "slug" => "tui-xach",
         "regular_price" => 290000,
         "sale_price" => null,
         "discount" => null,
-        "stock" => random_int(10,50),
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
           "sizes" => [],
           "origin" => "Việt Nam",
-          "colors" => ["000000"],
         ]),
         "photo" => "20230306-product1.jpg",
         "photo1" => "20230306-product11.jpg",
@@ -320,19 +295,16 @@ class Productseeder extends Seeder
       ];
 
       $product_14= [
-
         "code" =>  "PROF". Str::random(10) . date('YmdHis'),
         "name" => "Túi xách NAHA nữ đẹp",
         "slug" => "tui-xach",
         "regular_price" => 310000,
         "sale_price" => null,
         "discount" => null,
-        "stock" => random_int(10,50),
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
           "sizes" => [],
           "origin" => "Việt Nam",
-          "colors" => ["b6ccb6","dcccbf"],
         ]),
         "photo" => "20230306-product1.jpg",
         "photo1" => "20230306-product11.jpg",
@@ -350,12 +322,10 @@ class Productseeder extends Seeder
         "regular_price" => 195000,
         "sale_price" => null,
         "discount" => null,
-        "stock" => random_int(10,50),
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
           "sizes" => [35,36],
           "origin" => "Việt Nam",
-          "colors" => ["ffffff","000000"],
         ]),
         "photo" => "20230306-product1.jpg",
         "photo1" => "20230306-product11.jpg",
@@ -368,17 +338,15 @@ class Productseeder extends Seeder
 
       $product_16= [
         "code" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Áo Hoodie drew cực đẹp dành cho giới trẻ",
+        "name" => "Áo Hoodie drew cực đẹp dành cho giới trẻ nam nữ",
         "slug" => "ao",
         "regular_price" => 150000,
         "sale_price" => null,
         "discount" => null,
-        "stock" => random_int(10,50),
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
           "sizes" => ["X","L","XL"],
           "origin" => "Việt Nam",
-          "colors" => ["914900","000000"],
         ]),
         "photo" => "20230306-product1.jpg",
         "photo1" => "20230306-product11.jpg",
@@ -391,17 +359,15 @@ class Productseeder extends Seeder
 
       $product_17= [
         "code" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Giày IceBreaker",
+        "name" => "Giày IceBreaker nữ",
         "slug" => "giay",
         "regular_price" => 450000,
         "sale_price" => null,
         "discount" => null,
-        "stock" => random_int(10,50),
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
           "sizes" => [35,36,38,39,40],
           "origin" => "Việt Nam",
-          "colors" => ["d4e0e8","edd3e1","000000"],
         ]),
         "photo" => "20230306-product1.jpg",
         "photo1" => "20230306-product11.jpg",
@@ -414,17 +380,15 @@ class Productseeder extends Seeder
 
       $product_18= [
         "code" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Kính Mát Thời Trang Chống Loá JOMO EYEWEAR - Bailey",
+        "name" => "Kính Mát Thời Trang Chống Loá JOMO EYEWEAR - Bailey nam nữ",
         "slug" => "kinh",
         "regular_price" => 185000,
         "sale_price" => null,
         "discount" => null,
-        "stock" => random_int(10,50),
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
           "sizes" => [],
           "origin" => "Việt Nam",
-          "colors" => ["ffffff"],
         ]),
         "photo" => "20230306-product1.jpg",
         "photo1" => "20230306-product11.jpg",
@@ -437,17 +401,15 @@ class Productseeder extends Seeder
 
       $product_19= [
         "code" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Nike_Air_Jordan_1_High_OG_Metallic",
+        "name" => "Nike_Air_Jordan_1_High_OG_Metallic nam nữ",
         "slug" => "giay-the-thao",
         "regular_price" => 550000,
         "sale_price" => null,
         "discount" => null,
-        "stock" => random_int(10,50),
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
           "sizes" => [35,36,38,39,40],
           "origin" => "Việt Nam",
-          "colors" => ["5a5c89","88898b"],
         ]),
         "photo" => "20230306-product1.jpg",
         "photo1" => "20230306-product11.jpg",
@@ -465,12 +427,10 @@ class Productseeder extends Seeder
         "regular_price" => 145000,
         "sale_price" => null,
         "discount" => null,
-        "stock" => random_int(10,50),
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
           "sizes" => ["X","L","XL","XXL"],
           "origin" => "Việt Nam",
-          "colors" => ["b6a068"],
         ]),
         "photo" => "20230306-product1.jpg",
         "photo1" => "20230306-product11.jpg",
@@ -483,17 +443,15 @@ class Productseeder extends Seeder
 
       $product_21= [
         "code" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Quần jogger thể thao trơn basic",
+        "name" => "Quần jogger nam thể thao trơn basic",
         "slug" => "quan",
         "regular_price" => 158000,
         "sale_price" => null,
         "discount" => null,
-        "stock" => random_int(10,50),
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
           "sizes" => ["X","L","XL","XXL"],
           "origin" => "Việt Nam",
-          "colors" => ["9b9fa3","232c46"],
         ]),
         "photo" => "20230306-product1.jpg",
         "photo1" => "20230306-product11.jpg",
@@ -511,12 +469,10 @@ class Productseeder extends Seeder
         "regular_price" => 150000,
         "sale_price" => null,
         "discount" => null,
-        "stock" => random_int(10,50),
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
           "sizes" => ["X","L","XL","XXL"],
           "origin" => "Việt Nam",
-          "colors" => ["4e585b","50554d"],
         ]),
         "photo" => "20230306-product1.jpg",
         "photo1" => "20230306-product11.jpg",
@@ -534,12 +490,10 @@ class Productseeder extends Seeder
         "regular_price" => 230000,
         "sale_price" => null,
         "discount" => null,
-        "stock" => random_int(10,50),
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
           "sizes" => ["X","L","XL","XXL"],
           "origin" => "Việt Nam",
-          "colors" => ["000000","ffffff"],
         ]),
         "photo" => "20230306-product1.jpg",
         "photo1" => "20230306-product11.jpg",
@@ -557,12 +511,10 @@ class Productseeder extends Seeder
         "regular_price" => 250000,
         "sale_price" => null,
         "discount" => null,
-        "stock" => random_int(10,50),
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
           "sizes" => ["M","X","L"],
           "origin" => "Việt Nam",
-          "colors" => ["cad4f1","c4bfd5","ffffff"],
         ]),
         "photo" => "20230306-product1.jpg",
         "photo1" => "20230306-product11.jpg",
@@ -580,12 +532,10 @@ class Productseeder extends Seeder
         "regular_price" => 250000,
         "sale_price" => null,
         "discount" => null,
-        "stock" => random_int(10,50),
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
           "sizes" => ["X","L","XL","XXL"],
           "origin" => "Việt Nam",
-          "colors" => ["000000","b6c0bd","ab8c80"],
         ]),
         "photo" => "20230306-product1.jpg",
         "photo1" => "20230306-product11.jpg",
@@ -603,7 +553,6 @@ class Productseeder extends Seeder
         "regular_price" => 3300000,
         "sale_price" => null,
         "discount" => null,
-        "stock" => random_int(10,50),
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
           "sizes" => ["X","L","XL","XXL"],
@@ -621,17 +570,15 @@ class Productseeder extends Seeder
 
       $product_27= [
         "code" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Đồng hồ casio bền chống nước",
+        "name" => "Đồng hồ casio bền chống nước nam nữ",
         "slug" => "dong-ho",
         "regular_price" => 150000,
         "sale_price" => null,
         "discount" => null,
-        "stock" => random_int(10,50),
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
           "sizes" => [],
           "origin" => "Việt Nam",
-          "colors" => ["000000"],
         ]),
         "photo" => "20230306-product1.jpg",
         "photo1" => "20230306-product11.jpg",
@@ -649,12 +596,10 @@ class Productseeder extends Seeder
         "regular_price" => 245000,
         "sale_price" => null,
         "discount" => null,
-        "stock" => random_int(10,50),
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
           "sizes" => [],
           "origin" => "Việt Nam",
-          "colors" => ["d2b39c"],
         ]),
         "photo" => "20230306-product1.jpg",
         "photo1" => "20230306-product11.jpg",
@@ -667,20 +612,22 @@ class Productseeder extends Seeder
 
       $product_29= [
         "code" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Túi Halio Canvas",
+        "name" => "Túi Halio Canvas nữ",
         "slug" => "tui-xach",
         "regular_price" => 85000,
         "sale_price" => null,
         "discount" => null,
-        "stock" => random_int(10,50),
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
           "sizes" => [],
           "origin" => "Việt Nam",
+<<<<<<< HEAD
+=======
           "colors" => ["ffffff"],
 
 
 
+>>>>>>> 36513ab7998962098af332f5b0513caa9e0df305
         ]),
         "photo" => "20230306-product1.jpg",
         "photo1" => "20230306-product11.jpg",
@@ -693,21 +640,62 @@ class Productseeder extends Seeder
 
       $product_30= [
         "code" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Túi Tote - Okame Hoa",
+        "name" => "Túi Tote - Okame Hoa thời trang nữ",
         "slug" => "tui-xach",
         "regular_price" => 90000,
         "sale_price" => null,
         "discount" => null,
-        "stock" => random_int(10,50),
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
           "sizes" => [],
           "origin" => "Việt Nam",
-          "colors" => ["ffffff"],
         ]),
         "photo" => "20230306-product1.jpg",
         "photo1" => "20230306-product11.jpg",
         "category_id" => 3,
+        "view" => random_int(20,500),
+        "status" => 1,
+        "created_at" => now(),
+        "updated_at" => now(),
+      ];
+
+      
+      $product_31= [
+        "code" =>  "PROF". Str::random(10) . date('YmdHis'),
+        "name" => "Giày Sandal Nam MWC - 7066 Giày Sandal Nam Quai Chéo Kiểu Dáng Basic",
+        "slug" => "giay",
+        "regular_price" => 320000,
+        "sale_price" => 16000,
+        "discount" => 5,
+        "desc" => $faker->paragraph(random_int(3,6)),
+        "properties" => json_encode([
+          "sizes" => [39,40,41,42,43,44],
+          "origin" => "Việt Nam",
+        ]),
+        "photo" => "20230306-product1.jpg",
+        "photo1" => "20230306-product11.jpg",
+        "category_id" => 4,
+        "view" => random_int(20,500),
+        "status" => 1,
+        "created_at" => now(),
+        "updated_at" => now(),
+      ];
+
+      $product_32= [
+        "code" =>  "PROF". Str::random(10) . date('YmdHis'),
+        "name" => "Giày Sandal Nam Hiệu Vento",
+        "slug" => "giay",
+        "regular_price" => 420000,
+        "sale_price" => 21000,
+        "discount" => 5,
+        "desc" => $faker->paragraph(random_int(3,6)),
+        "properties" => json_encode([
+          "sizes" => [38,39,40,41,42],
+          "origin" => "Việt Nam",
+        ]),
+        "photo" => "20230306-product1.jpg",
+        "photo1" => "20230306-product11.jpg",
+        "category_id" => 4,
         "view" => random_int(20,500),
         "status" => 1,
         "created_at" => now(),
@@ -745,6 +733,8 @@ class Productseeder extends Seeder
         $product_28,
         $product_29,
         $product_30,
+        $product_31,
+        $product_32,
       ];
 
        DB::table('table_products')->insert($productsData);

@@ -35,7 +35,6 @@ class TableProduct extends Model
         'numb',
         'type',
         'view',
-        'stock',
         'category_id',
         'status',
         'created_at',
@@ -98,6 +97,10 @@ class TableProduct extends Model
             });
     }
 
-
-
+    public function scopeStock($query)
+    {
+        return $query->whereHas('productDetail', function ($query) {
+            $query->where('stock', '>=', 1);
+        });
+    }
 }
