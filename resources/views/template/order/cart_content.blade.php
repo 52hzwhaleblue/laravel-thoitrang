@@ -17,7 +17,7 @@
                 {{$row->name}}
             </th>
             <th>
-                {{number_format($row->options->sale_price,0,',','.')}}vnđ
+                {{number_format($row->price,0,',','.')}}vnđ
             </th>
             <th>
                 <input class="form-control form-control-mini giohang-qty" type="number" name="qty[{{$row->rowId}}]"
@@ -25,11 +25,11 @@
                     data-price="{{$row->price}}">
             </th>
             <th>
-                {{number_format($row->options->sale_price)}}vnđ
+                {{number_format($row->price)}}vnđ
 
             </th>
             <th>
-                <span class="giohang-subTotal-{{$row->id}}"> {{number_format($row->qty * $row->options->sale_price)}}vnđ </span>
+                <span class="giohang-subTotal-{{$row->id}}"> {{number_format($row->qty * $row->price)}}vnđ </span>
             </th>
             <th>
                 <a href="{{route('cart.remove',$row->rowId)}}" onclick="alert('Bạn có muốn xóa sản phẩm này không');">Xóa</a>

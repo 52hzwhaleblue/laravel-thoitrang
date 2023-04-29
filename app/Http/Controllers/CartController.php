@@ -38,6 +38,7 @@ class CartController extends Controller
     public function add(Request $request,$id)
     {
         $productById =  TableProduct::find($id);
+        // dd($productById->regular_price);
         Cart::add([
             'id' => $id,
             'name' => $productById->name,
@@ -164,6 +165,8 @@ class CartController extends Controller
 
         dispatch(new SendMailJob($dataMail,$dataUser)); // thêm vào hàng đợi
         // Hủy Cart Session sau khi dặt hàng thành công
+
+
         Cart::destroy();
         return redirect()->route('index')->with('CartToast',' Bạn đã thanh toán thành công');
     }

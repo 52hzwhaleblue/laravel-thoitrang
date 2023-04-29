@@ -133,8 +133,24 @@
             ga("create", "UA-72504830-1", "auto");
             ga("send", "pageview");
         }
-
     </script>
+
+        <!-- pusher -->
+        <script src="https://js.pusher.com/8.0.1/pusher.min.js"></script>
+        <script>
+            var pusher = new Pusher("b18a8b47f86b06965176", {
+                cluster: "ap1",
+            });
+
+            var channel = pusher.subscribe("OrderNotification");
+
+
+            channel.bind("realtime-order", (data) => {
+                alert('Bạn đã dat hagn thanh cong');
+            });
+        </script>
+
+
 </body>
 
 </html>

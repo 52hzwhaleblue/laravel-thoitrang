@@ -27,8 +27,8 @@ function Cart(){
                 return false;
             },
             error: function(xhr, ajaxOptions, thrownError) {
-                alert(xhr.status);
-                alert(thrownError);
+                // alert(xhr.status);
+                // alert(thrownError);
             }
         });
     });
