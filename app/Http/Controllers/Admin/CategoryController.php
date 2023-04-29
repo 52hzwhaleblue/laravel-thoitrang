@@ -16,10 +16,7 @@ class CategoryController extends BaseController
     public function index()
     {
         $data = TableCategory::all();
-
-        TableCategory::factory()->count(5)->create();
-
-
+        // TableCategory::factory()->count(5)->create();
         return view('admin.template.product.list.list', compact('data'));
     }
 
