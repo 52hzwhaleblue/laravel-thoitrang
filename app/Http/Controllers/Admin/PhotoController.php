@@ -5,9 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\TablePhoto;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\BaseController as BaseController;
 use Functions;
 use Image;
-use App\Http\Controllers\Api\BaseController as BaseController;
 
 class PhotoController extends BaseController
 {
@@ -18,7 +19,7 @@ class PhotoController extends BaseController
 
     public function __construct() {
         $this->name = "Hình ảnh - Video";
-        $this->type = Functions::getTypeByCom();
+        $this->type = Functions::getTypeByComAdmin();
         $this->width = Functions::getThumbWidth($this->name);
         $this->height = Functions::getThumbHeight($this->name);
     }
@@ -33,7 +34,7 @@ class PhotoController extends BaseController
 
     public function create()
     {
-        $type = Functions::getTypeByCom();
+        $type = Functions::getTypeByComAdmin();
         return view('admin.template.photo.photo_add',compact('type'));
     }
 
@@ -64,7 +65,7 @@ class PhotoController extends BaseController
 
     public function edit($id)
     {
-        $type = Functions::getTypeByCom();
+        $type = Functions::getTypeByComAdmin();
         $sql = TablePhoto::where('id',$id)->first();
         $data = json_decode($sql, true);
 
@@ -76,7 +77,7 @@ class PhotoController extends BaseController
 
     public function update(Request $request, $id)
     {
-        $type = Functions::getTypeByCom();
+        $type = Functions::getTypeByComAdmin();
         $url = $this->uploadPhoto($request,"photo/", $this->width, $this->height);
         $photo = TablePhoto::where('id', $id)->first();
 
@@ -97,7 +98,7 @@ class PhotoController extends BaseController
 
     public function destroy($id)
     {
-        $type = Functions::getTypeByCom();
+        $type = Functions::getTypeByComAdmin();
 
         $photo = TablePhoto::find($id);
         if($photo !=null){

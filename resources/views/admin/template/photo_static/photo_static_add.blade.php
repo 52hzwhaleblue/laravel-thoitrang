@@ -12,7 +12,6 @@
 </div>
 @endif
 
-<?php echo 'ko' ?>
 
 <form action="{{ route('admin.photo-static.'.$type.'.store') }}" method="POST" enctype="multipart/form-data">
     @csrf

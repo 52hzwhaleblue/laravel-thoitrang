@@ -18,7 +18,7 @@ class PhotoStaticController extends BaseController
 
     public function __construct() {
         $this->name = "Hình ảnh Tĩnh";
-        $this->type = Functions::getTypeByCom();
+        $this->type = Functions::getTypeByComAdmin();
         $this->width = Functions::getThumbWidth($this->name);
         $this->height = Functions::getThumbHeight($this->name);
     }

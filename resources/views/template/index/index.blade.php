@@ -171,6 +171,14 @@
 </div>
 @endif
 
+@if(!empty($bannerQC))
+<div class="bannerQC-warpper mb-5 effect-banner">
+    <span class="effect-banner-image">
+        <img class="lazyload w-100" src="{{ asset('http://localhost:8000/storage/'.$bannerQC['photo']) }}" alt="{{ $bannerQC['name'] }}" />
+    </span>
+</div>
+@endif
+
 @if (!empty($album))
 <div class="album-wrapper">
     <div class="wrap-content">
@@ -195,7 +203,6 @@
 </div>
 @endif
 
-
 @if(!empty($dichvu))
 <div class="dichvu-wrapper">
     <div class="wrap-content">
@@ -210,7 +217,7 @@
             <div class="dichvu-item">
                 <a class="dichvu-img hover_sang3 scale-img" href="{{$v->slug}}">
                     <img class="lazyload"
-                        src="{{ asset('http://localhost:8000/storage/'.$v->photo) }}" alt="slide" />
+                        src="{{ asset('http://localhost:8000/storage/'.$v->photo) }}" alt="{{$v->name}}" />
                 </a>
                 <div class="dichvu-info">
                     <h3 class="dichvu-name">
@@ -219,6 +226,63 @@
                     <div class="dichvu-desc">
                         {!! $v->desc !!}
                     </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</div>
+@endif
+
+
+@if(!empty($tieuchi))
+<div class="tieuchi-wrapper mb-5">
+    <div class="wrap-content">
+        <div class="owl-page owl-carousel owl-theme thumbs_img " data-xsm-items="1:0" data-sm-items="2:10"
+            data-md-items="3:15" data-lg-items="3:20" data-xlg-items="4:15" data-rewind="1" data-autoplay="0"
+            data-loop="0" data-lazyload="0" data-mousedrag="1" data-touchdrag="1" data-smartspeed="800"
+            data-autoplayspeed="800" data-autoplaytimeout="5000" data-dots="0" data-animations="" data-nav="1"
+            data-navtext="" data-navcontainer="">
+            @foreach ($tieuchi as $k =>$v)
+            <div class="tieuchi-item">
+                <a class="tieuchi-img hover_sang3 scale-img" href="{{$v->slug}}">
+                    <img class="lazyload"
+                        src="{{ asset('http://localhost:8000/storage/'.$v->photo) }}" alt="{{$v->name}}" />
+                </a>
+                <div class="tieuchi-info">
+                   <p class="tieuchi-name text-split"> {{ $v['name'] }} </p>
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</div>
+@endif
+
+
+@if(!empty($tintuc))
+<div class="tintuc-wrapper mb-5">
+    <div class="wrap-content">
+    <div class="title-main mb-4 "><span>Bài viết mới mỗi ngày</span></div>
+
+        <div class="owl-page owl-carousel owl-theme thumbs_img " data-xsm-items="1:0" data-sm-items="2:10"
+            data-md-items="3:15" data-lg-items="3:20" data-xlg-items="3:15" data-rewind="1" data-autoplay="0"
+            data-loop="0" data-lazyload="0" data-mousedrag="1" data-touchdrag="1" data-smartspeed="800"
+            data-autoplayspeed="800" data-autoplaytimeout="5000" data-dots="0" data-animations="" data-nav="1"
+            data-navtext="" data-navcontainer="">
+            @foreach ($tintuc as $k =>$v)
+            <div class="tintuc-item">
+                <a class="tintuc-img hover_sang3 scale-img" href="/tin-tuc/{{$v->slug}}">
+                    <img class="lazyload"
+                        src="{{ asset('http://localhost:8000/storage/'.$v->photo) }}" alt="{{$v->name}}" />
+                </a>
+                <div class="tintuc-info">
+                    <h3 class="mb-0">
+                        <a href="/tin-tuc/{{ $v->slug }}" class="tintuc-name">
+                            <span class="text-split"> {{ $v->name }} </span>
+                        </a>
+                    </h3>
+                    <p class="tintuc-desc text-split"> {{ $v->desc }} </p>
                 </div>
             </div>
             @endforeach

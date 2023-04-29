@@ -12,8 +12,18 @@ use App\Models\TableCategory;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File as ABC;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
+use Functions;
+
 class IndexController extends Controller
 {
+    public $type;
+
+    public function __construct() {
+        $this->type = Functions::getTypeByCom();
+    }
+
     public function index(Request $request)
     {
         // slide,gioithieu,pronb,banner_sanpham,splistnb,bannerQC,album,postnb
@@ -23,12 +33,15 @@ class IndexController extends Controller
         $gioithieu_slide = TablePhoto::where('type', 'gioithieu-slide')->get();
         $quangcao = TablePhoto::where('type', 'quang-cao')->get();
         $banner_sanpham = TablePhoto::where('type', 'banner-sanpham')->get();
-        $bannerQC = TablePhoto::where('type', 'banner-quangcao')->get();
+        $bannerQC = TablePhoto::where('type', 'banner-quangcao')->first();
         $album = TablePhoto::where('type', 'thu-vien-anh')->get();
 
         $pronb = TableProduct::where('status', 1)->get();
         $splistnb = TableCategory::where('status', 1)->get();
         $dichvu = TablePost::where('type', 'dich-vu')->get();
+        $tieuchi = TablePost::where('type', 'tieu-chi')->get();
+        $tintuc = TablePost::where('type', 'tin-tuc')->get();
+
 
         // return $request->session()->all();
 
@@ -41,6 +54,9 @@ class IndexController extends Controller
             'quangcao',
             'album',
             'dichvu',
+            'tieuchi',
+            'bannerQC',
+            'tintuc',
         ]));
     }
 
@@ -79,11 +95,11 @@ class IndexController extends Controller
         $output .='
             <div class="pronb-item" data-aos="fade-up" data-aos-duration="1500">
                 <div class="pronb-image">
-                    <a class="pronb-img scale-img" href= chi-tiet-san-pham/'.$v->slug.'/'.$v->id.' >
+                    <a class="pronb-img scale-img" href=/'.$v->slug.'/'.$v->id.' >
                         <img src='.asset("http://localhost:8000/storage/$v->photo").' alt="" width="365"
                             height="365" />
                     </a>
-                    <a class="pronb-img1 scale-img" href= chi-tiet-san-pham/'.$v->slug.'/'.$v->id.' >
+                    <a class="pronb-img1 scale-img" href=/'.$v->slug.'/'.$v->id.' >
                         <img src='.asset("http://localhost:8000/storage/$v->photo1").' alt="" width="365"
                             height="365" />
                     </a>
@@ -104,8 +120,8 @@ class IndexController extends Controller
                         </a>
                     </h3>
                     <div class="pronb-price">
-                        <span class="price-new">  '.number_format($v->sale_price).'  </span>
-                        <span class="price-old"> '.number_format($v->regular_price).' </span>
+                        <span class="price-new">  '.number_format($v->sale_price).' đ </span>
+                        <span class="price-old"> '.number_format($v->regular_price).' đ </span>
                         <span class="discount"> '.$v->discount.'%</span>
                     </div>
                 </div>
@@ -118,6 +134,31 @@ class IndexController extends Controller
             </div>
         ';
         return response()->json($output);
+    }
+
+    public function static()
+    {
+        $data = TableStatic::where('type', $this->type)->first();
+        return view('template.static.static',compact('data'));
+    }
+
+    public function post()
+    {
+        $post = TablePost::where('type', $this->type)->paginate(8);
+        return view('template.post.post',compact('post'));
+    }
+
+    public function post_detail($slug){
+        $post = DB::table('table_posts')->paginate(8);
+
+        $rowDetail = DB::table('table_posts')
+        ->where('slug', $slug)
+        ->first();
+
+        return view('template.post.detail',compact([
+            'rowDetail',
+            'post',
+        ]));
     }
 
     public function san_pham()

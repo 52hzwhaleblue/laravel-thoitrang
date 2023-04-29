@@ -155,13 +155,9 @@ Route::group([
 
 });
 
-
-
-
 // =========== user
 // Email Auth
 Auth::routes(['verify' => true]);
-
 
 
 //Route logout user account
@@ -177,12 +173,16 @@ Route::get('login_user', function() {
 })->name("login.user");
 
 
-// Route::get('/', [IndexController::class,'index'])->name('index');
+Route::get('/', [IndexController::class ,'index'])->name('index');
+Route::get('/gioi-thieu', [IndexController::class,'static'])->name('gioi-thieu');
+Route::get('/tin-tuc', [IndexController::class,'post'])->name('tin-tuc');
+
+Route::get('/post/{slug}', [IndexController::class,'post_detail']);
+
 Route::get('/san-pham', [IndexController::class,'san_pham'])->name('san-pham');
-Route::get('/chi-tiet-san-pham/{slug}/{id}', [IndexController::class,'chi_tiet_san_pham'])->name('chi_tiet_san_pham');
+Route::get('/{slug}/{id}', [IndexController::class,'chi_tiet_san_pham'])->name('chi_tiet_san_pham');
 Route::post('/load_ajax_product', [IndexController::class,'load_ajax_product']);
 
-Route::get('/', [IndexController::class ,'index'])->name('index');
 
 
 Route::middleware("CheckLogin")->group(function() {

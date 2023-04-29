@@ -15,7 +15,6 @@
          url('../fonts/SVN-Poppins-SemiBold/SVNPoppinsSemiBold.woff') format('woff'),
 }
 
-
 @font-face {
     font-family: 'SVN-ALoveThunder';
     src: url('../fonts/SVN-ALoveThunder/SVNALoveOfThunder.eot');
@@ -25,6 +24,7 @@
 
 
 
+/*  Hú cho em qua máy anh coi thư i */
 @font-face {
 	font-family: 'RBI';
 	src: url('../fonts/Roboto-BoldItalic.woff');
@@ -670,6 +670,25 @@ a,a:hover{
 	border-top-color: #555555;
 }
 
+/* Giỏ hàng */
+.giohang-wrapper{}
+.giohang-wrapper .wrap-content{}
+.giohang-tbody{}
+.giohang-tongtien{
+    align-items: center;
+    justify-content: flex-end;
+    display: flex;
+    margin-bottom: 20px;
+}
+.giohang-tongtien p{
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.giohang-btns{
+    justify-content: flex-end;
+    display: flex;
+}
 
 /* General */
 button.button-wave {
@@ -890,7 +909,7 @@ img:not([src]) {
 }
 
 .header-left{
-    width: 22%;
+    width: 26%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1581,10 +1600,7 @@ li.giohang-icon {
 
 .wrap-newsnb .wrap-content{}
 
-.tintuc-wrapper{
-	background:#f7f6f5;
-	padding-bottom: 35px;
-}
+
 .left-intro {
 	width: 49.1666666667%;
 	/* padding-right: 40px; */
@@ -2713,7 +2729,7 @@ border-radius: 100px;
 
 }
 .footer-article {
-	background: url(../images/footer-bg.png) no-repeat;
+	background: url(http://xuongjeannamc665.com/assets/images/footer-bg.png);
 	background-size: cover;
 	color: #fff;
 	font-family: Barlow;
@@ -2725,6 +2741,7 @@ border-radius: 100px;
 
 .footer-news:nth-child(2) {
 	width: 28%;
+	text-align: center;
 }
 
 .footer-news:nth-child(3) {
@@ -2761,6 +2778,7 @@ border-radius: 100px;
 	font-family: 'SVN-ALoveThunder';
 	font-size: 67px;
 	margin-bottom: 0;
+	font-family: 'SVN-ALoveThunder';
 }
 .name-company-footer1{
 
@@ -4222,6 +4240,7 @@ padding-bottom: 5px;
 	color: #111;
 	text-transform: uppercase;
 	display: block;
+	height: 50px;
 }
 
 .brand-wrapper{
@@ -4433,7 +4452,9 @@ margin-bottom: 0;
     text-transform: uppercase;
     font-weight: bold;
 }
-
+.quangcao-name a:hover{
+/* 	color:#eeff5f; */
+}
 /*Album*/
 .album-wrapper {
     margin-bottom: 70px;
@@ -4502,27 +4523,56 @@ margin-bottom: 0;
     color: #fff;
     font-weight: bold;
 }
+.dichvu-name a:hover{
+	color:#eeff5f;
+}
 .dichvu-desc{}
 
-/* Giỏ hàng */
-.giohang-wrapper{}
-.giohang-wrapper .wrap-content{}
-.giohang-tbody{}
-.giohang-tongtien{
+
+/* Tiêu chí */
+.tieuchi-wrapper{}
+.tieuchi-wrapper .wrap-content{}
+.tieuchi-item{
+    display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    justify-content: flex-end;
-    display: flex;
-    margin-bottom: 20px;
+    background: #d9d9d9;
+    padding: 15px 10px;
+    border-radius: 10px;
 }
-
-.giohang-tongtien p{
-    font-size: 18px;
+.tieuchi-img{
+    width: 70px;
+}
+.tieuchi-info{
+    width: calc(100% - 70px);
+    padding-left: 10px;
+}
+.tieuchi-name{
     font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 0;
 }
 
-.giohang-btns{
-    justify-content: flex-end;
-    display: flex;
+/* Tin tức */
+.tintuc-wrapper{
+    background:#f7f6f5;
+	padding: 35px 0px;
 }
+.tintuc-wrapper .wrap-content{}
+.tintuc-item{}
+.tintuc-img{
+    margin-bottom: 15px;
+}
+.tintuc-info{}
+.tintuc-name{}
+.tintuc-name span{
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+.tintuc-desc{}
+
+
 
 

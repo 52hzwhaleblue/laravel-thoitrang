@@ -14,7 +14,7 @@ class StaticController extends BaseController
 
     public function index()
     {
-        $type = Functions::getTypeByCom();
+        $type = Functions::getTypeByComAdmin();
         $status = $this->config_status;
 
         // Lấy dữ liệu với type
@@ -25,14 +25,14 @@ class StaticController extends BaseController
 
     public function create()
     {
-        $type = Functions::getTypeByCom();
+        $type = Functions::getTypeByComAdmin();
         return view('admin.template.static.static_add',compact('type'));
     }
 
     public function store(Request $request)
     {
         $count = TableStatic::all()->count();
-        $type = Functions::getTypeByCom();
+        $type = Functions::getTypeByComAdmin();
 
         $url = $this->uploadPhoto($request,"static/",420,620);
         $url1 = $this->uploadPhoto1($request,"static/",420,620);
@@ -62,7 +62,7 @@ class StaticController extends BaseController
 
     public function edit($id)
     {
-        $type = Functions::getTypeByCom();
+        $type = Functions::getTypeByComAdmin();
 
         $sql = TableStatic::where('id',$id)->first();
         $data = json_decode($sql, true);
@@ -79,7 +79,7 @@ class StaticController extends BaseController
     public function update(Request $request, $id)
     {
         $count = TableStatic::all()->count();
-        $type = Functions::getTypeByCom();
+        $type = Functions::getTypeByComAdmin();
 
         $url = $this->uploadPhoto($request,"static/",420,620);
         $url1 = $this->uploadPhoto1($request,"static/",420,620);
@@ -104,7 +104,7 @@ class StaticController extends BaseController
 
     public function destroy($id)
     {
-        $type = Functions::getTypeByCom();
+        $type = Functions::getTypeByComAdmin();
 
         $photo = TableStatic::find($id);
         if($photo !=null){

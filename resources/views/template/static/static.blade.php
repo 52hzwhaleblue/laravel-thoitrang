@@ -1,11 +1,10 @@
 @extends('layouts.client')
 @section('content')
 <div class="content-main mb-5">
-    <h1> {{ $rowDetail->name }} </h1>
-    <h6> {!! $rowDetail->desc !!} </h6>
-    <?php if(!empty($rowDetail)) { ?>
+    <div class="title-main"> <span> {{ $data['name'] }} </span></div>
+    <?php if(!empty($data)) { ?>
         <div class="static-content">
-            {!! $rowDetail->content !!}
+            {!! $data['content'] !!}
         </div>
     <?php } else { ?>
         <div class="alert alert-warning w-100" role="alert">

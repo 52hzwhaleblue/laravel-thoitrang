@@ -94,7 +94,7 @@ class BaseController extends Controller
                 $path_file = $filename . '_' . uniqid() . '.' . $extension;
 
                 // Resize image
-                $thumbnail_image = Image::make($file)->resize($width, $height, function ($constraint) {
+                $thumbnail_image = Image::make($file)->fit($width, $height, function ($constraint) {
                     $constraint->aspectRatio();
                     $constraint->upsize();
                 })->encode(null);
@@ -117,7 +117,7 @@ class BaseController extends Controller
                 $path_file = $filename . '_' . uniqid() . '.' . $extension;
 
                 // Resize image
-                $thumbnail_image = Image::make($file)->resize($width, $height, function ($constraint) {
+                $thumbnail_image = Image::make($file)->fit($width, $height, function ($constraint) {
                     $constraint->aspectRatio();
                     $constraint->upsize();
                 })->encode(null);

@@ -18,7 +18,7 @@ class PostController extends BaseController
 
     public function __construct() {
         $this->name = "Bài viết";
-        $this->type = Functions::getTypeByCom();
+        $this->type = Functions::getTypeByComAdmin();
         $this->width = Functions::getThumbWidth($this->name);
         $this->height = Functions::getThumbHeight($this->name);
     }
@@ -93,23 +93,16 @@ class PostController extends BaseController
 
     public function update(Request $request, $slug)
     {
-        $count = TablePost::all()->count();
         $type = $this->type;
+        $url = $this->uploadPhoto($request,"post/", $this->width, $this->height);
 
-        if ($request->has('photo')) {
-            $file = $request->photo;
-            $ext = $request->photo->extension();
-            $file_name =
-                Date('Ymd') . '-' . $type . $count . '.' . $ext;
-            $file->move(public_path('backend/assets/img/post'), $file_name);
-        }
 
         $post = TablePost::where('slug', $slug)->first();
         $post->name = $request->get('name');
         $post->desc = $request->get('desc');
         $post->content = $request->get('content');
         if ($request->has('photo')) {
-            $post->photo = $file_name;
+            $post->photo = $url;
         }
         $post->type = $type;
         $post->slug = $request->get('slug');

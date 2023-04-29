@@ -1,7 +1,7 @@
 @extends('admin.app') @section('title') Chi tiết {{ $type }} @endsection
 @section('content')
 <script src="{{
-    asset('backend/assets/js/jquery-3.2.1.min.js')
+    asset('public/backend/assets/js/jquery-3.2.1.min.js')
 }}"></script>
 <form action="{{ route('admin.post.'.$type.'.update', $data['slug'] ) }}" method="post" enctype="multipart/form-data">
     @csrf

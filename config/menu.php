@@ -40,8 +40,8 @@
                     'type' => 'tin-tuc',
                     'index' => 'admin.post.tin-tuc.index',
                     'thumbs' => [
-                        'width'=>275,
-                        'height'=>300,
+                        'width'=>500,
+                        'height'=>500,
                     ]
                 ],
                 'dich-vu' =>[
@@ -58,8 +58,8 @@
                     'type' => 'tieu-chi',
                     'index' => 'admin.post.tieu-chi.index',
                     'thumbs' => [
-                        'width'=>875,
-                        'height'=>400,
+                        'width'=>70,
+                        'height'=>65,
                     ]
                 ],
             ]
@@ -115,7 +115,6 @@
                         'height'=>665,
                     ]
                 ],
-
                 'thu-vien-anh' => [
                     'title' => 'Thư viện ảnh',
                     'type' => 'thu-vien-anh',
@@ -125,6 +124,16 @@
                         'height'=>520,
                     ]
                 ],
+                'social' => [
+                    'title' => 'Social',
+                    'type' => 'social',
+                    'index' => 'admin.photo.social.index',
+                    'thumbs' => [
+                        'width'=>42,
+                        'height'=>42,
+                    ]
+                ],
+
             ]
         ],
 
