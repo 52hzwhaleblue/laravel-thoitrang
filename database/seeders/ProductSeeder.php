@@ -22,8 +22,8 @@ class Productseeder extends Seeder
 
       $product_1 = [
         "code" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Áo thun ba lỗ nam sành điệu đẹp",
-        "slug" => "ao-thun-ba-lo",
+        "name" => "Áo thun nam ba lỗ sành điệu đẹp",
+        "slug" => "ao-thun",
         "regular_price" => 99000,
         "sale_price" => null,
         "discount" => 0,
@@ -85,7 +85,7 @@ class Productseeder extends Seeder
 
       $product_4= [
         "code" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Áo thun đẹp chất vải nhẹ mát mẻ vào",
+        "name" => "Áo thun nam đẹp chất vải nhẹ mát mẻ vào",
         "slug" => "ao-thun",
         "regular_price" => 99000,
         "sale_price" => null,
@@ -106,7 +106,7 @@ class Productseeder extends Seeder
 
       $product_5= [
         "code" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Áo thun tay dài đẹp chất vải nhẹ lịch lãm",
+        "name" => "Áo thun nam tay dài đẹp chất vải nhẹ lịch lãm",
         "slug" => "ao-thun",
         "regular_price" => 150000,
         "sale_price" => null,
@@ -233,7 +233,7 @@ class Productseeder extends Seeder
 
       $product_11= [
         "code" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Túi xách lớn satchel 2 ngăn",
+        "name" => "Túi xách lớn satchel 2 ngăn cho nam nữ văn phòng",
         "slug" => "tui-xach",
         "regular_price" => 260000,
         "sale_price" => null,
@@ -254,7 +254,7 @@ class Productseeder extends Seeder
 
       $product_12= [
         "code" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Túi xách da đeo chéo",
+        "name" => "Túi xách da đeo chéo nam thời trang phong cách",
         "slug" => "tui-xach",
         "regular_price" => 150000,
         "sale_price" => null,
@@ -275,7 +275,7 @@ class Productseeder extends Seeder
 
       $product_13= [
         "code" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Túi xách văn phòng đựng laptop",
+        "name" => "Túi xách văn phòng đựng laptop cho cả nam lẫn nữ",
         "slug" => "tui-xach",
         "regular_price" => 290000,
         "sale_price" => null,
@@ -295,7 +295,6 @@ class Productseeder extends Seeder
       ];
 
       $product_14= [
-
         "code" =>  "PROF". Str::random(10) . date('YmdHis'),
         "name" => "Túi xách NAHA nữ đẹp",
         "slug" => "tui-xach",
@@ -339,7 +338,7 @@ class Productseeder extends Seeder
 
       $product_16= [
         "code" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Áo Hoodie drew cực đẹp dành cho giới trẻ",
+        "name" => "Áo Hoodie drew cực đẹp dành cho giới trẻ nam nữ",
         "slug" => "ao",
         "regular_price" => 150000,
         "sale_price" => null,
@@ -360,7 +359,7 @@ class Productseeder extends Seeder
 
       $product_17= [
         "code" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Giày IceBreaker",
+        "name" => "Giày IceBreaker nữ",
         "slug" => "giay",
         "regular_price" => 450000,
         "sale_price" => null,
@@ -381,7 +380,7 @@ class Productseeder extends Seeder
 
       $product_18= [
         "code" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Kính Mát Thời Trang Chống Loá JOMO EYEWEAR - Bailey",
+        "name" => "Kính Mát Thời Trang Chống Loá JOMO EYEWEAR - Bailey nam nữ",
         "slug" => "kinh",
         "regular_price" => 185000,
         "sale_price" => null,
@@ -402,7 +401,7 @@ class Productseeder extends Seeder
 
       $product_19= [
         "code" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Nike_Air_Jordan_1_High_OG_Metallic",
+        "name" => "Nike_Air_Jordan_1_High_OG_Metallic nam nữ",
         "slug" => "giay-the-thao",
         "regular_price" => 550000,
         "sale_price" => null,
@@ -444,7 +443,7 @@ class Productseeder extends Seeder
 
       $product_21= [
         "code" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Quần jogger thể thao trơn basic",
+        "name" => "Quần jogger nam thể thao trơn basic",
         "slug" => "quan",
         "regular_price" => 158000,
         "sale_price" => null,
@@ -571,7 +570,7 @@ class Productseeder extends Seeder
 
       $product_27= [
         "code" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Đồng hồ casio bền chống nước",
+        "name" => "Đồng hồ casio bền chống nước nam nữ",
         "slug" => "dong-ho",
         "regular_price" => 150000,
         "sale_price" => null,
@@ -613,7 +612,7 @@ class Productseeder extends Seeder
 
       $product_29= [
         "code" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Túi Halio Canvas",
+        "name" => "Túi Halio Canvas nữ",
         "slug" => "tui-xach",
         "regular_price" => 85000,
         "sale_price" => null,
@@ -634,7 +633,7 @@ class Productseeder extends Seeder
 
       $product_30= [
         "code" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Túi Tote - Okame Hoa",
+        "name" => "Túi Tote - Okame Hoa thời trang nữ",
         "slug" => "tui-xach",
         "regular_price" => 90000,
         "sale_price" => null,
@@ -647,6 +646,49 @@ class Productseeder extends Seeder
         "photo" => "20230306-product1.jpg",
         "photo1" => "20230306-product11.jpg",
         "category_id" => 3,
+        "view" => random_int(20,500),
+        "status" => 1,
+        "created_at" => now(),
+        "updated_at" => now(),
+      ];
+
+      
+      $product_31= [
+        "code" =>  "PROF". Str::random(10) . date('YmdHis'),
+        "name" => "Giày Sandal Nam MWC - 7066 Giày Sandal Nam Quai Chéo Kiểu Dáng Basic",
+        "slug" => "giay",
+        "regular_price" => 320000,
+        "sale_price" => 16000,
+        "discount" => 5,
+        "desc" => $faker->paragraph(random_int(3,6)),
+        "properties" => json_encode([
+          "sizes" => [39,40,41,42,43,44],
+          "origin" => "Việt Nam",
+        ]),
+        "photo" => "20230306-product1.jpg",
+        "photo1" => "20230306-product11.jpg",
+        "category_id" => 4,
+        "view" => random_int(20,500),
+        "status" => 1,
+        "created_at" => now(),
+        "updated_at" => now(),
+      ];
+
+      $product_32= [
+        "code" =>  "PROF". Str::random(10) . date('YmdHis'),
+        "name" => "Giày Sandal Nam Hiệu Vento",
+        "slug" => "giay",
+        "regular_price" => 420000,
+        "sale_price" => 21000,
+        "discount" => 5,
+        "desc" => $faker->paragraph(random_int(3,6)),
+        "properties" => json_encode([
+          "sizes" => [38,39,40,41,42],
+          "origin" => "Việt Nam",
+        ]),
+        "photo" => "20230306-product1.jpg",
+        "photo1" => "20230306-product11.jpg",
+        "category_id" => 4,
         "view" => random_int(20,500),
         "status" => 1,
         "created_at" => now(),
@@ -684,6 +726,8 @@ class Productseeder extends Seeder
         $product_28,
         $product_29,
         $product_30,
+        $product_31,
+        $product_32,
       ];
 
        DB::table('table_products')->insert($productsData);

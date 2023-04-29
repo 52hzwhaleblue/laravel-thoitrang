@@ -78,7 +78,7 @@ class AuthController extends BaseController
                 $url = "";
                 
                 if($request->hasFile('image')){
-                    $url = $this->uploadFile($request,"avatars/",150,150);
+                    $url = $this->uploadFile($request,"avatars/",250,250);
                 }
                 
                 $query->insert([
@@ -90,7 +90,7 @@ class AuthController extends BaseController
                     "photo" => $url,
                 ]);
             }else{
-                return $this->sendResponse([],'Email or phone are already exists');
+                return $this->sendResponse([],'Email already exists');
 
             }
             return $this->sendResponse([],'User Sign Up Successfully');
@@ -108,7 +108,7 @@ class AuthController extends BaseController
 
             $ischeck = User::where('phone',$phone)->exists();
            
-            if(!$ischeck){
+            if($ischeck){
                 return $this->sendResponse([201],"Failed");
             }
             return $this->sendResponse([200],"Successfully");

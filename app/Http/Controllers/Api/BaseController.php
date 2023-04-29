@@ -61,10 +61,7 @@ class BaseController extends Controller
             $path = $filename . '_' . uniqid() . '.' . $extension;
     
             // Resize image
-            $thumbnail = Image::make($file)->resize($width, $height, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            })->encode(null);
+            $thumbnail = Image::make($file)->encode(null);
     
             // Save thumbnail to storage
             $thumbnailPath = 'thumbnails/' . $dir . $path;

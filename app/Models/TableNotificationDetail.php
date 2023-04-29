@@ -3,20 +3,20 @@
 namespace App\Models;
 
 use Carbon\Carbon;
-use App\Models\TableNotificationDetail;
+use App\Models\TableNotification;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class TableNotification extends Model
+class TableNotificationDetail extends Model
 {
     use HasFactory;
+
+    protected $table = "table_notification_detail";
+
     protected $fillable = [
         'user_id',
-        'order_id',
+        'notification_id',
         'is_read',
-        'title',
-        'subtitle',
-        'type',
         'created_at',
         'updated_at',
     ];
@@ -33,8 +33,12 @@ class TableNotification extends Model
             ->toDateTimeString();
     }
 
-    public function notificationDetail(){
-        return $this->hasMany(TableNotificationDetail::class,'notification_id','id');
+    public function notifications(){
+        return $this->belongsTo(TableNotification::class,'notification_id','id');
     }
 
+    public function scopeIsRead($query,$userId)
+    {
+        return  $query->where('user_id', '=', $userId);
+    }
 }

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('color')->nullable()->default(null);
             $table->string('size')->nullable()->default(null);
             $table->integer('quantity')->nullable();
+            $table->string('photo')->nullable();
             $table->foreign('order_id')->references('id')->on('table_orders')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('table_products')->onDelete('cascade');
             $table->timestamps();

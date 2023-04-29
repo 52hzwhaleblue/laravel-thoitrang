@@ -6,84 +6,32 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Pusher\PushNotifications\PushNotifications;
 use App\Http\Controllers\Api\BaseController as BaseController;
+use App\Models\TableNotification;
+use App\Models\TableNotificationDetail;
 use Illuminate\Support\Facades\Auth;
 
 class NotificationController extends BaseController
 {
 
-   public function fetchData(Request $request,DB $dB)
+   public function fetchData(Request $request,TableNotification $tableNoti,TableNotificationDetail $tableNotiDetail)
    {
     try {
         $page = $request->query('page', 1);
-        $type = $request->query('type');
 
         $limit = 10;
 
         $offset = ($page - 1) * $limit;
 
-        $query = $dB::table('table_notifications');
-
-        $query_detail = $dB::table('table_notification_detail');
-
-
         $user_id = Auth::id();
 
-        $notifications = null;
-
-        if(empty($type)){
-            $notifications = $query
-            ->where('user_id', $user_id)
-            ->orWhere('user_id',null)
-            ->orderByDesc('created_at')
-            ->skip($offset)
-            ->take($limit)
-            ->get()
-            ->map(function ($notification) use ($query_detail,$user_id){
-               if($notification->type == "daily"){
-                  $notification->detail = $query_detail
-                  ->where('notification_id', $notification->id)
-                  ->where('user_id', $user_id)
-                  ->first(['id', 'notification_id', 'user_id', 'is_read']);
-               }else{
-                  $notification->detail = null;
-               }
-               return $notification;
-            });
-        }else{
-          if($type == "daily"){
-            $notifications = $query
-            ->when($type, function ($query2, $type) {
-                return $query2->where('type', $type);
-            })
-            ->orderByDesc('created_at')
-            ->skip($offset)
-            ->take($limit)
-            ->get()
-            ->map(function ($notification)use ($query_detail,$user_id) {
-                $notification->detail =$query_detail
-                    ->where('notification_id', $notification->id)
-                    ->where('user_id', $user_id)
-                    ->first(['id', 'notification_id', 'user_id', 'is_read']);
-
-                return $notification;
-            });
-          }else{
-            $notifications = $query
-            ->when($type, function ($query2, $type) {
-                return $query2->where('type', $type);
-            })
-            ->where('user_id',  $user_id)
-            ->orderByDesc('created_at')
-            ->skip($offset)
-            ->take($limit)
-            ->get()
-            ->map(function ($notification) {
-                $notification->detail = null;
-                return $notification;
-            });
-          }
-        }
-
+        $notifications = $tableNoti::
+        where('user_id', $user_id)
+        ->orWhere('user_id',null)
+        ->orderByDesc('created_at')
+        ->skip($offset)
+        ->take($limit)
+        ->get();
+        
         $response = [
             'chats' => [],
             'daily' => [],

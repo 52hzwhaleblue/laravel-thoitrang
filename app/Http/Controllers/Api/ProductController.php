@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\BaseController as BaseController;
 
 class ProductController extends BaseController
 {
+   
     public function fetchAll(){   
         try {     
             $page = request()->query('page');
@@ -114,7 +115,7 @@ class ProductController extends BaseController
         try{
             $page = request()->query('page');
 
-            $limit = 5;
+            $limit = 8;
 
             $promotions = TablePromotion::when($page > 0,function($query) use ($limit,$page){
                 $offset = ($page - 1) * $limit;

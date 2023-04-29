@@ -18,9 +18,15 @@ class ReviewController extends BaseController
     public function fetchData(){   
         try {    
             $product_id = request()->query('id_product');
+
+            $page = request()->query('page',1);
+
+            $limit = 6;
             
             $reviews = TableReview::with(['user','images'])
             ->where('product_id',$product_id)
+            ->skip(($page-1)*$limit)
+            ->take($limit)
             ->get();
 
 

@@ -69,8 +69,11 @@ class ProductDetailSeeder extends Seeder
             "stopwatch_girl_Marble_Florals_d2b39c" =>["id" => 28, "color" => "d2b39c"],
             "Túi Halio Canvas" =>["id" => 29, "color" => "d2b39c"],
             "Túi Tote - Okame Hoa" =>["id" => 30, "color" => "d2b39c"],
+            "Giày Sandal Nam MWC -7066 Giày Sandal Nam Quai Chéo Kiểu Dáng Basic" =>["id" => 31, "color" => "000000"],
+            "Giày Sandal Big Size Nam Hiệu Vento_000000" =>["id" => 32, "color" => "000000"],
+            "Giày Sandal Nam Vento Capella Nâu Be B7A078" =>["id" => 32, "color" => "B7A078"],
         ]; 
-
+      
         $eloquent = new TableProductDetail();
 
         foreach ($imagesProduct as $key => $value) {

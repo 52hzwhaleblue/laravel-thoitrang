@@ -12,16 +12,18 @@ use Illuminate\Http\Request;
 use App\Http\Requests\EditRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\user\PasswordRequest;
 use App\Http\Controllers\Api\BaseController as BaseController;
 use App\Models\TableRoomChat;
+use App\Http\Controllers\Api\XMPPConnectionManager;
 
 class UserController extends BaseController
-{
+{  
+
+
     public function me(){
         $user = DB::table('table_users')->find(Auth::id());
       
