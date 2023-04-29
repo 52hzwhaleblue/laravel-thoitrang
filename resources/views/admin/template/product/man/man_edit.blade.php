@@ -222,14 +222,6 @@
                                         name="stock_input" />
                                 </div>
                             </div>
-
-                            <div class="col-xl-4">
-                                <div class="mb-3">
-                                    <label for="stock" class="form-label">Tồn kho:</label>
-                                    <input type="number" class="form-control" id="stock" placeholder="Tồn kho"
-                                        name="stock" value=" {{ $data['stock'] }} " readonly />
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>

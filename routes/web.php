@@ -27,6 +27,10 @@ use App\Http\Controllers\Admin\OptionController;
 // Promo Controller
 use App\Http\Controllers\Admin\PromoController;
 
+// Promo Controller
+use App\Http\Controllers\Admin\OrderController;
+
+
 // Index Controller
 use App\Http\Controllers\IndexController;
 
@@ -96,9 +100,6 @@ Route::group([
         }
     });
 
-    // Promotion
-    // Route::resource('promo-code', PromoController::class);
-
     // Hình ảnh - Video
     Route::group([
         'prefix' => 'photo',
@@ -152,6 +153,12 @@ Route::group([
             }
         }
     });
+    // get real time order
+    Route::get('testOrder', [OrderController::class,'testOrder'])->name('order.testOrder');
+
+    // Đơn hàng
+    Route::get('order', [OrderController::class,'index'])->name('order.index');
+
 
 });
 

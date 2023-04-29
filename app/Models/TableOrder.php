@@ -55,7 +55,7 @@ class TableOrder extends Model
             ->toDateTimeString();
     }
 
-    public function idUser()
+    public function users()
     {
         return $this->belongsTo(TableUser::class);
     }
@@ -74,5 +74,5 @@ class TableOrder extends Model
     {
         return $this->hasOne(TableReview::class,'order_id','id');
     }
-    
+
 }

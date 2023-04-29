@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Admin\OrderController;
 use Pusher\PushNotifications\PushNotifications;
 
 /*
@@ -25,13 +26,13 @@ Route::controller(AuthController::class)->group(function(){
     Route::post('/auth/login', 'login');
 
     Route::post('/auth/login-google', 'loginWithGoogle');
-    
+
     Route::post('/auth/register', 'register');
 
     Route::post('/auth/check-phone','checkPhone');
 
     Route::post('/auth/forgot-password','forgotPassword');
-    
+
 });
 // Route để xác thực người dùng trước khi tham gia vào channel
 Route::post('/broadcasting/auth', function (Illuminate\Http\Request $request) {
@@ -58,7 +59,12 @@ Route::middleware('auth:sanctum')->get('/pusher/beams-auth', function (Request $
         "instanceId" => env('PUSHER_BEAMS_INSTANCE_ID'),
         "secretKey" =>  env('PUSHER_BEAMS_SECRET_KEY'),
     ));
-  
+
     $beamsToken = $beamsClient->generateToken($userID);
     return response()->json($beamsToken);
 });
+
+
+
+    Route::post('/test/test',[OrderController::class,'testOrder']);
+

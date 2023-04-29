@@ -41,7 +41,7 @@ $menus = config('menu');
         @endforeach
 
         <li>
-            <a class="app-menu__item" href="charts.html"><i class="app-menu__icon fa fa-pie-chart"></i><span
+            <a class="app-menu__item" href="{{ route('admin.order.index') }}"><i class="app-menu__icon fa fa-pie-chart"></i><span
                     class="app-menu__label">Quản lý đơn hàng</span></a>
         </li>
 

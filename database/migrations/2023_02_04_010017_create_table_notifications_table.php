@@ -31,8 +31,8 @@ return new class extends Migration
             $table->unsignedInteger('notification_id');
             $table->unsignedInteger('user_id')->nullable();
             $table->integer('is_read')->nullable()->default(0);
-            $table->foreign('notification_id') ->references('id')->on('table_notifications')->cascadeOnDelete();
-            $table->foreign('user_id') ->references('id')->on('table_users')->cascadeOnDelete();
+            $table->foreign('notification_id')->references('id')->on('table_notifications')->cascadeOnDelete();
+            $table->foreign('user_id')->references('id')->on('table_users')->cascadeOnDelete();
             $table->timestamps();
         });
     }

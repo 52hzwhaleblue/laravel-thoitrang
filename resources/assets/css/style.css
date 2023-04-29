@@ -2212,7 +2212,7 @@ border-radius: 100px;
 .price-product span {font-family: Barlow;}
 
 .price-new {
-	font-size: 15px;
+    font-size: 15px;
 	font-weight: bold;
 	color: #ce0000;
 }
@@ -2222,6 +2222,8 @@ border-radius: 100px;
 	font-size: 15px;
 	color: var(--color-gray);
 	text-decoration: line-through;
+
+
 }
 
 .price-per {

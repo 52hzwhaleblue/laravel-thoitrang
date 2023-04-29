@@ -76,6 +76,7 @@ function checkPrice(){
             $( ".sale_price" ).attr('value','').val(0);
         }
         var discount = ((regular_price - sale_price)/regular_price)*100;
+        // var discount = (sale_price *100) /regular_price;
         $('.discount' ).attr('value',discount.toFixed(0));
     }).keyup();
 }
