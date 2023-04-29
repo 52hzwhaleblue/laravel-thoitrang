@@ -15,7 +15,6 @@
          url('../fonts/SVN-Poppins-SemiBold/SVNPoppinsSemiBold.woff') format('woff'),
 }
 
-
 @font-face {
     font-family: 'SVN-ALoveThunder';
     src: url('../fonts/SVN-ALoveThunder/SVNALoveOfThunder.eot');
@@ -25,6 +24,7 @@
 
 
 
+/*  Hú cho em qua máy anh coi thư i */
 @font-face {
 	font-family: 'RBI';
 	src: url('../fonts/Roboto-BoldItalic.woff');
@@ -116,7 +116,7 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
 }
 #CheckLoginToast{position: fixed;top: 30px;right: 30px;z-index: 9999999;}
 .wrap-content {
-	max-width: 1230px;
+	max-width: 1366px;
 	padding: 0 15px;
 	margin: auto;
 	width: 100%;
@@ -670,8 +670,84 @@ a,a:hover{
 	border-top-color: #555555;
 }
 
+/* Giỏ hàng */
+.giohang-wrapper{}
+.giohang-wrapper .wrap-content{}
+.giohang-tbody{}
+.giohang-tongtien{
+    align-items: center;
+    justify-content: flex-end;
+    display: flex;
+    margin-bottom: 20px;
+}
+.giohang-tongtien p{
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.giohang-btns{
+    justify-content: flex-end;
+    display: flex;
+}
 
 /* General */
+button.button-wave {
+    position: relative;
+    width: 130px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    display: block;
+    overflow: hidden;
+    border-radius: 20px;
+    }
+
+    button.button-wave span {position: relative;color: #fff;z-index: 1;text-transform: uppercase;}
+
+    button.button-wave > div {
+    position: absolute;
+    top: -80px;
+    left: 0;
+    width: 200px;
+    height: 200px;
+    background: #3c6bd3;
+    transition: 0.5s;
+    }
+
+    button.button-wave > div::after,
+    button.button-wave > div::before {
+    content: '';
+    width: 200%;
+    height: 200%;
+    position: absolute;
+    pointer-events: none;
+    }
+
+    button.button-wave > div::before {
+    border-radius: 45%;
+    background: rgba(20, 20, 20, 1);
+    animation: animate_gioithieu_button 5s linear infinite;
+    }
+
+    button.button-wave > div::after {
+    border-radius: 40%;
+    background: rgba(20, 20, 20, 0.5);
+    animation: animate_gioithieu_button 10s linear infinite;
+    }
+
+    button.button-wave:hover > div {
+    top: -150px;
+    }
+
+    @keyframes animate_gioithieu_button {
+    0% {
+      transform: translate(-50%, -75%) rotate(0deg);
+    }
+    100% {
+      transform: translate(-50%, -75%) rotate(360deg);
+    }
+}
+
 .slogan{
 
 font-family: Barlow;
@@ -833,7 +909,7 @@ img:not([src]) {
 }
 
 .header-left{
-    width: 22%;
+    width: 26%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1524,10 +1600,7 @@ li.giohang-icon {
 
 .wrap-newsnb .wrap-content{}
 
-.tintuc-wrapper{
-	background:#f7f6f5;
-	padding-bottom: 35px;
-}
+
 .left-intro {
 	width: 49.1666666667%;
 	/* padding-right: 40px; */
@@ -2656,7 +2729,7 @@ border-radius: 100px;
 
 }
 .footer-article {
-	background: url(../images/footer-bg.png) no-repeat;
+	background: url(http://xuongjeannamc665.com/assets/images/footer-bg.png);
 	background-size: cover;
 	color: #fff;
 	font-family: Barlow;
@@ -2668,6 +2741,7 @@ border-radius: 100px;
 
 .footer-news:nth-child(2) {
 	width: 28%;
+	text-align: center;
 }
 
 .footer-news:nth-child(3) {
@@ -2704,6 +2778,7 @@ border-radius: 100px;
 	font-family: 'SVN-ALoveThunder';
 	font-size: 67px;
 	margin-bottom: 0;
+	font-family: 'SVN-ALoveThunder';
 }
 .name-company-footer1{
 
@@ -4165,6 +4240,7 @@ padding-bottom: 5px;
 	color: #111;
 	text-transform: uppercase;
 	display: block;
+	height: 50px;
 }
 
 .brand-wrapper{
@@ -4366,6 +4442,9 @@ margin-bottom: 0;
     left: 15px;
     width: 100%;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 .quangcao-name{}
 .quangcao-name a{
@@ -4373,62 +4452,9 @@ margin-bottom: 0;
     text-transform: uppercase;
     font-weight: bold;
 }
-button.quangcao-btn {
-    position: relative;
-    width: 130px;
-    height: 40px;
-    text-align: center;
-    line-height: 40px;
-    display: block;
-    overflow: hidden;
-    }
-
-    button.quangcao-btn span {position: relative;color: #fff;z-index: 1;text-transform: uppercase;}
-
-    button.quangcao-btn > div {
-    position: absolute;
-    top: -80px;
-    left: 0;
-    width: 200px;
-    height: 200px;
-    background: #3c6bd3;
-    transition: 0.5s;
-    }
-
-    button.quangcao-btn > div::after,
-    button.quangcao-btn > div::before {
-    content: '';
-    width: 200%;
-    height: 200%;
-    position: absolute;
-    pointer-events: none;
-    }
-
-    button.quangcao-btn > div::before {
-    border-radius: 45%;
-    background: rgba(20, 20, 20, 1);
-    animation: animate_gioithieu_button 5s linear infinite;
-    }
-
-    button.quangcao-btn > div::after {
-    border-radius: 40%;
-    background: rgba(20, 20, 20, 0.5);
-    animation: animate_gioithieu_button 10s linear infinite;
-    }
-
-    button.quangcao-btn:hover > div {
-    top: -150px;
-    }
-
-    @keyframes animate_gioithieu_button {
-    0% {
-      transform: translate(-50%, -75%) rotate(0deg);
-    }
-    100% {
-      transform: translate(-50%, -75%) rotate(360deg);
-    }
+.quangcao-name a:hover{
+/* 	color:#eeff5f; */
 }
-
 /*Album*/
 .album-wrapper {
     margin-bottom: 70px;
@@ -4479,26 +4505,74 @@ button.quangcao-btn {
 	border: 1px solid #ebebeb;
 }
 
-
-/* Giỏ hàng */
-.giohang-wrapper{}
-.giohang-wrapper .wrap-content{}
-.giohang-tbody{}
-.giohang-tongtien{
-    align-items: center;
-    justify-content: flex-end;
-    display: flex;
-    margin-bottom: 20px;
+/* Dịch Vụ */
+.dichvu-wrapper{}
+.dichvu-wrapper .wrap-content{}
+.dichvu-item{}
+.dichvu-img{
+    position: relative;
 }
-
-.giohang-tongtien p{
-    font-size: 18px;
+.dichvu-info{
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    width: 100%;
+}
+.dichvu-name{}
+.dichvu-name a{
+    color: #fff;
     font-weight: bold;
 }
-
-.giohang-btns{
-    justify-content: flex-end;
-    display: flex;
+.dichvu-name a:hover{
+	color:#eeff5f;
 }
+.dichvu-desc{}
+
+
+/* Tiêu chí */
+.tieuchi-wrapper{}
+.tieuchi-wrapper .wrap-content{}
+.tieuchi-item{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    background: #d9d9d9;
+    padding: 15px 10px;
+    border-radius: 10px;
+}
+.tieuchi-img{
+    width: 70px;
+}
+.tieuchi-info{
+    width: calc(100% - 70px);
+    padding-left: 10px;
+}
+.tieuchi-name{
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 0;
+}
+
+/* Tin tức */
+.tintuc-wrapper{
+    background:#f7f6f5;
+	padding: 35px 0px;
+}
+.tintuc-wrapper .wrap-content{}
+.tintuc-item{}
+.tintuc-img{
+    margin-bottom: 15px;
+}
+.tintuc-info{}
+.tintuc-name{}
+.tintuc-name span{
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+.tintuc-desc{}
+
+
 
 

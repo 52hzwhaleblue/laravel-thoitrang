@@ -104,12 +104,6 @@
                                         <input
                                             type="checkbox"
                                             name="status[]"
-                                            value="noibat"
-                                        />
-                                        Nổi bật
-                                        <input
-                                            type="checkbox"
-                                            name="status[]"
                                             value="hienthi"
                                             checked
                                         />

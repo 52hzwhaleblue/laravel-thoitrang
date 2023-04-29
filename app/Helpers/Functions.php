@@ -51,41 +51,52 @@ class Functions
         return $result;
     }
 
-    public static function getTypeByCom(){
+    public static function getTypeByComAdmin(){
         $currentURI = Route::getFacadeRoot()->current()->uri();
         $com = explode('/', $currentURI);
         $type = $com[2];
         return $type;
     }
 
-    public static function getThumbWidth($type){
+    public static function getTypeByCom(){
+        $currentURI = Route::getFacadeRoot()->current()->uri();
+        $com = explode('/', $currentURI);
+        $type = end($com);
+        return $type;
+    }
+
+    public static function getThumbWidth($name){
         $width = 0;
         $menus = config('menu');
+        $type = Functions::getTypeByComAdmin();
 
         foreach($menus as $m){
-            if($m['name'] == 'Hình ảnh - Video'){
-                foreach($m['data'] as $m1){
-                    foreach ($m1['thumbs'] as $k => $v) {
-                        $width = $m1['thumbs']['width'];
+            if($m['name'] == $name){
+                foreach($m['data'] as $k1 => $m1){
+                    if($k1 == $type){
+                        foreach ($m1['thumbs'] as $k => $v) {
+                            $width = $m1['thumbs']['width'];
+                        }
                     }
-                    break;
                 }
             }
         }
         return $width;
     }
 
-    public static function getThumbHeight($type){
+    public static function getThumbHeight($name){
         $height = 0;
         $menus = config('menu');
+        $type = Functions::getTypeByComAdmin();
 
         foreach($menus as $m){
-            if($m['name'] == 'Hình ảnh - Video'){
-                foreach($m['data'] as $m1){
-                    foreach ($m1['thumbs'] as $k => $v) {
-                        $height = $m1['thumbs']['height'];
+            if($m['name'] == $name){
+                foreach($m['data'] as $k1 => $m1){
+                    if($k1 == $type){
+                        foreach ($m1['thumbs'] as $k => $v) {
+                            $height = $m1['thumbs']['height'];
+                        }
                     }
-                    break;
                 }
             }
         }

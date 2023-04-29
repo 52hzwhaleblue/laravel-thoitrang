@@ -23,4 +23,9 @@
 <script type="text/javascript" src="{{ asset('public/assets/aos/aos.js') }}">
 </script>
 
+<script type="text/javascript" src="{{ asset('public/assets/js/lettering.js') }}"></script>
+<script type="text/javascript" src="{{ asset('public/assets/js/textillate.js') }}"></script>
+<script type="text/javascript" src="{{ asset('public/assets/js/peShiner.js') }}"></script>
+
+
 <script type="text/javascript" src="{{ asset('public/assets/js/app.js') }}"></script>

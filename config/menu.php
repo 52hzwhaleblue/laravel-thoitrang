@@ -39,11 +39,28 @@
                     'title' => 'Tin tức',
                     'type' => 'tin-tuc',
                     'index' => 'admin.post.tin-tuc.index',
+                    'thumbs' => [
+                        'width'=>500,
+                        'height'=>500,
+                    ]
+                ],
+                'dich-vu' =>[
+                    'title' => 'Dịch vụ',
+                    'type' => 'dich-vu',
+                    'index' => 'admin.post.dich-vu.index',
+                    'thumbs' => [
+                        'width'=>875,
+                        'height'=>400,
+                    ]
                 ],
                 'tieu-chi' =>[
                     'title' => 'Tiêu chí',
                     'type' => 'tieu-chi',
                     'index' => 'admin.post.tieu-chi.index',
+                    'thumbs' => [
+                        'width'=>70,
+                        'height'=>65,
+                    ]
                 ],
             ]
         ],
@@ -98,7 +115,6 @@
                         'height'=>665,
                     ]
                 ],
-
                 'thu-vien-anh' => [
                     'title' => 'Thư viện ảnh',
                     'type' => 'thu-vien-anh',
@@ -106,6 +122,42 @@
                     'thumbs' => [
                         'width'=>830,
                         'height'=>520,
+                    ]
+                ],
+                'social' => [
+                    'title' => 'Social',
+                    'type' => 'social',
+                    'index' => 'admin.photo.social.index',
+                    'thumbs' => [
+                        'width'=>42,
+                        'height'=>42,
+                    ]
+                ],
+
+            ]
+        ],
+
+        // Quản lý Hình ảnh Tĩnh
+        'photo-static' =>[
+            'name' => 'Hình ảnh Tĩnh',
+            'group' => '.photo-static.',
+            'data' => [
+                'logo' => [
+                    'title' => 'Logo',
+                    'type' => 'logo',
+                    'index' => 'admin.photo-static.logo.index',
+                    'thumbs' => [
+                        'width'=>80,
+                        'height'=>80,
+                    ]
+                ],
+                'banner-quangcao' => [
+                    'title' => 'Banner quảng cáo',
+                    'type' => 'banner-quangcao',
+                    'index' => 'admin.photo-static.banner-quangcao.index',
+                    'thumbs' => [
+                        'width'=>1366,
+                        'height'=>600,
                     ]
                 ],
             ]
@@ -143,6 +195,8 @@
                 ],
             ]
         ],
+
+
 
 
     ];
