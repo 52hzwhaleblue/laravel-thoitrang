@@ -12,8 +12,6 @@
 </div>
 @endif
 
-<h1>Ko</h1>
-
 <form action="{{ route('admin.static.'.$type.'.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="row">
@@ -42,9 +40,9 @@
                                 </div>
                                 <div class="mb-3 mt-3">
                                     <label for="desc">Mô tả:</label>
-                                    <textarea class="form-control" rows="3" id="desc" name="desc">
-                                    {{ !empty($data['desc'] ) ? $data['desc'] : '' }}
-                                </textarea>
+                                        <textarea class="form-control" rows="3" id="cke_desc" name="desc">
+                                        {{ !empty($data['desc'] ) ? $data['desc'] : '' }}
+                                        </textarea>
                                 </div>
 
                                 <div class="mb-3 mt-3">

@@ -5,96 +5,87 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\TablePhoto;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\BaseController as BaseController;
 use Functions;
 use Image;
 
-class PhotoController extends Controller
+class PhotoController extends BaseController
 {
-    public $config_status = ['noibat','hienthi'];
+    public $width;
+    public $height;
+    public $type;
+    public $name;
+
+    public function __construct() {
+        $this->name = "Hình ảnh - Video";
+        $this->type = Functions::getTypeByComAdmin();
+        $this->width = Functions::getThumbWidth($this->name);
+        $this->height = Functions::getThumbHeight($this->name);
+    }
 
     public function index()
     {
-        $type = Functions::getTypeByCom();
-        $status = $this->config_status;
-
         // Lấy dữ liệu với type
-        $data = TablePhoto::where('type', $type)->get();
-        return view('admin.template.photo.photo',compact('data','type','status'));
+        $type = $this->type;
+        $data = TablePhoto::where('type', $this->type)->get();
+        return view('admin.template.photo.photo',compact('data','type'));
     }
 
     public function create()
     {
-        $type = Functions::getTypeByCom();
+        $type = Functions::getTypeByComAdmin();
         return view('admin.template.photo.photo_add',compact('type'));
     }
 
     public function store(Request $request)
     {
-        $count = TablePhoto::all()->count();
-        $type = Functions::getTypeByCom();
-
-        if ($request->has('photo')) {
-            $file = $request->photo;
-            $ext = $request->photo->extension();
-            $file_name =
-                Date('Ymd') . '-' . $type . $count . '.' . $ext;
-            $file->move(public_path('backend/assets/img/photo'), $file_name);
-        }
-
+        $url = $this->uploadPhoto($request,"photo/", $this->width, $this->height);
 
         $photo = new TablePhoto();
         $photo->name = $request->get('name');
-        $photo->photo = $file_name;
-        $photo->type = $type;
+        $photo->desc = $request->get('desc');
+        $photo->content = $request->get('content');
+        if ($request->has('photo')) {
+            $photo->photo = $url;
+        }
+        $photo->type = $this->type;
         $photo->status = (int)$request->get('status');
         $photo->save();
 
         return redirect()
-            ->route('admin.photo.'.$type.'.index')
-            ->with('message', 'Bạn đã tạo ' .$type. ' thành công!');
+            ->route('admin.photo.'.$this->type.'.index')
+            ->with('message', 'Bạn đã tạo ' .$this->type. ' thành công!');
     }
 
     public function show($id)
     {
-        //
+
     }
 
     public function edit($id)
     {
-        $type = Functions::getTypeByCom();
-
+        $type = Functions::getTypeByComAdmin();
         $sql = TablePhoto::where('id',$id)->first();
         $data = json_decode($sql, true);
 
-        // dd($data);
-        $status = $data['status'];
-        $explodeStatus = explode(',', $status);
-
         return view(
             'admin..template.photo.photo_edit',
-            compact('data', 'explodeStatus','type')
+            compact('data','type')
         );
     }
 
     public function update(Request $request, $id)
     {
-        $type = Functions::getTypeByCom();
-
-        $count = TablePhoto::all()->count();
-        $fix_status = implode(',', $request->get('status'));
-        if ($request->has('photo')) {
-            $file = $request->photo;
-            $ext = $request->photo->extension(); //lấy đuôi file png||jpg
-            $file_name =
-                Date('Ymd') . '-' . $type . $count . '.' . $ext;
-            $file->move(public_path('backend/assets/img/photo'), $file_name); //chuyển file vào đường dẫn chỉ định
-        }
-
+        $type = Functions::getTypeByComAdmin();
+        $url = $this->uploadPhoto($request,"photo/", $this->width, $this->height);
         $photo = TablePhoto::where('id', $id)->first();
 
         $photo->name = $request->get('name');
+        $photo->desc = $request->get('desc');
+        $photo->content = $request->get('content');
         if ($request->has('photo')) {
-            $photo->photo = $file_name;
+            $photo->photo = $url;
         }
         $photo->type = $type;
         $photo->status = (int) $request->get('status');
@@ -107,7 +98,7 @@ class PhotoController extends Controller
 
     public function destroy($id)
     {
-        $type = Functions::getTypeByCom();
+        $type = Functions::getTypeByComAdmin();
 
         $photo = TablePhoto::find($id);
         if($photo !=null){

@@ -37,9 +37,11 @@
             {{ session()->get('CartToast') }}
         </p>
         @endif
-
     </div>
 </div>
+
+
+
 @if(count($splistnb))
 <div class="pronb-wrapper">
     <div class="wrap-content ">
@@ -62,20 +64,20 @@
 
 @if(count($splistnb))
 <div class="splistnb-wrapper">
-    <div class="wrap-content">
+    <div class="wrap-content" data-aos="fade-up" data-aos-duration="1500">
         <div class="owl-page owl-carousel owl-theme thumbs_img " data-xsm-items="1:0" data-sm-items="2:10"
-            data-md-items="3:15" data-lg-items="3:20" data-xlg-items="4:15" data-rewind="1" data-autoplay="1"
+            data-md-items="3:15" data-lg-items="3:20" data-xlg-items="4:15" data-rewind="1" data-autoplay="0"
             data-loop="0" data-lazyload="0" data-mousedrag="1" data-touchdrag="1" data-smartspeed="800"
             data-autoplayspeed="800" data-autoplaytimeout="5000" data-dots="0" data-animations="" data-nav="1"
             data-navtext="" data-navcontainer="">
             @foreach ($splistnb as $v )
             <div class="splistnb-item">
-                <div class="splistnb-img hover_sang3 scale-img">
-                    <img class="lazyload" data-width="430" data-height="575" data-image="{{$v->photo}}"
+                <a class="splistnb-img hover_sang3 scale-img" href="{{$v->slug}}">
+                    <img class="lazyload"
                         src="{{ asset('http://localhost:8000/storage/'.$v->photo) }}" alt="slide" />
-                </div>
+                </a>
                 <h3 class="splistnb-name">
-                    <a class="text-split" href="{{$v->slug}}?id=$v->id"> {{$v->name}} </a>
+                    <a class="text-split" href="{{$v->slug}}"> {{$v->name}} </a>
                 </h3>
             </div>
             @endforeach
@@ -88,33 +90,205 @@
 @if(!empty($gioithieu))
 <div class="gioithieu-wrapper">
     <div class="wrap-content">
-        <div class="gioithieu-left">
+        <div class="gioithieu-left" data-aos="fade-right" data-aos-duration="1500">
             <div class="gioithieu-box">
-                <div class="gioithieu-img">
-                    <img class="lazyload" src="{{ asset('http://localhost:8000/storage/'.$gioithieu->photo) }}"
-                        alt="slide" />
-                </div>
-                <div class="gioithieu-img1">
-                    <img class="lazyload" src="{{ asset('http://localhost:8000/storage/'.$gioithieu->photo1) }}"
-                        alt="slide" />
+                <div class="owl-page owl-carousel owl-theme thumbs_img " data-xsm-items="1:0" data-sm-items="2:10"
+                    data-md-items="3:15" data-lg-items="3:20" data-xlg-items="2:15" data-rewind="1" data-autoplay="0"
+                    data-loop="0" data-lazyload="0" data-mousedrag="1" data-touchdrag="1" data-smartspeed="800"
+                    data-autoplayspeed="800" data-autoplaytimeout="5000" data-dots="0" data-animations="" data-nav="1"
+                    data-navtext="" data-navcontainer="">
+                    @foreach ($gioithieu_slide as $v )
+                    <div class="gioithieu-img">
+                        <a href="gioi-thieu" class="scale-img hover_sang3">
+                            <img class="lazyload" src="{{ asset('http://localhost:8000/storage/'.$v->photo) }}"
+                                alt="slide" />
+                        </a>
+                    </div>
+                    @endforeach
                 </div>
             </div>
-        </div>
-        <div class="gioithieu-right">
-            <p class="gioithieu-name">
-            </p>
-            <p class="gioithieu-name1 text-split">
-                {{$gioithieu->name}}
-            </p>
-            <p class="gioithieu-desc text-split">
-                {{$gioithieu->desc}}
 
-            </p>
-            <div class="gioithieu-btn hover_xemthem">
-                <a href="gioi-thieu">Xem chi tiết</a>
+            <div class="gioithieu-right">
+                <div data-aos="zoom-in_up" data-aos-duration="1500">
+                    <p class="gioithieu-name">
+                    </p>
+                    <p class="gioithieu-name1 text-split">
+                        {{$gioithieu->name}}
+                    </p>
+                    <div class="gioithieu-desc text-split">
+                        {!! $gioithieu->desc !!}
+
+                    </div>
+                    <div class="gioithieu-btn hover_xemthem">
+                        <a href="gioi-thieu">Xem chi tiết</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 @endif
+
+@if(!empty($quangcao))
+<div class="quangcao-wrapper">
+    <div class="wrap-content">
+        <div class="owl-page owl-carousel owl-theme thumbs_img " data-xsm-items="1:0" data-sm-items="2:10"
+            data-md-items="3:15" data-lg-items="3:20" data-xlg-items="2:15" data-rewind="1" data-autoplay="0"
+            data-loop="0" data-lazyload="0" data-mousedrag="1" data-touchdrag="1" data-smartspeed="800"
+            data-autoplayspeed="800" data-autoplaytimeout="5000" data-dots="0" data-animations="" data-nav="1"
+            data-navtext="" data-navcontainer="">
+            @foreach ($quangcao as $k =>$v)
+            <?php
+                if($k % 2 !=0){
+                    $aos = 'data-aos="fade-right" data-aos-duration="1500"';
+                }else{
+                    $aos = 'data-aos="fade-left" data-aos-duration="1500"';
+                }
+            ?>
+            <div class="quangcao-item" {{ $aos }}>
+                <a class="quangcao-img hover_sang3 scale-img" href="{{$v->slug}}">
+                    <img class="lazyload"
+                        src="{{ asset('http://localhost:8000/storage/'.$v->photo) }}" alt="slide" />
+                </a>
+                <div class="quangcao-info">
+                    <h3 class="quangcao-name">
+                        <a class="text-split" href="{{$v->slug}}"> {{$v->name}} </a>
+                    </h3>
+                    <div class="quangcao-desc">
+                        {!! $v->desc !!}
+                    </div>
+                    <a href="gioi-thieu">
+                        <button class="quangcao-btn button-wave">
+                            <span>Xem thêm</span>
+                            <div></div>
+                        </button>
+                    </a>
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</div>
+@endif
+
+@if(!empty($bannerQC))
+<div class="bannerQC-warpper mb-5 effect-banner">
+    <span class="effect-banner-image">
+        <img class="lazyload w-100" src="{{ asset('http://localhost:8000/storage/'.$bannerQC['photo']) }}" alt="{{ $bannerQC['name'] }}" />
+    </span>
+</div>
+@endif
+
+@if (!empty($album))
+<div class="album-wrapper">
+    <div class="wrap-content">
+        <div class="title-main mb-0 "><span>album hình ảnh</span></div>
+        <div class="album-grid ">
+            @foreach ($album as $k => $v )
+                <div class="album<?=$k?> ">
+                    <a class="hover_sang3 h-100 scale-img"  href="{{ $v['slug'] }}" title="{{ $v['name'] }}">
+                        <img class="lazyload h-100"
+                        src="{{ asset('http://localhost:8000/storage/'.$v->photo) }}" alt="{{ $v['name'] }}" />
+                    </a>
+                </div>
+            @endforeach
+        </div>
+        <a href="thu-vien-anh">
+            <button class="album-btn button-wave m-auto">
+                <span>Xem thêm</span>
+                <div></div>
+            </button>
+        </a>
+    </div>
+</div>
+@endif
+
+@if(!empty($dichvu))
+<div class="dichvu-wrapper">
+    <div class="wrap-content">
+        <div class="title-main mb-0 "><span>Dịch vụ của chúng tôi</span></div>
+
+        <div class="owl-page owl-carousel owl-theme thumbs_img " data-xsm-items="1:0" data-sm-items="2:10"
+            data-md-items="3:15" data-lg-items="3:20" data-xlg-items="2:15" data-rewind="1" data-autoplay="0"
+            data-loop="0" data-lazyload="0" data-mousedrag="1" data-touchdrag="1" data-smartspeed="800"
+            data-autoplayspeed="800" data-autoplaytimeout="5000" data-dots="0" data-animations="" data-nav="1"
+            data-navtext="" data-navcontainer="">
+            @foreach ($dichvu as $k =>$v)
+            <div class="dichvu-item">
+                <a class="dichvu-img hover_sang3 scale-img" href="{{$v->slug}}">
+                    <img class="lazyload"
+                        src="{{ asset('http://localhost:8000/storage/'.$v->photo) }}" alt="{{$v->name}}" />
+                </a>
+                <div class="dichvu-info">
+                    <h3 class="dichvu-name">
+                        <a class="text-split" href="{{$v->slug}}"> {{$v->name}} </a>
+                    </h3>
+                    <div class="dichvu-desc">
+                        {!! $v->desc !!}
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</div>
+@endif
+
+
+@if(!empty($tieuchi))
+<div class="tieuchi-wrapper mb-5">
+    <div class="wrap-content">
+        <div class="owl-page owl-carousel owl-theme thumbs_img " data-xsm-items="1:0" data-sm-items="2:10"
+            data-md-items="3:15" data-lg-items="3:20" data-xlg-items="4:15" data-rewind="1" data-autoplay="0"
+            data-loop="0" data-lazyload="0" data-mousedrag="1" data-touchdrag="1" data-smartspeed="800"
+            data-autoplayspeed="800" data-autoplaytimeout="5000" data-dots="0" data-animations="" data-nav="1"
+            data-navtext="" data-navcontainer="">
+            @foreach ($tieuchi as $k =>$v)
+            <div class="tieuchi-item">
+                <a class="tieuchi-img hover_sang3 scale-img" href="{{$v->slug}}">
+                    <img class="lazyload"
+                        src="{{ asset('http://localhost:8000/storage/'.$v->photo) }}" alt="{{$v->name}}" />
+                </a>
+                <div class="tieuchi-info">
+                   <p class="tieuchi-name text-split"> {{ $v['name'] }} </p>
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</div>
+@endif
+
+
+@if(!empty($tintuc))
+<div class="tintuc-wrapper mb-5">
+    <div class="wrap-content">
+    <div class="title-main mb-4 "><span>Bài viết mới mỗi ngày</span></div>
+
+        <div class="owl-page owl-carousel owl-theme thumbs_img " data-xsm-items="1:0" data-sm-items="2:10"
+            data-md-items="3:15" data-lg-items="3:20" data-xlg-items="3:15" data-rewind="1" data-autoplay="0"
+            data-loop="0" data-lazyload="0" data-mousedrag="1" data-touchdrag="1" data-smartspeed="800"
+            data-autoplayspeed="800" data-autoplaytimeout="5000" data-dots="0" data-animations="" data-nav="1"
+            data-navtext="" data-navcontainer="">
+            @foreach ($tintuc as $k =>$v)
+            <div class="tintuc-item">
+                <a class="tintuc-img hover_sang3 scale-img" href="/tin-tuc/{{$v->slug}}">
+                    <img class="lazyload"
+                        src="{{ asset('http://localhost:8000/storage/'.$v->photo) }}" alt="{{$v->name}}" />
+                </a>
+                <div class="tintuc-info">
+                    <h3 class="mb-0">
+                        <a href="/tin-tuc/{{ $v->slug }}" class="tintuc-name">
+                            <span class="text-split"> {{ $v->name }} </span>
+                        </a>
+                    </h3>
+                    <p class="tintuc-desc text-split"> {{ $v->desc }} </p>
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</div>
+@endif
+
 @endsection

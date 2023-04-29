@@ -621,6 +621,13 @@ class Productseeder extends Seeder
         "properties" => json_encode([
           "sizes" => [],
           "origin" => "Việt Nam",
+<<<<<<< HEAD
+=======
+          "colors" => ["ffffff"],
+
+
+
+>>>>>>> 36513ab7998962098af332f5b0513caa9e0df305
         ]),
         "photo" => "20230306-product1.jpg",
         "photo1" => "20230306-product11.jpg",
@@ -703,7 +710,7 @@ class Productseeder extends Seeder
         $product_5,
         $product_6,
         $product_7,
-        $product_8,       
+        $product_8,
         $product_9,
         $product_10,
         $product_11,

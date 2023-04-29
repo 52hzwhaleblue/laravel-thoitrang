@@ -16,6 +16,10 @@ class CategoryController extends BaseController
     public function index()
     {
         $data = TableCategory::all();
+
+        TableCategory::factory()->count(5)->create();
+
+
         return view('admin.template.product.list.list', compact('data'));
     }
 
@@ -29,10 +33,6 @@ class CategoryController extends BaseController
         $count = TableCategory::all()->count();
 
         $url = $this->uploadPhoto($request,"categories/",415,655);
-
-
-
-
         $Category = new TableCategory();
 
         $Category->name = $request->get('name');
@@ -85,13 +85,7 @@ class CategoryController extends BaseController
     public function update(Request $request, $slug)
     {
         $count = TableCategory::all()->count();
-        if ($request->has('photo')) {
-            $file = $request->photo;
-            $ext = $request->photo->extension(); //lấy đuôi file png||jpg
-            $file_name =
-                Date('Ymd') . '-' . 'Category' . $count . '.' . $ext;
-            $file->move(public_path('backend/assets/img/products'), $file_name); //chuyển file vào đường dẫn chỉ định
-        }
+        $url = $this->uploadPhoto($request,"categories/",415,655);
 
         $Category = TableCategory::where('slug', $slug)->first();
         // dd($Category);
@@ -100,7 +94,7 @@ class CategoryController extends BaseController
         $Category->status = (int)$request->get('status');
         $Category->content = $request->get('content');
         if ($request->has('photo')) {
-            $Category->photo = $file_name;
+            $Category->photo = $url;
         }
         $Category->slug = $request->get('slug');
 

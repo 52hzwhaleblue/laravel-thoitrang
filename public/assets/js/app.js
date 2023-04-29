@@ -197,6 +197,17 @@ function Home(){
             }
         })
     });
+
+    $('.name-header').textillate({
+        in:{
+            effect: 'animate__bounceIn'
+        },
+        out: {
+            effect: 'animate__bounceOut'
+        },
+        loop: true
+    });
+
 }
 
 
@@ -240,8 +251,24 @@ function Toasty(){
 
 }
 
+function peShiner(){
+    $(window).bind("load", function () {
+        var api = $(".peShiner").peShiner({
+          api: true,
+          paused: true,
+          reverse: true,
+          repeat: 1,
+          color: "fireHL",
+      });
+
+        api.resume();
+
+    });
+}
+
 $(document).ready(function () {
     Home();
+    peShiner();
     Toasty();
     Cart();
     Slick();

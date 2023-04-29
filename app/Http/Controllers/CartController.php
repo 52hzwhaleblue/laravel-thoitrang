@@ -96,11 +96,6 @@ class CartController extends Controller
     }
 
     public function checkout(){
-
-
-        // foreach (Cart::content() as $key => $value) {
-        //         dd($value->id);
-        //     }
         return view('template.order.checkout');
     }
 
@@ -128,7 +123,7 @@ class CartController extends Controller
         $code_order = 'UNI'.Str::random(5).now();
         // $db::beginTransaction(); // bat dau giao dich
 
-        // $db::rollback(); // uqya lai ko them vao du lieu
+        // $db::rollback(); // quay lai ko them vao du lieu
 
         // $db::commit(); //them vao database
         $db::transaction(function () use ($request,$user_id,$dataUser,$dataCart,$code_order) {
@@ -163,23 +158,9 @@ class CartController extends Controller
             "email" => $dataUser['email'],
             "phone" => $dataUser['phone'],
             "total" => Cart::total(),
-            "time_now" => Carbon::now()->format('d/m/Y m:h:s')
+            "time_now" => Carbon::now()->format('d/m/Y m:h:s'),
+            'dataCart' =>Cart::content(),
         ];
-        // Mail::to($dataUser['email'])->send(new SendMail($dataMail));
-        // session(
-        //     [
-        //         "fullname" => $dataMail['fullname'],
-        //         // "code_order" => $code_order,
-        //         // "qty_empty" => $qty_empty,
-        //         // "price_empty" => $price_empty,
-        //         // "sub_total_empty" => $sub_total_empty,
-        //         // "total_price" => $total_price,
-        //         // "name_customer" => $name_customer,
-        //         // "email_customer" => $email_customer,
-        //         // "address_customer" => $address_customer,
-        //         // "phone_customer" => $phone_customer
-        //     ]
-        // );
 
         dispatch(new SendMailJob($dataMail,$dataUser)); // thêm vào hàng đợi
         // Hủy Cart Session sau khi dặt hàng thành công
@@ -232,29 +213,19 @@ class CartController extends Controller
             foreach ($dataCart as $key => $value) {
                 if($value->id == $promotion->product_id){
                     $id = (int)$value->id;
-            // dd($id);
-
                     $is_check_exists = !$is_check_exists;
                     break;
                 }
             }
-            // dd($is_check_exists);
-
             if(!$is_check_exists){
                  return "Mã khuyến mãi này chỉ áp dụng khi đơn hàng bạn có product_id là".$promotion->product_id;
             }
         }
 
-
-
         //check total order
         $total = Cart::total();
 
         $is_check_total = $total >= $promotion->order_price_conditions;
-
-            // dd($is_check_total);
-
-
 
         if(!$is_check_total){
             return "Đơn hàng của bạn không đạt điều kiện khi tổng đơn nhỏ hơn".$promotion->order_price_conditions;
@@ -264,12 +235,6 @@ class CartController extends Controller
         $promotion_elo->update([
             "limit" => --$promotion->limit,
         ]);
-        // dd($total);
-
         return $total - $promotion->discount_price;
-
-
-
-
     }
 }

@@ -35,7 +35,6 @@
                                 <th width="10%">STT</th>
                                 <th>Hình</th>
                                 <th width="30%">Tiêu đề</th>
-                                <th>Nổi bật</th>
                                 <th>Hiển thị</th>
                                 <th>Thao tác</th>
                             </tr>
@@ -65,15 +64,9 @@
                                                 route('admin.post.'.$type.'.edit', $v['slug'])
                                             }} "
                                         >
-                                            <img
-                                                style="width: 60px; height: 60px"
-                                                src="{{
-                                                    asset(
-                                                        'backend/assets/img/post/'.$v['photo']
-                                                    )
-                                                }}"
-                                                alt="ss"
-                                            />
+                                        <img style="width: 60px; height: 60px"
+                                            src="{{ asset('http://localhost:8000/storage/' . $v['photo']) }}"
+                                            alt="{{ $v['name'] }}" />
                                         </a>
                                     </th>
                                     <th class="align-middle">
@@ -85,23 +78,19 @@
                                             {{$v['name']}}
                                         </a>
                                     </th>
-                                    @foreach ($status as $k => $eachStatus)
-                                        <th class="align-middle">
-                                            <div
-                                                class="custom-control custom-checkbox my-checkbox"
-                                            >
-                                                <input
-                                                    type="checkbox"
-                                                    class="custom-control-input show-checkbox arrStatus"
-                                                    id="show-checkbox-{{$eachStatus }}-{{ $v['id'] }}"
-                                                    data-table="product_lists"
-                                                    data-id="{{ $v['id'] }}"
-                                                    data-attr="{{ $eachStatus }}"
-                                                    @if (in_array($eachStatus,explode(',',$v['status']))) checked @endif
-                                                />
-                                            </div>
-                                        </th>
-                                    @endforeach
+                                    <th class="align-middle">
+                                        <div
+                                            class="custom-control custom-checkbox my-checkbox"
+                                        >
+                                            <input
+                                                type="checkbox"
+                                                class="custom-control-input show-checkbox arrStatus"
+                                                data-table="product_lists"
+                                                data-id="{{ $v['id'] }}"
+                                                @if ($v['status'] == 1) checked @endif
+                                            />
+                                        </div>
+                                    </th>
 
                                     <th class="align-middle d-flex">
                                         <a href=" {{

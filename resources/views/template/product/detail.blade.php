@@ -2,26 +2,27 @@
 @section('content')
 <div class="grid-pro-detail d-flex flex-wrap justify-content-between align-items-start">
     <div class="left-pro-detail">
-        <div class="rowDetailPhoto-for">
-            <?php foreach ($rowDetailPhoto as $k => $v) { ?>
-            <div class="rowDetailPhoto-img">
-                <img class="w-100" src="{{ asset('http://127.0.0.1:8000/storage/' . $v->photo) }}" />
-            </div>
-            <?php } ?>
-        </div>
-
-        <?php if(count($rowDetailPhoto)) {?>
-        <div class="rowDetailPhoto-scroll">
-            <div class="rowDetailPhoto-nav">
+        @if(count($rowDetailPhoto))
+            <div class="rowDetailPhoto-for">
                 <?php foreach ($rowDetailPhoto as $k => $v) { ?>
-                <div class="rowDetailPhoto-item">
-                    <img class="" src="{{ asset('http://127.0.0.1:8000/storage/' . $v->photo) }}" />
+                <div class="rowDetailPhoto-img">
+                    <img class="w-100" src="{{ asset('http://127.0.0.1:8000/storage/' . $v->photo) }}" />
                 </div>
                 <?php } ?>
             </div>
-        </div>
-        <?php } ?>
 
+            <div class="rowDetailPhoto-scroll">
+                <div class="rowDetailPhoto-nav">
+                    <?php foreach ($rowDetailPhoto as $k => $v) { ?>
+                    <div class="rowDetailPhoto-item">
+                        <img class="" src="{{ asset('http://127.0.0.1:8000/storage/' . $v->photo) }}" />
+                    </div>
+                    <?php } ?>
+                </div>
+            </div>
+        @else
+            <img class="lazyload w-100" src="{{ asset('http://localhost:8000/storage/'.$rowDetail[0]->photo ) }}" alt="slide" />
+        @endif
     </div>
 
     <div class="right-pro-detail">
@@ -65,10 +66,10 @@
             <li>
                 <div class="cart-pro-detail d-flex flex-wrap align-items-center justify-content-between">
                     <a class="transition addnow addcart text-decoration-none d-flex align-items-center justify-content-center"
-                        data-id="<?=$rowDetail[0]->id ?>" data-action="addnow"><i class="bi bi-cart2"></i><span> Thêm
+                        data-id="<?=$rowDetail[0]->id ?>" data-action="addnow"><span> Thêm
                             vào giỏ hàng </span></a>
                     <a class="transition buynow addcart text-decoration-none d-flex align-items-center justify-content-center"
-                        data-id="<?=$rowDetail[0]->id ?>" data-action="buynow"><i class="bi bi-cart2"></i><span>Mua
+                        data-id="<?=$rowDetail[0]->id ?>" data-action="buynow"><span>Mua
                             ngay</span></a>
                 </div>
             </li>
@@ -100,34 +101,55 @@
     </div>
 </div>
 
-
+@if(count($product))
 <div class="title-main"><span>Sản phẩm cùng loại</span></div>
-<?php if (count($product)) { ?>
-<div class="content-main">
-    <?php if(!empty($product)) { ?>
-    <div class="d-hiden">
-        <div class="flex flex-product d-flex flex-wrap align-items-start">
+<div class="content-main mb-5">
+    <?php if(count($product)) { ?>
+        <div class="row mb-5">
             <?php foreach($product as $k => $v) { ?>
-            <div class="product box-product" data-aos="fade-up" data-aos-duration="1000">
-                <div class="pic-product">
-                    <a class="text-decoration-none  scale-img" href="{{$v->slug}}" title="{{$v->name}}">
-                        <img class="lazyload" data-width="430" data-height="575" data-image="{{$v->photo}}"
-                            src="{{ asset('http://localhost:8000/storage/'.$v->photo) }}" alt="slide" />
-                    </a>
-                </div>
-                <div class="product-info">
+                <div class="col-3 mb-4">
+                    <div class="pronb-item" data-aos="fade-up" data-aos-duration="1000">
+                        <div class="pronb-image">
+                            <a class="pronb-img scale-img" href="/{{$v->slug}}/{{ $v->id }}">
+                                <img class="lazyload"
+                                    src="{{ asset('http://localhost:8000/storage/'.$v->photo) }}" alt="{{$v->name}}" />
+                            </a>
+                            <a class="pronb-img1 scale-img"  href="/{{$v->slug}}/{{ $v->id }}">
+                                <img class="lazyload"
+                                    src="{{ asset('http://localhost:8000/storage/'.$v->photo1) }}" alt="{{$v->name}}" />
+                            </a>
 
+                            <div class="pronb-btn">
+                                <a href='{{ route('cart.add',$v->id) }}' class="add-to-cart d-block">
+                                    Thêm vào giỏ hàng
+                                </a>
+                                <a href="" class="buynow d-block">
+                                    mua ngay
+                                </a>
+                            </div>
+                        </div>
+                        <div class="pronb-info">
+                            <h3 class="mb-0">
+                                <a class="pronb-name text-split" >
+                                {{ $v->name }}
+                                </a>
+                            </h3>
+                            <div class="pronb-price">
+                                <span class="price-new">  {{ number_format($v->sale_price) }} đ   </span>
+                                <span class="price-old"> {{ number_format($v->regular_price)}} đ </span>
+                                <span class="discount"> {{ $v->discount }} %</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
             <?php } ?>
         </div>
-    </div>
-    {!! $product->links() !!}
+        {!! $product->links() !!}
     <?php } else { ?>
-    <div class="alert alert-warning w-100" role="alert">
-        <strong>Không tìm thấy kết quả</strong>
-    </div>
+        <div class="alert alert-warning w-100" role="alert">
+            <strong>Không tìm thấy kết quả</strong>
+        </div>
     <?php } ?>
 </div>
-<?php } ?>
+@endif
 @endsection

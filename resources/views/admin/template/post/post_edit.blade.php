@@ -1,7 +1,7 @@
 @extends('admin.app') @section('title') Chi tiết {{ $type }} @endsection
 @section('content')
 <script src="{{
-    asset('backend/assets/js/jquery-3.2.1.min.js')
+    asset('public/backend/assets/js/jquery-3.2.1.min.js')
 }}"></script>
 <form action="{{ route('admin.post.'.$type.'.update', $data['slug'] ) }}" method="post" enctype="multipart/form-data">
     @csrf
@@ -88,7 +88,7 @@
                                 aria-expanded="true"
                                 aria-controls="noidungsanpham"
                             >
-                                Nội dung sản phẩm
+                                Nội dung
                             </button>
                         </h2>
                         <div
@@ -99,8 +99,7 @@
                             <div class="accordion-body">
 
                                 <div class="">
-                                    <input type="checkbox" name="status[]" value="noibat" @if (in_array('noibat',$explodeStatus)) checked  @endif > Nổi bật
-                                    <input type="checkbox" name="status[]" value="hienthi" @if (in_array('hienthi',$explodeStatus)) checked  @endif> Hiển thị
+                                    <input type="checkbox" name="status" value="hienthi" @if ($data['status']==1) checked  @endif> Hiển thị
                                 </div>
 
                                 <div class="mb-3 mt-3">
@@ -133,17 +132,15 @@
                         <h2 class="accordion-header" id="panelsStayOpen-headingOne">
                             <button class="accordion-button" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#anhsanpham" aria-expanded="true" aria-controls="anhsanpham">
-                                Hình ảnh sản phẩm
+                                Hình ảnh
                             </button>
                         </h2>
                         <div id="anhsanpham" class="accordion-collapse collapse show"
                             aria-labelledby="panelsStayOpen-headingOne">
                             <div class="accordion-body text-center">
-                                <img class="mb-2" style="width: 200px; height: 200px" src="{{
-                                        asset(
-                                            'backend/assets/img/post/'.$data['photo']
-                                        )
-                                    }}" alt="{{ $data['name'] }}" />
+                                <img class="mb-2 w-100"
+                                src="{{ asset('http://localhost:8000/storage/' . $data['photo']) }}"
+                                    alt="{{ $data['name'] }}" />
                                 <input type="file" name="photo" />
                             </div>
                         </div>

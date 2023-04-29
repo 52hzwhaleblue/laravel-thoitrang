@@ -36,6 +36,18 @@
                                     <input type="text" class="name form-control" id="name" placeholder="Tiêu đề"
                                         name="name" required />
                                 </div>
+                                <div class="mb-3 mt-3">
+                                    <label for="desc">Mô tả:</label>
+                                        <textarea class="form-control" rows="3" id="cke_desc" name="desc">
+                                        {{ !empty($data['desc'] ) ? $data['desc'] : '' }}
+                                        </textarea>
+                                </div>
+
+                                <div class="mb-3 mt-3">
+                                    <label for="content">Nội dung:</label>
+                                    <textarea class="form-control" rows="3" id="cke_content" name="content">
+                                    {{ !empty($data['content'] ) ? $data['content'] : '' }}</textarea>
+                                </div>
                             </div>
                         </div>
                     </div>

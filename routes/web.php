@@ -15,12 +15,17 @@ use App\Http\Controllers\Admin\PostController;
 // Photo Controller
 use App\Http\Controllers\Admin\PhotoController;
 
+// PhotoStatic Controller
+use App\Http\Controllers\Admin\PhotoStaticController;
+
 // Static Controller
 use App\Http\Controllers\Admin\StaticController;
 
 // Option Controller
 use App\Http\Controllers\Admin\OptionController;
 
+// Promo Controller
+use App\Http\Controllers\Admin\PromoController;
 
 // Index Controller
 use App\Http\Controllers\IndexController;
@@ -91,7 +96,10 @@ Route::group([
         }
     });
 
-    // Hình ảnh Video
+    // Promotion
+    // Route::resource('promo-code', PromoController::class);
+
+    // Hình ảnh - Video
     Route::group([
         'prefix' => 'photo',
         'as' => 'photo.',
@@ -103,6 +111,23 @@ Route::group([
                     $type = $m1['type'];
                     // dd($type);
                     Route::resource($type, PhotoController::class);
+
+                }
+            }
+        }
+    });
+
+    // Hình ảnh Tĩnh
+    Route::group([
+        'prefix' => 'photo-static',
+        'as' => 'photo-static.',
+    ], function(){
+        $menus = config('menu');
+        foreach($menus as $m){
+            if($m['name'] == 'Hình ảnh Tĩnh'){
+                foreach($m['data'] as $m1){
+                    $type = $m1['type'];
+                    Route::resource($type, PhotoStaticController::class);
 
                 }
             }
@@ -130,13 +155,9 @@ Route::group([
 
 });
 
-
-
-
 // =========== user
 // Email Auth
 Auth::routes(['verify' => true]);
-
 
 
 //Route logout user account
@@ -152,12 +173,16 @@ Route::get('login_user', function() {
 })->name("login.user");
 
 
-// Route::get('/', [IndexController::class,'index'])->name('index');
+Route::get('/', [IndexController::class ,'index'])->name('index');
+Route::get('/gioi-thieu', [IndexController::class,'static'])->name('gioi-thieu');
+Route::get('/tin-tuc', [IndexController::class,'post'])->name('tin-tuc');
+
+Route::get('/post/{slug}', [IndexController::class,'post_detail']);
+
 Route::get('/san-pham', [IndexController::class,'san_pham'])->name('san-pham');
-Route::get('/chi-tiet-san-pham/{slug}/{id}', [IndexController::class,'chi_tiet_san_pham'])->name('chi_tiet_san_pham');
+Route::get('/{slug}/{id}', [IndexController::class,'chi_tiet_san_pham'])->name('chi_tiet_san_pham');
 Route::post('/load_ajax_product', [IndexController::class,'load_ajax_product']);
 
-Route::get('/', [IndexController::class ,'index'])->name('index');
 
 
 Route::middleware("CheckLogin")->group(function() {

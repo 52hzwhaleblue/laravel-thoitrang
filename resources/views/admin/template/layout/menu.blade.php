@@ -2,6 +2,8 @@
 $menus = config('menu');
 @endphp
 
+
+
 <!-- Sidebar menu-->
 <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
 <aside class="app-sidebar">
@@ -27,7 +29,8 @@ $menus = config('menu');
                 <li>
                     <a class="treeview-item
                         @if($ProfileComposer['com'] == $m1['index']) active  @endif"
-                        href="{{ route($m1['index']) }}"><i class="icon fa fa-circle-o"></i>
+
+                        href="{{ $m1['index'] ? route($m1['index']) : '' }}"><i class="icon fa fa-circle-o"></i>
                         {{$m1['title']}}
                     </a>
                 </li>

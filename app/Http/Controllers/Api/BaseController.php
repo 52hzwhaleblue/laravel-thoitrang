@@ -16,6 +16,8 @@ class BaseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
     public function sendResponse($result = null, $message)
     {
     	$response = [
@@ -48,21 +50,29 @@ class BaseController extends Controller
         $files = $request->file('image');
 
         $count = count($files);
-    
+
         if ($count == 0) {
             return;
         }
-    
+
         $paths = [];
-    
+
         foreach ($files as $file) {
             $filename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
             $extension = $file->getClientOriginalExtension();
             $path = $filename . '_' . uniqid() . '.' . $extension;
-    
+
             // Resize image
+<<<<<<< HEAD
             $thumbnail = Image::make($file)->encode(null);
     
+=======
+            $thumbnail = Image::make($file)->resize($width, $height, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            })->encode(null);
+
+>>>>>>> 36513ab7998962098af332f5b0513caa9e0df305
             // Save thumbnail to storage
             $thumbnailPath = 'thumbnails/' . $dir . $path;
 
@@ -70,11 +80,11 @@ class BaseController extends Controller
 
             $paths[] = $thumbnailPath;
         }
-    
+
         if (is_callable($callback)) {
             $callback($paths);
         }
-    
+
         if ($count == 1) {
             return $paths[0];
         }
@@ -89,7 +99,7 @@ class BaseController extends Controller
                 $path_file = $filename . '_' . uniqid() . '.' . $extension;
 
                 // Resize image
-                $thumbnail_image = Image::make($file)->resize($width, $height, function ($constraint) {
+                $thumbnail_image = Image::make($file)->fit($width, $height, function ($constraint) {
                     $constraint->aspectRatio();
                     $constraint->upsize();
                 })->encode(null);
@@ -112,7 +122,7 @@ class BaseController extends Controller
                 $path_file = $filename . '_' . uniqid() . '.' . $extension;
 
                 // Resize image
-                $thumbnail_image = Image::make($file)->resize($width, $height, function ($constraint) {
+                $thumbnail_image = Image::make($file)->fit($width, $height, function ($constraint) {
                     $constraint->aspectRatio();
                     $constraint->upsize();
                 })->encode(null);
@@ -151,7 +161,7 @@ class BaseController extends Controller
         }
     }
 
-    
+
 
     public function sendNotiAllDevice($interests,$title,$body,$image= null,$type){
         $beamsClient = new PushNotifications(array(
@@ -172,7 +182,7 @@ class BaseController extends Controller
                     "name" => "adam",
                     "type" => "user",
                  ],
-           
+
             ],
             "fcm" => [
                 "notification" => [
@@ -184,7 +194,7 @@ class BaseController extends Controller
                     "type" => $type,
                  ],
             ],
-            
+
         ];
         $publishResponse = $beamsClient->publishToInterests(
             [$interests], // interests
@@ -234,7 +244,7 @@ class BaseController extends Controller
                 'useTLS' => true
             ]
         );
-    
+
         // Phát sóng sự kiện `chat-message` trên kênh `chat-channel` với dữ liệu chat đã lấy được từ request
         $pusher->trigger($channel, $event, $data);
     }
