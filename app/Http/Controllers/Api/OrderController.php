@@ -16,8 +16,8 @@ use App\Models\TableOrderDetail;
 
 class OrderController extends BaseController
 {
-    public function fetchAll(){   
-        try {     
+    public function fetchAll(){
+        try {
             $userId = Auth::id();
 
             $completed = TableOrder::with(['orderDetail', 'orderDetail.product','orderDetail.product.productDetail'])
@@ -53,14 +53,14 @@ class OrderController extends BaseController
             ];
 
             return $this->sendResponse($response, "Fetch order successfully!!!");
-        } catch (\Throwable $th) { 
+        } catch (\Throwable $th) {
             return $this->sendError( $th->getMessage(),500);
         }
     }
 
     public function create(Request $request,DB $db){
-        try {         
-            $validator = Validator::make($request->all(), 
+        try {
+            $validator = Validator::make($request->all(),
             [
                 'shipping_fullname' => "nullable|required",
                 'shipping_phone' => "nullable|required",
@@ -72,9 +72,9 @@ class OrderController extends BaseController
                 'notes' => "nullable|required",
                 'list_product' => "nullable|required",
             ]);
-           
-           
-     
+
+
+
             if($validator->fails()){
                 return $this->sendError('validation error',$validator->errors(),401);
             }
@@ -94,11 +94,11 @@ class OrderController extends BaseController
                     'notes' => $request->notes,
                     'status' => 1,
                     'created_at' =>  $time,
-                    'updated_at' =>  $time 
+                    'updated_at' =>  $time
                 ]);
 
                 $list = json_decode($request->input("list_product"));
-                
+
                 $tableDetail = new TableOrderDetail();
                 foreach( $list as $item){
                     $tableDetail::create([
@@ -109,7 +109,7 @@ class OrderController extends BaseController
                         'quantity' => $item->quantity,
                         'photo' => $item->photo,
                         'created_at' =>  $time ,
-                        'updated_at' =>  $time 
+                        'updated_at' =>  $time
                     ]);
                 }
 
@@ -122,13 +122,13 @@ class OrderController extends BaseController
             return $this->sendResponse($order, "Create order successfully!!!");
 
 
-        } catch (\Throwable $th) { 
+        } catch (\Throwable $th) {
             return $this->sendError( $th->getMessage(),500);
         }
     }
 
     public function delete(Request $request){
-        try { 
+        try {
             $order_id = (int)request()->query("order_id");
 
             DB::table('table_orders')
@@ -137,7 +137,7 @@ class OrderController extends BaseController
             ->delete();
 
             return $this->sendResponse([], "Delete order successfully!!!");
-        } catch (\Throwable $th) { 
+        } catch (\Throwable $th) {
             return $this->sendError( $th->getMessage(),500);
         }
     }

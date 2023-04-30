@@ -54,16 +54,12 @@
                                         </div>
                                     </th>
                                     <th class="align-middle">
-                                        <p> {{ $v->code }} </p>
+                                        <a href="order-detail/{{ $v->id }}/{{ $v->user_id }}">
+                                            {{ $v->code }}
+                                        </a>
                                     </th>
                                     <th class="align-middle">
-                                        <a
-                                            href="{{
-                                                route('admin.product.product-man.edit', $v->id)
-                                            }}"
-                                        >
-                                            {{$v->user->fullName}}
-                                        </a>
+                                        <p> {{$v->user->fullname}} </p>
                                     </th>
                                     <th class="align-middle">
                                         <p> {{ $v->created_at }} </p>

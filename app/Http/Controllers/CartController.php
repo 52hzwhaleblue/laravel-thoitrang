@@ -27,9 +27,9 @@ class CartController extends Controller
     {
         // return Cart::destroy();
 
-        $data = TableProduct::all();
-
-        // return Cart::content();
+//         $data = TableProduct::all();
+// // dd($data);
+      $data = Cart::content();
 
         return View('template.order.order',compact('data'));
 
@@ -91,8 +91,9 @@ class CartController extends Controller
 
         $result = [
             "subTotal" => number_format($subTotal, 0, ",", ".")."vnđ",
-            // "total" => number_format(Cart::total(), 0, ",", ".")."đ",
+            "total" => number_format(Cart::total(), 0, ",", ".")."vnđ",
         ];
+
         echo json_encode($result);
     }
 
@@ -121,7 +122,7 @@ class CartController extends Controller
         ];
 
         $user_id = $request->get('user_id');
-        $code_order = 'UNI'.Str::random(5).now();
+        $code_order = 'UNI'.Str::random(5);
         // $db::beginTransaction(); // bat dau giao dich
 
         // $db::rollback(); // quay lai ko them vao du lieu
@@ -134,8 +135,8 @@ class CartController extends Controller
                 'shipping_fullname' => $dataUser['fullname'],
                 'shipping_phone' => $dataUser['phone'],
                 'shipping_address' => $dataUser['address'],
-                'subtotal' => (int)Cart::total(),
-                'total' => (int)Cart::total(),
+                'temp_price' => (int)Cart::total(),
+                'total_price' => (int)Cart::total(),
                 'payment_method' => $dataUser['payment_method'],
                 'status' => 1,
             ]);
@@ -158,6 +159,7 @@ class CartController extends Controller
             "address" => $dataUser['address'],
             "email" => $dataUser['email'],
             "phone" => $dataUser['phone'],
+            "payment_method" => $dataUser['payment_method'],
             "total" => Cart::total(),
             "time_now" => Carbon::now()->format('d/m/Y m:h:s'),
             'dataCart' =>Cart::content(),

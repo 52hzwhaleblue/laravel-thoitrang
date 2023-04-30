@@ -49,18 +49,18 @@ class OrderSeeder extends Seeder
                 "updated_at" => $updated_at,
             ]);
         }
-        
-        
+
+
         $faker_size = [
             "M",
              "35",
 
-        ];  
+        ];
 
         $faker_color= [
             "00a8ff",
              "f7f1e3",
-        ];  
+        ];
 
         $order_detail_eloquent = new TableOrderDetail();
 

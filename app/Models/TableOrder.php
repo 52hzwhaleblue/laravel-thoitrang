@@ -23,7 +23,7 @@ class TableOrder extends Model
         'shipping_fullname',
         'shipping_phone',
         'shipping_address',
-        'order_payment',
+        'payment_method',
         'temp_price',
         'total_price',
         'ship_price',

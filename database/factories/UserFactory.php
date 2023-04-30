@@ -23,7 +23,7 @@ class UserFactory extends Factory
 
         return [
             'username'=>$faker->userName(),
-            'fullName'=>$faker->name(),
+            'fullname'=>$faker->name(),
             'phone'=> $faker->phoneNumber(),
             'email'=> $faker->email(),
             'password' => Hash::make('123456789'),
