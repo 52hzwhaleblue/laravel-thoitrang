@@ -72,7 +72,7 @@
                                         <p> {{ $v->payment_method }} </p>
                                     </th>
                                     <th class="align-middle">
-                                        <p> {{ $v->total }} </p>
+                                        <p> {{ number_format($v->total_price,0,',','.') }} vnđ </p>
                                     </th>
                                     <th class="align-middle">
                                         <p> Mới đặt </p>

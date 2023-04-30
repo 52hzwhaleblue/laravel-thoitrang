@@ -25,7 +25,7 @@ class Productseeder extends Seeder
         "name" => "Áo thun nam ba lỗ sành điệu đẹp",
         "slug" => "ao-thun",
         "regular_price" => 99000,
-        "sale_price" => null,
+        "sale_price" => 10000,
         "discount" => 0,
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
@@ -67,7 +67,7 @@ class Productseeder extends Seeder
         "name" => "Áo polo nam thời trang phù hợp phong cách trẻ trung Kira",
         "slug" => "ao-polo",
         "regular_price" => 220000,
-        "sale_price" => null,
+        "sale_price" => 10000,
         "discount" => null,
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
@@ -88,7 +88,7 @@ class Productseeder extends Seeder
         "name" => "Áo thun nam đẹp chất vải nhẹ mát mẻ vào",
         "slug" => "ao-thun",
         "regular_price" => 99000,
-        "sale_price" => null,
+        "sale_price" => 10000,
         "discount" => null,
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
@@ -109,7 +109,7 @@ class Productseeder extends Seeder
         "name" => "Áo thun nam tay dài đẹp chất vải nhẹ lịch lãm",
         "slug" => "ao-thun",
         "regular_price" => 150000,
-        "sale_price" => null,
+        "sale_price" => 10000,
         "discount" => null,
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
@@ -151,7 +151,7 @@ class Productseeder extends Seeder
         "name" => "Đồng hồ đeo tay nữ SHE-4538GL-6A",
         "slug" => "dong-ho",
         "regular_price" => 180000,
-        "sale_price" => null,
+        "sale_price" => 10000,
         "discount" => null,
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
@@ -193,7 +193,7 @@ class Productseeder extends Seeder
         "name" => "Mắt kính nữ chống đèn loá sành điệu thời trang JOMO EYEWEAR",
         "slug" => "mat-kinh",
         "regular_price" => 150000,
-        "sale_price" => null,
+        "sale_price" => 10000,
         "discount" => null,
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
@@ -236,7 +236,7 @@ class Productseeder extends Seeder
         "name" => "Túi xách lớn satchel 2 ngăn cho nam nữ văn phòng",
         "slug" => "tui-xach",
         "regular_price" => 260000,
-        "sale_price" => null,
+        "sale_price" => 10000,
         "discount" => null,
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
@@ -257,7 +257,7 @@ class Productseeder extends Seeder
         "name" => "Túi xách da đeo chéo nam thời trang phong cách",
         "slug" => "tui-xach",
         "regular_price" => 150000,
-        "sale_price" => null,
+        "sale_price" => 10000,
         "discount" => null,
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
@@ -278,7 +278,7 @@ class Productseeder extends Seeder
         "name" => "Túi xách văn phòng đựng laptop cho cả nam lẫn nữ",
         "slug" => "tui-xach",
         "regular_price" => 290000,
-        "sale_price" => null,
+        "sale_price" => 10000,
         "discount" => null,
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
@@ -299,7 +299,7 @@ class Productseeder extends Seeder
         "name" => "Túi xách NAHA nữ đẹp",
         "slug" => "tui-xach",
         "regular_price" => 310000,
-        "sale_price" => null,
+        "sale_price" => 10000,
         "discount" => null,
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
@@ -320,7 +320,7 @@ class Productseeder extends Seeder
         "name" => "Guốc cao nữ",
         "slug" => "guoc-cao",
         "regular_price" => 195000,
-        "sale_price" => null,
+        "sale_price" => 10000,
         "discount" => null,
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
@@ -341,7 +341,7 @@ class Productseeder extends Seeder
         "name" => "Áo Hoodie drew cực đẹp dành cho giới trẻ nam nữ",
         "slug" => "ao",
         "regular_price" => 150000,
-        "sale_price" => null,
+        "sale_price" => 10000,
         "discount" => null,
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
@@ -362,7 +362,7 @@ class Productseeder extends Seeder
         "name" => "Giày IceBreaker nữ",
         "slug" => "giay",
         "regular_price" => 450000,
-        "sale_price" => null,
+        "sale_price" => 10000,
         "discount" => null,
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
@@ -383,7 +383,7 @@ class Productseeder extends Seeder
         "name" => "Kính Mát Thời Trang Chống Loá JOMO EYEWEAR - Bailey nam nữ",
         "slug" => "kinh",
         "regular_price" => 185000,
-        "sale_price" => null,
+        "sale_price" => 10000,
         "discount" => null,
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
@@ -404,7 +404,7 @@ class Productseeder extends Seeder
         "name" => "Nike_Air_Jordan_1_High_OG_Metallic nam nữ",
         "slug" => "giay-the-thao",
         "regular_price" => 550000,
-        "sale_price" => null,
+        "sale_price" => 10000,
         "discount" => null,
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
@@ -425,7 +425,7 @@ class Productseeder extends Seeder
         "name" => "Quần baggy nam nữ trẻ trung thời trang",
         "slug" => "quan",
         "regular_price" => 145000,
-        "sale_price" => null,
+        "sale_price" => 10000,
         "discount" => null,
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
@@ -446,7 +446,7 @@ class Productseeder extends Seeder
         "name" => "Quần jogger nam thể thao trơn basic",
         "slug" => "quan",
         "regular_price" => 158000,
-        "sale_price" => null,
+        "sale_price" => 10000,
         "discount" => null,
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
@@ -467,7 +467,7 @@ class Productseeder extends Seeder
         "name" => "Quần kaki nam PIGOFASHION",
         "slug" => "quan",
         "regular_price" => 150000,
-        "sale_price" => null,
+        "sale_price" => 10000,
         "discount" => null,
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
@@ -488,7 +488,7 @@ class Productseeder extends Seeder
         "name" => "Quần short thể thao nam co giãn thấm hút PIGOFASHION",
         "slug" => "quan",
         "regular_price" => 230000,
-        "sale_price" => null,
+        "sale_price" => 10000,
         "discount" => null,
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
@@ -509,7 +509,7 @@ class Productseeder extends Seeder
         "name" => "Áo sơ mi văn phòng cho nữ",
         "slug" => "ao-so-mi",
         "regular_price" => 250000,
-        "sale_price" => null,
+        "sale_price" => 10000,
         "discount" => null,
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
@@ -530,7 +530,7 @@ class Productseeder extends Seeder
         "name" => "Áo sơ mi văn phòng cho nam",
         "slug" => "ao-so-mi",
         "regular_price" => 250000,
-        "sale_price" => null,
+        "sale_price" => 10000,
         "discount" => null,
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
@@ -551,7 +551,7 @@ class Productseeder extends Seeder
         "name" => "Áo sơ mi tay dài văn phòng cho nam",
         "slug" => "ao-so-mi",
         "regular_price" => 3300000,
-        "sale_price" => null,
+        "sale_price" => 10000,
         "discount" => null,
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
@@ -573,7 +573,7 @@ class Productseeder extends Seeder
         "name" => "Đồng hồ casio bền chống nước nam nữ",
         "slug" => "dong-ho",
         "regular_price" => 150000,
-        "sale_price" => null,
+        "sale_price" => 10000,
         "discount" => null,
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
@@ -594,7 +594,7 @@ class Productseeder extends Seeder
         "name" => "Đồng hồ nữ Marble Florals",
         "slug" => "dong-ho",
         "regular_price" => 245000,
-        "sale_price" => null,
+        "sale_price" => 10000,
         "discount" => null,
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
@@ -615,7 +615,7 @@ class Productseeder extends Seeder
         "name" => "Túi Halio Canvas nữ",
         "slug" => "tui-xach",
         "regular_price" => 85000,
-        "sale_price" => null,
+        "sale_price" => 10000,
         "discount" => null,
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
@@ -636,7 +636,7 @@ class Productseeder extends Seeder
         "name" => "Túi Tote - Okame Hoa thời trang nữ",
         "slug" => "tui-xach",
         "regular_price" => 90000,
-        "sale_price" => null,
+        "sale_price" => 10000,
         "discount" => null,
         "desc" => $faker->paragraph(random_int(3,6)),
         "properties" => json_encode([
