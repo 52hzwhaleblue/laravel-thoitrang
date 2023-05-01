@@ -5,20 +5,35 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\DB;
+
 use Functions;
+
+use App\Models\TableNotification;
 
 class HomeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
 
     public function index()
     {
         $menus = config('menu');
-        return view('admin.app');
+        $type_notifications = DB::table('table_notifications')
+                 ->select('type')
+                 ->groupBy('type')
+                 ->get();
+
+        $list_notifications = DB::table('table_notifications')->get()
+        ->map(function($type_notifications){
+            $type_notifications->type = TableNotification::find($type_notifications->type);
+            return $type_notifications;
+        },);
+
+        $count_notifications= TableNotification::where('is_read','=','0')->get();
+
+        // dd( count($count_notifications));
+
+        return view('admin.app',compact('type_notifications','list_notifications','count_notifications'));
     }
 
     /**

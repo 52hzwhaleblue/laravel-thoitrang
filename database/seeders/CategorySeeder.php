@@ -15,16 +15,14 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-
         $list_name = [
-            "All","Clothing","Handbag","Shoes","Watch","Sunglasses"
+            "Clothing","Handbag","Shoes","Watch","Sunglasses"
         ];
 
         $list_name_vi = [
-            "Tất cả","Quần-Áo","Túi xách","Giày","Đồng hồ", "Mắt kính"
+            "Quần-Áo","Túi xách","Giày","Đồng hồ", "Mắt kính"
         ];
         $list_slug= [
-            "ao_ba_lo_do.jpg" ,
             "ao_cotton_kid.jpg",
             "ao_phong_unisex_black_white_2.jpg",
             "ao-polo-nam-Aristino-xanh.jpg",
@@ -33,7 +31,6 @@ class CategorySeeder extends Seeder
         ];
 
         $list_category = [
-            "thumbnails/categories/All.png",
             "thumbnails/categories/t-shirt.png",
             "thumbnails/categories/handbag.png",
             "thumbnails/categories/shoes.png",
@@ -43,8 +40,8 @@ class CategorySeeder extends Seeder
 
         $query = DB::table('table_categories');
 
-        for($i = 0; $i < 6; $i++){
-            
+        for($i = 0; $i < 5; $i++){
+
             $query->insert([
                 "name" => $list_name[$i],
                 "name_vi" => $list_name_vi[$i],

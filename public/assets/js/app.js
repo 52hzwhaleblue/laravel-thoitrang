@@ -23,7 +23,7 @@ function Cart(){
             method: "GET",
             success: function(data) {
                 $(".giohang-subTotal-"+id).text(data["subTotal"]);
-                // $(".giohang-tongtien span").text(data["total"]);
+                $(".load-total-price").text(data["total"]);
                 return false;
             },
             error: function(xhr, ajaxOptions, thrownError) {

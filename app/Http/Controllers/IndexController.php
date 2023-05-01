@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\PusherEvent;
 use File;
 use App\Models\TablePost;
 use App\Models\TablePhoto;
@@ -22,6 +23,11 @@ class IndexController extends Controller
 
     public function __construct() {
         $this->type = Functions::getTypeByCom();
+    }
+
+    public function testPusher()
+    {
+        event(new PusherEvent("Khách hàng:"));
     }
 
     public function index(Request $request)
@@ -95,11 +101,11 @@ class IndexController extends Controller
         $output .='
             <div class="pronb-item" data-aos="fade-up" data-aos-duration="1500">
                 <div class="pronb-image">
-                    <a class="pronb-img scale-img" href=/'.$v->slug.'/'.$v->id.' >
+                    <a class="pronb-img scale-img" href=chi-tiet-san-pham/'.$v->slug.'/'.$v->id.' >
                         <img src='.asset("http://localhost:8000/storage/$v->photo").' alt="" width="365"
                             height="365" />
                     </a>
-                    <a class="pronb-img1 scale-img" href=/'.$v->slug.'/'.$v->id.' >
+                    <a class="pronb-img1 scale-img" href=chi-tiet-san-pham/'.$v->slug.'/'.$v->id.' >
                         <img src='.asset("http://localhost:8000/storage/$v->photo1").' alt="" width="365"
                             height="365" />
                     </a>

@@ -27,8 +27,11 @@ use App\Http\Controllers\Admin\OptionController;
 // Promo Controller
 use App\Http\Controllers\Admin\PromoController;
 
-// Promo Controller
+// Order Controller
 use App\Http\Controllers\Admin\OrderController;
+
+// Notification Controller
+use App\Http\Controllers\Admin\NotificationController;
 
 
 // Index Controller
@@ -159,7 +162,10 @@ Route::group([
     // Đơn hàng
     Route::get('order', [OrderController::class,'index'])->name('order.index');
 
-
+    // Chi tiết đơn hàng
+    // Route::get('order-detail/{order_id}/{user_id}', [OrderController::class,'edit'])->name('order.detail');
+    Route::get('order-detail', [OrderController::class,'edit'])->name('order.detail');
+    // Route::put('order-detail/update/{order_id}', [OrderController::class,'update'])->name('order.detail-update');
 });
 
 // =========== user
@@ -187,7 +193,7 @@ Route::get('/tin-tuc', [IndexController::class,'post'])->name('tin-tuc');
 Route::get('/post/{slug}', [IndexController::class,'post_detail']);
 
 Route::get('/san-pham', [IndexController::class,'san_pham'])->name('san-pham');
-Route::get('/{slug}/{id}', [IndexController::class,'chi_tiet_san_pham'])->name('chi_tiet_san_pham');
+Route::get('/chi-tiet-san-pham/{slug}/{id}', [IndexController::class,'chi_tiet_san_pham'])->name('chi_tiet_san_pham');
 Route::post('/load_ajax_product', [IndexController::class,'load_ajax_product']);
 
 
@@ -206,3 +212,6 @@ Route::middleware("CheckLogin")->group(function() {
     // Giỏ hàng nâng cấp ajax
     Route::get('/cart/update_ajax', [CartController::class,'update_ajax'])->name('cart.update_ajax');
 });
+
+// test pusher
+Route::get('test-pusher',[IndexController::class,'testPusher']);

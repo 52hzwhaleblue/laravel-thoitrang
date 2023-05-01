@@ -1,49 +1,45 @@
 <!-- Navbar-->
 <header class="app-header">
     <a class="app-header__logo" href="index-2.html">Vali</a>
-    <!-- Sidebar toggle button--><a
-        class="app-sidebar__toggle"
-        href="#"
-        data-toggle="sidebar"
-        aria-label="Hide Sidebar"
-    ></a>
+    <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
     <!-- Navbar Right Menu-->
     <ul class="app-nav">
+        <a href="{{ route('index') }}" class="d-flex align-items-center mr-3">
+            <i class="fa-solid fa-reply text-white"></i>
+        </a>
         <li class="app-search">
-            <input
-                class="app-search__input"
-                type="search"
-                placeholder="Search"
-            />
+            <input class="app-search__input" type="search" placeholder="Search" />
             <button class="app-search__button">
                 <i class="fa fa-search"></i>
             </button>
         </li>
         <!--Notification Menu-->
         <li class="dropdown">
-            <a
-                class="app-nav__item"
-                href="#"
-                data-toggle="dropdown"
-                aria-label="Show notifications"
-                ><i class="fa fa-bell-o fa-lg"></i
-            ></a>
+            <a class="app-nav__item position-relative" href="#" data-toggle="dropdown" aria-label="Show notifications">
+                <lord-icon
+                    src="https://cdn.lordicon.com/psnhyobz.json"
+                    trigger="loop"
+                    delay="600"
+                    colors="primary:#ffffff"
+                    state="loop"
+                    style="width:22px;height:22px">
+                </lord-icon>
+                <span class="chuong-notification"> {{ count($count_notifications)  }} </span>
+            </a>
+
             <ul class="app-notification dropdown-menu dropdown-menu-right">
                 <li class="app-notification__title">
-                    You have 4 new notifications.
+                    You have {{ count($count_notifications) }} new notifications.
                 </li>
                 <div class="app-notification__content">
                     <li>
-                        <a class="app-notification__item" href="javascript:;"
-                            ><span class="app-notification__icon"
-                                ><span class="fa-stack fa-lg"
-                                    ><i
-                                        class="fa fa-circle fa-stack-2x text-primary"
-                                    ></i
-                                    ><i
-                                        class="fa fa-envelope fa-stack-1x fa-inverse"
-                                    ></i></span
-                            ></span>
+                        <a class="app-notification__item" href="javascript:;">
+                            <span class="app-notification__icon">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                                    <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </span>
                             <div>
                                 <p class="app-notification__message">
                                     Lisa sent you a mail
@@ -53,16 +49,13 @@
                         </a>
                     </li>
                     <li>
-                        <a class="app-notification__item" href="javascript:;"
-                            ><span class="app-notification__icon"
-                                ><span class="fa-stack fa-lg"
-                                    ><i
-                                        class="fa fa-circle fa-stack-2x text-danger"
-                                    ></i
-                                    ><i
-                                        class="fa fa-hdd-o fa-stack-1x fa-inverse"
-                                    ></i></span
-                            ></span>
+                        <a class="app-notification__item" href="javascript:;">
+                            <span class="app-notification__icon">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x text-danger"></i>
+                                    <i class="fa fa-hdd-o fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </span>
                             <div>
                                 <p class="app-notification__message">
                                     Mail server not working
@@ -73,16 +66,13 @@
                     </li>
 
                     <li>
-                        <a class="app-notification__item" href="javascript:;"
-                            ><span class="app-notification__icon"
-                                ><span class="fa-stack fa-lg"
-                                    ><i
-                                        class="fa fa-circle fa-stack-2x text-success"
-                                    ></i
-                                    ><i
-                                        class="fa fa-money fa-stack-1x fa-inverse"
-                                    ></i></span
-                            ></span>
+                        <a class="app-notification__item" href="javascript:;">
+                            <span class="app-notification__icon">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x text-success"></i>
+                                    <i class="fa fa-money fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </span>
                             <div>
                                 <p class="app-notification__message">
                                     Transaction complete
@@ -91,107 +81,26 @@
                             </div>
                         </a>
                     </li>
-                    <div class="app-notification__content">
-                        <li>
-                            <a
-                                class="app-notification__item"
-                                href="javascript:;"
-                                ><span class="app-notification__icon"
-                                    ><span class="fa-stack fa-lg"
-                                        ><i
-                                            class="fa fa-circle fa-stack-2x text-primary"
-                                        ></i
-                                        ><i
-                                            class="fa fa-envelope fa-stack-1x fa-inverse"
-                                        ></i></span
-                                ></span>
-                                <div>
-                                    <p class="app-notification__message">
-                                        Lisa sent you a mail
-                                    </p>
-                                    <p class="app-notification__meta">
-                                        2 min ago
-                                    </p>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                class="app-notification__item"
-                                href="javascript:;"
-                                ><span class="app-notification__icon"
-                                    ><span class="fa-stack fa-lg"
-                                        ><i
-                                            class="fa fa-circle fa-stack-2x text-danger"
-                                        ></i
-                                        ><i
-                                            class="fa fa-hdd-o fa-stack-1x fa-inverse"
-                                        ></i></span
-                                ></span>
-                                <div>
-                                    <p class="app-notification__message">
-                                        Mail server not working
-                                    </p>
-                                    <p class="app-notification__meta">
-                                        5 min ago
-                                    </p>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                class="app-notification__item"
-                                href="javascript:;"
-                                ><span class="app-notification__icon"
-                                    ><span class="fa-stack fa-lg"
-                                        ><i
-                                            class="fa fa-circle fa-stack-2x text-success"
-                                        ></i
-                                        ><i
-                                            class="fa fa-money fa-stack-1x fa-inverse"
-                                        ></i></span
-                                ></span>
-                                <div>
-                                    <p class="app-notification__message">
-                                        Transaction complete
-                                    </p>
-                                    <p class="app-notification__meta">
-                                        2 days ago
-                                    </p>
-                                </div>
-                            </a>
-                        </li>
-                    </div>
+                    <li class="app-notification__footer">
+                        <a href="#">See all notifications.</a>
+                    </li>
                 </div>
-                <li class="app-notification__footer">
-                    <a href="#">See all notifications.</a>
-                </li>
+
             </ul>
         </li>
+
         <!-- User Menu-->
         <li class="dropdown">
-            <a
-                class="app-nav__item"
-                href="#"
-                data-toggle="dropdown"
-                aria-label="Open Profile Menu"
-                ><i class="fa fa-user fa-lg"></i
-            ></a>
+            <a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Open Profile Menu"><i class="fa fa-user fa-lg"></i></a>
             <ul class="dropdown-menu settings-menu dropdown-menu-right">
                 <li>
-                    <a class="dropdown-item" href="page-user.html"
-                        ><i class="fa fa-cog fa-lg"></i> Settings</a
-                    >
+                    <a class="dropdown-item" href="page-user.html"><i class="fa fa-cog fa-lg"></i> Settings</a>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="page-user.html"
-                        ><i class="fa fa-user fa-lg"></i> Profile</a
-                    >
+                    <a class="dropdown-item" href="page-user.html"><i class="fa fa-user fa-lg"></i> Profile</a>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="page-login.html"
-                        ><i class="fa fa-sign-out fa-lg"></i> Logout</a
-                    >
+                    <a class="dropdown-item" href="page-login.html"><i class="fa fa-sign-out fa-lg"></i> Logout</a>
                 </li>
             </ul>
         </li>

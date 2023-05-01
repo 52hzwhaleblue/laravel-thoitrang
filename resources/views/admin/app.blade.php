@@ -41,6 +41,8 @@
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     --}}
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.0/dropzone.min.css"
         integrity="sha512-jU/7UFiaW5UBGODEopEqnbIAHOI8fO6T99m7Tsmqs2gkdujByJfkCbbfPSN4Wlqlb9TGnsuC0YgUgWkRBK7B9A=="
@@ -73,39 +75,25 @@
 
     <!-- Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-
+    <script src="https://cdn.lordicon.com/bhenfmcm.js"></script>
     <!-- Essential javascripts for application to work-->
-    <script src="{{
-                asset('public/backend/assets/js/jquery-3.2.1.min.js')
-            }}"></script>
+    <script src="{{asset('public/backend/assets/js/jquery-3.2.1.min.js') }}"></script>
     <script src="{{ asset('public/backend/assets/js/popper.min.js') }}"></script>
-    <script src="{{
-                asset('public/backend/assets/js/bootstrap.min.js')
-            }}"></script>
+    <script src="{{ asset('public/backend/assets/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('public/backend/assets/js/main.js') }}"></script>
     <!-- The javascript plugin to display page loading on top-->
-    <script src="{{
-                asset('public/backend/assets/js/plugins/pace.min.js')
-            }}"></script>
-
-    <script src="{{
-                asset('public/backend/assets/js/ckeditor/ckeditor.js')
-            }}"></script>
+    <script src="{{  asset('public/backend/assets/js/plugins/pace.min.js')}}"></script>
+    <script src="{{ asset('public/backend/assets/js/ckeditor/ckeditor.js')}}"></script>
     <script type="text/javascript">
         CKEDITOR.replace("cke_content");
         CKEDITOR.replace("cke_desc");
     </script>
 
     <!-- Data table plugin-->
-    <script type="text/javascript" src="{{
-                asset('public/backend/assets/js/plugins/jquery.dataTables.min.js')
-            }}"></script>
-    <script type="text/javascript" src="{{
-                asset('public/backend/assets/js/plugins/dataTables.bootstrap.min.js')
-            }}"></script>
+    <script type="text/javascript" src="{{asset('public/backend/assets/js/plugins/jquery.dataTables.min.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('public/backend/assets/js/plugins/dataTables.bootstrap.min.js')}}"></script>
     <script type="text/javascript">
         $("#sampleTable").DataTable();
-
     </script>
     <!-- Google analytics script-->
     <script type="text/javascript">
@@ -134,23 +122,28 @@
             ga("send", "pageview");
         }
     </script>
+    <!-- toast -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
-        <!-- pusher -->
-        <script src="https://js.pusher.com/8.0.1/pusher.min.js"></script>
-        <script>
-            var pusher = new Pusher("b18a8b47f86b06965176", {
-                cluster: "ap1",
-            });
+    <!-- pusher -->
+    <script src="https://js.pusher.com/8.0.1/pusher.min.js"></script>
 
-            var channel = pusher.subscribe("OrderNotification");
+    <script>
 
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = true;
 
-            channel.bind("realtime-order", (data) => {
-                alert('Bạn đã dat hagn thanh cong');
-            });
-        </script>
+        var pusher = new Pusher('1e38bdbfaf17ff456b05', {
+          cluster: 'ap1'
+        });
 
-
+        var channel = pusher.subscribe('notification-channel');
+        channel.bind('payment-event', function(data) {
+            toastr.success('Thông báo đơn hàng', data.name)
+          // alert(JSON.stringify(data));
+        });
+      </script>
 </body>
 
 </html>
