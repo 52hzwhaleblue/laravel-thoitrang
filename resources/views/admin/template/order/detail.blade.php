@@ -153,8 +153,9 @@ Quản lý đơn hàng
                                             {{ $v->quantity }}
                                         </td>
                                         <td class="align-middle text-right">
-                                        <p class="text-danger font-weight-bold"> {{ number_format($v->quantity *  $v->product->sale_price,0,',','.') }} vnđ </p>
-
+                                            <p class="text-danger font-weight-bold">
+                                                {{ number_format($v->quantity *  $v->product->sale_price,0,',','.') }} vnđ
+                                            </p>
                                         </td>
                                     </tr>
                                     @endforeach

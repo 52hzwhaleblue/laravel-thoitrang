@@ -29,9 +29,11 @@ class OrderController extends BaseController
         return view('admin.template.order.order', compact('orders','order_status'));
     }
 
-    public function edit($order_id,$user_id)
+    public function edit(Request $request)
     {
-        // dd($order_id);
+        $order_id = $request->get('order_id');
+        $user_id = $request->get('user_id');
+
         $rowOrder = DB::table('table_orders')->where('user_id',$user_id)->first();
         $rowUser = User::where('id',$user_id)->first();
         $order_details = TableOrderDetail::where('order_id', $order_id)->get()

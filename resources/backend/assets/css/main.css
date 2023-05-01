@@ -14481,3 +14481,25 @@ table.dataTable thead>tr>th.sorting_asc{
     padding-left:0;
     padding-right:0;
 }
+
+/* Long CSS  */
+.chuong-notification {
+    position: relative;
+    display: block;
+    position: absolute;
+    font-size: 14px;
+    top: 0;
+    right: 0;
+    color: #fff;
+    background: #d23645;
+    padding: 2px 4px;
+    font-weight: bold;
+    border-radius: 59px;
+}
+.chuong-notification::after{
+    content:attr('count');
+    position:absolute;
+  width:10px;
+  height:10px;
+  background:red;
+}

@@ -2,37 +2,32 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TableProduct;
-use App\Models\TablePromotion;
 use Illuminate\Http\Request;
-use Gloudemans\Shoppingcart\Facades\Cart;
-use Illuminate\Support\Facades\Validator;
-use App\Models\TableOrder;
-use App\Models\TableOrderDetail;
-use Illuminate\Support\Str;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use Gloudemans\Shoppingcart\Facades\Cart;
+
+use Illuminate\Support\Str;
+use Carbon\Carbon;
+
 use App\Mail\SendMail;
 use App\Jobs\SendMailJob;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
+use App\Events\PusherEvent;
 
-
-
+use App\Models\TableOrder;
+use App\Models\TableOrderDetail;
+use App\Models\TableProduct;
+use App\Models\TablePromotion;
 
 class CartController extends Controller
 {
-
     public function index()
     {
-        // return Cart::destroy();
-
-//         $data = TableProduct::all();
-// // dd($data);
-      $data = Cart::content();
-
+        $data = Cart::content();
         return View('template.order.order',compact('data'));
-
     }
 
     public function add(Request $request,$id)
@@ -164,12 +159,14 @@ class CartController extends Controller
             "time_now" => Carbon::now()->format('d/m/Y m:h:s'),
             'dataCart' =>Cart::content(),
         ];
-
         dispatch(new SendMailJob($dataMail,$dataUser)); // thêm vào hàng đợi
         // Hủy Cart Session sau khi dặt hàng thành công
 
-
         Cart::destroy();
+
+        $bbb = "Khách hàng: ".$dataUser['fullname']." vừa đặt hàng";
+        event(new PusherEvent($bbb));
+
         return redirect()->route('index')->with('CartToast',' Bạn đã thanh toán thành công');
     }
 

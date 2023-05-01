@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\PusherEvent;
 use File;
 use App\Models\TablePost;
 use App\Models\TablePhoto;
@@ -22,6 +23,11 @@ class IndexController extends Controller
 
     public function __construct() {
         $this->type = Functions::getTypeByCom();
+    }
+
+    public function testPusher()
+    {
+        event(new PusherEvent("Khách hàng:"));
     }
 
     public function index(Request $request)
