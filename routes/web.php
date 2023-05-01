@@ -160,9 +160,8 @@ Route::group([
     Route::get('order', [OrderController::class,'index'])->name('order.index');
 
     // Chi tiết đơn hàng
-    Route::get('order-detail/{id}/{user_id}', [OrderController::class,'edit'])->name('order.detail');
-
-
+    Route::get('order-detail/{order_id}/{user_id}', [OrderController::class,'edit'])->name('order.detail');
+    // Route::put('order-detail/update/{order_id}', [OrderController::class,'update'])->name('order.detail-update');
 });
 
 // =========== user

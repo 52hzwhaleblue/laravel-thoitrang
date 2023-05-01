@@ -10,11 +10,6 @@ class TablePhoto extends Model
 {
     use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'photo',
         'content',

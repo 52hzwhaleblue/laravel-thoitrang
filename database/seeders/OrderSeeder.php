@@ -26,7 +26,7 @@ class OrderSeeder extends Seeder
 
         $updated_at = now();
 
-        $status = -1;
+        $status = 1;
 
         $orderEloquent = new TableOrder();
 
@@ -44,7 +44,7 @@ class OrderSeeder extends Seeder
                 'ship_price' => 0,
                 'notes' => ".....Note",
                 'total_price' => 500000,
-                'status' => $status, //-1 is order successfully
+                'status' => $status, // Mới đặt
                 "created_at" => $created_at,
                 "updated_at" => $updated_at,
             ]);

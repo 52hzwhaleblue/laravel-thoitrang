@@ -5,7 +5,8 @@ Quản lý đơn hàng
 
 @section('content')
 <section class="content">
-    <form method="post" action="" enctype="multipart/form-data">
+    <form action="" method="post" enctype="multipart/form-data">
+
         <div class="card card-primary card-outline text-sm">
 
             <div class="card-header">
@@ -18,66 +19,68 @@ Quản lý đơn hàng
 
                 <div class="form-group col-md-4 col-sm-6">
 
-                    <label>Mã đơn hàng:</label>
+                    <label class="font-weight-bold">Mã đơn hàng:</label>
 
                     <p class="text-primary">
-                        {{ $rowOrder['code'] }}
+                        {{ $rowOrder->code }}
                     </p>
 
                 </div>
 
                 <div class="form-group col-md-4 col-sm-6">
 
-                    <label>Hình thức thanh toán:</label>
+                    <label class="font-weight-bold">Hình thức thanh toán:</label>
                     <p class="text-info">
-                        <?= $rowOrder['payment_method'] ?>
+                        {{ $rowOrder->payment_method }}
+
                     </p>
                 </div>
 
                 <div class="form-group col-md-4 col-sm-6">
-                    <label>Họ tên:</label>
-                    <p class="font-weight-bold text-uppercase text-success">{{ $rowOrder['shipping_fullname'] }} </p>
+                    <label class="font-weight-bold">Họ tên:</label>
+                    <p class="font-weight-bold text-uppercase text-success">{{ $rowOrder->shipping_fullname }} </p>
                 </div>
 
                 <div class="form-group col-md-4 col-sm-6">
-                    <label>Điện thoại:</label>
-                    <p> {{ $rowOrder['shipping_phone'] }} </p>
+                    <label class="font-weight-bold">Điện thoại:</label>
+                    <p> {{ $rowOrder->shipping_phone }} </p>
                 </div>
 
                 <div class="form-group col-md-4 col-sm-6">
-                    <label>Email:</label>
-                    <p> {{ $rowUser['email'] }} </p>
+                    <label class="font-weight-bold">Email:</label>
+                    <p> {{ $rowUser->email }} </p>
                 </div>
 
                 <div class="form-group col-md-4 col-sm-6">
-                    <label>Địa chỉ:</label>
-                    <p> {{ $rowOrder['shipping_address'] }} </p>
+                    <label class="font-weight-bold">Địa chỉ:</label>
+                    <p> {{ $rowOrder->shipping_address }} </p>
                 </div>
 
                 <div class="form-group col-md-4 col-sm-6">
-                    <label>Phí vận chuyển:</label>
+                    <label class="font-weight-bold">Phí vận chuyển:</label>
                     <p class="font-weight-bold text-danger">
-                        0 vnđ
+                        Không
                     </p>
                 </div>
 
                 <div class="form-group col-md-4 col-sm-6">
-                    <label>Ngày đặt:</label>
-                    {{-- <p> {{ $rowOrder['created_at'] }} </p> --}}
+                    <label class="font-weight-bold">Ngày đặt:</label>
+                    <p> {{ $rowOrder->created_at }} </p>
                 </div>
 
-                <div class="form-group col-12">
-                    <label for="order_status" class="mr-2">Tình trạng:</label>
-                   <p> Mới đặt </p>
+                <div class="form-group col-6">
+                    <label for="order_status" class="mr-2 font-weight-bold">Tình trạng:</label>
+                    <select name="order_status" id="" class="form-select" aria-label="Default select example">
+                        <option value="0"> Chọn tình trạng </option>
+                        @foreach ($order_status as $k => $v )
+                            <option value="{{ $v->id }}" @if($rowOrder->status == $v->id) selected  @endif > {{ $v->name }} </option>
+                        @endforeach
+                   </select>
                 </div>
             </div>
         </div>
 
-        <div class="card card-primary card-outline text-sm">
-            <div class="card-header">
-                <h3 class="card-title">Chi tiết đơn hàng</h3>
-            </div>
-        </div>
+        <h4> Chi tiết đơn hàng</h4>
 
         <div class="row">
             <div class="col-md-12">
@@ -90,20 +93,28 @@ Quản lý đơn hàng
                             >
                                 <thead>
                                     <tr>
-                                        <th class="align-middle">Hình ảnh</th>
-                                        <th class="align-middle" style="width:30%">Tên sản phẩm</th>
+                                        <th class="align-middle text-center">Hình ảnh</th>
+                                        <th class="align-middle text-center" style="width:30%">Tên sản phẩm</th>
                                         <th class="align-middle text-center">Đơn giá</th>
                                         <th class="align-middle text-right">Số lượng</th>
                                         <th class="align-middle text-right">Tạm tính</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($data as $k =>$v)
+                                    @foreach ($order_details as $k =>$v)
                                     <tr>
                                         <td class="align-middle">
 
-                                            <a title="{{ $v->name }}">
-                                                <img src="" alt="">
+                                            <a title="{{ $v->product->name }}" class="text-center d-block">
+                                                <img
+                                                style="width: 60px; height: 60px"
+                                                src="{{
+                                                    asset(
+                                                        'http://localhost:8000/storage/'.$v->product->photo
+                                                    )
+                                                }}"
+                                                alt="{{ $v->product->name }}"
+                                            />
                                             </a>
 
                                         </td>
@@ -142,14 +153,15 @@ Quản lý đơn hàng
                                             {{ $v->quantity }}
                                         </td>
                                         <td class="align-middle text-right">
-                                            {{ $v->quantity *  $v->product->sale_price }}
+                                        <p class="text-danger font-weight-bold"> {{ number_format($v->quantity *  $v->product->sale_price,0,',','.') }} vnđ </p>
+
                                         </td>
                                     </tr>
                                     @endforeach
                                 </tbody>
                             </table>
-                            <p> Tổng giá trị đơn hàng: {{ $rowOrder['total_price'] }} </p>
-
+                            <p class="text-right mt-3 text-danger font-weight-bold">
+                                Tổng giá trị đơn hàng: {{ number_format($rowOrder->total_price,0,',','.')  }} vnđ</p>
                         </div>
                     </div>
                 </div>

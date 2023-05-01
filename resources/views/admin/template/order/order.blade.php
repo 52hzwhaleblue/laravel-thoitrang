@@ -46,7 +46,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($datas as $k =>$v)
+                            @foreach ($orders as $k =>$v)
                                 <tr>
                                     <th>
                                         <div class="custom-control custom-checkbox my-checkbox">
@@ -71,7 +71,11 @@
                                         <p> {{ number_format($v->total_price,0,',','.') }} vnđ </p>
                                     </th>
                                     <th class="align-middle">
-                                        <p> Mới đặt </p>
+                                        @foreach ($order_status as $k1 => $v1 )
+                                            @if($v->status == $v1->id)
+                                            <p class="{{ $v1->class_order }}"> {{ $v1->name }} </p>
+                                            @endif
+                                        @endforeach
                                     </th>
 
                                     <th class="align-middle d-flex">

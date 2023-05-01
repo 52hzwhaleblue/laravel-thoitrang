@@ -9,6 +9,9 @@
     ></a>
     <!-- Navbar Right Menu-->
     <ul class="app-nav">
+        <a href="{{ route('index') }}" class="d-flex align-items-center mr-3">
+            <i class="fa-solid fa-reply text-white"></i>
+          </a>
         <li class="app-search">
             <input
                 class="app-search__input"
