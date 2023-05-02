@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\TableCategory;
+use App\Models\TableNotification;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
@@ -124,6 +126,7 @@ class CartController extends Controller
 
         // $db::commit(); //them vao database
         $db::transaction(function () use ($request,$user_id,$dataUser,$dataCart,$code_order) {
+            // Lưu vào table_order
             $order = TableOrder::create([
                 'code' => $code_order,
                 'user_id' => $user_id,
@@ -136,6 +139,7 @@ class CartController extends Controller
                 'status' => 1,
             ]);
 
+            // Lưu vào table_order_details
             foreach ($dataCart as $kcart => $vcart) {
                 TableOrderDetail::create([
                     'order_id' => $order->id,
@@ -145,6 +149,10 @@ class CartController extends Controller
                     'quantity' => $vcart->qty,
                 ]);
             }
+
+            // Lưu vào table_notifications
+            $message_notification ="Đơn hàng của ".$dataUser['fullname'];
+            $this->store_notification($request,$user_id,$order->id, $message_notification);
         });
 
         // Gửi Mail cho khách hàng
@@ -161,15 +169,24 @@ class CartController extends Controller
         ];
         dispatch(new SendMailJob($dataMail,$dataUser)); // thêm vào hàng đợi
         // Hủy Cart Session sau khi dặt hàng thành công
-
         Cart::destroy();
 
-        $bbb = "Khách hàng: ".$dataUser['fullname']." vừa đặt hàng";
-        event(new PusherEvent($bbb));
+        $message_notification ="Đơn hàng của khách hàng ".$dataUser['fullname'];
+        event(new PusherEvent($message_notification));
 
         return redirect()->route('index')->with('CartToast',' Bạn đã thanh toán thành công');
     }
 
+    public function store_notification(Request $request, $suer_id,$order_id,$message_notification)
+    {
+        $notification = new TableNotification();
+        $notification->user_id = $suer_id;
+        $notification->order_id = $order_id;
+        $notification->title = $message_notification;
+        $notification->is_read = 0;
+        $notification->type = 'chat';
+        $notification->save();
+    }
     public function validate_cart(Request $request){
         $validate = $request->validate([
             'fullname' => ['required', 'string','min:5', 'max:20'],

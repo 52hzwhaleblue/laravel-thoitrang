@@ -87,8 +87,36 @@ function checAll(){
     });
 }
 
+// Realtime Notification
+function realtimeNotification(){
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('1e38bdbfaf17ff456b05', {
+        cluster: 'ap1'
+    });
+
+    var channel = pusher.subscribe('notification-channel');
+    channel.bind('payment-event', function(data) {
+        countNotification();
+        orderNotification(data);
+    });
+}
+
+function countNotification(){
+    let current_notification = $('.chuong-notification').text();
+    let future_notification = parseInt(current_notification)+1;
+    $('.chuong-notification').text(future_notification);
+    // toastr.success(a, data.name)
+}
+
+function orderNotification(data){
+    toastr.success(data.name,"1 Đơn hàng mới cần xử lý")
+}
+
 $(document).ready(function() {
     changeTitle();
     checkPrice();
     checAll();
+    realtimeNotification();
 });

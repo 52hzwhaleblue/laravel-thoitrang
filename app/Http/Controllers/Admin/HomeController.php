@@ -13,27 +13,9 @@ use App\Models\TableNotification;
 
 class HomeController extends Controller
 {
-
-
     public function index()
     {
-        $menus = config('menu');
-        $type_notifications = DB::table('table_notifications')
-                 ->select('type')
-                 ->groupBy('type')
-                 ->get();
-
-        $list_notifications = DB::table('table_notifications')->get()
-        ->map(function($type_notifications){
-            $type_notifications->type = TableNotification::find($type_notifications->type);
-            return $type_notifications;
-        },);
-
-        $count_notifications= TableNotification::where('is_read','=','0')->get();
-
-        // dd( count($count_notifications));
-
-        return view('admin.app',compact('type_notifications','list_notifications','count_notifications'));
+        return view('admin.app');
     }
 
     /**

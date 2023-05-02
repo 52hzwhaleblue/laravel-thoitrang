@@ -16,7 +16,6 @@ class NotificationController extends Controller
         $list_notifications = DB::table('table_notifications')
             ->select(DB::raw("'COUNT'(type) as count"))
             ->groupBy('type')
-            ->havingRaw(''COUNT'(type)','>',1)
             ->get();
         dd($list_notifications);
 

@@ -156,8 +156,6 @@ Route::group([
             }
         }
     });
-    // get real time order
-    Route::get('testOrder', [OrderController::class,'testOrder'])->name('order.testOrder');
 
     // Đơn hàng
     Route::get('order', [OrderController::class,'index'])->name('order.index');
@@ -165,7 +163,7 @@ Route::group([
     // Chi tiết đơn hàng
     // Route::get('order-detail/{order_id}/{user_id}', [OrderController::class,'edit'])->name('order.detail');
     Route::get('order-detail', [OrderController::class,'edit'])->name('order.detail');
-    // Route::put('order-detail/update/{order_id}', [OrderController::class,'update'])->name('order.detail-update');
+    Route::put('order-detail/update', [OrderController::class,'update'])->name('order_detail.update');
 });
 
 // =========== user
@@ -213,5 +211,3 @@ Route::middleware("CheckLogin")->group(function() {
     Route::get('/cart/update_ajax', [CartController::class,'update_ajax'])->name('cart.update_ajax');
 });
 
-// test pusher
-Route::get('test-pusher',[IndexController::class,'testPusher']);

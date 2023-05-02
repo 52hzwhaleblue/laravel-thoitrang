@@ -54,9 +54,6 @@
                                         </div>
                                     </th>
                                     <th class="align-middle">
-                                        {{-- <a href="order-detail/{{ $v->id }}/{{ $v->user_id }}">
-                                            {{ $v->code }}
-                                        </a> --}}
 
                                         <a href="order-detail?order_id={{ $v->id }}&user_id={{ $v->user_id }}">
                                             {{ $v->code }}
@@ -64,7 +61,7 @@
 
                                     </th>
                                     <th class="align-middle">
-                                        <p> {{$v->user->fullname}} </p>
+                                        <p> {{$v->shipping_fullname}} </p>
                                     </th>
                                     <th class="align-middle">
                                         <p> {{ $v->created_at }} </p>

@@ -27,8 +27,6 @@ class CategoryController extends BaseController
 
     public function store(Request $request)
     {
-        $count = TableCategory::all()->count();
-
         $url = $this->uploadPhoto($request,"categories/",415,655);
         $Category = new TableCategory();
 

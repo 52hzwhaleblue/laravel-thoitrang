@@ -165,7 +165,6 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
 
-
         /*
          * Package Service Providers...
          */
@@ -181,6 +180,9 @@ return [
 
         // Giỏ hàng https://github.com/hardevine/LaravelShoppingcart
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
+
+        // Debugbar https://github.com/barryvdh/laravel-debugbar
+        Barryvdh\Debugbar\ServiceProvider::class,
 
 
     ],
@@ -239,6 +241,8 @@ return [
 
         // Giỏ hàng https://github.com/hardevine/LaravelShoppingcart
         'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
+         // Debugbar https://github.com/barryvdh/laravel-debugbar
+        'Debugbar' => Barryvdh\Debugbar\Facades\Debugbar::class,
     ],
 
 ];
