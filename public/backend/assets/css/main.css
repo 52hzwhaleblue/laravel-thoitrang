@@ -12768,6 +12768,8 @@ be a descendant of the grid when it is being dragged.
 .app-notification__content {
   max-height: 220px;
   overflow-y: auto;
+  position: relative;
+  z-index: 999999;
 }
 
 .app-notification__content::-webkit-scrollbar {
@@ -14465,7 +14467,7 @@ select#type {
 .sticky-top1{
     position: sticky;
     top: 50px;
-    z-index: 99999999;
+    z-index: 9;
     background: #e5e5e5;
     margin-left: 10px;
 }

@@ -128,22 +128,6 @@
 
     <!-- pusher -->
     <script src="https://js.pusher.com/8.0.1/pusher.min.js"></script>
-
-    <script>
-
-        // Enable pusher logging - don't include this in production
-        Pusher.logToConsole = true;
-
-        var pusher = new Pusher('1e38bdbfaf17ff456b05', {
-          cluster: 'ap1'
-        });
-
-        var channel = pusher.subscribe('notification-channel');
-        channel.bind('payment-event', function(data) {
-            toastr.success('Thông báo đơn hàng', data.name)
-          // alert(JSON.stringify(data));
-        });
-      </script>
 </body>
 
 </html>

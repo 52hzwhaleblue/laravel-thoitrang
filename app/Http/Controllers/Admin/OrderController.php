@@ -12,6 +12,8 @@ use App\Models\TableOrderDetail;
 use App\Models\User;
 use App\Models\TableProduct;
 use App\Models\TableOrderStatus;
+use App\Models\TableNotification;
+
 
 
 class OrderController extends BaseController
@@ -34,7 +36,10 @@ class OrderController extends BaseController
         $order_id = $request->get('order_id');
         $user_id = $request->get('user_id');
 
-        $rowOrder = DB::table('table_orders')->where('user_id',$user_id)->first();
+        $rowOrder = DB::table('table_orders')
+            ->where('id',$order_id)
+            ->first();
+
         $rowUser = User::where('id',$user_id)->first();
         $order_details = TableOrderDetail::where('order_id', $order_id)->get()
         ->map(function($order_detail){
@@ -46,14 +51,26 @@ class OrderController extends BaseController
         return view('admin.template.order.detail',compact('order_details','order_status','rowOrder','rowUser'));
     }
 
-    public function testOrder(){
-        $channel = "OrderNotification";
-        $data = [
-            "123",
-            "123",
-            "123",
-            "123",
-        ];
-        return $this->pusher($channel,"realtime-order",$data);
+    public function update(Request $request)
+    {
+        $order_status = $request->get('order_status');
+        $order_id = $request->query('order_id');
+        $user_id = $request->query('user_id');
+
+        // update table_orders
+        $order = TableOrder::where('id',$order_id)->where('user_id',$user_id)->first();
+        $order->status = $order_status;
+        $order->save();
+
+        // update table_notification
+        $notification = TableNotification::where('order_id',$order_id)->where('user_id',$user_id)->first();
+        $notification->is_read = 1;
+        $notification->save();
+
+        return redirect()
+            ->route('admin.order.index')
+            ->with('message', 'Bạn đã cập nhật đơn hàng thành công!');
+
+
     }
 }

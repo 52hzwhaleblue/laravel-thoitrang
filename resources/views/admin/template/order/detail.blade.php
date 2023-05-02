@@ -1,38 +1,38 @@
 @extends('admin.app')
 @section('title')
-Quản lý đơn hàng
+Quản lý chi tiết đơn hàng
 @endsection
 
 @section('content')
 <section class="content">
-    <form action="" method="post" enctype="multipart/form-data">
+    <form
+        action="order-detail/update?order_id={{ $rowOrder->id }}&user_id={{ $rowUser->id }}"
+        method="post"
+        enctype="multipart/form-data">
+        @csrf
+        @method('PUT')
+
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary">Cập nhật</button>
+        </div>
 
         <div class="card card-primary card-outline text-sm">
-
             <div class="card-header">
-
                 <h3 class="card-title">Thông tin chính</h3>
-
             </div>
 
             <div class="card-body row">
-
                 <div class="form-group col-md-4 col-sm-6">
-
                     <label class="font-weight-bold">Mã đơn hàng:</label>
-
                     <p class="text-primary">
                         {{ $rowOrder->code }}
                     </p>
-
                 </div>
 
                 <div class="form-group col-md-4 col-sm-6">
-
                     <label class="font-weight-bold">Hình thức thanh toán:</label>
                     <p class="text-info">
                         {{ $rowOrder->payment_method }}
-
                     </p>
                 </div>
 
