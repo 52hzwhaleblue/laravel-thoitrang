@@ -184,7 +184,7 @@ class CartController extends Controller
         $notification->order_id = $order_id;
         $notification->title = $message_notification;
         $notification->is_read = 0;
-        $notification->type = 'chat';
+        $notification->type = 'order';
         $notification->save();
     }
     public function validate_cart(Request $request){

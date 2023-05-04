@@ -7,6 +7,9 @@ use App\Models\TableNotificationDetail;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+/**
+ * @method static where(string $string, int $int)
+ */
 class TableNotification extends Model
 {
     use HasFactory;

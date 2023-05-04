@@ -6,6 +6,9 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+/**
+ * @method static where(string $string, string $string1)
+ */
 class TablePhoto extends Model
 {
     use HasFactory;

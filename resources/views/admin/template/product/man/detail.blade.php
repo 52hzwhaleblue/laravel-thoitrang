@@ -2,13 +2,12 @@
 @section('content')
 
 <body>
-    <div class="container">
+    <div class="">
         <h3> Chi tiết hình ảnh sản phẩm </h3>
 
         <h1> {{$id}} </h1>
         <form method="post" action="{{ route('admin.imagezone.upload',$id) }}" enctype="multipart/form-data" class="dropzone" id="dropzone">
             @csrf
-
         </form>
     </div>
 
@@ -34,6 +33,5 @@
         }
     </script>
   </body>
-</html>
 
 @endsection

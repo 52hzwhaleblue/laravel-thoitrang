@@ -49,7 +49,13 @@ class AppServiceProvider extends ServiceProvider
         }
 
         if(Schema::hasTable('table_notifications')){
-            $count_notifications = TableNotification::where('is_read', 0)->get();
+            $count_total_notifications = TableNotification::where('is_read', 0)->get();
+            $count_order_notifications = TableNotification::where('is_read', 0)
+                ->where('type','order')
+                ->get();
+            $count_chat_notifications = TableNotification::where('is_read', 0)
+                ->where('type','chat')
+                ->get();
             $type_notifications = DB::table('table_notifications')
                 ->select('type')
                 ->groupBy('type')
@@ -57,7 +63,9 @@ class AppServiceProvider extends ServiceProvider
             $list_notifications = DB::table('table_notifications')->get();
 
             View::share(compact(
-                'count_notifications',
+                'count_total_notifications',
+                'count_order_notifications',
+                'count_chat_notifications',
                 'type_notifications',
                 'list_notifications',
             ));

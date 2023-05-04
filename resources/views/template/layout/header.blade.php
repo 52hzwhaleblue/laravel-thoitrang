@@ -31,6 +31,16 @@
                                 @csrf
                             </form>
                         </li>
+                        <li>
+                            <a href="{{route('user.show',Auth::user()->id )}}">
+                                <lord-icon
+                                    src="https://cdn.lordicon.com/zthozvfn.json"
+                                    trigger="hover"
+                                    colors="primary:#b26836,secondary:#4bb3fd,tertiary:#f9c9c0,quaternary:#ebe6ef"
+                                    style="width:50px;height:50px">
+                                </lord-icon>
+                            </a>
+                        </li>
                         @endauth
 
 

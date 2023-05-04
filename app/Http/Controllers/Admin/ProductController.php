@@ -2,25 +2,23 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\Functions;
 use App\Http\Controllers\Controller;
+use App\Models\TableOrderDetail;
+use App\Models\TableProductDetail;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\TableCategory;
 use App\Models\TableProduct;
-use Functions;
 use App\Http\Controllers\Api\BaseController as BaseController;
 
 class ProductController extends BaseController
 {
-    public $config_status = ['noibat','hienthi'];
-
     public function index()
     {
         // TableProduct::factory()->count(5)->create();
         $data = TableProduct::all();
-        $status = $this->config_status;
-
-        return view('admin.template.product.man.man',compact('data','status'));
+        return view('admin.template.product.man.man',compact('data'));
     }
 
     /**
@@ -42,7 +40,6 @@ class ProductController extends BaseController
         $url1 = $this->uploadPhoto1($request,"products/",415,655);
 
         $product = new TableProduct();
-
         $product->name = $request->get('name');
         $product->desc = $request->get('desc');
         $product->content = $request->get('content');
@@ -82,31 +79,33 @@ class ProductController extends BaseController
         $product->sale_price = $request->get('sale_price');
         $product->discount = $request->get('discount');
 
-        // dd(json_decode($product,true));
         $product->save();
+
+        // Gọi hàm lưu table_product_detail với size,color,stock
+        $colors = $request->get('color');
+        $stocks = $request->get('stock');
+
+        foreach ($colors as $kcolor => $vcolor)
+        {
+            TableProductDetail::create([
+                'product_id' => $product->id,
+                'color' => $vcolor,
+                "stock" => $stocks[$kcolor],
+                "create_at" => now(),
+                "updated_at" => now(),
+            ]);
+        }
 
         return redirect()
             ->route('admin.product.product-man.index')
             ->with('message', 'Bạn đã tạo sản phẩm thành công!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($slug)
     {
         $sql = TableProduct::where('slug', $slug)->first();
