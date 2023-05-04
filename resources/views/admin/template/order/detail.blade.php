@@ -139,12 +139,8 @@ Quản lý chi tiết đơn hàng
                                         <td class="align-middle text-center">
 
                                             <div class="price-cart-detail">
-                                                <span class="price-new-cart-detail mr-3">
-                                                    {{ $v->product->sale_price }}
-                                                </span>
-
-                                                <span class="price-old-cart-detail">
-                                                    {{ $v->product->regular_price }}
+                                                <span class="price-new mr-3">
+                                                {{ number_format( $v->product->sale_price,0,',','.') }} vnđ
                                                 </span>
                                             </div>
                                         </td>
@@ -153,7 +149,7 @@ Quản lý chi tiết đơn hàng
                                             {{ $v->quantity }}
                                         </td>
                                         <td class="align-middle text-right">
-                                            <p class="text-danger font-weight-bold">
+                                            <p class="price-new font-weight-bold">
                                                 {{ number_format($v->quantity *  $v->product->sale_price,0,',','.') }} vnđ
                                             </p>
                                         </td>

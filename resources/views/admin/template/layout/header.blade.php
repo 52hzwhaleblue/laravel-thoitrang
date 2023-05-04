@@ -24,68 +24,70 @@
                     state="loop"
                     style="width:22px;height:22px">
                 </lord-icon>
-                <span class="chuong-notification"> {{ count($count_notifications)  }} </span>
+                <span class="chuong-notification"> {{ count($count_total_notifications)  }} </span>
             </a>
 
             <ul class="app-notification dropdown-menu dropdown-menu-right">
                 <li class="app-notification__title">
-                    You have {{ count($count_notifications) }} new notifications.
+                    You have {{ count($count_total_notifications) }} new notifications.
                 </li>
                 <div class="app-notification__content">
-                        @foreach($type_notifications as $k => $v)
-                        <li>
-                            <a class="app-notification__item" href="">
+                    <li>
+                        <a class="app-notification__item" href="{{route('admin.order.index')}}">
                                 <span class="app-notification__icon">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
-                                        <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
-                                    </span>
+                                    <lord-icon
+                                        src="https://cdn.lordicon.com/pimvysaa.json"
+                                        trigger="hover"
+                                        colors="outline:#121331,primary:#b26836,secondary:#ffc738"
+                                        style="width:45px;height:45px">
+                                    </lord-icon>
                                 </span>
-                                <div>
-                                    <p class="app-notification__message">
-                                        {{$v->type}}
-                                    </p>
-                                    <p class="app-notification__meta">2 min ago</p>
-                                </div>
-                            </a>
-                        </li>
-                        @endforeach
-{{--                    <li>--}}
-{{--                        <a class="app-notification__item" href="javascript:;">--}}
-{{--                            <span class="app-notification__icon">--}}
-{{--                                <span class="fa-stack fa-lg">--}}
-{{--                                    <i class="fa fa-circle fa-stack-2x text-danger"></i>--}}
-{{--                                    <i class="fa fa-hdd-o fa-stack-1x fa-inverse"></i>--}}
-{{--                                </span>--}}
-{{--                            </span>--}}
-{{--                            <div>--}}
-{{--                                <p class="app-notification__message">--}}
-{{--                                    Mail server not working--}}
-{{--                                </p>--}}
-{{--                                <p class="app-notification__meta">5 min ago</p>--}}
-{{--                            </div>--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
+                            <div>
+                                <p class="app-notification__message">
+                                    Bạn có <b class="text-danger order_notifications"> {{count($count_order_notifications)}} </b> đơn hàng cần xử lý
+                                </p>
+                                <p class="app-notification__meta">2 min ago</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="app-notification__item" href="javascript:;">
+                            <span class="app-notification__icon">
+                                <lord-icon
+                                    src="https://cdn.lordicon.com/flvisirw.json"
+                                    trigger="hover"
+                                    colors="primary:#646e78,secondary:#4bb3fd,tertiary:#ebe6ef"
+                                    style="width:45px;height:45px">
+                                </lord-icon>
+                            </span>
+                            <div>
+                                <p class="app-notification__message">
+                                    Bạn có <b class="text-danger"> {{count($count_chat_notifications)}} </b> chat cần xử lý
+                                </p>
+                                <p class="app-notification__meta">5 min ago</p>
+                            </div>
+                        </a>
+                    </li>
 
-{{--                    <li>--}}
-{{--                        <a class="app-notification__item" href="javascript:;">--}}
-{{--                            <span class="app-notification__icon">--}}
-{{--                                <span class="fa-stack fa-lg">--}}
-{{--                                    <i class="fa fa-circle fa-stack-2x text-success"></i>--}}
-{{--                                    <i class="fa fa-money fa-stack-1x fa-inverse"></i>--}}
-{{--                                </span>--}}
-{{--                            </span>--}}
-{{--                            <div>--}}
-{{--                                <p class="app-notification__message">--}}
-{{--                                    Transaction complete--}}
-{{--                                </p>--}}
-{{--                                <p class="app-notification__meta">2 days ago</p>--}}
-{{--                            </div>--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-{{--                    <li class="app-notification__footer">--}}
-{{--                        <a href="#">See all notifications.</a>--}}
-{{--                    </li>--}}
+                    <li>
+                        <a class="app-notification__item" href="javascript:;">
+                            <span class="app-notification__icon">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x text-success"></i>
+                                    <i class="fa fa-money fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </span>
+                            <div>
+                                <p class="app-notification__message">
+                                    Transaction complete
+                                </p>
+                                <p class="app-notification__meta">2 days ago</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="app-notification__footer">
+                        <a href="#">See all notifications.</a>
+                    </li>
                 </div>
 
             </ul>

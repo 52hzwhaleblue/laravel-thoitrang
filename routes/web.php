@@ -33,9 +33,11 @@ use App\Http\Controllers\Admin\OrderController;
 // Notification Controller
 use App\Http\Controllers\Admin\NotificationController;
 
-
 // Index Controller
 use App\Http\Controllers\IndexController;
+
+// User Controller
+use App\Http\Controllers\UserController;
 
 // Cart Controller
 use App\Http\Controllers\CartController;
@@ -170,19 +172,16 @@ Route::group([
 // Email Auth
 Auth::routes(['verify' => true]);
 
-
 //Route logout user account
 // Route::post("logout_user", function() {
 //     Auth::logout();
 //     return redirect("/");
 // })->name('logout.user');
 
-
 // Route login user account
 Route::get('login_user', function() {
     return redirect("login");
 })->name("login.user");
-
 
 Route::get('/', [IndexController::class ,'index'])->name('index');
 Route::get('/gioi-thieu', [IndexController::class,'static'])->name('gioi-thieu');
@@ -194,6 +193,7 @@ Route::get('/san-pham', [IndexController::class,'san_pham'])->name('san-pham');
 Route::get('/chi-tiet-san-pham/{slug}/{id}', [IndexController::class,'chi_tiet_san_pham'])->name('chi_tiet_san_pham');
 Route::post('/load_ajax_product', [IndexController::class,'load_ajax_product']);
 
+Route::get('/user/{id}', [UserController::class,'show'])->name('user.show');
 
 
 Route::middleware("CheckLogin")->group(function() {
