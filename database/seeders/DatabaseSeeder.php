@@ -3,14 +3,15 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Database\Seeders\ReviewSeeder;
 use Database\Seeders\UserSeeder;
 use Database\Seeders\PhotoSeeder;
-use Database\Seeders\ReviewSeeder;
 use Database\Seeders\ProductSeeder;
 use Database\Seeders\CategorySeeder;
 use Database\Seeders\PromotionSeeder;
 use Database\Seeders\NotificationSeeder;
 use Database\Seeders\ProductDetailSeeder;
+use Database\Seeders\StaticSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -31,5 +32,6 @@ class DatabaseSeeder extends Seeder
         $this->call(OrderSeeder::class);
         $this->call(OrderStatusSeeder::class);
         $this->call(ReviewSeeder::class);
+        $this->call(StaticSeeder::class);
     }
 }

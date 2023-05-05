@@ -30,5 +30,14 @@ class PhotoSeeder extends Seeder
                 "updated_at" => date("Y-m-d H:i:s"),
             ]);
         }
+
+        // Logo
+        $photoEloquent->create([
+            "name" => 'logo',
+            "type" => 'logo',
+            "photo" => 'thumbnails/photo/logo-8163_6455057ae4506.png',
+            "created_at" => date("Y-m-d H:i:s"),
+            "updated_at" => date("Y-m-d H:i:s"),
+        ]);
     }
 }
