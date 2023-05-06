@@ -184,6 +184,9 @@ return [
         // Debugbar https://github.com/barryvdh/laravel-debugbar
         Barryvdh\Debugbar\ServiceProvider::class,
 
+        // Excel https://docs.laravel-excel.com/3.1/getting-started/installation.html
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+
 
     ],
 
@@ -241,8 +244,12 @@ return [
 
         // Giỏ hàng https://github.com/hardevine/LaravelShoppingcart
         'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
+
          // Debugbar https://github.com/barryvdh/laravel-debugbar
         'Debugbar' => Barryvdh\Debugbar\Facades\Debugbar::class,
+
+        // Excel https://docs.laravel-excel.com/3.1/getting-started/installation.html
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
     ],
 
 ];

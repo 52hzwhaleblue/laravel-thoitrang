@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Helpers\Functions;
 use App\Http\Controllers\Controller;
+use App\Imports\ProductsImport;
 use App\Models\TableOrderDetail;
 use App\Models\TableProductDetail;
 use Illuminate\Http\Request;
@@ -11,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\TableCategory;
 use App\Models\TableProduct;
 use App\Http\Controllers\Api\BaseController as BaseController;
+use Excel;
 
 class ProductController extends BaseController
 {
@@ -188,9 +190,18 @@ class ProductController extends BaseController
             $products->delete();
             return redirect()->route('admin.product.product-man.index')->with('message', 'Bạn đã xóa sản phẩm thành công!');
         }
-
+        return ;
     }
 
+    public function importProduct()
+    {
+        return view('admin.template.product.excel.import');
+    }
+    public function uploadProduct(Request $request)
+    {
+        Excel::import(new ProductsImport,$request->file('file'));
+        return redirect()->route('admin.product.product-man.index')->with('message', 'Bạn đã import file sản phẩm thành công!');
+    }
     public function deleteAll(Request $request,$id)
     {
         dd('deleteAll');
