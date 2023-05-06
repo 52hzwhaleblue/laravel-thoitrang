@@ -28,8 +28,9 @@ Route::group([
     Route::group(['prefix' => 'product', 'as' => 'product.',], function(){
         Route::resource('product-list', CategoryController::class);
         Route::resource('product-man', ProductController::class);
-        Route::get('product-import', [ProductController::class,'importProduct'])->name('importProduct');
-        Route::post('product-upload', [ProductController::class,'uploadProduct'])->name('uploadProduct');
+        Route::get('product-import', [ProductController::class,'import_view'])->name('importProduct');
+        Route::post('product-upload', [ProductController::class,'import_handle'])->name('uploadProduct');
+        Route::post('product-export', [ProductController::class,'export_handle'])->name('exportProduct');
 
         Route::post('product-man/deleteAll', [ProductController::class,'deleteAll'])->name('deleteAll');
     });

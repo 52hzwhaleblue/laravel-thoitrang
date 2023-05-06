@@ -5,8 +5,11 @@ namespace App\Imports;
 use App\Models\TableProduct;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithStartRow;
 
-class ProductsImport implements ToModel
+
+
+class ProductsImport implements ToModel,WithStartRow
 {
     /**
     * @param array $row
@@ -25,5 +28,10 @@ class ProductsImport implements ToModel
             'desc' => $row[6],
             'status' => $row[7],
         ]);
+    }
+
+    public function startRow():int
+    {
+        return 2;
     }
 }

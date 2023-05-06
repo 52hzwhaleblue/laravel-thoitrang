@@ -28,7 +28,7 @@
                     'index' => 'admin.product.product-man.index',
                 ],
                 'import' =>[
-                    'title' => 'Import Data',
+                    'title' => 'Import/Export Product',
                     'index' => 'admin.product.importProduct',
                 ]
             ]

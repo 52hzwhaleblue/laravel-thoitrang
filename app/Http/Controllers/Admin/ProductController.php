@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\ProductsExport;
 use App\Helpers\Functions;
 use App\Http\Controllers\Controller;
 use App\Imports\ProductsImport;
@@ -193,14 +194,28 @@ class ProductController extends BaseController
         return ;
     }
 
-    public function importProduct()
+    public function import_view()
     {
         return view('admin.template.product.excel.import');
     }
-    public function uploadProduct(Request $request)
+
+    public function import_handle(Request $request)
     {
-        Excel::import(new ProductsImport,$request->file('file'));
-        return redirect()->route('admin.product.product-man.index')->with('message', 'Bạn đã import file sản phẩm thành công!');
+        $path = $request->file('file');
+
+        if($path){
+            Excel::import(new ProductsImport,$path);
+            return redirect()->route('admin.product.product-man.index')->with('message', 'Bạn đã import file sản phẩm thành công!');
+        }
+        else{
+            return redirect()->route('admin.product.product-man.index')->with('message', 'Vui lòng chọn file');
+        }
+
+    }
+
+    public function export_handle()
+    {
+        return Excel::download(new ProductsExport(), 'products.csv',  \Maatwebsite\Excel\Excel::CSV);
     }
     public function deleteAll(Request $request,$id)
     {
