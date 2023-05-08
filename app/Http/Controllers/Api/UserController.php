@@ -45,7 +45,7 @@ class UserController extends BaseController
            
                 Storage::disk('public')->delete($imagePath);
                
-                $path = $this->uploadFile($request,"avatars/",150,150);
+                $path = $this->uploadFile($request,"avatars/",1920,1028);
                 
                 $query->update(["photo" => $path]);
             }
@@ -112,108 +112,6 @@ class UserController extends BaseController
 
             $dataFetch = TableOrder::where('user_id',Auth::id())->get();
             return $this->sendResponse($dataFetch,"Fetch order successfully!!");
-
-        } catch (\Throwable $th) {    
-            return $this->sendError( $th->getMessage(),null,500);
-        }
-    }
-
-    public function createChat(Request $request, TableRoomChat $room_chat_eloquent, TableChat $chat_eloquent)
-    {
-        try {
-            $chatMessage = $request->input('message');
-
-            $admin = User::where('role', 0)->firstOrFail();
-
-            $userId = Auth::id();
-
-            $roomChatUser = $room_chat_eloquent::where('user_id',$userId);
-
-            $existsRoomChat = $roomChatUser->exists();
-
-            $time = now();
-    
-            $result = DB::transaction(function () use ($roomChatUser,$userId, $chatMessage, $existsRoomChat, $admin, $room_chat_eloquent, $chat_eloquent, $time) {
-    
-                if (!$existsRoomChat) {
-    
-                    $room_chat = $room_chat_eloquent::create([
-                        "user_id" => $userId,
-                        "created_at" => $time,
-                        "updated_at" => $time,
-                    ]);
-    
-                    $result = $room_chat->chats()->create([
-                        "sender_id" => $userId,
-                        "receiver_id" => $admin->id,
-                        "message" => $chatMessage,
-                        "created_at" => $time,
-                        "updated_at" => $time,
-                    ]);
-    
-                } else {
-    
-                    $result = $chat_eloquent->create([
-                        "room_chat_id" => $roomChatUser->first()->id,
-                        "receiver_id" => $admin->id,
-                        "sender_id" => $userId,
-                        "message" => $chatMessage,
-                        "created_at" => $time,
-                        "updated_at" => $time,
-                    ]);
-                }
-    
-                return $result;
-            });
-    
-            return $this->sendResponse($result, "Chat successfully");
-    
-        } catch (\Throwable $th) {    
-            return $this->sendError( $th->getMessage(),null,500);
-        }  
-    }
-
-    public function fetchChat(DB $db){
-        try{          
-            $room_chat = $db::table('table_room_chats')->where('user_id',Auth::id())->first();
-
-            if(empty($room_chat)){    
-
-                return $this->sendResponse([] ,"Fetch chat successfully");
-            }
-
-            $chats = $db::table('table_chats')
-            ->where('room_chat_id', $room_chat->id)
-            ->get();
-
-            return $this->sendResponse($chats,"Fetch chat successfully");
-
-        } catch (\Throwable $th) {    
-            return $this->sendError( $th->getMessage(),null,500);
-        }
-    }
-
-
-    public function testChat(Request $request){
-        try{
-            $chatMessage = $request->input('message');
-
-            $room_chat_id_request = $request->input('room_chat_id');
-
-            $user_id = $request->input('user_id');
-
-            $chats = [
-                "id" => 10,
-                "room_chat_id" => (int) $room_chat_id_request,
-                "receiver_id" => (int)$user_id,
-                "sender_id" => 11,
-                "message" =>$chatMessage,
-                "created_at" => date('Y-m-d H:i:s'),
-            ];   
-
-            $this->pusher('room-chat-user-'.$user_id, 'chat-message',  $chats);
-            
-            return $this->sendResponse([],"Chat successfully");
 
         } catch (\Throwable $th) {    
             return $this->sendError( $th->getMessage(),null,500);
