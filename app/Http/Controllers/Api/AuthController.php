@@ -57,7 +57,6 @@ class AuthController extends BaseController
         try {
             $validateTableUser = Validator::make($request->all(),
             [
-                'username' => 'required',
                 'fullname' => 'required',
                 'email' => 'required',
                 'phone' => 'required',
@@ -82,18 +81,19 @@ class AuthController extends BaseController
                 }
                 
                 $query->insert([
-                    "username" => $request->username,
+                    "username" => "username@" .Str::random(6),
                     "fullname" => $request->fullname,
                     "email" => $request->email,
                     "phone" => $request->phone,
                     "password" => Hash::make($request->password),
                     "photo" => $url,
+                    "created_at" => now(),
                 ]);
+                return $this->sendResponse([],'User Sign Up Successfully');
             }else{
                 return $this->sendResponse([],'Email already exists');
-
             }
-            return $this->sendResponse([],'User Sign Up Successfully');
+           
 
         } catch (\Throwable $th) {
 
@@ -108,7 +108,7 @@ class AuthController extends BaseController
 
             $ischeck = User::where('phone',$phone)->exists();
            
-            if($ischeck){
+            if(!$ischeck){
                 return $this->sendResponse([201],"Failed");
             }
             return $this->sendResponse([200],"Successfully");

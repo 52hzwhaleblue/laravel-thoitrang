@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\TablePromotion;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Api\BaseController as BaseController;
+use App\Models\TableProductDetail;
 
 class ProductController extends BaseController
 {
@@ -68,17 +69,23 @@ class ProductController extends BaseController
     public function getDetail(){
         try{
             $id = request()->query('id_product');
-
-            $product = TableProduct::with(["productDetail"])
+            $productQuery = new TableProduct();
+            $product = $productQuery::with(["productDetail"])
             ->withCount('orderDetail as sold')
             ->withAvg('reviews as star', 'star')
             ->find($id);
 
-            $product->star =  (double)$product->star;
+            $product-> star=  (double)$product->star;
             
             $product->is_popular = $product->view > 350;
 
+            $productQuery::where('id',$product->id)->update([
+                "view" => $product->view + 1,
+            ]);
+
             return $this->sendResponse($product, "Get successfully!!!");
+
+            
         }catch(\Throwable $th){
             return $this->sendError($th->getMessage(), 500);
         }

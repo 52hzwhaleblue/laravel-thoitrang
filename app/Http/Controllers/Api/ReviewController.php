@@ -18,24 +18,61 @@ class ReviewController extends BaseController
     public function fetchData(){   
         try {    
             $product_id = request()->query('id_product');
-
+          
             $page = request()->query('page',1);
-
-            $limit = 6;
+    
+            $limit = 4;
+    
+            $reviewQuery = TableReview::with(['user','images'])
+                ->where('product_id',$product_id);
             
-            $reviews = TableReview::with(['user','images'])
-            ->where('product_id',$product_id)
-            ->skip(($page-1)*$limit)
-            ->take($limit)
-            ->get();
+            $reviews = $reviewQuery
+                ->when($page > 1,function($query) use ($limit,$page){
+                    $offset = ($page - 1) * $limit;
+                    return $query->skip($offset);
+                })
+                ->take($limit)
+                ->get();
+            
+            if($page < 2){
+                $length = $reviewQuery->count();
+    
+                $stars = [5, 4, 3, 2, 1];
+        
+                $list = $reviewQuery->selectRaw('COALESCE(star, 0) as star, COUNT(star) as count')
+                    ->whereIn('star', $stars)
+                    ->groupBy('star')
+                    ->orderBy('star', 'desc');
+        
+                $dummy_stars = collect($stars)->diff($list->pluck('star'))->map(function($star){
+                    return ['star' => $star, 'count' => 0];
+                });
+            
+                $list = collect($list->get())->merge($dummy_stars);
 
+             
+        
+                $response = [
+                    "length" => $length,
+                    "reviews" => $reviews,
+                    "star_group" => $list,
+                ];
+                return $this->sendResponse($response, "Fetch reviews successfully!!!");
+            }
 
-            return $this->sendResponse($reviews, "Fetch reviews successfully!!!");
+            $response = [
+                "length" => null,
+                "reviews" => $reviews,
+                "star_group" => null,
+            ];
+
+            return $this->sendResponse($response, "Fetch reviews successfully!!!");
            
         } catch (\Throwable $th) { 
             return $this->sendError( $th->getMessage(),500);
         }
     }
+    
 
     public function create(Request $request,DB $db) {
         try {
