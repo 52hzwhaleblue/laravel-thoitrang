@@ -12,6 +12,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 // class User extends Model implements Authenticatable
+
+/**
+ * @method static where(string $string, $id)
+ */
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -25,7 +29,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     protected $fillable = [
         'username',
-        'fullName',
+        'fullname',
         'phone',
         'email',
         'password',

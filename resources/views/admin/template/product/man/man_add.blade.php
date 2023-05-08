@@ -219,11 +219,7 @@ enctype="multipart/form-data"
                             Thông tin sản phẩm
                         </button>
                     </h2>
-                    <div
-                        id="thongtinsanpham"
-                        class="accordion-collapse collapse show"
-                        aria-labelledby="panelsStayOpen-headingOne"
-                    >
+                    <div id="thongtinsanpham" class="accordion-collapse collapse show"  aria-labelledby="panelsStayOpen-headingOne">
                         <div class="accordion-body">
                             <div class="d-flex mb-3">
                                 <div class="mb-3 mt-3">
@@ -363,8 +359,26 @@ enctype="multipart/form-data"
                                     </div>
                                 </div>
                             </div>
+                            {{-- Thêm thuộc tính --}}
+                            <div id="themthuoctinh" class="row">
+                                <div class="col-md-4 form-group">
+                                    <div class="w_box3">
+                                        <div id="swatch" class="mt-1">
+                                            <label class="d-block" for="color">Color:</label>
+                                            <input type="color" id="color" name="color[]" value="#FF0000">
+                                        </div>
+                                        <div class="d-flex justify-content-between align-item-center mt-1">
+                                            <label class="d-block" for="stock">Tồn kho:</label>
+                                            <input type="text" name="stock[]" class="form-control w-75" placeholder="Tồn kho" value="" title="Tồn kho">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <input type="button" class="btn btn-primary" onclick="themthuoctinh(); return false;" value="Thêm thuộc tính">
                         </div>
                     </div>
+                </div>
                 </div>
             </div>
 

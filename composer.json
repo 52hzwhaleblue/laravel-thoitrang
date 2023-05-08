@@ -13,7 +13,6 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "hardevine/shoppingcart": "^3.2",
         "intervention/image": "^2.7",
-        "laravel-notification-channels/pusher-push-notifications": "^4.1",
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
@@ -22,6 +21,7 @@
         "pusher/pusher-php-server": "^7.2"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.7",
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.21",
         "laravel-shift/blueprint": "^2.2",

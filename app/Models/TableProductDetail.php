@@ -7,6 +7,9 @@ use App\Models\TableProduct;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+/**
+ * @method static create(array $array)
+ */
 class TableProductDetail extends Model
 {
     use HasFactory;

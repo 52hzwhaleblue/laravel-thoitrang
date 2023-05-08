@@ -27,12 +27,17 @@ use App\Http\Controllers\Admin\OptionController;
 // Promo Controller
 use App\Http\Controllers\Admin\PromoController;
 
-// Promo Controller
+// Order Controller
 use App\Http\Controllers\Admin\OrderController;
 
+// Notification Controller
+use App\Http\Controllers\Admin\NotificationController;
 
 // Index Controller
 use App\Http\Controllers\IndexController;
+
+// User Controller
+use App\Http\Controllers\UserController;
 
 // Cart Controller
 use App\Http\Controllers\CartController;
@@ -153,19 +158,19 @@ Route::group([
             }
         }
     });
-    // get real time order
-    Route::get('testOrder', [OrderController::class,'testOrder'])->name('order.testOrder');
 
     // Đơn hàng
     Route::get('order', [OrderController::class,'index'])->name('order.index');
 
-
+    // Chi tiết đơn hàng
+    // Route::get('order-detail/{order_id}/{user_id}', [OrderController::class,'edit'])->name('order.detail');
+    Route::get('order-detail', [OrderController::class,'edit'])->name('order.detail');
+    Route::put('order-detail/update', [OrderController::class,'update'])->name('order_detail.update');
 });
 
 // =========== user
 // Email Auth
 Auth::routes(['verify' => true]);
-
 
 //Route logout user account
 // Route::post("logout_user", function() {
@@ -173,12 +178,10 @@ Auth::routes(['verify' => true]);
 //     return redirect("/");
 // })->name('logout.user');
 
-
 // Route login user account
 Route::get('login_user', function() {
     return redirect("login");
 })->name("login.user");
-
 
 Route::get('/', [IndexController::class ,'index'])->name('index');
 Route::get('/gioi-thieu', [IndexController::class,'static'])->name('gioi-thieu');
@@ -187,9 +190,10 @@ Route::get('/tin-tuc', [IndexController::class,'post'])->name('tin-tuc');
 Route::get('/post/{slug}', [IndexController::class,'post_detail']);
 
 Route::get('/san-pham', [IndexController::class,'san_pham'])->name('san-pham');
-Route::get('/{slug}/{id}', [IndexController::class,'chi_tiet_san_pham'])->name('chi_tiet_san_pham');
+Route::get('/chi-tiet-san-pham/{slug}/{id}', [IndexController::class,'chi_tiet_san_pham'])->name('chi_tiet_san_pham');
 Route::post('/load_ajax_product', [IndexController::class,'load_ajax_product']);
 
+Route::get('/user/{id}', [UserController::class,'show'])->name('user.show');
 
 
 Route::middleware("CheckLogin")->group(function() {
@@ -206,3 +210,4 @@ Route::middleware("CheckLogin")->group(function() {
     // Giỏ hàng nâng cấp ajax
     Route::get('/cart/update_ajax', [CartController::class,'update_ajax'])->name('cart.update_ajax');
 });
+

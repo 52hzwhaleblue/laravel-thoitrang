@@ -2,37 +2,34 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TableProduct;
-use App\Models\TablePromotion;
+use App\Models\TableCategory;
+use App\Models\TableNotification;
 use Illuminate\Http\Request;
-use Gloudemans\Shoppingcart\Facades\Cart;
-use Illuminate\Support\Facades\Validator;
-use App\Models\TableOrder;
-use App\Models\TableOrderDetail;
-use Illuminate\Support\Str;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use Gloudemans\Shoppingcart\Facades\Cart;
+
+use Illuminate\Support\Str;
+use Carbon\Carbon;
+
 use App\Mail\SendMail;
 use App\Jobs\SendMailJob;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
+use App\Events\PusherEvent;
 
-
-
+use App\Models\TableOrder;
+use App\Models\TableOrderDetail;
+use App\Models\TableProduct;
+use App\Models\TablePromotion;
 
 class CartController extends Controller
 {
-
     public function index()
     {
-        // return Cart::destroy();
-
-        $data = TableProduct::all();
-
-        // return Cart::content();
-
+        $data = Cart::content();
         return View('template.order.order',compact('data'));
-
     }
 
     public function add(Request $request,$id)
@@ -91,8 +88,9 @@ class CartController extends Controller
 
         $result = [
             "subTotal" => number_format($subTotal, 0, ",", ".")."vnđ",
-            // "total" => number_format(Cart::total(), 0, ",", ".")."đ",
+            "total" => number_format(Cart::total(), 0, ",", ".")."vnđ",
         ];
+
         echo json_encode($result);
     }
 
@@ -121,25 +119,27 @@ class CartController extends Controller
         ];
 
         $user_id = $request->get('user_id');
-        $code_order = 'UNI'.Str::random(5).now();
+        $code_order = 'UNI'.Str::random(5);
         // $db::beginTransaction(); // bat dau giao dich
 
         // $db::rollback(); // quay lai ko them vao du lieu
 
         // $db::commit(); //them vao database
         $db::transaction(function () use ($request,$user_id,$dataUser,$dataCart,$code_order) {
+            // Lưu vào table_order
             $order = TableOrder::create([
                 'code' => $code_order,
                 'user_id' => $user_id,
                 'shipping_fullname' => $dataUser['fullname'],
                 'shipping_phone' => $dataUser['phone'],
                 'shipping_address' => $dataUser['address'],
-                'subtotal' => (int)Cart::total(),
-                'total' => (int)Cart::total(),
+                'temp_price' => (int)Cart::total(),
+                'total_price' => (int)Cart::total(),
                 'payment_method' => $dataUser['payment_method'],
                 'status' => 1,
             ]);
 
+            // Lưu vào table_order_details
             foreach ($dataCart as $kcart => $vcart) {
                 TableOrderDetail::create([
                     'order_id' => $order->id,
@@ -149,6 +149,10 @@ class CartController extends Controller
                     'quantity' => $vcart->qty,
                 ]);
             }
+
+            // Lưu vào table_notifications
+            $message_notification ="Đơn hàng của ".$dataUser['fullname'];
+            $this->store_notification($request,$user_id,$order->id, $message_notification);
         });
 
         // Gửi Mail cho khách hàng
@@ -158,19 +162,31 @@ class CartController extends Controller
             "address" => $dataUser['address'],
             "email" => $dataUser['email'],
             "phone" => $dataUser['phone'],
+            "payment_method" => $dataUser['payment_method'],
             "total" => Cart::total(),
             "time_now" => Carbon::now()->format('d/m/Y m:h:s'),
             'dataCart' =>Cart::content(),
         ];
-
         dispatch(new SendMailJob($dataMail,$dataUser)); // thêm vào hàng đợi
         // Hủy Cart Session sau khi dặt hàng thành công
-
-
         Cart::destroy();
+
+        $message_notification ="Đơn hàng của khách hàng ".$dataUser['fullname'];
+        event(new PusherEvent($message_notification));
+
         return redirect()->route('index')->with('CartToast',' Bạn đã thanh toán thành công');
     }
 
+    public function store_notification(Request $request, $suer_id,$order_id,$message_notification)
+    {
+        $notification = new TableNotification();
+        $notification->user_id = $suer_id;
+        $notification->order_id = $order_id;
+        $notification->title = $message_notification;
+        $notification->is_read = 0;
+        $notification->type = 'order';
+        $notification->save();
+    }
     public function validate_cart(Request $request){
         $validate = $request->validate([
             'fullname' => ['required', 'string','min:5', 'max:20'],

@@ -34,7 +34,9 @@
                             <td style="padding:3px 9px 9px 9px;border-top:0;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px;font-weight:normal"
                                 valign="top">
                                 <span style="text-transform:capitalize">Họ và tên: {{$fullname}}</span><br>
-                                <a>Email: {{$email}}</a><br> Số điện thoại: {{$phone}}
+                                <span style="text-transform:capitalize">Email: {{$email}}</span><br>
+                                <span style="text-transform:capitalize">Số điện thoại: {{$phone}}</span><br>
+                                <span style="text-transform:capitalize">Phương thức thanh toán: {{$payment_method}}</span><br>
                             </td>
                             <td style="padding:3px 9px 9px 9px;border-top:0;border-left:0;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px;font-weight:normal"
                                 valign="top"> {{$address}}

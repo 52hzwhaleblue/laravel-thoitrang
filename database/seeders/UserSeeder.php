@@ -27,7 +27,7 @@ class UserSeeder extends Seeder
 
         $eloquent::create([
             'username'=>"abc@1",
-            'fullName'=>"Admin",
+            'fullname'=>"Admin",
             'phone'=> "xxxxxx",
             'email'=> "xxxxx@gmail.com",
             'password' => Hash::make('123456789'),
