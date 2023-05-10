@@ -1,6 +1,17 @@
-@extends('admin.app') @section('title') Import/Export Products @endsection
-
+@extends('admin.app') @section('title') Quản lý Nhập / Xuất  Sản phẩm @endsection
 @section('content')
+    @if(session()->has('message'))
+        <div class="alert alert-success">
+            {{ session()->get('message') }}
+        </div>
+    @endif
+
+    @if(session()->has('warning'))
+        <div class="alert alert-danger">
+            {{ session()->get('warning') }}
+        </div>
+    @endif
+
     <form action="{{route('admin.product.uploadProduct')}}" method="post" enctype="multipart/form-data">
         @csrf
         <label for=""> Select file </label>

@@ -208,7 +208,7 @@ class ProductController extends BaseController
             return redirect()->route('admin.product.product-man.index')->with('message', 'Bạn đã import file sản phẩm thành công!');
         }
         else{
-            return redirect()->route('admin.product.product-man.index')->with('message', 'Vui lòng chọn file');
+            return redirect()->route('admin.product.importProduct')->with('warning', 'Vui lòng chọn file');
         }
 
     }

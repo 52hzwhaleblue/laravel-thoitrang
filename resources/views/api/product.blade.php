@@ -1,4 +1,4 @@
-<div class="owl-page owl-carousel owl-theme"
+<div class="owl-pronb owl-page owl-carousel owl-theme"
      data-xsm-items = "2:10"
      data-sm-items = "2:10"
      data-md-items = "3:10"
