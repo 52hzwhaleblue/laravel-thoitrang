@@ -23,20 +23,6 @@ Quản lý chi tiết đơn hàng
 
             <div class="card-body row">
                 <div class="form-group col-md-4 col-sm-6">
-                    <label class="font-weight-bold">Mã đơn hàng:</label>
-                    <p class="text-primary">
-                        {{ $rowOrder->code }}
-                    </p>
-                </div>
-
-                <div class="form-group col-md-4 col-sm-6">
-                    <label class="font-weight-bold">Hình thức thanh toán:</label>
-                    <p class="text-info">
-                        {{ $rowOrder->payment_method }}
-                    </p>
-                </div>
-
-                <div class="form-group col-md-4 col-sm-6">
                     <label class="font-weight-bold">Họ tên:</label>
                     <p class="font-weight-bold text-uppercase text-success">{{ $rowOrder->shipping_fullname }} </p>
                 </div>
@@ -57,6 +43,20 @@ Quản lý chi tiết đơn hàng
                 </div>
 
                 <div class="form-group col-md-4 col-sm-6">
+                    <label class="font-weight-bold">Mã đơn hàng:</label>
+                    <p class="text-primary">
+                        {{ $rowOrder->code }}
+                    </p>
+                </div>
+
+                <div class="form-group col-md-4 col-sm-6">
+                    <label class="font-weight-bold">Hình thức thanh toán:</label>
+                    <p class="text-info">
+                        {{ $rowOrder->payment_method }}
+                    </p>
+                </div>
+
+                <div class="form-group col-md-4 col-sm-6">
                     <label class="font-weight-bold">Phí vận chuyển:</label>
                     <p class="font-weight-bold text-danger">
                         Không
@@ -68,7 +68,7 @@ Quản lý chi tiết đơn hàng
                     <p> {{ $rowOrder->created_at }} </p>
                 </div>
 
-                <div class="form-group col-6">
+                <div class="form-group col-3">
                     <label for="order_status" class="mr-2 font-weight-bold">Tình trạng:</label>
                     <select name="order_status" id="" class="form-select" aria-label="Default select example">
                         <option value="0"> Chọn tình trạng </option>

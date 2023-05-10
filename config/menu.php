@@ -26,6 +26,10 @@
                 'man' =>[
                     'title' => 'Danh mục sản phẩm',
                     'index' => 'admin.product.product-man.index',
+                ],
+                'import' =>[
+                    'title' => 'Nhập / Xuất Sản phẩm',
+                    'index' => 'admin.product.importProduct',
                 ]
             ]
         ],

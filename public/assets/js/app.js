@@ -170,7 +170,8 @@ function Home(){
         data: {id:id,tenkhongdau:tenkhongdau},
         success:function(data){
             $('.load_ajax_product').html(data);
-            OwlPage();
+            OwlData('.owl-pronb');
+
         }
     });
 
