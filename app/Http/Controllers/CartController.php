@@ -56,9 +56,9 @@ class CartController extends Controller
     public function add(Request $request)
     {
         $product_id = (int)$request->get('pronb_id');
+        dd($product_id);
         $color = $request->get('pronb_color');
         $size = $request->get('pronb_size');
-        dd($color);
         $productById =  TableProduct::find($product_id);
         Cart::add([
             'id' => $product_id,

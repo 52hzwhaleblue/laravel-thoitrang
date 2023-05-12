@@ -66,9 +66,12 @@
             </div>
         </div>
         <div class="pronb-info">
-            @if(count($product_properties))
+            @php
+                $colors= \App\Models\TableProductDetail::with('product')->where('product_id', $v->id)->where('stock','>','0')->get();
+            @endphp
+            @if(count($colors))
                 <ul class="pronb-colors">
-                    @foreach($product_properties as $kcolor => $vcolor)
+                    @foreach($colors as $kcolor => $vcolor)
                         <li  class="pronb-color color-click" data-color="{{$vcolor->color}}">  <p style="background: {{$vcolor->color}};"> </p> </li>
                     @endforeach
                 </ul>
@@ -105,8 +108,6 @@
             let size = $(this).data('size');
             let color = $(this).parents('.pronb-item').find('.color-click.active').data('color');
 
-            console.log(size);
-            console.log(color);
             $(this).parents('.pronb-item').find('.color-input').attr('value',color);
             $(this).parents('.pronb-item').find('.size-input').attr('value',size);
 
