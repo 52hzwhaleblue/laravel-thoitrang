@@ -1,3 +1,10 @@
+<form class="form-cart" id="cart-form" action="{{route('cart-add')}}" method="post" enctype="multipart/form-data">
+    @csrf
+    <input type="text" class="id-input" name="pronb_id" value="" >
+    <input type="text" class="color-input" name="pronb_color" value="">
+    <input type="text" class="size-input"  name="pronb_size"  value="">
+</form>
+
 <div class="owl-pronb owl-page owl-carousel owl-theme"
      data-xsm-items = "2:10"
      data-sm-items = "2:10"
@@ -30,12 +37,6 @@
             </a>
 
             <div class="pronb-btn">
-                <form id="cart-form" action="{{route('cart-add')}}" method="post" enctype="multipart/form-data">
-                    @csrf
-                    <input type="text" class="id-input" name="pronb_id" value="{{$v->id}}" >
-                    <input type="text" class="color-input" name="pronb_color" value="">
-                    <input type="text" class="size-input"  name="pronb_size"  value="">
-                </form>
                 <p class="add-to-cart"> Thêm nhanh vào giỏ hàng + </p>
                 <ul class="pronb-sizes">
                     @foreach($sizes_decode as $size)
@@ -105,11 +106,13 @@
         // Khi chọn size -> chọn luôn màu active -> add vào giỏ hàng
         $('.size-click').click(function (e) {
             $(this).parents('.pronb-image').find('.pronb-loader').addClass('active');
+            let product_id = $(this).data('product_id');
             let size = $(this).data('size');
             let color = $(this).parents('.pronb-item').find('.color-click.active').data('color');
 
-            $(this).parents('.pronb-item').find('.color-input').attr('value',color);
-            $(this).parents('.pronb-item').find('.size-input').attr('value',size);
+            $(this).parents('.pronb-wrapper').find('.id-input').attr('value',product_id);
+            $(this).parents('.pronb-wrapper').find('.color-input').attr('value',color);
+            $(this).parents('.pronb-wrapper').find('.size-input').attr('value',size);
 
             setTimeout(addToCart,3000);
             function addToCart() {
