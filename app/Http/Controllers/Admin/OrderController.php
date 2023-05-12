@@ -62,6 +62,9 @@ class OrderController extends BaseController
         $order->status = $order_status;
         $order->save();
 
+        // Nếu như hủy đơn hàng, hoàn lại số lượng tồn kho cho sản phẩm
+
+
         // update table_notification
         $notification = TableNotification::where('order_id',$order_id)->where('user_id',$user_id)->first();
         $notification->is_read = 1;

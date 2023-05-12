@@ -215,13 +215,25 @@
                                 </div>
                             </div>
 
-                            <div class="col-xl-4">
-                                <div class="mb-3">
-                                    <label for="stock" class="form-label">Nhập hàng:</label>
-                                    <input type="number" class="form-control" id="stock" placeholder="Nhập hàng"
-                                        name="stock_input" />
-                                </div>
-                            </div>
+                            {{-- Thuộc tính --}}
+                            @if(count($product_properties))
+                                @foreach($product_properties as $k => $v)
+                                    <div class="col-md-4 form-group">
+                                        <div class="w_box3">
+                                            <div id="swatch" class="mt-1">
+                                                <label class="d-block" for="color">Color:</label>
+                                                <input type="color" id="color" name="color[]" value="{{$v->color}}">
+                                            </div>
+                                            <div class="d-flex justify-content-between align-item-center mt-1">
+                                                <label class="d-block" for="stock">Tồn kho:</label>
+                                                <input type="text" name="stock[]" class="form-control w-75" placeholder="Tồn kho" value="{{$v->stock}}" title="Tồn kho">
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @endif
+                        </div>
+
                         </div>
                     </div>
                 </div>

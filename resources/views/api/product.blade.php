@@ -5,21 +5,22 @@
      data-lg-items = "3:10"
      data-xlg-items = "4:10"
      data-rewind = "1"
-     data-autoplay = "1"
+     data-autoplay = "0"
      data-loop = "0"
+     data-dotsData="1"
      data-lazyload = "0"
      data-mousedrag = "1"
      data-touchdrag = "1"
-     data-smartspeed = "800"
+     data-smartspeed = "1000"
      data-autoplayspeed = "800"
-     data-autoplaytimeout = "5000"
+     data-autoplaytimeout = "8000"
      data-dots = "1"
      data-animations = ""
      data-nav = "1"
      data-navText = ""
      data-navcontainer = ".control-sanpham">
     @foreach ($data as $k =>$v)
-    <div class="pronb-item" data-aos="fade-up" data-aos-duration="1500">
+    <div class="pronb-item" data-aos="fade-up" data-aos-duration="1500" data-dot="<button role='button' class='owl-dot'><?=$k+1?></button>">
         <div class="pronb-image">
             <a class="pronb-img scale-img" href=chi-tiet-san-pham/{{$v->slug}}/{{$v->id}} >
                 <img src="{{asset("http://localhost:8000/storage/$v->photo")}}" alt="{{$v->name}}" />
@@ -29,18 +30,52 @@
             </a>
 
             <div class="pronb-btn">
-                <a href="{{route('cart.add',$v->id)}}" class="add-to-cart d-block">
-                Thêm vào giỏ hàng
-                </a>
-                <a href="" class="buynow d-block">
-                    mua ngay
-                </a>
+                <form id="cart-form" action="{{route('cart-add')}}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <input type="text" class="id-input" name="pronb_id" value="{{$v->id}}" >
+                    <input type="text" class="color-input" name="pronb_color" value="">
+                    <input type="text" class="size-input"  name="pronb_size"  value="">
+                </form>
+                <p class="add-to-cart"> Thêm nhanh vào giỏ hàng + </p>
+                <ul class="pronb-sizes">
+                    @foreach($sizes_decode as $size)
+                        <li
+                            onclick="addToCart()"
+                            data-size="{{$size}}"
+                            data-product_id="{{$v->id}}"
+                            class="size-click">
+                           <span> {{$size}} </span>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+            <div class="pronb-loader">
+                <div class="loader">
+                    <div class="loader-item">
+                        <div class="loader-item">
+                            <div class="loader-item">
+                                <div class="loader-item">
+                                    <div class="loader-item">
+                                        <div class="loader-item" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="pronb-info">
+            @if(count($product_properties))
+                <ul class="pronb-colors">
+                    @foreach($product_properties as $kcolor => $vcolor)
+                        <li  class="pronb-color color-click" data-color="{{$vcolor->color}}">  <p style="background: {{$vcolor->color}};"> </p> </li>
+                    @endforeach
+                </ul>
+            @endif
             <h3 class="mb-0">
-                <a class="pronb-name text-split" href=chi-tiet-san-pham/{{$v->slug}}/{{$v->id}}>
-                    {{$v->name}}
+                <a class="pronb-name" href=chi-tiet-san-pham/{{$v->slug}}/{{$v->id}}>
+                    <span class="text-split">  {{$v->name}} </span>
                 </a>
             </h3>
             <div class="pronb-price">
@@ -51,4 +86,34 @@
         </div>
     </div>
     @endforeach
+
+    <script>
+        // Color
+        $('.pronb-item').each(function (){
+            $(this).find('.color-click:first').addClass('active');
+        });
+
+        $('.color-click').click(function (e) {
+            $(this).parent('.pronb-colors').find('.color-click').removeClass('active');
+            $(this).addClass('active');
+        });
+
+        // Size
+        // Khi chọn size -> chọn luôn màu active -> add vào giỏ hàng
+        $('.size-click').click(function (e) {
+            $(this).parents('.pronb-image').find('.pronb-loader').addClass('active');
+            let size = $(this).data('size');
+            let color = $(this).parents('.pronb-item').find('.color-click.active').data('color');
+
+            console.log(size);
+            console.log(color);
+            $(this).parents('.pronb-item').find('.color-input').attr('value',color);
+            $(this).parents('.pronb-item').find('.size-input').attr('value',size);
+
+            setTimeout(addToCart,3000);
+            function addToCart() {
+                document.getElementById("cart-form").submit();
+            }
+        });
+    </script>
 </div>

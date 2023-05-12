@@ -21,6 +21,8 @@ class ProductController extends BaseController
     {
         // TableProduct::factory()->count(5)->create();
         $data = TableProduct::all();
+
+        // Lấy màu,size theo product_id
         return view('admin.template.product.man.man',compact('data'));
     }
 
@@ -115,12 +117,11 @@ class ProductController extends BaseController
         $data = json_decode($sql, true);
         $splist = TableCategory::all();
 
-        $status = $data['status'];
-        $explodeStatus = explode(',', $status);
-
+        $product_id = $data['id'];
+        $product_properties = TableProductDetail::where('product_id',$product_id)->get();
         return view(
             'admin.template.product.man.man_edit',
-            compact('data', 'explodeStatus','splist')
+            compact('data','splist','product_properties')
         );
     }
 

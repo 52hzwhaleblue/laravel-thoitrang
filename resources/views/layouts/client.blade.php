@@ -15,7 +15,7 @@
         @if($ProfileComposer['com'] == '' || $ProfileComposer['com'] == 'index')
             {{-- @include('index.sindex') --}}
         @endif
-        @yield('content')
+            @yield('content')
     </div>
 
     @include('template.layout.footer')
