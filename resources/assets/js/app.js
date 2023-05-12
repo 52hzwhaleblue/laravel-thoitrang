@@ -164,8 +164,7 @@ function OwlPage(){
 function Home(){
 
     $('.list-hot a:first').addClass('active');
-    var id = $('.list-hot a:first').data('id');
-    var tenkhongdau = $('.list-hot a:first').data('tenkhongdau');
+    var id_category = $('.list-hot a:first').data('id');
     $.ajaxSetup({
         headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -174,7 +173,7 @@ function Home(){
     $.ajax({
         url: '/load_ajax_product',
         type: 'POST',
-        data: {id:id,tenkhongdau:tenkhongdau},
+        data: {id_category:id_category,},
         success:function(data){
             $('.load_ajax_product').html(data);
             OwlData($('.owl-pronb'));
@@ -185,8 +184,7 @@ function Home(){
     $('.list-hot a').click(function(event) {
         $('.list-hot a').removeClass('active');
         $(this).addClass('active');
-        var id = $(this).data('id');
-        var tenkhongdau = $(this).data('tenkhongdau');
+        var id_category = $(this).data('id');
 
         $.ajaxSetup({
             headers: {
@@ -197,7 +195,7 @@ function Home(){
         $.ajax({
             url: '/load_ajax_product',
             type: 'POST',
-            data: {id:id,tenkhongdau:tenkhongdau},
+            data: {id_category:id_category,},
             success:function(data){
                 $('.load_ajax_product').html(data);
                 OwlData($('.owl-pronb'));
