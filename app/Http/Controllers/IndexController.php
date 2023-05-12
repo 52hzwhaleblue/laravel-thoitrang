@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\PusherEvent;
+use App\Models\TableProductDetail;
 use File;
 use App\Models\TablePost;
 use App\Models\TablePhoto;
@@ -33,7 +34,6 @@ class IndexController extends Controller
     public function index(Request $request)
     {
         // slide,gioithieu,pronb,banner_sanpham,splistnb,bannerQC,album,postnb
-        $slide = TablePhoto::where('type', 'slideshow')->get();
         $gioithieu = TableStatic::where('type', 'gioi-thieu')->first();
 
         $gioithieu_slide = TablePhoto::where('type', 'gioithieu-slide')->get();
@@ -52,7 +52,6 @@ class IndexController extends Controller
         // return $request->session()->all();
 
         return view('template.index.index',compact([
-            'slide',
             'splistnb',
             'gioithieu',
             'gioithieu_slide',
@@ -69,13 +68,16 @@ class IndexController extends Controller
     public function load_ajax_product(Request $request)
     {
         $id =  $request->get('id');
-        $tenkhongdau =  $request->get('tenkhongdau');
-
         $data = DB::table('table_products')
         ->where('category_id', $id)
         ->get();
+        $product_properties = TableProductDetail::where('product_id',$id)->where('stock','>','0')->get();
 
-        return view('api.product',compact(['data',]));
+        $product_sizes = TableProduct::find($id);
+        $sizes = json_encode($product_sizes->properties["sizes"]);
+        $sizes_decode = json_decode($sizes);
+
+        return view('api.product',compact(['data','product_properties','sizes_decode']));
     }
 
     public function static()
@@ -120,17 +122,23 @@ class IndexController extends Controller
         ->where('slug', $slug)
         ->get();
 
-        // dd($rowDetail);
-
         $rowDetailPhoto = DB::table('table_product_details')
         ->where('product_id', $id)
         ->get();
-        // dd($rowDetailPhoto);
+
+        $product_properties = TableProductDetail::where('product_id',$id)->where('stock','>','0')->get();
+
+
+        $product_sizes = TableProduct::find($id);
+        $sizes = json_encode($product_sizes->properties["sizes"]);
+        $sizes_decode = json_decode($sizes);
 
         return view('template.product.detail',compact([
             'rowDetailPhoto',
             'rowDetail',
             'product',
+            'sizes_decode',
+            'product_properties',
         ]));
     }
 

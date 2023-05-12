@@ -22,9 +22,6 @@
          url('../fonts/SVN-ALoveThunder/SVNALoveOfThunder.woff') format('woff'),
 }
 
-
-
-/*  Hú cho em qua máy anh coi thư i */
 @font-face {
 	font-family: 'RBI';
 	src: url('../fonts/Roboto-BoldItalic.woff');
@@ -62,6 +59,12 @@
 	--background-hover: #ec2d3f;
 	--color-static: #000;
 	--color-hover: #ec2d3f;
+}
+
+ol, ul ,li{
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
 }
 
 body {
@@ -672,7 +675,9 @@ a,a:hover{
 
 /* Giỏ hàng */
 .giohang-wrapper{}
-.giohang-wrapper .wrap-content{}
+.giohang-wrapper .wrap-content{
+    padding: 60px 0px;
+}
 .giohang-tbody{}
 .giohang-tongtien{
     align-items: center;
@@ -688,9 +693,41 @@ a,a:hover{
 .giohang-btns{
     justify-content: flex-end;
     display: flex;
+    margin-bottom: 60px;
 }
 
 /* General */
+
+.loader {
+    width: 56px;
+    height: 56px;
+    position: relative;
+    overflow: hidden;
+}
+
+.loader-item {
+    position: absolute;
+    width: calc(100% - 1px);
+    height: calc(100% - 1px);
+    border: 2px solid transparent;
+    border-top-color: #ff3e00;
+    border-radius: 50%;
+    animation: spin 4.2s cubic-bezier(0.17, 0.49, 0.96, 0.76) infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+
+
+
 button.button-wave {
     position: relative;
     width: 130px;
@@ -2019,10 +2056,50 @@ a.name-newsnb:hover {
 
 
 /* Product */
+.pronb-loader.active{
+	    opacity: 1;
+    visibility: visible;
+	transition:.3s;
+}
+.pronb-loader{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background: #ffffff40;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition:.3s;
+}
+.pronb-loader .loader{}
+.pronb-wrapper .owl-dot{
+    width: 40px;
+    height: 40px;
+}
+.pronb-wrapper .owl-dot button{
+    font-size: 16px;
+    color: #000;
+}
+
+.pronb-wrapper .owl-dot.active{
+	    border: 1px #000000 solid;
+	    border-radius: 50px;
+}
+.pronb-wrapper .owl-dot.active button{
+    color: #000000;
+}
+
 .pronb-wrapper{
     margin-bottom: 50px;
 }
-
+.pronb-wrapper .owl-dots{
+	margin-top:30px;
+}
 .pronb-wrapper .wrap-content{
     max-width: 1366px;
 }
@@ -2071,21 +2148,70 @@ visibility: visible;
 	opacity: 1;
 }
 
-.pronb-info{}
+.pronb-info{
+    text-align: left;
+}
+
+.pronb-colors{
+    display: flex;
+    flex-wrap: wrap;
+}
+.pronb-color.active{
+    border: 1px #000 solid;
+}
+
+.pronb-color{
+    margin: 0 5px;
+    padding: 2px;
+    border: 1px solid #fff;
+    border-radius: 30px;
+    cursor: pointer;
+}
+.pronb-color p{height: 20px;width: 40px;border-radius: 30px;margin-bottom: 0;}
+
+ul.pronb-sizes{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    width: 100%;
+    padding: 0 20px;
+}
+ul.pronb-sizes li{
+    background: #fff;
+    font-weight: 600;
+    border-radius: 10px;
+    padding: 5px 15px;
+    margin: 5px;
+    cursor: pointer;
+    transition:.5s;
+}
+ul.pronb-sizes li:hover{
+	background:#000;
+	color:#fff;
+	transition:.5s;
+}
 .pronb-name{
+    text-align: left;
+    margin-bottom: 10px;
+    display: block;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.pronb-name span{
     font-size: 19px;
     color: var(--color-black);
-    margin-bottom: 10px;
     font-family: Barlow;
     font-weight: bold;
-    text-align: center;
 }
 .pronb-price{
     /* text-align: center; */
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
 }
 .pronb-price span{
     font-size: 19px;
@@ -2108,24 +2234,30 @@ visibility: visible;
     justify-content: space-evenly;
     align-items: center;
     position: absolute;
-    bottom: 0;
-    left: 0;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
     width: 100%;
-    opacity: 0;
-    visibility: hidden;
+    max-width: calc(100% - 20px);
+    /* opacity: 0; */
+    /* visibility: hidden; */
     transition: .5s;
-    /* z-index: 2; */
+    padding: 10px 5px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
-.pronb-btn a{
-    width: 48%;
+.pronb-btn p{
+    width: 100%;
     text-align: center;
     color: #000;
     font-size: 15px;
-    background: #fff;
-    padding: 10px 5px;
-    border-radius: 10px;
 }
-.pronb-btn a.add-to-cart{}
+.pronb-btn .add-to-cart{
+    font-weight: bold;
+}
 .pronb-btn a.buynow{}
 
 .flex-product {
@@ -4572,6 +4704,8 @@ margin-bottom: 0;
     margin-bottom: 10px;
 }
 .tintuc-desc{}
+
+
 
 
 

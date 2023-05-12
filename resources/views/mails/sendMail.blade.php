@@ -72,7 +72,12 @@
                         @foreach ($dataCart as $k => $v )
                         <tr>
                             <th style="padding:3px 9px">
-                                <p>{{$v->name}}</p>
+                                <p> {{$v->name}} </p>
+                                <p class="d-flex align-items-center">
+                                    <span class="mr-2"> Size: {{$v->options->size}} </span>
+                                    <span> Color: <input style=" width: 30px; height: 20px; border: 0;outline: 0; background: unset;
+                                " type="color" value="{{$v->options->color}}">  </span>
+                                </p>
                             </th>
                             <th style="padding:3px 9px">
                                 {{number_format($v->options->sale_price)}}vnđ
@@ -119,7 +124,7 @@
                 <br>
                 <p
                     style="font-family:Arial,Helvetica,sans-serif;font-size:12px;margin:0;padding:0;line-height:18px;color:#444;font-weight:bold">
-                    <span>Ismart</span> cảm ơn quý khách đã đặt hàng, chúng tôi sẽ không
+                    <span>CỬA HÀNG JEAN NAM C665</span> cảm ơn quý khách đã đặt hàng, chúng tôi sẽ không
                     ngừng nổ lực để phục vụ quý khách tốt hơn!<br>
                 </p>
             </td>

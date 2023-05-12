@@ -37,7 +37,8 @@ Route::get('/user/{id}', [UserController::class,'show'])->name('user.show');
 Route::middleware("CheckLogin")->group(function() {
     // Giỏ hàng
     Route::get('/cart', [CartController::class,'index'])->name('cart.index')->middleware('CheckLogin');
-    Route::get('/cart/add/{id}', [CartController::class,'add'])->name('cart.add');
+//    Route::get('/cart/add/{id}', [CartController::class,'add'])->name('cart.add');
+    Route::post('/cart-add', [CartController::class,'add'])->name('cart-add');
     Route::patch('/cart/update', [CartController::class,'update'])->name('cart.update');
     Route::get('/cart/destroy', [CartController::class,'destroy'])->name('cart.destroy');
     Route::get('/cart/remove/{rowId}', [CartController::class,'remove'])->name('cart.remove');
