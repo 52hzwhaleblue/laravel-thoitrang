@@ -1,4 +1,8 @@
 function Cart(){
+
+
+
+    // SỐ lượng
     $('.giohang-qty').change(function(){
         let id = $(this).data('id');
         let qty = $(this).val();
@@ -48,6 +52,7 @@ function OwlData(obj){
     var lg_items = obj.attr("data-lg-items");
     var xlg_items = obj.attr("data-xlg-items");
     var rewind = obj.attr("data-rewind");
+    var dotsData = obj.attr("data-dotsData");
     var autoplay = obj.attr("data-autoplay");
     var loop = obj.attr("data-loop");
     var lazyLoad = obj.attr("data-lazyload");
@@ -71,6 +76,7 @@ function OwlData(obj){
     if(lg_items != '') { lg_items = lg_items.split(":"); }
     if(xlg_items != '') { xlg_items = xlg_items.split(":"); }
     if(rewind == 1) { rewind = true; } else { rewind = false; };
+    if(dotsData == 1) { dotsData = true; } else { dotsData = false; };
     if(autoplay == 1) { autoplay = true; } else { autoplay = false; };
     if(loop == 1) { loop = true; } else { loop = false; };
     if(lazyLoad == 1) { lazyLoad = true; } else { lazyLoad = false; };
@@ -130,6 +136,7 @@ function OwlData(obj){
         autoplay: autoplay,
         loop: loop,
         lazyLoad: lazyLoad,
+        dotsData: dotsData,
         mouseDrag: mouseDrag,
         touchDrag: touchDrag,
         smartSpeed: smartSpeed,
@@ -157,8 +164,7 @@ function OwlPage(){
 function Home(){
 
     $('.list-hot a:first').addClass('active');
-    var id = $('.list-hot a:first').data('id');
-    var tenkhongdau = $('.list-hot a:first').data('tenkhongdau');
+    var id_category = $('.list-hot a:first').data('id');
     $.ajaxSetup({
         headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -167,18 +173,18 @@ function Home(){
     $.ajax({
         url: '/load_ajax_product',
         type: 'POST',
-        data: {id:id,tenkhongdau:tenkhongdau},
+        data: {id_category:id_category,},
         success:function(data){
             $('.load_ajax_product').html(data);
-            OwlPage();
+            OwlData($('.owl-pronb'));
+
         }
     });
 
     $('.list-hot a').click(function(event) {
         $('.list-hot a').removeClass('active');
         $(this).addClass('active');
-        var id = $(this).data('id');
-        var tenkhongdau = $(this).data('tenkhongdau');
+        var id_category = $(this).data('id');
 
         $.ajaxSetup({
             headers: {
@@ -189,11 +195,10 @@ function Home(){
         $.ajax({
             url: '/load_ajax_product',
             type: 'POST',
-            data: {id:id,tenkhongdau:tenkhongdau},
+            data: {id_category:id_category,},
             success:function(data){
                 $('.load_ajax_product').html(data);
-                OwlPage();
-
+                OwlData($('.owl-pronb'));
             }
         })
     });

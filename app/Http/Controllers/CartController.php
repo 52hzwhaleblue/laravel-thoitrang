@@ -32,18 +32,41 @@ class CartController extends Controller
         return View('template.order.order',compact('data'));
     }
 
-    public function add(Request $request,$id)
+//    public function add(Request $request,$id)
+//    {
+//        $productById =  TableProduct::find($id);
+//        Cart::add([
+//            'id' => $id,
+//            'name' => $productById->name,
+//            'qty' => 1,
+//            'price' => $productById->sale_price,
+//            'options' => [
+//                'size' => 'M',
+//                'color' => 'Red',
+//                'discount' => $productById->discount,
+//                'sale_price' => $productById->sale_price,
+//                'photo' => $productById->photo,
+//                'code' => $productById->code,
+//                'slug' => $productById->slug,
+//            ],
+//        ]);
+//        return redirect('/cart')->with('alert','Bạn đã thêm sản phẩm vào giỏ hàng thành công!');
+//    }
+
+    public function add(Request $request)
     {
-        $productById =  TableProduct::find($id);
-        // dd($productById->regular_price);
+        $product_id = (int)$request->get('pronb_id');
+        $color = $request->get('pronb_color');
+        $size = $request->get('pronb_size');
+        $productById =  TableProduct::find($product_id);
         Cart::add([
-            'id' => $id,
+            'id' => $product_id,
             'name' => $productById->name,
             'qty' => 1,
             'price' => $productById->sale_price,
             'options' => [
-                'size' => 'M',
-                'color' => 'Red',
+                'size' => $size,
+                'color' => $color,
                 'discount' => $productById->discount,
                 'sale_price' => $productById->sale_price,
                 'photo' => $productById->photo,
@@ -141,7 +164,7 @@ class CartController extends Controller
 
             // Lưu vào table_order_details
             foreach ($dataCart as $kcart => $vcart) {
-                TableOrderDetail::create([
+               $hh =  TableOrderDetail::create([
                     'order_id' => $order->id,
                     'product_id' => $vcart->id,
                     'color' => $vcart->options->color,

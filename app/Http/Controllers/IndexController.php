@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\PusherEvent;
+use App\Models\TableProductDetail;
 use File;
 use App\Models\TablePost;
 use App\Models\TablePhoto;
@@ -33,7 +34,6 @@ class IndexController extends Controller
     public function index(Request $request)
     {
         // slide,gioithieu,pronb,banner_sanpham,splistnb,bannerQC,album,postnb
-        $slide = TablePhoto::where('type', 'slideshow')->get();
         $gioithieu = TableStatic::where('type', 'gioi-thieu')->first();
 
         $gioithieu_slide = TablePhoto::where('type', 'gioithieu-slide')->get();
@@ -52,7 +52,6 @@ class IndexController extends Controller
         // return $request->session()->all();
 
         return view('template.index.index',compact([
-            'slide',
             'splistnb',
             'gioithieu',
             'gioithieu_slide',
@@ -68,78 +67,17 @@ class IndexController extends Controller
 
     public function load_ajax_product(Request $request)
     {
-        $id =  $request->get('id');
-        $tenkhongdau =  $request->get('tenkhongdau');
-
+        $id_category =  $request->get('id_category');
         $data = DB::table('table_products')
-        ->where('category_id', $id)
+        ->where('category_id', $id_category)
         ->get();
+        $product_properties = TableProductDetail::where('product_id',$id_category)->where('stock','>','0')->get();
 
-        $output = '
-        <div class="owl-page owl-carousel owl-theme"
-            data-xsm-items = "2:10"
-            data-sm-items = "2:10"
-            data-md-items = "3:10"
-            data-lg-items = "3:10"
-            data-xlg-items = "4:10"
-            data-rewind = "1"
-            data-autoplay = "1"
-            data-loop = "0"
-            data-lazyload = "0"
-            data-mousedrag = "1"
-            data-touchdrag = "1"
-            data-smartspeed = "800"
-            data-autoplayspeed = "800"
-            data-autoplaytimeout = "5000"
-            data-dots = "1"
-            data-animations = ""
-            data-nav = "1"
-            data-navText = ""
-            data-navcontainer = ".control-sanpham">
-        ';
-        foreach ($data as $k =>$v){
-        $output .='
-            <div class="pronb-item" data-aos="fade-up" data-aos-duration="1500">
-                <div class="pronb-image">
-                    <a class="pronb-img scale-img" href=chi-tiet-san-pham/'.$v->slug.'/'.$v->id.' >
-                        <img src='.asset("http://localhost:8000/storage/$v->photo").' alt="" width="365"
-                            height="365" />
-                    </a>
-                    <a class="pronb-img1 scale-img" href=chi-tiet-san-pham/'.$v->slug.'/'.$v->id.' >
-                        <img src='.asset("http://localhost:8000/storage/$v->photo1").' alt="" width="365"
-                            height="365" />
-                    </a>
+        $product_sizes = TableProduct::find($id_category);
+        $sizes = json_encode($product_sizes->properties["sizes"]);
+        $sizes_decode = json_decode($sizes);
 
-                    <div class="pronb-btn">
-                        <a href='.route('cart.add',$v->id).' class="add-to-cart d-block">
-                            Thêm vào giỏ hàng
-                        </a>
-                        <a href="" class="buynow d-block">
-                            mua ngay
-                        </a>
-                    </div>
-                </div>
-                <div class="pronb-info">
-                    <h3 class="mb-0">
-                        <a class="pronb-name text-split" href= chi-tiet-san-pham/'.$v->slug.'/'.$v->id.'>
-                            '.$v->name.'
-                        </a>
-                    </h3>
-                    <div class="pronb-price">
-                        <span class="price-new">  '.number_format($v->sale_price).' đ </span>
-                        <span class="price-old"> '.number_format($v->regular_price).' đ </span>
-                        <span class="discount"> '.$v->discount.'%</span>
-                    </div>
-                </div>
-
-            </div>
-        '
-        ;
-        }
-        $output .='
-            </div>
-        ';
-        return response()->json($output);
+        return view('api.product',compact(['data','product_properties','sizes_decode']));
     }
 
     public function static()
@@ -184,17 +122,23 @@ class IndexController extends Controller
         ->where('slug', $slug)
         ->get();
 
-        // dd($rowDetail);
-
         $rowDetailPhoto = DB::table('table_product_details')
         ->where('product_id', $id)
         ->get();
-        // dd($rowDetailPhoto);
+
+        $product_properties = TableProductDetail::where('product_id',$id)->where('stock','>','0')->get();
+
+
+        $product_sizes = TableProduct::find($id);
+        $sizes = json_encode($product_sizes->properties["sizes"]);
+        $sizes_decode = json_decode($sizes);
 
         return view('template.product.detail',compact([
             'rowDetailPhoto',
             'rowDetail',
             'product',
+            'sizes_decode',
+            'product_properties',
         ]));
     }
 

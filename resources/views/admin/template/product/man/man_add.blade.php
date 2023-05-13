@@ -327,56 +327,10 @@ enctype="multipart/form-data"
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="col-xl-4">
-                                    <div class="mb-3">
-                                        <label for="stock" class="form-label"
-                                            >Nhập hàng:</label
-                                        >
-                                        <input
-                                            type="number"
-                                            class="form-control"
-                                            id="stock"
-                                            placeholder="Nhập hàng"
-                                            name="stock_input"
-                                        />
-                                    </div>
-                                </div>
-
-                                <div class="col-xl-4">
-                                    <div class="mb-3">
-                                        <label for="stock" class="form-label"
-                                            >Tồn kho:</label
-                                        >
-                                        <input
-                                            type="number"
-                                            class="form-control"
-                                            id="stock"
-                                            placeholder="Tồn kho"
-                                            name="stock"
-                                            readonly
-                                        />
-                                    </div>
-                                </div>
                             </div>
                             {{-- Thêm thuộc tính --}}
-                            <div id="themthuoctinh" class="row">
-                                <div class="col-md-4 form-group">
-                                    <div class="w_box3">
-                                        <div id="swatch" class="mt-1">
-                                            <label class="d-block" for="color">Color:</label>
-                                            <input type="color" id="color" name="color[]" value="#FF0000">
-                                        </div>
-                                        <div class="d-flex justify-content-between align-item-center mt-1">
-                                            <label class="d-block" for="stock">Tồn kho:</label>
-                                            <input type="text" name="stock[]" class="form-control w-75" placeholder="Tồn kho" value="" title="Tồn kho">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <input type="button" class="btn btn-primary" onclick="themthuoctinh(); return false;" value="Thêm thuộc tính">
-                        </div>
+                            <div id="themthuoctinh" class="row"> </div>
+                            <input type="button" class="btn btn-primary col-3" onclick="themthuoctinh(); return false;" value="Thêm thuộc tính">
                     </div>
                 </div>
                 </div>

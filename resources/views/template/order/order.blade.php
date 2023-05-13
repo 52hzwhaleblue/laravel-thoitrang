@@ -8,13 +8,13 @@
             <table class="table table-hover table-bordered " id="sampleTable">
                 <thead>
                     <tr>
-                        <th width="10%">STT</th>
-                        <th>Hình</th>
+                        <th >STT</th>
+                        <th width="10%">Hình</th>
                         <th width="30%">Tiêu đề</th>
-                        <th width="30%">Giá</th>
-                        <th>Số lượng</th>
-                        <th>Đơn giá</th>
-                        <th>Tạm tính</th>
+                        <th width="20%">Giá</th>
+                        <th width="7%">Số lượng</th>
+                        <th width="20%">Đơn giá</th>
+                        <th width="20%">Tạm tính</th>
                         <th>Xóa</th>
                     </tr>
                 </thead>
@@ -35,13 +35,18 @@
                                 <img style="width: 60px; height: 60px" src="{{ asset( 'http://localhost:8000/storage/'.$row->options->photo )}}" alt="ss" />
                             </th>
                             <th>
-                                {{$row->name}}
+                                <p> {{$row->name}} </p>
+                                <p class="d-flex align-items-center">
+                                    <span class="mr-2"> Size: {{$row->options->size}} </span>
+                                    <span> Color: <input style=" width: 30px; height: 20px; border: 0;outline: 0; background: unset;
+                                " type="color" value="{{$row->options->color}}">  </span>
+                                </p>
                             </th>
                             <th>
                                 {{number_format($row->price,0,',','.')}}vnđ
                             </th>
                             <th>
-                                <input class="form-control form-control-mini giohang-qty" type="number" name="qty[{{$row->rowId}}]"
+                                <input class="form-control form-control-mini giohang-qty text-center" type="number" name="qty[{{$row->rowId}}]"
                                     value="{{$row->qty}}" min="1" data-id="{{$row->id}}" data-rowid="{{$row->rowId}}"
                                     data-price="{{$row->price}}">
                             </th>
