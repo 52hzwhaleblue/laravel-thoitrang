@@ -138,6 +138,7 @@ class AuthController extends BaseController
     public function loginWithGoogle(Request $request){
 
         try {
+           
             $query_user =  User::where('email',$request->email);
 
             //check the account already in database
@@ -160,7 +161,7 @@ class AuthController extends BaseController
             if($validateTableUser->fails()){
                 return $this->sendError('validation error',$validateTableUser->errors(),401);
             }
-
+            
             $TableUser = User::create([
                 "username" => "username@" .Str::random(6),
                 "fullName" => $request->fullname,

@@ -7,7 +7,6 @@
     "require": {
         "php": "^7.3|^8.0",
         "cviebrock/eloquent-sluggable": "^8.0",
-        "fabiang/xmpp": "^0.6.1",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
@@ -18,7 +17,8 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
         "livewire/livewire": "^2.11",
-        "pusher/pusher-php-server": "^7.2"
+        "pusher/pusher-php-server": "^7.2",
+        "pusher/pusher-push-notifications": "^2.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.7",
@@ -29,6 +29,7 @@
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^5.10",
         "phpunit/phpunit": "^9.5.10"
+        
     },
     "autoload": {
         "files": [

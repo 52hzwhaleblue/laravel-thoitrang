@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use Carbon\Carbon;
 use App\Models\Product;
 use Illuminate\Support\Str;
 use App\Models\TableProduct;
@@ -9,7 +10,6 @@ use Illuminate\Http\Request;
 use App\Models\TablePromotion;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Api\BaseController as BaseController;
-use App\Models\TableProductDetail;
 
 class ProductController extends BaseController
 {
@@ -18,17 +18,12 @@ class ProductController extends BaseController
         try {     
             $page = request()->query('page');
 
-            $type = request()->query('type',1);
-
             $limit = 8;
          
             $products = TableProduct::with(['category','productDetail'])
                 ->Stock()
                 ->withCount('orderDetail as sold')
                 ->withAvg('reviews as star', 'star')
-                ->when($type != 1,function($query) use ($type){
-                    return $query->where('category_id',$type);
-                })
                 ->when($page > 0,function($query) use ($limit,$page){
                     $offset = ($page - 1) * $limit;
                     return $query->skip($offset);
@@ -37,7 +32,7 @@ class ProductController extends BaseController
                 ->get()
                 ->map(function ($product) {
                     $product->star =  (double)$product->star;
-                    $product->is_popular = $product->view > 350;
+                    $product->is_popular = $product->view > 200 && $product->orderDetail->sum('quantity') > 5;
                      return $product;
                 }); 
             
@@ -53,13 +48,48 @@ class ProductController extends BaseController
     {
         try {
             $limit = 4;
-    
-            $products = TableProduct::with(['orderDetail', 'productDetail', 'category'])
-                ->popular()
+            $products = TableProduct::with(['category','productDetail','orderDetail'])
+                ->Stock()
+                ->Popular()
+                ->withCount('orderDetail as sold')
+                ->withAvg('reviews as star', 'star')
                 ->take($limit)
-                ->get();
+                ->get()
+                ->map(function ($product) {
+                    $product->star =  (double)$product->star;
+                    $product->is_popular = true;
+                     return $product;
+                }); 
                
             return $this->sendResponse($products, "Fetch popular successfully!!!");
+        } catch (\Throwable $th) {
+            return $this->sendError($th->getMessage(), 500);
+        }
+    }
+
+    public function fetchNewProduct(Request $request,DB $db)
+    {
+        try {
+
+            $limit = 10;
+
+            $currentDate = Carbon::now(); 
+
+            $threeMonthsAgo = $currentDate->copy()->subDays(90)->toDateString();
+
+            $products = TableProduct::with(['category','productDetail'])
+                ->withCount('orderDetail as sold')
+                ->withAvg('reviews as star', 'star')
+                ->whereDate('created_at', '>=', $threeMonthsAgo)
+                ->take($limit)
+                ->get()
+                ->map(function ($product) {
+                    $product->star =  (double)$product->star;
+                    $product->is_popular = false;
+                     return $product;
+                });
+               
+            return $this->sendResponse($products, "Fetch new product successfully!!!");
         } catch (\Throwable $th) {
             return $this->sendError($th->getMessage(), 500);
         }
@@ -69,7 +99,9 @@ class ProductController extends BaseController
     public function getDetail(){
         try{
             $id = request()->query('id_product');
+
             $productQuery = new TableProduct();
+            
             $product = $productQuery::with(["productDetail"])
             ->withCount('orderDetail as sold')
             ->withAvg('reviews as star', 'star')
@@ -144,6 +176,37 @@ class ProductController extends BaseController
             $promo = $db::find($id);
             $db::where('id',$promo->id)->update(["limit" => $promo->limit - 1]);
             return $this->sendResponse([], "Update limit successfully!!!");
+        }catch(\Throwable $th){
+            return $this->sendError( $th->getMessage(),500);
+        }
+    }
+
+    public function fetchSaleProduct(Request $request,DB $db){
+     
+        try{    
+         
+            // $page = request()->query('page',1);
+
+            // $limit = 10;
+
+            // $products = TableProduct::with(['category','productDetail'])
+            // ->withCount('orderDetail as sold')
+            // ->withAvg('reviews as star', 'star')
+            // // ->when($page > 1, function($query) use ($page,$limit){
+            // //     $offset = ($page - 1) * $limit;
+            // //     return $query->skip($offset);
+            // // })
+            // ->where('discount', '!=', null)
+            // ->take($limit)
+            // ->get()
+            // ->map(function ($product) {
+            //     $product->star =  (double)$product->star;
+            //     $product->is_popular = false;
+            //      return $product;
+            // });
+
+            return $this->sendResponse([], "Fetch product sale successfully!!!");
+
         }catch(\Throwable $th){
             return $this->sendError( $th->getMessage(),500);
         }

@@ -24,6 +24,9 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::controller(CategoryController::class)->group(function(){
     
         Route::post('/cate/fetch-categories','fetchCategories');
+
+        Route::post('/cate/fetch-product-by-category','fetchProductByCategory');
+
     });
     
     Route::controller(ProductController::class)->group(function(){
@@ -31,6 +34,10 @@ Route::middleware('auth:sanctum')->group(function(){
         Route::post('/product/fetch-product-all','fetchAll');
 
         Route::post('/product/fetch-popular','fetchPoppular');
+
+        Route::post('/product/fetch-new-product','fetchNewProduct');
+
+        Route::post('/product/fetch-sale-product','fetchSaleProduct');
 
         Route::post('/product/search','search');
 

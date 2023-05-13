@@ -42,12 +42,17 @@ class UserController extends BaseController
             if ($request->has('image')) {
                               
                 $imagePath = $query->first()->photo;
-           
-                Storage::disk('public')->delete($imagePath);
-               
+
+                if(!empty($imagePath)){
+
+                    Storage::disk('public')->delete($imagePath);
+                   
+                }
+
                 $path = $this->uploadFile($request,"avatars/",1920,1028);
-                
+                    
                 $query->update(["photo" => $path]);
+           
             }
 
             if(!empty($request->fullname)){

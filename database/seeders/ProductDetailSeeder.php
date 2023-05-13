@@ -72,9 +72,13 @@ class ProductDetailSeeder extends Seeder
             "Giày Sandal Nam MWC -7066 Giày Sandal Nam Quai Chéo Kiểu Dáng Basic" =>["id" => 31, "color" => "000000"],
             "Giày Sandal Big Size Nam Hiệu Vento_000000" =>["id" => 32, "color" => "000000"],
             "Giày Sandal Nam Vento Capella Nâu Be B7A078" =>["id" => 32, "color" => "B7A078"],
+            "mu-luoi-trai-trang-tron-1" =>["id" => 33, "color" => "ffffff"],
+            "mu-luoi-trai-den-tron-9" =>["id" => 33, "color" => "000000"],
+            "mu-bucket-tron-mau-den-trang-3-510x510" =>["id" => 34, "color" => "ffffff"],
+            "mu-bucket-tron-mau-den-trang-5-510x510" =>["id" => 34, "color" => "000000"],
         ];
-
-        $eloquent = new TableProductDetail();
+       
+        $eloquent = new TableProductDetail;
 
         foreach ($imagesProduct as $key => $value) {
             $eloquent::create([
