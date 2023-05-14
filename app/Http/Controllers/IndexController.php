@@ -67,7 +67,7 @@ class IndexController extends Controller
 
     public function load_ajax_product(Request $request)
     {
-        $id_category =  $request->get('id_category');
+        $id_category =  (int)$request->get('id_category');
         $data = DB::table('table_products')
         ->where('category_id', $id_category)
         ->get();

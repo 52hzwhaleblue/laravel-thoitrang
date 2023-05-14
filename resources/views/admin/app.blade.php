@@ -27,6 +27,9 @@
     <!-- Main CSS-->
     <link rel="stylesheet" type="text/css" href="{{ asset('public/backend/assets/css/main.css') }}" />
 
+    <!-- Index CSS-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/backend/assets/css/index.css') }}" />
+
     <!-- Font-icon css-->
     <link rel="stylesheet" type="text/css" href="{{
                 asset(

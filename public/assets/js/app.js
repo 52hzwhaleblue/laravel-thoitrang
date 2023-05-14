@@ -1,7 +1,4 @@
 function Cart(){
-
-
-
     // SỐ lượng
     $('.giohang-qty').change(function(){
         let id = $(this).data('id');
@@ -36,8 +33,8 @@ function Cart(){
             }
         });
     });
-}
 
+}
 
 
 function AosAnimation(){
@@ -162,7 +159,6 @@ function OwlPage(){
 
 
 function Home(){
-
     $('.list-hot a:first').addClass('active');
     var id_category = $('.list-hot a:first').data('id');
     $.ajaxSetup({
@@ -215,7 +211,21 @@ function Home(){
 
 }
 
+function Menu(){
+    /* Menu fixed */
+    $(window).scroll(function(){
+        var cach_top = $(window).scrollTop();
+        var height_header = $('.header').height();
 
+        if(cach_top >= height_header){
+            if(!$('.header').hasClass('fix_head animate__animated animate__fadeIn')){
+                $('.header').addClass('fix_head animate__animated animate__fadeIn');
+            }
+        }else{
+            $('.header').removeClass('fix_head animate__animated animate__fadeIn');
+        }
+    });
+}
 function Slick(){
     if($('.rowDetailPhoto-for').length > 0){
         $('.rowDetailPhoto-for').slick({
@@ -279,4 +289,5 @@ $(document).ready(function () {
     Slick();
     OwlPage();
     AosAnimation();
+    Menu();
 });
