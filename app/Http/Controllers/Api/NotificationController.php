@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 class NotificationController extends BaseController
 {
 
-   public function fetchData(Request $request,TableNotification $tableNoti,TableNotificationDetail $tableNotiDetail)
+   public function fetchData(Request $request,TableNotification $tableNoti)
    {
     try {
         $page = $request->query('page', 1);
@@ -24,9 +24,7 @@ class NotificationController extends BaseController
 
         $user_id = Auth::id();
 
-        $notifications = $tableNoti::
-        where('user_id', $user_id)
-        ->orWhere('user_id',null)
+        $notifications = $tableNoti::where('user_id', $user_id)
         ->orderByDesc('created_at')
         ->skip($offset)
         ->take($limit)
@@ -34,15 +32,12 @@ class NotificationController extends BaseController
         
         $response = [
             'chats' => [],
-            'daily' => [],
             'orders' => [],
         ];
 
         foreach ($notifications as $notification) {
             if ($notification->type === 'chat') {
                 $response['chats'][] = $notification;
-            } elseif ($notification->type === 'daily') {
-                $response['daily'][] = $notification;
             } elseif ($notification->type === 'order') {
                 $response['orders'][] = $notification;
             }
@@ -61,9 +56,9 @@ class NotificationController extends BaseController
       return $this->sendNotiToUser(Auth::id(),$request->title,$request->body,null,"notification");
    }
 
-   public function updateReadNoti(Request $request){
+   public function updateReadNoti(Request $request,DB $dB){
     try {
-        $idNoti = (int) $request->idNoti;
+        $idNoti = $request->idNoti;
 
         $type = $request->type;
 
@@ -73,11 +68,7 @@ class NotificationController extends BaseController
             return $this->sendResponse([], "Failed notification");
         }
 
-        if($type == "daily"){
-            $user_id =  null;
-        }
-
-        $query = DB::table('table_notifications')
+        $query = $dB::table('table_notifications')
                   ->where('type', $type)->where('user_id', $user_id);
                
         if ($idNoti != -1) {
@@ -85,48 +76,19 @@ class NotificationController extends BaseController
             $query = $query->where('id', $idNoti);
         }
         
-        DB::beginTransaction();
+        $dB::beginTransaction();
 
-        if ($type == "daily") {
-
-            if ($idNoti != -1) {
-
-               DB::table('table_notification_detail')
-                  ->insert([
-                  'notification_id' => $idNoti,
-                  'user_id' => $user_id,
-                  'is_read' => 1,
-                  'created_at' => now(),
-                  'updated_at' => now(),
-               ]);
-            
-            }else{
-      
-               $details = $query->get()->map(function ($notification) {
-                  return [
-                      'notification_id' => $notification->id,
-                      'user_id' => Auth::id(),
-                      'is_read' => 1,
-                      'created_at' => now(),
-                      'updated_at' => now(),
-                  ];
-              })->toArray();
-  
-              DB::table('table_notification_detail')->insert($details);
-            }
-
-        }else{
+       
            
             $query->update([
                'is_read' => 1,
             ]);
-        }
        
-        DB::commit();
+        $dB::commit();
 
         return $this->sendResponse([], "Updated notification");
       }catch(\Throwable $th){
-         DB::rollBack();
+        $dB::rollBack();
          return $this->sendError($th->getMessage(), 500);
       }
 

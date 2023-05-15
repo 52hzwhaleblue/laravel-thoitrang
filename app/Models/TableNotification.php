@@ -36,8 +36,4 @@ class TableNotification extends Model
             ->toDateTimeString();
     }
 
-    public function notificationDetail(){
-        return $this->hasMany(TableNotificationDetail::class,'notification_id','id');
-    }
-
 }
