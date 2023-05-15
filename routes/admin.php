@@ -12,6 +12,8 @@ use App\Http\Controllers\Admin\PhotoStaticController;
 use App\Http\Controllers\Admin\StaticController;
 use App\Http\Controllers\Admin\OptionController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\StatisticController;
+
 
 
 // Admin Route
@@ -107,5 +109,8 @@ Route::group([
     // Route::get('order-detail/{order_id}/{user_id}', [OrderController::class,'edit'])->name('order.detail');
     Route::get('order-detail', [OrderController::class,'edit'])->name('order.detail');
     Route::put('order-detail/update', [OrderController::class,'update'])->name('order_detail.update');
+
+    // Thống kê
+    Route::post('filter-by-date',[StatisticController::class,'filter_by_date'])->name('filter_by_date');
 });
 
