@@ -12,9 +12,6 @@
     @endif
 
     <div class="wrap-content">
-        @if($ProfileComposer['com'] == '' || $ProfileComposer['com'] == 'index')
-            {{-- @include('index.sindex') --}}
-        @endif
             @yield('content')
     </div>
 
