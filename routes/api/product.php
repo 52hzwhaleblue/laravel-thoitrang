@@ -66,5 +66,8 @@ Route::middleware('auth:sanctum')->group(function(){
         Route::post('/order/fetch-order','fetchAll');   
 
         Route::post('/order/delete-order','delete');   
+
+        Route::post('/order/check-promotion','checkPromotion');   
+
     });
 });

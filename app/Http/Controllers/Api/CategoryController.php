@@ -27,7 +27,7 @@ class CategoryController extends BaseController
 
             $cate = request()->query('cate',1);
 
-            $limit = 8;
+            $limit = 10;
 
             $offset = ($page - 1) * $limit;
 

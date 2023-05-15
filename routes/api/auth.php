@@ -52,7 +52,7 @@ Route::post('/broadcasting/auth', function (Illuminate\Http\Request $request) {
 
 
 Route::middleware('auth:sanctum')->get('/pusher/beams-auth', function (Request $request) {
-
+  
     $userID = $request->user()->id;
 
     $beamsClient = new PushNotifications(array(
@@ -61,10 +61,8 @@ Route::middleware('auth:sanctum')->get('/pusher/beams-auth', function (Request $
     ));
 
     $beamsToken = $beamsClient->generateToken($userID);
+
     return response()->json($beamsToken);
 });
 
-
-
-    Route::post('/test/test',[OrderController::class,'testOrder']);
 

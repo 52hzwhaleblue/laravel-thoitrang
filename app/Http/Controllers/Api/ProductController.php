@@ -14,11 +14,11 @@ use App\Http\Controllers\Api\BaseController as BaseController;
 class ProductController extends BaseController
 {
    
-    public function fetchAll(){   
+    public function fetchAll(Request $request){   
         try {     
-            $page = request()->query('page');
+            $page = $request->query('page');
 
-            $limit = 8;
+            $limit = 10;
          
             $products = TableProduct::with(['category','productDetail'])
                 ->Stock()
@@ -35,7 +35,6 @@ class ProductController extends BaseController
                     $product->is_popular = $product->view > 200 && $product->orderDetail->sum('quantity') > 5;
                      return $product;
                 }); 
-            
           
             return $this->sendResponse($products, "Fetch Product successfully!!!");
             
@@ -44,15 +43,22 @@ class ProductController extends BaseController
         }
     }
 
-    public function fetchPoppular(Request $request)
-    {
+    public function fetchPoppular(Request $request){
+
         try {
-            $limit = 4;
+            $page = $request->query('page',1);
+
+            $limit = 10;
+
             $products = TableProduct::with(['category','productDetail','orderDetail'])
                 ->Stock()
                 ->Popular()
                 ->withCount('orderDetail as sold')
                 ->withAvg('reviews as star', 'star')
+                ->when($page > 1, function($query) use ($page,$limit){
+                    $offset = ($page - 1) * $limit;
+                    return $query->skip($offset);
+                })
                 ->take($limit)
                 ->get()
                 ->map(function ($product) {
@@ -67,9 +73,9 @@ class ProductController extends BaseController
         }
     }
 
-    public function fetchNewProduct(Request $request,DB $db)
-    {
+    public function fetchNewProduct(Request $request) {
         try {
+            $page = $request->query('page',1);
 
             $limit = 10;
 
@@ -81,6 +87,10 @@ class ProductController extends BaseController
                 ->withCount('orderDetail as sold')
                 ->withAvg('reviews as star', 'star')
                 ->whereDate('created_at', '>=', $threeMonthsAgo)
+                ->when($page > 1, function($query) use ($page,$limit){
+                    $offset = ($page - 1) * $limit;
+                    return $query->skip($offset);
+                })
                 ->take($limit)
                 ->get()
                 ->map(function ($product) {
@@ -94,7 +104,6 @@ class ProductController extends BaseController
             return $this->sendError($th->getMessage(), 500);
         }
     }
-
 
     public function getDetail(){
         try{
@@ -124,9 +133,9 @@ class ProductController extends BaseController
 
     }
     
-    public function search(){
+    public function search(Request $request){
         try {    
-            $keyword = request()->query('keyword');
+            $keyword = $request->query('keyword');
 
             if(empty($keyword)){
                 return $this->sendResponse([], "Fetch search successfully!!!");
@@ -160,6 +169,7 @@ class ProductController extends BaseController
                 $offset = ($page - 1) * $limit;
                 return $query->skip($offset);
             })
+            ->where('limit','>',0)
             ->take($limit)
             ->get();
 
@@ -181,31 +191,30 @@ class ProductController extends BaseController
         }
     }
 
-    public function fetchSaleProduct(Request $request,DB $db){
-     
+    public function fetchSaleProduct(){  
         try{    
          
-            // $page = request()->query('page',1);
+            $page = request()->query('page',1);
 
-            // $limit = 10;
+            $limit = 10;
 
-            // $products = TableProduct::with(['category','productDetail'])
-            // ->withCount('orderDetail as sold')
-            // ->withAvg('reviews as star', 'star')
-            // // ->when($page > 1, function($query) use ($page,$limit){
-            // //     $offset = ($page - 1) * $limit;
-            // //     return $query->skip($offset);
-            // // })
-            // ->where('discount', '!=', null)
-            // ->take($limit)
-            // ->get()
-            // ->map(function ($product) {
-            //     $product->star =  (double)$product->star;
-            //     $product->is_popular = false;
-            //      return $product;
-            // });
+            $products = TableProduct::with(['category','productDetail'])
+            ->withCount('orderDetail as sold')
+            ->withAvg('reviews as star', 'star')
+            ->when($page > 1, function($query) use ($page,$limit){
+                $offset = ($page - 1) * $limit;
+                return $query->skip($offset);
+            })
+            ->where('discount', '!=', null)
+            ->take($limit)
+            ->get()
+            ->map(function ($product) {
+                $product->star =  (double)$product->star;
+                $product->is_popular = false;
+                 return $product;
+            });
 
-            return $this->sendResponse([], "Fetch product sale successfully!!!");
+            return $this->sendResponse($products, "Fetch product sale successfully!!!");
 
         }catch(\Throwable $th){
             return $this->sendError( $th->getMessage(),500);

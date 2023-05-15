@@ -18,7 +18,7 @@ class TablePromotion extends Model
         'desc',
         'order_price_conditions',
         'discount_price',
-        'litmit',
+        'limit',
         'end_date',
         'status',
         'created_at',

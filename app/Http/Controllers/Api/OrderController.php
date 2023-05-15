@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Api\BaseController as BaseController;
 use App\Models\TableOrderDetail;
+use App\Models\TablePromotion;
 
 class OrderController extends BaseController
 {
@@ -129,7 +130,7 @@ class OrderController extends BaseController
 
     public function delete(Request $request){
         try {
-            $order_id = (int)request()->query("order_id");
+            $order_id = $request->query("order_id");
 
             DB::table('table_orders')
             ->where("id",$order_id)
@@ -137,6 +138,22 @@ class OrderController extends BaseController
             ->delete();
 
             return $this->sendResponse([], "Delete order successfully!!!");
+        } catch (\Throwable $th) {
+            return $this->sendError( $th->getMessage(),500);
+        }
+    }
+
+    public function checkPromotion(Request $request){
+        try {
+            $idPromotion = $request->input("idPromotion");
+
+            $promotion = TablePromotion::find($idPromotion);
+          
+            if($promotion->limit < 1){
+                return $this->sendResponse(201, "Apply promotion failure!!!");
+            }
+
+            return $this->sendResponse(200, "Apply promotion successfully!!!");
         } catch (\Throwable $th) {
             return $this->sendError( $th->getMessage(),500);
         }
