@@ -1,4 +1,4 @@
-<form class="form-cart" id="cart-form" action="{{route('cart-add')}}" method="post" enctype="multipart/form-data">
+<form class="form-cart" id="cart-form" action="{{route('cart-add')}}" method="post" enctype="multipart/form-data" hidden="">
     @csrf
     <input type="text" class="id-input" name="pronb_id" value="" >
     <input type="text" class="color-input" name="pronb_color" value="">
@@ -14,7 +14,7 @@
      data-rewind = "1"
      data-autoplay = "0"
      data-loop = "0"
-     data-dotsData="1"
+     data-dotsData="0"
      data-lazyload = "0"
      data-mousedrag = "1"
      data-touchdrag = "1"
@@ -27,7 +27,7 @@
      data-navText = ""
      data-navcontainer = ".control-sanpham">
     @foreach ($data as $k =>$v)
-    <div class="pronb-item" data-aos="fade-up" data-aos-duration="1500" data-dot="<button role='button' class='owl-dot'><?=$k+1?></button>">
+    <div class="pronb-item" data-aos="fade-up" data-aos-duration="1500">
         <div class="pronb-image">
             <a class="pronb-img scale-img" href=chi-tiet-san-pham/{{$v->slug}}/{{$v->id}} >
                 <img src="{{asset("http://localhost:8000/storage/$v->photo")}}" alt="{{$v->name}}" />
