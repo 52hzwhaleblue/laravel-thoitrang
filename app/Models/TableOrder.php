@@ -29,7 +29,7 @@ class TableOrder extends Model
         'ship_price',
         'requirements',
         'notes',
-        'status',
+        'status_id',
         'created_at',
         'updated_at',
     ];

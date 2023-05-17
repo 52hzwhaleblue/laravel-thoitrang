@@ -61,12 +61,12 @@ class User extends Authenticatable implements MustVerifyEmail
         'update_at' => 'datetime:Y-m-d H:i:s',
     ];
 
-    public function getCreatedAtAttribute($value)
-    {
-        return Carbon::createFromFormat('Y-m-d\TH:i:s.u\Z', $value, 'UTC')
-            ->setTimezone('Asia/Ho_Chi_Minh')
-            ->toDateTimeString();
-    }
+    // public function getCreatedAtAttribute($value)
+    // {
+    //     return Carbon::createFromFormat('Y-m-d\TH:i:s.u\Z', $value, 'UTC')
+    //         ->setTimezone('Asia/Ho_Chi_Minh')
+    //         ->toDateTimeString();
+    // }
 
     public function review(){
         return $this-> hasMany(TableReview::class);
