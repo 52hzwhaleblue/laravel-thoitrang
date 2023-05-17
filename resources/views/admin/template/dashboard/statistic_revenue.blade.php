@@ -8,6 +8,7 @@
             </h5>
         </div>
         <div class="card-body">
+            <div class="d-flex align-items-center">
                 <div class="col-md-3">
                     <div class="form-group d-flex align-items-center">
                         <label class="w-50 mb-0" for="tungay">Từ ngày </label>
@@ -23,6 +24,16 @@
                 <div class="col-md-2">
                     <div class="form-group"><button id="thongke-btn" class="btn btn-success">Thống Kê</button></div>
                 </div>
+                <div class="col-md-2">
+                    <select name="id_list" class="dashboard-filter form-select ">
+                        <option>-- Chọn --</option>
+                        <option value="7ngayqua">7 Ngày qua </option>
+                        <option value="thangtruoc"> Tháng trước</option>
+                        <option value="thangnay"> Tháng này</option>
+                        <option value="365ngayqua"> 365 ngày qua </option>
+                    </select>
+                </div>
+            </div>
             <div id="statistic_revenue" style="height: 250px;"></div>
         </div>
     </div>

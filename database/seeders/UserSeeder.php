@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
 
         $updated_at = now();
 
-        User::factory()->count(10)->create();
+        User::factory()->count(30)->create();
 
         $eloquent::create([
             'username'=>"abc@1",
