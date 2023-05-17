@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
-use Carbon\Carbon;
-use App\Models\Product;
+
+use App\Models\TableReview;
 use Illuminate\Http\Request;
 use App\Jobs\InsertReviewJob;
 use Illuminate\Support\Facades\DB;
 use App\Jobs\InsertReviewDetailJob;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Api\BaseController as BaseController;
-use App\Models\TableReview;
 
 class ReviewController extends BaseController
 {
@@ -83,17 +81,6 @@ class ReviewController extends BaseController
 
             $db::beginTransaction();
 
-            dispatch(new InsertReviewJob(
-                Auth::id(),
-                $order_id,
-                $content,
-                $star
-            ));
-    
-            $reviews = $db::table('table_reviews')
-                ->where('order_id', $order_id)
-                ->get();
-            
             if (!empty($files)) {
                 $array_photo = array();
 
@@ -101,10 +88,16 @@ class ReviewController extends BaseController
                     $array_photo = $list_photo;
                 });
 
-                foreach ($reviews as $review) {
-                    dispatch(new InsertReviewDetailJob($review->id, $array_photo));
-                }
             }
+
+            dispatch(new InsertReviewJob(
+                Auth::id(),
+                $order_id,
+                $content,
+                $star, $array_photo
+            ));
+            
+           
     
             $db::commit();
     

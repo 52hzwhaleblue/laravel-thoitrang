@@ -17,33 +17,29 @@ use App\Models\TablePromotion;
 
 class OrderController extends BaseController
 {
-    public function fetchAll(){
+    public function fetchAll(TableOrder $order_sql){
         try {
             $userId = Auth::id();
 
-            $completed = TableOrder::with(['orderDetail', 'orderDetail.product','orderDetail.product.productDetail'])
+            $order_query = $order_sql::with(['orderDetail', 'orderDetail.product','orderDetail.product.productDetail'])
+                            ->orderByDesc('created_at')
+                            ->where('user_id', $userId); 
+
+            $completed = $order_query
             ->withExists('review as evaluated')
             ->where('status',-1)
-             ->orderByDesc('created_at')
-            ->where('user_id', $userId)
             ->get();
 
-            $toReceive = TableOrder::with(['orderDetail', 'orderDetail.product','orderDetail.product.productDetail'])
+            $toReceive = $order_query
             ->where('status',3)
-            ->orderByDesc('created_at')
-            ->where('user_id', $userId)
             ->get();
 
-            $toShip = TableOrder::with(['orderDetail', 'orderDetail.product','orderDetail.product.productDetail'])
+            $toShip = $order_query
             ->where('status',2)
-            ->orderByDesc('created_at')
-            ->where('user_id', $userId)
             ->get();
 
-            $toPay = TableOrder::with(['orderDetail', 'orderDetail.product','orderDetail.product.productDetail'])
+            $toPay = $order_query
             ->where('status',1)
-            ->orderByDesc('created_at')
-            ->where('user_id', $userId)
             ->get();
 
             $response = [
@@ -59,7 +55,7 @@ class OrderController extends BaseController
         }
     }
 
-    public function create(Request $request,DB $db){
+    public function create(Request $request,DB $db,TableOrder $order_sql ){
         try {
             $validator = Validator::make($request->all(),
             [
@@ -79,10 +75,13 @@ class OrderController extends BaseController
             if($validator->fails()){
                 return $this->sendError('validation error',$validator->errors(),401);
             }
+            
 
-            $db::transaction(function () use ($request) {
+            $db::transaction(function () use ($request,$order_sql) {
                 $time = now();
-                $order = TableOrder::create([
+
+                
+                $order = $order_sql::create([
                     'code' => 'HDKR' . Str::random(5). date('Ymd'),
                     'user_id' => Auth::id(),
                     'shipping_fullname' => $request->shipping_fullname,
@@ -116,7 +115,7 @@ class OrderController extends BaseController
 
             });
 
-            $order = TableOrder::with(['orderDetail', 'orderDetail.product','orderDetail.product.productDetail'])
+            $order = $order_sql::with(['orderDetail', 'orderDetail.product','orderDetail.product.productDetail'])
             ->where('user_id', Auth::id())
             ->first();
 
