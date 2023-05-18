@@ -2,13 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
-use Pusher\Pusher;
-use App\Models\User;
-use App\Models\Image;
-use App\Models\Order;
-use App\Models\TableChat;
+
 use App\Models\TableOrder;
-use Illuminate\Http\Request;
 use App\Http\Requests\EditRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -17,8 +12,6 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\user\PasswordRequest;
 use App\Http\Controllers\Api\BaseController as BaseController;
-use App\Models\TableRoomChat;
-use App\Http\Controllers\Api\XMPPConnectionManager;
 
 class UserController extends BaseController
 {  
@@ -112,46 +105,4 @@ class UserController extends BaseController
         }
     }
 
-    public function fetchOrder(){
-        try{
-
-            $dataFetch = TableOrder::where('user_id',Auth::id())->get();
-            return $this->sendResponse($dataFetch,"Fetch order successfully!!");
-
-        } catch (\Throwable $th) {    
-            return $this->sendError( $th->getMessage(),null,500);
-        }
-    }
-
-    public function updateStatusOrder(DB $db){
-        try{
-            $userId = Auth::id();
-
-            $orderId = (int)request()->input('order_id');
-
-            $query = $db::table("table_orders")->find($orderId);
-
-            $title = "";
-
-            $body = "";
-
-            if( $query->status == 1){
-                $title = "Đơn hàng ".$query->code.' đã được xác nhận';
-                $body = "Chú ý theo dõi trạng thái đơn hàng để được giao đúng thời gian";
-            }
-
-            if($query->status == 2){
-                $title = "Đơn hàng".$query->code.' đang được vận chuyển';
-                $body = "Chú ý theo dõi trạng thái đơn hàng để được giao đúng thời gian";
-            }
-            
-
-            $this->sendNotiToUser($userId,$title,$body,null,"order");
-
-
-
-        }catch(\Throwable $th){
-            return $this->sendError( $th->getMessage(),null,500);
-        }
-    }
 }

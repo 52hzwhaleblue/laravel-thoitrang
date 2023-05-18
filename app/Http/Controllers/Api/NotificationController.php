@@ -31,17 +31,8 @@ class NotificationController extends BaseController
         ->get();
         
         $response = [
-            'chats' => [],
-            'orders' => [],
+            'data' => $notifications,
         ];
-
-        foreach ($notifications as $notification) {
-            if ($notification->type === 'chat') {
-                $response['chats'][] = $notification;
-            } elseif ($notification->type === 'order') {
-                $response['orders'][] = $notification;
-            }
-        }
 
         return $this->sendResponse($response, 'Fetch notification successfully');
     } catch (\Throwable $th) {
@@ -52,7 +43,6 @@ class NotificationController extends BaseController
 
    public function create(Request $request){
         
-
       return $this->sendNotiToUser(Auth::id(),$request->title,$request->body,null,"notification");
    }
 
