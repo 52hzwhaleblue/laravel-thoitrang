@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers\Api;
 
+
 use App\Models\Product;
 use App\Models\TableOrder;
-use Illuminate\Support\Str;
-use App\Jobs\CreateOrderJob;
-use App\Models\TableProduct;
+use App\Jobs\InsertOrderJob;
 use Illuminate\Http\Request;
+use App\Models\TablePromotion;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Api\BaseController as BaseController;
-use App\Models\TableOrderDetail;
-use App\Models\TablePromotion;
 
 class OrderController extends BaseController
 {
@@ -21,27 +19,31 @@ class OrderController extends BaseController
         try {
             $userId = Auth::id();
 
-            $order_query = $order_sql::with(['orderDetail', 'orderDetail.product','orderDetail.product.productDetail'])
-                            ->orderByDesc('created_at')
-                            ->where('user_id', $userId); 
-
-            $completed = $order_query
+            $toPay = $order_sql::with(['orderDetail', 'orderDetail.product','orderDetail.product.productDetail'])
+            ->orderByDesc('created_at')
+            ->where('user_id', $userId)
+            ->where('status_id',1)
+            ->get();
+                            
+            $completed = $order_sql::with(['orderDetail', 'orderDetail.product','orderDetail.product.productDetail'])
+            ->orderByDesc('created_at')
+            ->where('user_id', $userId)
             ->withExists('review as evaluated')
-            ->where('status',-1)
+            ->where('status_id',4)
             ->get();
 
-            $toReceive = $order_query
-            ->where('status',3)
+            $toReceive =  $order_sql::with(['orderDetail', 'orderDetail.product','orderDetail.product.productDetail'])
+            ->orderByDesc('created_at')
+            ->where('user_id', $userId)
+            ->where('status_id',3)
             ->get();
 
-            $toShip = $order_query
-            ->where('status',2)
+            $toShip = $order_sql::with(['orderDetail', 'orderDetail.product','orderDetail.product.productDetail'])
+            ->orderByDesc('created_at')
+            ->where('user_id', $userId)
+            ->where('status_id',2)
             ->get();
-
-            $toPay = $order_query
-            ->where('status',1)
-            ->get();
-
+            
             $response = [
                 "to_pay" => $toPay,
                 "to_ship" => $toShip,
@@ -55,8 +57,8 @@ class OrderController extends BaseController
         }
     }
 
-    public function create(Request $request,DB $db,TableOrder $order_sql ){
-        try {
+    public function create(Request $request,DB $db ){
+        try {     
             $validator = Validator::make($request->all(),
             [
                 'shipping_fullname' => "nullable|required",
@@ -70,56 +72,37 @@ class OrderController extends BaseController
                 'list_product' => "nullable|required",
             ]);
 
-
-
             if($validator->fails()){
                 return $this->sendError('validation error',$validator->errors(),401);
             }
+
+            $data =  [
+                'user_id' => Auth::id(),
+                'shipping_phone' => $request->input('shipping_phone'),
+                'shipping_fullname' => $request->input('shipping_fullname'),
+                'shipping_address' => $request->input('shipping_address'),
+                'payment_method' => $request->input('payment_method'),
+                'temp_price' => $request->input('temp_price'),
+                'total_price' => $request->input('total_price'),
+                'ship_price' =>$request->input('ship_price'),
+                'notes' => $request->input('notes'),
+            ];
             
 
-            $db::transaction(function () use ($request,$order_sql) {
-                $time = now();
+            $job = new InsertOrderJob($request->input('list_product'),$data);
+        
 
+            $db::transaction(function () use ($job) {   
                 
-                $order = $order_sql::create([
-                    'code' => 'HDKR' . Str::random(5). date('Ymd'),
-                    'user_id' => Auth::id(),
-                    'shipping_fullname' => $request->shipping_fullname,
-                    'shipping_phone' => $request->shipping_phone,
-                    'shipping_address' => $request->shipping_address,
-                    'payment_method' => $request->payment_method,
-                    'temp_price' => $request->temp_price,
-                    'total_price' => $request->total_price,
-                    'ship_price' => $request->ship_price,
-                    'notes' => $request->notes,
-                    'status' => 1,
-                    'created_at' =>  $time,
-                    'updated_at' =>  $time
-                ]);
-
-                $list = json_decode($request->input("list_product"));
-
-                $tableDetail = new TableOrderDetail();
-                foreach( $list as $item){
-                    $tableDetail::create([
-                        'order_id' => $order->id,
-                        'product_id' => $item->product->id,
-                        'color' => $item->color,
-                        'size' => $item->size,
-                        'quantity' => $item->quantity,
-                        'photo' => $item->photo,
-                        'created_at' =>  $time ,
-                        'updated_at' =>  $time
-                    ]);
-                }
-
+                dispatch($job);
             });
+        
 
-            $order = $order_sql::with(['orderDetail', 'orderDetail.product','orderDetail.product.productDetail'])
+            $order = TableOrder::with(['orderDetail', 'orderDetail.product','orderDetail.product.productDetail'])
             ->where('user_id', Auth::id())
             ->first();
 
-            return $this->sendResponse($order, "Create order successfully!!!");
+            return $this->sendResponse( $order, "Create order successfully!!!");
 
 
         } catch (\Throwable $th) {
