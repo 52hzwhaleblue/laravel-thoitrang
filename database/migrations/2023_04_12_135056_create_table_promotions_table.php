@@ -20,7 +20,7 @@ class CreateTablePromotionsTable extends Migration
             $table->double('order_price_conditions')->nullable();
             $table->longText('desc')->nullable();
             $table->double('discount_price')->nullable();
-            $table->integer('litmit')->nullable();
+            $table->integer('limit')->nullable();
             $table->date('end_date')->nullable();
             $table->integer('status')->nullable()->default(1);
             $table->timestamps();

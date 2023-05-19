@@ -56,12 +56,12 @@ class TableProduct extends Model
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
 
-    public function getCreatedAtAttribute($value)
-    {
-        return Carbon::createFromFormat('Y-m-d\TH:i:s.u\Z', $value, 'UTC')
-            ->setTimezone('Asia/Ho_Chi_Minh')
-            ->toDateTimeString();
-    }
+    // public function getCreatedAtAttribute($value)
+    // {
+    //     return Carbon::createFromFormat('Y-m-d\TH:i:s.u\Z', $value, 'UTC')
+    //         ->setTimezone('Asia/Ho_Chi_Minh')
+    //         ->toDateTimeString();
+    // }
 
     public function promotion(){
         return $this->belongsTo(TablePromotion::class);
@@ -88,7 +88,7 @@ class TableProduct extends Model
 
     public function scopePopular($query)
     {
-        return $query->where('view', '>=', 150)
+        return $query->where('view', '>=', 200)
             ->whereIn('id', function ($query) {
                 $query->select('product_id')
                     ->from('table_order_details')

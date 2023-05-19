@@ -57,7 +57,6 @@ class AuthController extends BaseController
         try {
             $validateTableUser = Validator::make($request->all(),
             [
-                'username' => 'required',
                 'fullname' => 'required',
                 'email' => 'required',
                 'phone' => 'required',
@@ -82,18 +81,19 @@ class AuthController extends BaseController
                 }
                 
                 $query->insert([
-                    "username" => $request->username,
+                    "username" => "username@" .Str::random(6),
                     "fullname" => $request->fullname,
                     "email" => $request->email,
                     "phone" => $request->phone,
                     "password" => Hash::make($request->password),
                     "photo" => $url,
+                    "created_at" => now(),
                 ]);
+                return $this->sendResponse([],'User Sign Up Successfully');
             }else{
                 return $this->sendResponse([],'Email already exists');
-
             }
-            return $this->sendResponse([],'User Sign Up Successfully');
+           
 
         } catch (\Throwable $th) {
 
@@ -108,7 +108,7 @@ class AuthController extends BaseController
 
             $ischeck = User::where('phone',$phone)->exists();
            
-            if($ischeck){
+            if(!$ischeck){
                 return $this->sendResponse([201],"Failed");
             }
             return $this->sendResponse([200],"Successfully");
@@ -118,17 +118,30 @@ class AuthController extends BaseController
         }
     }
 
-    public function forgotPassword(){
+    public function forgotPassword(Request $request){
         try{
-            $phone = request()->input('phone');
+            $validate = Validator::make($request->all(),
+            [
+                'phone' => 'required',
+                'new_password' => 'required'
+            ]);
 
-            $newpass = request()->input('new_password');
+            if($validate->fails()){
+                return $this->sendError('validation error',$validate->errors(),401);
+            }
 
-            User::where('phone',$phone)->update([
+            $phone = $request->input('phone');
+
+            $newpass = $request->input('new_password');
+
+            $user = User::where('phone',$phone);
+
+            $user->update([
                 "password" => Hash::make($newpass),
             ]);
-  
-            return $this->sendResponse(200,"Change password successfully");
+
+        
+            return $this->sendResponse(200,"Changed password successfully");
 
         }catch(\Throwable $th){
             return $this->sendError( $th->getMessage(),null,500);
@@ -138,6 +151,7 @@ class AuthController extends BaseController
     public function loginWithGoogle(Request $request){
 
         try {
+           
             $query_user =  User::where('email',$request->email);
 
             //check the account already in database
@@ -160,7 +174,7 @@ class AuthController extends BaseController
             if($validateTableUser->fails()){
                 return $this->sendError('validation error',$validateTableUser->errors(),401);
             }
-
+            
             $TableUser = User::create([
                 "username" => "username@" .Str::random(6),
                 "fullName" => $request->fullname,

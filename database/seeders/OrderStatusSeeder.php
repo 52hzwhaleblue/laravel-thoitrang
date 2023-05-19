@@ -15,7 +15,7 @@ class OrderStatusSeeder extends Seeder
     public function run()
     {
         $list_name = [
-            "Mới đặt","Đã xác nhận","Đang giao hàng","Đã giao","Đã hủy"
+            "Đơn mới","Đã xác nhận","Đang giao hàng","Đã giao","Đã hủy"
         ];
 
         $list_class_order = [

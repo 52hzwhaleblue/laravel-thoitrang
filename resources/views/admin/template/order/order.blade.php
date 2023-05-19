@@ -74,7 +74,7 @@
                                     </th>
                                     <th class="align-middle">
                                         @foreach ($order_status as $k1 => $v1 )
-                                            @if($v->status == $v1->id)
+                                            @if($v->status_id == $v1->id)
                                             <p class="{{ $v1->class_order }}"> {{ $v1->name }} </p>
                                             @endif
                                         @endforeach

@@ -15,10 +15,10 @@ class NotificationSeeder extends Seeder
      */
     public function run()
     {
-
+        $db = new DB();
 
        foreach([1,2] as $item){
-        DB::table('table_notifications')->insert([
+        $db::table('table_notifications')->insert([
             "user_id" => 1,
             "title" => "title test".$item,
             "subtitle" =>  "subtitle test".$item,
@@ -29,7 +29,7 @@ class NotificationSeeder extends Seeder
        }
 
        foreach([1,2] as $item){
-        DB::table('table_notifications')->insert([
+        $db::table('table_notifications')->insert([
             "user_id" => 2,
             "title" => "title test".$item,
             "subtitle" =>  "subtitle test".$item,
@@ -40,7 +40,7 @@ class NotificationSeeder extends Seeder
        }
 
        foreach([5,6] as $item){
-        DB::table('table_notifications')->insert([
+        $db::table('table_notifications')->insert([
             "title" => "title test".$item,
             "subtitle" =>  "subtitle test".$item,
             "type" =>  "order",
@@ -48,17 +48,6 @@ class NotificationSeeder extends Seeder
             "created_at" => now(),
             "updated_at" => now(),
         ]);
-       }
-
-       foreach([7,8] as $item){
-            DB::table('table_notifications')->insert([
-                "title" => "title test".$item,
-                "subtitle" =>  "subtitle test".$item,
-                "type" =>  "daily",
-                "is_read" => null,
-                "created_at" => now(),
-                "updated_at" => now(),
-            ]);
        }
     }
 }

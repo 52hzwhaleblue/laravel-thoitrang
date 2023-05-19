@@ -43,7 +43,7 @@ class OrderSeeder extends Seeder
                 'ship_price' => 0,
                 'notes' => ".....Note",
                 'total_price' => rand(50000,2000000),
-                'status' => $status, // Mới đặt
+                'status_id' => $status, // Mới đặt
                 "created_at" => $created_at,
                 "updated_at" => $updated_at,
             ]);
