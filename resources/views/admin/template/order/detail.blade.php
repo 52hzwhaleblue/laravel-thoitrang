@@ -73,7 +73,7 @@ Quản lý chi tiết đơn hàng
                     <select name="order_status" id="" class="form-select" aria-label="Default select example">
                         <option value="0"> Chọn tình trạng </option>
                         @foreach ($order_status as $k => $v )
-                            <option value="{{ $v->id }}" @if($rowOrder->status == $v->id) selected  @endif > {{ $v->name }} </option>
+                            <option value="{{ $v->id }}" @if($rowOrder->status_id == $v->id) selected  @endif > {{ $v->name }} </option>
                         @endforeach
                    </select>
                 </div>

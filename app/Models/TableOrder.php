@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use App\Models\TableReview;
+use App\Models\TablePromotion;
 use App\Models\TableOrderDetail;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -30,6 +31,7 @@ class TableOrder extends Model
         'requirements',
         'notes',
         'status_id',
+        'promotion_id',
         'created_at',
         'updated_at',
     ];
@@ -73,6 +75,11 @@ class TableOrder extends Model
     public function review()
     {
         return $this->hasOne(TableReview::class,'order_id','id');
+    }
+
+    public function promotion()
+    {
+        return $this->hasOne(TablePromotion::class,'promotion_id','id');
     }
 
 

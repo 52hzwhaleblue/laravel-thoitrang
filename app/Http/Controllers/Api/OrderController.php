@@ -70,6 +70,7 @@ class OrderController extends BaseController
                 'ship_price' =>"nullable|required",
                 'notes' => "nullable|required",
                 'list_product' => "nullable|required",
+                'id_promotion' => "nullable|required",
             ]);
 
             if($validator->fails()){
@@ -86,6 +87,7 @@ class OrderController extends BaseController
                 'total_price' => $request->input('total_price'),
                 'ship_price' =>$request->input('ship_price'),
                 'notes' => $request->input('notes'),
+                'id_promotion' => $request->input('id_promotion'),
             ];
             
 
@@ -93,7 +95,6 @@ class OrderController extends BaseController
         
 
             $db::transaction(function () use ($job) {   
-                
                 dispatch($job);
             });
         
@@ -114,10 +115,14 @@ class OrderController extends BaseController
         try {
             $order_id = $request->query("order_id");
 
-            DB::table('table_orders')
-            ->where("id",$order_id)
-            ->where('user_id',Auth::id())
-            ->delete();
+            $order_sql = new TableOrder();
+
+            $order = $order_sql::find($order_id);
+
+            
+
+            $order->delete();
+         
 
             return $this->sendResponse([], "Delete order successfully!!!");
         } catch (\Throwable $th) {

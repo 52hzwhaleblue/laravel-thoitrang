@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\user\PasswordRequest;
 use App\Http\Controllers\Api\BaseController as BaseController;
+use Illuminate\Http\Request;
 
 class UserController extends BaseController
 {  
@@ -83,17 +84,10 @@ class UserController extends BaseController
         }
     }
 
-    public function changePassword(PasswordRequest $request){
+    public function changePassword(Request $request){
         try{
-            $validateData = Validator::make($request->all(),$request->rules());
-    
-           /* This is a validation error. */
-            if($validateData->fails()){
-                return $this->sendError('validation error',$validateData->errors(),401);
-            }
-         
             if(!Hash::check($request->current_password, Auth::user()->password)){
-                return $this->sendResponse([],"Current password incorrect!,Please try again!!");
+                return $this->sendResponse([],"Current password incorrect! Please try again!!");
             }
 
             DB::table('table_users')->where('id',Auth::user()->id)->update(["password" => Hash::make($request->new_password)]);
