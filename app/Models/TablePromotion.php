@@ -3,10 +3,11 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use App\Models\TableOrder;
+use Illuminate\Support\Str;
 use App\Models\TableProduct;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Support\Str;
 
 class TablePromotion extends Model
 {
@@ -51,5 +52,10 @@ class TablePromotion extends Model
 
     public function product(){
         return $this->hasOne(TableProduct::class);
+    }
+
+    public function order()
+    {
+        return $this->belongsTo(TableOrder::class,'promotion_id','id');
     }
 }

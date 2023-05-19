@@ -29,8 +29,10 @@ return new class extends Migration
             $table->mediumText('requirements')->nullable()->default(null);
             $table->mediumText('notes')->nullable()->default(null);
             $table->unsignedInteger('status_id')->nullable();
+            $table->unsignedInteger('promotion_id')->nullable();
             $table->foreign('user_id')->references('id')->on('table_users')->cascadeOnDelete();
             $table->foreign('status_id')->references('id')->on('table_order_status')->cascadeOnDelete();
+            $table->foreign('promotion_id')->references('id')->on('table_promotions')->cascadeOnDelete();
             $table->timestamps();
         });
 
