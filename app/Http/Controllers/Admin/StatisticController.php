@@ -4,11 +4,16 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\TableOrder;
+use ArielMejiaDev\LarapexCharts\LarapexChart;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class StatisticController extends Controller
 {
+    public function index()
+    {
+
+    }
     public function filter_by_date(Request $request)
     {
         $carbon = Carbon::now('Asia/Ho_Chi_Minh');
