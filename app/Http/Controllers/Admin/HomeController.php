@@ -2,85 +2,55 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Charts\RevenueThisMonthChart;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\DB;
+use App\Charts\ActiveInactiveUserChart;
+use App\Charts\ProductsMostViewed;
 
-use Functions;
-
-use App\Models\TableNotification;
+use ArielMejiaDev\LarapexCharts\LarapexChart;
 
 class HomeController extends Controller
 {
+    public $chart;
+
+    public function __construct() {
+        $this->chart =  new LarapexChart();
+    }
+
     public function index()
     {
-        return view('admin.app');
+        // Chart active-inactive users
+        $objActiveInactiveUser = new ActiveInactiveUserChart($this->chart);
+        $chartActiveInactiveUser = $objActiveInactiveUser->build();
+
+        // Chart Top 10 products most viewed
+        $objProductMostViewed = new ProductsMostViewed($this->chart);
+        $chartProductMostViewed  = $objProductMostViewed->build();
+
+        // Chart revenue this month
+        $objRevenueThisMonth = new RevenueThisMonthChart($this->chart);
+        $chartRevenueThisMonth  = $objRevenueThisMonth->build();
+
+
+        // Top 15 products best seller
+        $top10ProductBestSeller= DB::table('table_order_details')
+            ->selectRaw('product_id,SUM(quantity) AS total_quantity')
+            ->groupBy('product_id')
+            ->orderByDesc('total_quantity')
+            ->limit(10)
+            ->get();
+
+
+
+        return view('admin.app',compact([
+            'chartActiveInactiveUser',
+            'chartProductMostViewed',
+            'chartRevenueThisMonth',
+            'top10ProductBestSeller'
+        ]));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

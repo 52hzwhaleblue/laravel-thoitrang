@@ -42,7 +42,7 @@ class OrderSeeder extends Seeder
                 'temp_price' => 500000,
                 'ship_price' => 0,
                 'notes' => ".....Note",
-                'total_price' => 500000,
+                'total_price' => rand(50000,2000000),
                 'status' => $status, // Mới đặt
                 "created_at" => $created_at,
                 "updated_at" => $updated_at,
@@ -53,7 +53,6 @@ class OrderSeeder extends Seeder
         $faker_size = [
             "M",
              "35",
-
         ];
 
         $faker_color= [

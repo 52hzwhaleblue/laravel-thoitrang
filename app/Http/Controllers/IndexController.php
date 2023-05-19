@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\PusherEvent;
+use App\Models\TableNotification;
 use App\Models\TableProductDetail;
 use File;
 use App\Models\TablePost;
@@ -133,6 +134,11 @@ class IndexController extends Controller
         $sizes = json_encode($product_sizes->properties["sizes"]);
         $sizes_decode = json_decode($sizes);
 
+
+        // gọi hàm cập nhật view sản phẩm
+        $this->update_viewed($request,$slug,$id);
+
+
         return view('template.product.detail',compact([
             'rowDetailPhoto',
             'rowDetail',
@@ -140,6 +146,25 @@ class IndexController extends Controller
             'sizes_decode',
             'product_properties',
         ]));
+
+
+    }
+
+    public function update_viewed(Request $request,$slug,$id)
+    {
+        // cập nhật lại view với id
+        // lấy số view hiện tại + 1
+        $current_view = DB::table('table_products')
+            ->select('view')
+            ->where('id',$id)
+            ->first();
+        $now_view = $current_view->view+1;
+
+        // update table_products
+        $table_products = TableProduct::where('id',$id)->first();
+        $table_products->view = $now_view;
+        $table_products->save();
+
     }
 
 }
