@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Charts\RevenueFilterByDateChart;
 use App\Http\Controllers\Controller;
 use App\Models\TableOrder;
 use ArielMejiaDev\LarapexCharts\LarapexChart;
@@ -10,10 +11,13 @@ use Illuminate\Http\Request;
 
 class StatisticController extends Controller
 {
-    public function index()
-    {
+    public $chart;
 
+    public function __construct() {
+        $this->chart =  new LarapexChart();
     }
+
+
     public function filter_by_date(Request $request)
     {
         $carbon = Carbon::now('Asia/Ho_Chi_Minh');
@@ -21,9 +25,10 @@ class StatisticController extends Controller
         $tungay = $request->get('tungay');
         $denngay = $request->get('denngay');
 
+
         $sql = TableOrder::whereBetween('created_at',[$tungay,$denngay])->orderBy('created_at', 'ASC')->get();
 
-        $chart_data[] = array();
+        $chart_data = array();
         foreach ($sql as $key => $v) {
 
             $chart_data[] = array(

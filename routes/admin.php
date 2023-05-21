@@ -109,7 +109,7 @@ Route::group([
     Route::put('order-detail/update', [OrderController::class,'update'])->name('order_detail.update');
 
     // Thống kê
-    Route::post('filter-by-date',[StatisticController::class,'filter_by_date'])->name('filter_by_date');
+    Route::get('filter-by-date',[StatisticController::class,'filter_by_date'])->name('filter_by_date');
     Route::post('dashboard-filter',[StatisticController::class,'filter_by_date'])->name('dashboard_filter');
 });
 

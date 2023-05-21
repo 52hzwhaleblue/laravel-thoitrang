@@ -2,9 +2,9 @@
     <div class="card">
         <div class="card-header">
             <h5 class="mb-0">Thống kê doanh thu
-                <span class="statistic-month"> <?= date('m') ?> </span>
-                <span> / </span>
-                <span class="statistic-year"> <?= date('Y') ?> </span>
+{{--                <span class="statistic-month"> <?= date('m') ?> </span>--}}
+{{--                <span> / </span>--}}
+{{--                <span class="statistic-year"> <?= date('Y') ?> </span>--}}
             </h5>
         </div>
         <div class="card-body">
@@ -22,19 +22,11 @@
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <div class="form-group"><button id="thongke-btn" class="btn btn-success">Thống Kê</button></div>
-                </div>
-                <div class="col-md-2">
-                    <select name="id_list" class="dashboard-filter form-select ">
-                        <option>-- Chọn --</option>
-                        <option value="7ngayqua">7 Ngày qua </option>
-                        <option value="thangtruoc"> Tháng trước</option>
-                        <option value="thangnay"> Tháng này</option>
-                        <option value="365ngayqua"> 365 ngày qua </option>
-                    </select>
+                    <div class="form-group"><button id="thongke-larapexchart" class="btn btn-success">Thống Kê</button></div>
                 </div>
             </div>
-            <div id="statistic_revenue" style="height: 250px;"></div>
+            <div id="revenueFilterByDateChart"></div>
+
 
 
             <div class="row">
