@@ -1,234 +1,133 @@
-@extends('layouts.client')
-<style>
-    body {
-        margin-top: 20px;
-        background: #87CEFA;
-    }
+<table>
+    <tbody>
+        <tr>
+            <td>
+                <h1 style="font-size:14px;font-weight:bold;color:#444;padding:0 0 5px 0;margin:0">
+                    Chào <b> {{$fullname}} </b>. Đơn hàng của bạn đã đặt thành công!</h1>
+                <p
+                    style="margin:4px 0;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px;font-weight:normal">
+                    Chúng tôi đang chuẩn bị hàng để bàn giao cho đơn vị vận chuyển hàng
+                </p>
+                <h3
+                    style="font-size:13px;font-weight:bold;color:#02acea;text-transform:uppercase;margin:20px 0 0 0;border-bottom:1px solid #ddd">
+                    MÃ ĐƠN HÀNG: {{$code_order}}<br>Ngày đặt: {{$time_now}}
+                </h3>
+            </td>
+        </tr>
+        <tr>
+        </tr>
+        <tr>
+            <td style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px">
+                <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                    <thead>
+                        <tr>
+                            <th style="padding:6px 9px 0px 9px;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;font-weight:bold"
+                                width="50%" align="left">
+                                Thông tin khách hàng</th>
+                            <th style="padding:6px 9px 0px 9px;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;font-weight:bold"
+                                width="50%" align="left">
+                                Địa chỉ giao hàng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding:3px 9px 9px 9px;border-top:0;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px;font-weight:normal"
+                                valign="top">
+                                <span style="text-transform:capitalize">Họ và tên: {{$fullname}}</span><br>
+                                <span style="text-transform:capitalize">Email: {{$email}}</span><br>
+                                <span style="text-transform:capitalize">Số điện thoại: {{$phone}}</span><br>
+                                <span style="text-transform:capitalize">Phương thức thanh toán: {{$payment_method}}</span><br>
+                            </td>
+                            <td style="padding:3px 9px 9px 9px;border-top:0;border-left:0;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px;font-weight:normal"
+                                valign="top"> {{$address}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table
+                    style="width:100%;border-collapse:collapse;border-spacing:2px;background:#f5f5f5;display:table;box-sizing:border-box;border:0;border-color:grey">
+                    <thead style="display:table-header-group;vertical-align:middle;border-color:inherit">
+                        <tr>
+                            <th
+                                style="text-align:left;background-color:#02acea; padding:6px 9px;color:#fff;text-transform:uppercase;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:14px">
+                                Tên sản phẩm</th>
+                            <th
+                                style="text-align:left;background-color:#02acea; padding:6px 9px;color:#fff;text-transform:uppercase;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:14px">
+                                Giá</th>
+                            <th
+                                style="text-align:left;background-color:#02acea; padding:6px 9px;color:#fff;text-transform:uppercase;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:14px">
+                                Số lượng</th>
+                            <th
+                                style="text-align:left;background-color:#02acea; padding:6px 9px;color:#fff;text-transform:uppercase;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:14px">
+                                Thành tiền</th>
 
-    .card-footer-btn {
-        display: flex;
-        align-items: center;
-        border-top-left-radius: 0 !important;
-        border-top-right-radius: 0 !important;
-    }
-
-    .text-uppercase-bold-sm {
-        text-transform: uppercase !important;
-        font-weight: 500 !important;
-        letter-spacing: 2px !important;
-        font-size: .85rem !important;
-    }
-
-    .hover-lift-light {
-        transition: box-shadow .25s ease, transform .25s ease, color .25s ease, background-color .15s ease-in;
-    }
-
-    .justify-content-center {
-        justify-content: center !important;
-    }
-
-    .btn-group-lg>.btn,
-    .btn-lg {
-        padding: 0.8rem 1.85rem;
-        font-size: 1.1rem;
-        border-radius: 0.3rem;
-    }
-
-    .btn-dark {
-        color: #fff;
-        background-color: #1e2e50;
-        border-color: #1e2e50;
-    }
-
-    .card {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        min-width: 0;
-        word-wrap: break-word;
-        background-color: #fff;
-        background-clip: border-box;
-        border: 1px solid rgba(30, 46, 80, .09);
-        border-radius: 0.25rem;
-        box-shadow: 0 20px 27px 0 rgb(0 0 0 / 5%);
-    }
-
-    .p-5 {
-        padding: 3rem !important;
-    }
-
-    .card-body {
-        flex: 1 1 auto;
-        padding: 1.5rem 1.5rem;
-    }
-
-    tbody,
-    td,
-    tfoot,
-    th,
-    thead,
-    tr {
-        border-color: inherit;
-        border-style: solid;
-        border-width: 0;
-    }
-
-    .table td,
-    .table th {
-        border-bottom: 0;
-        border-top: 1px solid #edf2f9;
-    }
-
-    .table>:not(caption)>*>* {
-        padding: 1rem 1rem;
-        background-color: var(--bs-table-bg);
-        border-bottom-width: 1px;
-        box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
-    }
-
-    .px-0 {
-        padding-right: 0 !important;
-        padding-left: 0 !important;
-    }
-
-    .table thead th,
-    tbody td,
-    tbody th {
-        vertical-align: middle;
-    }
-
-    tbody,
-    td,
-    tfoot,
-    th,
-    thead,
-    tr {
-        border-color: inherit;
-        border-style: solid;
-        border-width: 0;
-    }
-
-    .mt-5 {
-        margin-top: 3rem !important;
-    }
-
-    .icon-circle[class*=text-] [fill]:not([fill=none]),
-    .icon-circle[class*=text-] svg:not([fill=none]),
-    .svg-icon[class*=text-] [fill]:not([fill=none]),
-    .svg-icon[class*=text-] svg:not([fill=none]) {
-        fill: currentColor !important;
-    }
-
-    .svg-icon>svg {
-        width: 1.45rem;
-        height: 1.45rem;
-    }
-</style>
-
-<div class="container mt-6 mb-7">
-    <div class="row justify-content-center">
-        <div class="col-lg-12 col-xl-7">
-            <div class="card">
-                <div class="card-body p-5">
-                    <h2>
-                        Hey Anna,
-                    </h2>
-                    <p class="fs-sm">
-                        This is the receipt for a payment of <strong>$312.00</strong> (USD) you made to Spacial Themes.
-                    </p>
-
-                    <div class="border-top border-gray-200 pt-4 mt-4">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="text-muted mb-2">Payment No.</div>
-                                <strong>#88305</strong>
-                            </div>
-                            <div class="col-md-6 text-md-end">
-                                <div class="text-muted mb-2">Payment Date</div>
-                                <strong>Feb/09/20</strong>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="border-top border-gray-200 mt-4 py-4">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="text-muted mb-2">Client</div>
-                                <strong>
-                                    John McClane
-                                </strong>
-                                <p class="fs-sm">
-                                    989 5th Avenue, New York, 55832
-                                    <br>
-                                    <a href="#!" class="text-purple">john@email.com
-                                    </a>
+                        </tr>
+                    </thead>
+                    <tbody
+                        style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px;background-color:rgb(238,238,238);display:table-row-group;vertical-align:middle;border-color:inherit">
+                        @foreach ($dataCart as $k => $v )
+                        <tr>
+                            <th style="padding:3px 9px">
+                                <p> {{$v->name}} </p>
+                                <p class="d-flex align-items-center">
+                                    <span class="mr-2"> Size: {{$v->options->size}} </span>
+                                    <span> Color: <input style=" width: 30px; height: 20px; border: 0;outline: 0; background: unset;
+                                " type="color" value="{{$v->options->color}}">  </span>
                                 </p>
-                            </div>
-                            <div class="col-md-6 text-md-end">
-                                <div class="text-muted mb-2">Payment To</div>
-                                <strong>
-                                    Themes LLC
-                                </strong>
-                                <p class="fs-sm">
-                                    9th Avenue, San Francisco 99383
-                                    <br>
-                                    <a href="#!" class="text-purple">themes@email.com
-                                    </a>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <table class="table border-bottom border-gray-200 mt-3">
-                        <thead>
-                            <tr>
-                                <th scope="col" class="fs-sm text-dark text-uppercase-bold-sm px-0">Description</th>
-                                <th scope="col" class="fs-sm text-dark text-uppercase-bold-sm text-end px-0">Amount</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="px-0">Theme customization</td>
-                                <td class="text-end px-0">$60.00</td>
-                            </tr>
-                            <tr>
-                                <td class="px-0">Website design</td>
-                                <td class="text-end px-0">$80.00</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <div class="mt-5">
-                        <div class="d-flex justify-content-end">
-                            <p class="text-muted me-3">Subtotal:</p>
-                            <span>$390.00</span>
-                        </div>
-                        <div class="d-flex justify-content-end">
-                            <p class="text-muted me-3">Discount:</p>
-                            <span>-$40.00</span>
-                        </div>
-                        <div class="d-flex justify-content-end mt-3">
-                            <h5 class="me-3">Total:</h5>
-                            <h5 class="text-success">$399.99 USD</h5>
-                        </div>
-                    </div>
-                </div>
-                <a href="#!"
-                    class="btn btn-dark btn-lg card-footer-btn justify-content-center text-uppercase-bold-sm hover-lift-light">
-                    <span class="svg-icon text-white me-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
-                            <title>ionicons-v5-g</title>
-                            <path d="M336,208V113a80,80,0,0,0-160,0v95"
-                                style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px">
-                            </path>
-                            <rect x="96" y="208" width="320" height="272" rx="48" ry="48"
-                                style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px">
-                            </rect>
-                        </svg>
-                    </span>
-                    Pay Now
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
+                            </th>
+                            <th style="padding:3px 9px">
+                                {{number_format($v->options->sale_price)}}vnđ
+                            </th>
+                            <th style="padding:3px 9px">
+                                <p>{{$v->qty}}</p>
+                            </th>
+                            <th style="padding:3px 9px">
+                                {{number_format($v->subtotal)}}vnđ
+                            </th>
+                        </tr>
+                        @endforeach
+                        <tr>
+                            <td colspan="3"
+                                style="text-align:left;background-color:rgb(238,238,238);padding:6px 9px;color:rgb(0,0,0);text-transform:uppercase;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:14px">
+                                <strong>Tổng thanh toán:</strong>
+                            </td>
+                            <td colspan="1" style="padding:3px 9px">
+                                <span style="color:red">{{number_format($total, 0, ",", ".")}}đ</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <br>
+                <p
+                    style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px;font-weight:normal">
+                    Quý khách vui lòng giữ lại hóa đơn, hộp sản phẩm và
+                    phiếu bảo hành
+                    (nếu có) để đổi trả hàng hoặc bảo hành khi cần
+                    thiết.
+                </p>
+                <p
+                    style="margin:10px 0 0 0;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px;font-weight:normal">
+                    Liên hệ Hotline: <strong style="color:#099202">0987.654.321</strong>(8-21h cả T7,CN).
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <br>
+                <p
+                    style="font-family:Arial,Helvetica,sans-serif;font-size:12px;margin:0;padding:0;line-height:18px;color:#444;font-weight:bold">
+                    <span>CỬA HÀNG JEAN NAM C665</span> cảm ơn quý khách đã đặt hàng, chúng tôi sẽ không
+                    ngừng nổ lực để phục vụ quý khách tốt hơn!<br>
+                </p>
+            </td>
+        </tr>
+    </tbody>
+</table>

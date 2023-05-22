@@ -1,8 +1,4 @@
-@extends("layouts.app")
-
-@section("title", "Bảng điều khiển")
-
-<h3>Khu vực dành cho admin</h3>
-
 @section( "content")
+    @include('admin.template.dashboard.statistic_all')
+    @include('admin.template.dashboard.statistic_revenue')
 @endsection

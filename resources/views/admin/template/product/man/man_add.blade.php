@@ -219,11 +219,7 @@ enctype="multipart/form-data"
                             Thông tin sản phẩm
                         </button>
                     </h2>
-                    <div
-                        id="thongtinsanpham"
-                        class="accordion-collapse collapse show"
-                        aria-labelledby="panelsStayOpen-headingOne"
-                    >
+                    <div id="thongtinsanpham" class="accordion-collapse collapse show"  aria-labelledby="panelsStayOpen-headingOne">
                         <div class="accordion-body">
                             <div class="d-flex mb-3">
                                 <div class="mb-3 mt-3">
@@ -331,40 +327,12 @@ enctype="multipart/form-data"
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="col-xl-4">
-                                    <div class="mb-3">
-                                        <label for="stock" class="form-label"
-                                            >Nhập hàng:</label
-                                        >
-                                        <input
-                                            type="number"
-                                            class="form-control"
-                                            id="stock"
-                                            placeholder="Nhập hàng"
-                                            name="stock_input"
-                                        />
-                                    </div>
-                                </div>
-
-                                <div class="col-xl-4">
-                                    <div class="mb-3">
-                                        <label for="stock" class="form-label"
-                                            >Tồn kho:</label
-                                        >
-                                        <input
-                                            type="number"
-                                            class="form-control"
-                                            id="stock"
-                                            placeholder="Tồn kho"
-                                            name="stock"
-                                            readonly
-                                        />
-                                    </div>
-                                </div>
                             </div>
-                        </div>
+                            {{-- Thêm thuộc tính --}}
+                            <div id="themthuoctinh" class="row"> </div>
+                            <input type="button" class="btn btn-primary col-3" onclick="themthuoctinh(); return false;" value="Thêm thuộc tính">
                     </div>
+                </div>
                 </div>
             </div>
 

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
+use Pusher\Pusher;
 use App\Http\Controllers\Controller;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Storage;
+use Pusher\PushNotifications\PushNotifications;
 
 class BaseController extends Controller
 {
@@ -14,6 +16,8 @@ class BaseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
     public function sendResponse($result = null, $message)
     {
     	$response = [
@@ -41,27 +45,44 @@ class BaseController extends Controller
         return response()->json($response, $code);
     }
 
-    public function uploadFile($request, $dir, $width, $height)
+    public function uploadFile($request, $dir, $width, $height, $callback = null)
     {
-        if ($request->has('image')) {
-            foreach ($request->file('image') as $file) {
-                $filename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-                $extension = $file->getClientOriginalExtension();
-                $path_file = $filename . '_' . uniqid() . '.' . $extension;
+        $files = $request->file('image');
 
-                // Resize image
-                $thumbnail_image = Image::make($file)->resize($width, $height, function ($constraint) {
-                    $constraint->aspectRatio();
-                    $constraint->upsize();
-                })->encode(null);
+        $count = count($files);
 
-                // Save thumbnail to storage
-                $thumbnail_path = 'thumbnails/'. $dir  . $path_file;
+        if ($count == 0) {
+            return;
+        }
 
-                Storage::disk('public')->put($thumbnail_path, (string) $thumbnail_image->encode());
+        $paths = [];
 
-                return $thumbnail_path;
-            }
+        foreach ($files as $file) {
+            $filename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+            $extension = $file->getClientOriginalExtension();
+            $path = $filename . '_' . uniqid() . '.' . $extension;
+            
+            $image = Image::make($file);
+            // Resize image
+            $thumbnail = $image->resize($image->width(), $image->height(), function ($constraint) {
+                //$constraint->aspectRatio();
+                $constraint->upsize();
+            })->encode(null);
+
+            // Save thumbnail to storage
+            $thumbnailPath = 'thumbnails/' . $dir . $path;
+
+            Storage::disk('public')->put($thumbnailPath, (string) $thumbnail);
+
+            $paths[] = $thumbnailPath;
+        }
+
+        if (is_callable($callback)) {
+            $callback($paths);
+        }
+
+        if ($count == 1) {
+            return $paths[0];
         }
     }
 
@@ -74,7 +95,7 @@ class BaseController extends Controller
                 $path_file = $filename . '_' . uniqid() . '.' . $extension;
 
                 // Resize image
-                $thumbnail_image = Image::make($file)->resize($width, $height, function ($constraint) {
+                $thumbnail_image = Image::make($file)->fit($width, $height, function ($constraint) {
                     $constraint->aspectRatio();
                     $constraint->upsize();
                 })->encode(null);
@@ -97,7 +118,7 @@ class BaseController extends Controller
                 $path_file = $filename . '_' . uniqid() . '.' . $extension;
 
                 // Resize image
-                $thumbnail_image = Image::make($file)->resize($width, $height, function ($constraint) {
+                $thumbnail_image = Image::make($file)->fit($width, $height, function ($constraint) {
                     $constraint->aspectRatio();
                     $constraint->upsize();
                 })->encode(null);
@@ -135,5 +156,94 @@ class BaseController extends Controller
 
         }
     }
+
+
+
+    public function sendNotiAllDevice($interests,$title,$body,$image= null,$type){
+        $beamsClient = new PushNotifications(array(
+            "instanceId" => env('PUSHER_BEAMS_INSTANCE_ID'),
+            "secretKey" =>  env('PUSHER_BEAMS_SECRET_KEY'),
+        ));
+
+        $options = [
+            "apns" => [
+                "aps" => [
+                    "alert" => [
+                        "title" =>$title,
+                        "body" => $body,
+                    ],
+                    "mutable-content" => 1,
+                ],
+                "data" => [
+                    "name" => "adam",
+                    "type" => "user",
+                 ],
+
+            ],
+            "fcm" => [
+                "notification" => [
+                    "title" =>$title,
+                    "body" => $body,
+                ],
+                "data" => [
+                    "image" => $image,
+                    "type" => $type,
+                 ],
+            ],
+
+        ];
+        $publishResponse = $beamsClient->publishToInterests(
+            [$interests], // interests
+            $options,
+        );
+        return $publishResponse;
+    }
+
+    public function sendNotiToUser($userId,$title,$body,$image= null,$type= null){
+        $beamsClient = new PushNotifications(array(
+            "instanceId" => env('PUSHER_BEAMS_INSTANCE_ID'),
+            "secretKey" =>  env('PUSHER_BEAMS_SECRET_KEY'),
+        ));
+
+        $options = [
+            "apns" => [
+                "aps" => [
+                  "alert" => $title,
+                ],
+            ],
+            "fcm" => [
+                "notification" => [
+                  "title" => $title,
+                  "body" => $body,
+                ],
+                "data" => [
+                    "image" => $image,
+                    "type" => $type,
+                 ],
+              ],
+        ];
+        $publishResponse = $beamsClient->publishToUsers(
+            [(string)$userId], // interests
+            $options,
+        );
+        return $publishResponse;
+    }
+
+
+    public function pusher($channel,$event,$data){
+        $pusher = new Pusher(
+            env('PUSHER_APP_KEY'),
+            env('PUSHER_APP_SECRET'),
+            env('PUSHER_APP_ID'),
+            [
+                'cluster' => env('PUSHER_APP_CLUSTER'),
+                'useTLS' => true
+            ]
+        );
+
+        // Phát sóng sự kiện `chat-message` trên kênh `chat-channel` với dữ liệu chat đã lấy được từ request
+        $pusher->trigger($channel, $event, $data);
+    }
+
 
 }

@@ -52,44 +52,48 @@ class AuthController extends BaseController
         }
     }
 
-    public function register(Request $request)
-    {
+    public function register(Request $request,DB $db)
+    {     
         try {
             $validateTableUser = Validator::make($request->all(),
             [
-                'username' => 'required',
                 'fullname' => 'required',
                 'email' => 'required',
                 'phone' => 'required',
                 'password' => 'required',
-                'image' => 'required',
+                'image' => 'nullable',
             ]);
 
             if($validateTableUser->fails()){
                 return $this->sendError('validation error',$validateTableUser->errors(),401);
             }
-
-            $checkEmaiAndPhone = DB::table('table_users')
-            ->where('phone', $request->phone)
-            ->orWhere('email', $request->email)
+            $query = $db::table('table_users');
+            
+            $checkEmaiAndPhone = $query
+            ->where('email', $request->email)
             ->exists();
 
             if(!$checkEmaiAndPhone){
-                $url = $this->uploadFile($request,"avatar/",85,85);
-
-                DB::table('table_users')->insert([
-                    "username" => $request->username,
+                $url = "";
+                
+                if($request->hasFile('image')){
+                    $url = $this->uploadFile($request,"avatars/",250,250);
+                }
+                
+                $query->insert([
+                    "username" => "username@" .Str::random(6),
                     "fullname" => $request->fullname,
                     "email" => $request->email,
                     "phone" => $request->phone,
                     "password" => Hash::make($request->password),
                     "photo" => $url,
+                    "created_at" => now(),
                 ]);
+                return $this->sendResponse([],'User Sign Up Successfully');
             }else{
-                return $this->sendResponse([],'Email or phone are already exists');
-
+                return $this->sendResponse([],'Email already exists');
             }
-            return $this->sendResponse([],'User Sign Up Successfully');
+           
 
         } catch (\Throwable $th) {
 
@@ -98,15 +102,63 @@ class AuthController extends BaseController
         }
     }
 
+    public function checkPhone(){
+        try{
+            $phone = request()->input('phone');
+
+            $ischeck = User::where('phone',$phone)->exists();
+           
+            if(!$ischeck){
+                return $this->sendResponse([201],"Failed");
+            }
+            return $this->sendResponse([200],"Successfully");
+
+        }catch(\Throwable $th){
+            return $this->sendError( $th->getMessage(),null,500);
+        }
+    }
+
+    public function forgotPassword(Request $request){
+        try{
+            $validate = Validator::make($request->all(),
+            [
+                'phone' => 'required',
+                'new_password' => 'required'
+            ]);
+
+            if($validate->fails()){
+                return $this->sendError('validation error',$validate->errors(),401);
+            }
+
+            $phone = $request->input('phone');
+
+            $newpass = $request->input('new_password');
+
+            $user = User::where('phone',$phone);
+
+            $user->update([
+                "password" => Hash::make($newpass),
+            ]);
+
+        
+            return $this->sendResponse(200,"Changed password successfully");
+
+        }catch(\Throwable $th){
+            return $this->sendError( $th->getMessage(),null,500);
+        }
+    }
 
     public function loginWithGoogle(Request $request){
 
         try {
+           
+            $query_user =  User::where('email',$request->email);
+
             //check the account already in database
-            $checkEmail =  DB::table('table_users')->where('email',$request->email)->exists();
+            $checkEmail =  $query_user->exists();
 
             if($checkEmail){
-                $TableUser = User::where('email',$request->email)->first();
+                $TableUser = $query_user->first();
 
                 $token = $TableUser->createToken('auth-login'.$TableUser->id, ['expires_at' => now()])->plainTextToken;
 
@@ -122,7 +174,7 @@ class AuthController extends BaseController
             if($validateTableUser->fails()){
                 return $this->sendError('validation error',$validateTableUser->errors(),401);
             }
-
+            
             $TableUser = User::create([
                 "username" => "username@" .Str::random(6),
                 "fullName" => $request->fullname,

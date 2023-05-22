@@ -7,6 +7,9 @@ use App\Models\TableProduct;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+/**
+ * @method static create(array $array)
+ */
 class TableProductDetail extends Model
 {
     use HasFactory;
@@ -14,7 +17,9 @@ class TableProductDetail extends Model
     protected $fillable = [
         'photo',
         'product_id',
-        'image_name',
+        'name',
+        'color',
+        'stock',
         'created_at',
         'updated_at',
     ];

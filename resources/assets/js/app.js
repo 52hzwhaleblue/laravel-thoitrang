@@ -1,4 +1,5 @@
 function Cart(){
+    // SỐ lượng
     $('.giohang-qty').change(function(){
         let id = $(this).data('id');
         let qty = $(this).val();
@@ -23,17 +24,17 @@ function Cart(){
             method: "GET",
             success: function(data) {
                 $(".giohang-subTotal-"+id).text(data["subTotal"]);
-                // $(".giohang-tongtien span").text(data["total"]);
+                $(".load-total-price").text(data["total"]);
                 return false;
             },
             error: function(xhr, ajaxOptions, thrownError) {
-                alert(xhr.status);
-                alert(thrownError);
+                // alert(xhr.status);
+                // alert(thrownError);
             }
         });
     });
-}
 
+}
 
 
 function AosAnimation(){
@@ -48,6 +49,7 @@ function OwlData(obj){
     var lg_items = obj.attr("data-lg-items");
     var xlg_items = obj.attr("data-xlg-items");
     var rewind = obj.attr("data-rewind");
+    var dotsData = obj.attr("data-dotsData");
     var autoplay = obj.attr("data-autoplay");
     var loop = obj.attr("data-loop");
     var lazyLoad = obj.attr("data-lazyload");
@@ -71,6 +73,7 @@ function OwlData(obj){
     if(lg_items != '') { lg_items = lg_items.split(":"); }
     if(xlg_items != '') { xlg_items = xlg_items.split(":"); }
     if(rewind == 1) { rewind = true; } else { rewind = false; };
+    if(dotsData == 1) { dotsData = true; } else { dotsData = false; };
     if(autoplay == 1) { autoplay = true; } else { autoplay = false; };
     if(loop == 1) { loop = true; } else { loop = false; };
     if(lazyLoad == 1) { lazyLoad = true; } else { lazyLoad = false; };
@@ -130,6 +133,7 @@ function OwlData(obj){
         autoplay: autoplay,
         loop: loop,
         lazyLoad: lazyLoad,
+        dotsData: dotsData,
         mouseDrag: mouseDrag,
         touchDrag: touchDrag,
         smartSpeed: smartSpeed,
@@ -155,10 +159,8 @@ function OwlPage(){
 
 
 function Home(){
-
     $('.list-hot a:first').addClass('active');
-    var id = $('.list-hot a:first').data('id');
-    var tenkhongdau = $('.list-hot a:first').data('tenkhongdau');
+    var id_category = $('.list-hot a:first').data('id');
     $.ajaxSetup({
         headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -167,18 +169,18 @@ function Home(){
     $.ajax({
         url: '/load_ajax_product',
         type: 'POST',
-        data: {id:id,tenkhongdau:tenkhongdau},
+        data: {id_category:id_category,},
         success:function(data){
             $('.load_ajax_product').html(data);
-            OwlPage();
+            OwlData($('.owl-pronb'));
+
         }
     });
 
     $('.list-hot a').click(function(event) {
         $('.list-hot a').removeClass('active');
         $(this).addClass('active');
-        var id = $(this).data('id');
-        var tenkhongdau = $(this).data('tenkhongdau');
+        var id_category = $(this).data('id');
 
         $.ajaxSetup({
             headers: {
@@ -189,17 +191,41 @@ function Home(){
         $.ajax({
             url: '/load_ajax_product',
             type: 'POST',
-            data: {id:id,tenkhongdau:tenkhongdau},
+            data: {id_category:id_category,},
             success:function(data){
                 $('.load_ajax_product').html(data);
-                OwlPage();
-
+                OwlData($('.owl-pronb'));
             }
         })
     });
+
+    $('.name-header').textillate({
+        in:{
+            effect: 'animate__bounceIn'
+        },
+        out: {
+            effect: 'animate__bounceOut'
+        },
+        loop: true
+    });
+
 }
 
+function Menu(){
+    /* Menu fixed */
+    $(window).scroll(function(){
+        var cach_top = $(window).scrollTop();
+        var height_header = $('.header').height();
 
+        if(cach_top >= height_header){
+            if(!$('.header').hasClass('fix_head animate__animated animate__fadeIn')){
+                $('.header').addClass('fix_head animate__animated animate__fadeIn');
+            }
+        }else{
+            $('.header').removeClass('fix_head animate__animated animate__fadeIn');
+        }
+    });
+}
 function Slick(){
     if($('.rowDetailPhoto-for').length > 0){
         $('.rowDetailPhoto-for').slick({
@@ -240,11 +266,28 @@ function Toasty(){
 
 }
 
+function peShiner(){
+    $(window).bind("load", function () {
+        var api = $(".peShiner").peShiner({
+          api: true,
+          paused: true,
+          reverse: true,
+          repeat: 1,
+          color: "fireHL",
+      });
+
+        api.resume();
+
+    });
+}
+
 $(document).ready(function () {
     Home();
+    peShiner();
     Toasty();
     Cart();
     Slick();
     OwlPage();
     AosAnimation();
+    Menu();
 });

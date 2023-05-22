@@ -2,25 +2,28 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\ProductsExport;
+use App\Helpers\Functions;
 use App\Http\Controllers\Controller;
+use App\Imports\ProductsImport;
+use App\Models\TableOrderDetail;
+use App\Models\TableProductDetail;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\TableCategory;
 use App\Models\TableProduct;
-use Functions;
 use App\Http\Controllers\Api\BaseController as BaseController;
+use Excel;
 
 class ProductController extends BaseController
 {
-    public $config_status = ['noibat','hienthi'];
-
     public function index()
     {
+        // TableProduct::factory()->count(5)->create();
         $data = TableProduct::all();
-        $status = $this->config_status;
 
-        return view('admin.template.product.man.man',compact('data','status'));
-
+        // Lấy màu,size theo product_id
+        return view('admin.template.product.man.man',compact('data'));
     }
 
     /**
@@ -31,17 +34,9 @@ class ProductController extends BaseController
     public function create()
     {
         $splist = TableCategory::all();
-
         return view('admin.template.product.man.man_add',compact('splist'));
-
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $count = TableProduct::all()->count();
@@ -49,9 +44,7 @@ class ProductController extends BaseController
         $url = $this->uploadPhoto($request,"products/",415,655);
         $url1 = $this->uploadPhoto1($request,"products/",415,655);
 
-
         $product = new TableProduct();
-
         $product->name = $request->get('name');
         $product->desc = $request->get('desc');
         $product->content = $request->get('content');
@@ -69,7 +62,6 @@ class ProductController extends BaseController
                 ->route('admin.product.product-man.index')
                 ->with('warning', 'Vui lòng chọn danh mục cấp 1');
         }
-
 
         $product->status = (int)$request->get('status');
         $product->slug = $request->get('slug');
@@ -92,63 +84,54 @@ class ProductController extends BaseController
         $product->sale_price = $request->get('sale_price');
         $product->discount = $request->get('discount');
 
-        // dd(json_decode($product,true));
         $product->save();
+
+        // Gọi hàm lưu table_product_detail với size,color,stock
+        $colors = $request->get('color');
+        $stocks = $request->get('stock');
+
+        foreach ($colors as $kcolor => $vcolor)
+        {
+            TableProductDetail::create([
+                'product_id' => $product->id,
+                'color' => $vcolor,
+                "stock" => $stocks[$kcolor],
+                "create_at" => now(),
+                "updated_at" => now(),
+            ]);
+        }
 
         return redirect()
             ->route('admin.product.product-man.index')
             ->with('message', 'Bạn đã tạo sản phẩm thành công!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($slug)
     {
         $sql = TableProduct::where('slug', $slug)->first();
         $data = json_decode($sql, true);
         $splist = TableCategory::all();
 
-        $status = $data['status'];
-        $explodeStatus = explode(',', $status);
-
+        $product_id = $data['id'];
+        $product_properties = TableProductDetail::where('product_id',$product_id)->get();
         return view(
             'admin.template.product.man.man_edit',
-            compact('data', 'explodeStatus','splist')
+            compact('data','splist','product_properties')
         );
     }
 
     public function update(Request $request, $slug)
     {
         $count = TableProduct::all()->count();
-        if ($request->has('photo')) {
-            $file = $request->photo;
-            $ext = $request->photo->extension(); //lấy đuôi file png||jpg
-            $file_name =
-                Date('Ymd') . '-' . 'product' . $count . '.' . $ext;
-            $file->move(public_path('backend/assets/img/products'), $file_name); //chuyển file vào đường dẫn chỉ định
-        }
-        if ($request->has('photo1')) {
-            $file1 = $request->photo1;
-            $ext = $request->photo1->extension(); //lấy đuôi file png||jpg
-            $file_name1 =
-                Date('Ymd') . '-' . 'product1' . $count . '.' . $ext;
-            $file1->move(public_path('backend/assets/img/products'), $file_name1); //chuyển file vào đường dẫn chỉ định
-        }
+
+        $url = $this->uploadPhoto($request,"products/",415,655);
+        $url1 = $this->uploadPhoto1($request,"products/",415,655);
+
 
         $product = TableProduct::where('slug', $slug)->first();
 
@@ -165,10 +148,10 @@ class ProductController extends BaseController
                 ->with('warning', 'Vui lòng chọn danh mục cấp 1');
         }
         if ($request->has('photo')) {
-            $product->photo = $file_name;
+            $product->photo = $url;
         }
         if ($request->has('photo1')) {
-            $product->photo1 = $file_name1;
+            $product->photo1 = $url1;
         }
 
         $product->status = (int)$request->get('status');
@@ -209,9 +192,32 @@ class ProductController extends BaseController
             $products->delete();
             return redirect()->route('admin.product.product-man.index')->with('message', 'Bạn đã xóa sản phẩm thành công!');
         }
+        return ;
+    }
+
+    public function import_view()
+    {
+        return view('admin.template.product.excel.import');
+    }
+
+    public function import_handle(Request $request)
+    {
+        $path = $request->file('file');
+
+        if($path){
+            Excel::import(new ProductsImport,$path);
+            return redirect()->route('admin.product.product-man.index')->with('message', 'Bạn đã import file sản phẩm thành công!');
+        }
+        else{
+            return redirect()->route('admin.product.importProduct')->with('warning', 'Vui lòng chọn file');
+        }
 
     }
 
+    public function export_handle()
+    {
+        return Excel::download(new ProductsExport(), 'products.csv',  \Maatwebsite\Excel\Excel::CSV);
+    }
     public function deleteAll(Request $request,$id)
     {
         dd('deleteAll');

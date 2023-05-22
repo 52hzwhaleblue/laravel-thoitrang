@@ -2,48 +2,71 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TableProduct;
+use App\Models\TableCategory;
+use App\Models\TableNotification;
 use Illuminate\Http\Request;
-use Gloudemans\Shoppingcart\Facades\Cart;
-use Illuminate\Support\Facades\Validator;
-use App\Models\TableOrder;
-use App\Models\TableOrderDetail;
-use Illuminate\Support\Str;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\SendMail;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
+use Illuminate\Support\Str;
+use Carbon\Carbon;
 
+use App\Mail\SendMail;
+use App\Jobs\SendMailJob;
+use App\Events\PusherEvent;
 
+use App\Models\TableOrder;
+use App\Models\TableOrderDetail;
+use App\Models\TableProduct;
+use App\Models\TablePromotion;
 
 class CartController extends Controller
 {
-
     public function index()
     {
-        // return Cart::destroy();
-
-        $data = TableProduct::all();
-
-        // return Cart::content();
-
+        $data = Cart::content();
         return View('template.order.order',compact('data'));
-
     }
 
-    public function add(Request $request,$id)
+//    public function add(Request $request,$id)
+//    {
+//        $productById =  TableProduct::find($id);
+//        Cart::add([
+//            'id' => $id,
+//            'name' => $productById->name,
+//            'qty' => 1,
+//            'price' => $productById->sale_price,
+//            'options' => [
+//                'size' => 'M',
+//                'color' => 'Red',
+//                'discount' => $productById->discount,
+//                'sale_price' => $productById->sale_price,
+//                'photo' => $productById->photo,
+//                'code' => $productById->code,
+//                'slug' => $productById->slug,
+//            ],
+//        ]);
+//        return redirect('/cart')->with('alert','Bạn đã thêm sản phẩm vào giỏ hàng thành công!');
+//    }
+
+    public function add(Request $request)
     {
-        $productById =  TableProduct::find($id);
+        $product_id = (int)$request->get('pronb_id');
+        $color = $request->get('pronb_color');
+        $size = $request->get('pronb_size');
+        $productById =  TableProduct::find($product_id);
         Cart::add([
-            'id' => $id,
+            'id' => $product_id,
             'name' => $productById->name,
             'qty' => 1,
             'price' => $productById->sale_price,
             'options' => [
-                'size' => 'M',
-                'color' => 'Red',
+                'size' => $size,
+                'color' => $color,
                 'discount' => $productById->discount,
                 'sale_price' => $productById->sale_price,
                 'photo' => $productById->photo,
@@ -88,14 +111,13 @@ class CartController extends Controller
 
         $result = [
             "subTotal" => number_format($subTotal, 0, ",", ".")."vnđ",
-            // "total" => number_format(Cart::total(), 0, ",", ".")."đ",
+            "total" => number_format(Cart::total(), 0, ",", ".")."vnđ",
         ];
+
         echo json_encode($result);
     }
 
     public function checkout(){
-
-        // return Cart::content();
         return view('template.order.checkout');
     }
 
@@ -118,28 +140,31 @@ class CartController extends Controller
             'ward' => $request->get('ward'),
             'payment_method' => $request->get('payment_method'),
         ];
+
         $user_id = $request->get('user_id');
-        $code_order = 'UNI'.Str::random(5).now();
+        $code_order = 'UNI'.Str::random(5);
         // $db::beginTransaction(); // bat dau giao dich
 
-        // $db::rollback(); // uqya lai ko them vao du lieu
+        // $db::rollback(); // quay lai ko them vao du lieu
 
         // $db::commit(); //them vao database
         $db::transaction(function () use ($request,$user_id,$dataUser,$dataCart,$code_order) {
+            // Lưu vào table_order
             $order = TableOrder::create([
                 'code' => $code_order,
                 'user_id' => $user_id,
                 'shipping_fullname' => $dataUser['fullname'],
                 'shipping_phone' => $dataUser['phone'],
                 'shipping_address' => $dataUser['address'],
-                'subtotal' => (int)Cart::total(),
-                'total' => (int)Cart::total(),
+                'temp_price' => (int)Cart::total(),
+                'total_price' => (int)Cart::total(),
                 'payment_method' => $dataUser['payment_method'],
                 'status' => 1,
             ]);
 
+            // Lưu vào table_order_details
             foreach ($dataCart as $kcart => $vcart) {
-                TableOrderDetail::create([
+               $hh =  TableOrderDetail::create([
                     'order_id' => $order->id,
                     'product_id' => $vcart->id,
                     'color' => $vcart->options->color,
@@ -147,6 +172,10 @@ class CartController extends Controller
                     'quantity' => $vcart->qty,
                 ]);
             }
+
+            // Lưu vào table_notifications
+            $message_notification ="Đơn hàng của ".$dataUser['fullname'];
+            $this->store_notification($request,$user_id,$order->id, $message_notification);
         });
 
         // Gửi Mail cho khách hàng
@@ -156,32 +185,31 @@ class CartController extends Controller
             "address" => $dataUser['address'],
             "email" => $dataUser['email'],
             "phone" => $dataUser['phone'],
+            "payment_method" => $dataUser['payment_method'],
             "total" => Cart::total(),
-            "time_now" => Carbon::now()->format('d/m/Y m:h:s')
+            "time_now" => Carbon::now()->format('d/m/Y m:h:s'),
+            'dataCart' =>Cart::content(),
         ];
-
-        Mail::to($dataUser['email'])->send(new SendMail($dataMail));
-        session(
-            [
-                "fullname" => $dataMail['fullname'],
-                "code_order" => $code_order,
-                // "qty_empty" => $qty_empty,
-                // "price_empty" => $price_empty,
-                // "sub_total_empty" => $sub_total_empty,
-                // "total_price" => $total_price,
-                // "name_customer" => $name_customer,
-                // "email_customer" => $email_customer,
-                // "address_customer" => $address_customer,
-                // "phone_customer" => $phone_customer
-            ]
-        );
-
-        // dispatch(new SendMailJob($dataMail,$dataUser['email'])); // thêm vào hàng đợi
+        dispatch(new SendMailJob($dataMail,$dataUser)); // thêm vào hàng đợi
         // Hủy Cart Session sau khi dặt hàng thành công
         Cart::destroy();
+
+        $message_notification ="Đơn hàng của khách hàng ".$dataUser['fullname'];
+        event(new PusherEvent($message_notification));
+
         return redirect()->route('index')->with('CartToast',' Bạn đã thanh toán thành công');
     }
 
+    public function store_notification(Request $request, $suer_id,$order_id,$message_notification)
+    {
+        $notification = new TableNotification();
+        $notification->user_id = $suer_id;
+        $notification->order_id = $order_id;
+        $notification->title = $message_notification;
+        $notification->is_read = 0;
+        $notification->type = 'order';
+        $notification->save();
+    }
     public function validate_cart(Request $request){
         $validate = $request->validate([
             'fullname' => ['required', 'string','min:5', 'max:20'],
@@ -210,5 +238,45 @@ class CartController extends Controller
             "ward" => "Phường/Xã",
         ]
         );
+    }
+
+    public function ma_giam_gia(){
+        $promo_code = request()->input('promo_code');
+        $promotion_elo =  TablePromotion::where('code',$promo_code);
+
+        $promotion = $promotion_elo->first();
+
+        $is_check_exists = false;
+
+        if(!empty($promotion->product_id)){
+            //check order has product_id in table promotion
+            $dataCart= Cart::content();
+
+            foreach ($dataCart as $key => $value) {
+                if($value->id == $promotion->product_id){
+                    $id = (int)$value->id;
+                    $is_check_exists = !$is_check_exists;
+                    break;
+                }
+            }
+            if(!$is_check_exists){
+                 return "Mã khuyến mãi này chỉ áp dụng khi đơn hàng bạn có product_id là".$promotion->product_id;
+            }
+        }
+
+        //check total order
+        $total = Cart::total();
+
+        $is_check_total = $total >= $promotion->order_price_conditions;
+
+        if(!$is_check_total){
+            return "Đơn hàng của bạn không đạt điều kiện khi tổng đơn nhỏ hơn".$promotion->order_price_conditions;
+        }
+
+        //success
+        $promotion_elo->update([
+            "limit" => --$promotion->limit,
+        ]);
+        return $total - $promotion->discount_price;
     }
 }

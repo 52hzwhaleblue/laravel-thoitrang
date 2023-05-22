@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use App\Models\TableOrder;
+use App\Models\TableProduct;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -21,6 +23,7 @@ class TableOrderDetail extends Model
         'color',
         'size',
         'quantity',
+        'photo',
         'created_at',
         'update_at',
     ];
@@ -40,5 +43,14 @@ class TableOrderDetail extends Model
         return Carbon::createFromFormat('Y-m-d\TH:i:s.u\Z', $value, 'UTC')
             ->setTimezone('Asia/Ho_Chi_Minh')
             ->toDateTimeString();
+    }
+
+    public function product(){
+        return $this->belongsTo(TableProduct::class,'product_id','id');
+    }
+
+    public function orders()
+    {
+        return $this->belongsTo(TableOrder::class);
     }
 }

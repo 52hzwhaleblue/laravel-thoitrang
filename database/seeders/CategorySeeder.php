@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use Carbon\Carbon;
+use App\Models\TableCategory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -14,49 +16,60 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        $list_id = [
-           1,2,3,4,5
-        ];
-
         $list_name = [
-            "All","Clothing","Handbag","Shoes","Watch","Sunglasses"
+            "Clothing","Handbag","Shoes","Watch","Sunglasses","Hat","Jewelry"
         ];
 
         $list_name_vi = [
-            "Tất cả","Quần-Áo","Túi xách","Giày","Đồng hồ", "Mắt kính"
+            "Quần-Áo","Túi xách","Giày-dép","Đồng hồ", "Mắt kính","Nón","Trang sức"
         ];
+
+        $background_colors = [
+            "CDA263","8282D3","F78FB3","D96161", "F3AE4E","27839B","C1A6C5"
+        ];
+
         $list_slug= [
-            "ao_ba_lo_do.jpg" ,
             "ao_cotton_kid.jpg",
-
             "ao_phong_unisex_black_white_2.jpg",
-
-
             "ao-polo-nam-Aristino-xanh.jpg",
             "dam_han_quoc_den_nau-nhat.jpg",
-
-            "guoc_cao_no_white.jpg"
-
+            "guoc_cao_no_white.jpg",
+            "guoc_cao_no_white.jpg",
+            "guoc_cao_no_white.jpg",
         ];
 
         $list_category = [
-            "thumbnails/categories/All.png",
             "thumbnails/categories/t-shirt.png",
             "thumbnails/categories/handbag.png",
             "thumbnails/categories/shoes.png",
             "thumbnails/categories/watch.png",
             "thumbnails/categories/sunglasses.png",
+            "thumbnails/categories/hat.png",
+            "thumbnails/categories/Jewelry.png",
         ];
 
-        for($i = 0; $i < 6; $i++){
-            DB::table('table_categories')->insert([
+        $query = DB::table('table_categories');
+
+        $carbon = new Carbon;
+
+        $current = $carbon::create(2023,1,5);
+        
+        for($i = 0; $i < 7; $i++){
+            if($i < 5){
+                $date = $current;
+            }
+            else{
+                $date = $carbon::create(2023,5,1);
+            }
+            $query->insert([
                 "name" => $list_name[$i],
                 "name_vi" => $list_name_vi[$i],
                 "slug" => $list_slug[$i],
+                "background_color" => $background_colors[$i],
                 "photo" => $list_category[$i],
                 "status" => 1,
-                "created_at" => date("Y-m-d H:i:s"),
-                "updated_at" => date("Y-m-d H:i:s"),
+                "created_at" => $date,
+                "updated_at" => $date,
             ]);
         }
     }

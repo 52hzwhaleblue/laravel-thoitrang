@@ -34,7 +34,7 @@ class TablePost extends Model
      *
      * @var array
      */
-    protected $casts = [
-        'status' => 'array',
-    ];
+    // protected $casts = [
+    //     'status' => 'array',
+    // ];
 }

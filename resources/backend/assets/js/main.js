@@ -76,6 +76,7 @@ function checkPrice(){
             $( ".sale_price" ).attr('value','').val(0);
         }
         var discount = ((regular_price - sale_price)/regular_price)*100;
+        // var discount = (sale_price *100) /regular_price;
         $('.discount' ).attr('value',discount.toFixed(0));
     }).keyup();
 }
@@ -86,8 +87,55 @@ function checAll(){
     });
 }
 
+// Realtime Notification
+function realtimeNotification(){
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('1e38bdbfaf17ff456b05', {
+        cluster: 'ap1'
+    });
+
+    var channel = pusher.subscribe('notification-channel');
+    channel.bind('payment-event', function(data) {
+        countNotification();
+        orderNotification(data);
+    });
+}
+
+function countNotification(){
+    let current_notification = $('.chuong-notification').text();
+    let future_notification = parseInt(current_notification)+1;
+    $('.chuong-notification').text(future_notification);
+}
+
+function orderNotification(data){
+    toastr.success(data.name,"1 Đơn hàng mới cần xử lý")
+    // update order_notifications
+    let current_order = $('.order_notifications').text();
+    let future_order = parseInt(current_order)+1;
+    $('.order_notifications').text(future_order);
+}
+
+function themthuoctinh(){
+    $('#themthuoctinh').append('\
+		<div class="form-group col-md-4">\
+			<div class="w_box3">\
+                <div id="swatch" class="mt-1">\
+                    <label class="d-block" for="color">Color:</label>\
+                    <input type="color" id="color" name="color[]" value="#FF0000">\
+                </div>\
+				<div class="d-flex justify-content-between align-item-center mt-1">\
+					<label class="d-block" for="stock">Tồn kho:</label>\
+					<input type="text" name="stock[]" class="form-control w-75 " placeholder="Tồn kho" value="0" title="Tồn kho">\
+				</div>\
+			</div>\
+		</div>');
+}
+
 $(document).ready(function() {
     changeTitle();
     checkPrice();
     checAll();
+    realtimeNotification();
 });

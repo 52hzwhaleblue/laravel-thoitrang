@@ -16,6 +16,9 @@ return new class extends Migration
         Schema::create('table_product_details', function (Blueprint $table) {
             $table->increments('id');
             $table->string('photo')->nullable()->default(null);
+            $table->string('name')->nullable();
+            $table->string('color')->nullable();
+            $table->integer('stock')->nullable();
             $table->unsignedInteger('product_id')->nullable();
             $table->foreign('product_id')->references('id')->on('table_products')->onDelete('cascade');
             $table->timestamps();

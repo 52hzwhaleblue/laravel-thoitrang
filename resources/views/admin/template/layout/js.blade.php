@@ -34,6 +34,9 @@
     $("#sampleTable").DataTable();
 
 </script>
+
+
+
 <!-- Google analytics script-->
 <script type="text/javascript">
     if (document.location.hostname == "pratikborsadiya.in") {

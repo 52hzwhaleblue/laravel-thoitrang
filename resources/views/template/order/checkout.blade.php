@@ -1,7 +1,7 @@
 @extends('layouts.client')
 @section('content')
 <form method="POST" action="{{ route('cart.store') }}">
-<div class="row">
+    <div class="row">
 
         <div class="col-md-8 ">
             <h4 class="mb-3">Billing address</h4>
@@ -129,15 +129,19 @@
                     <strong> {{ number_format(Cart::total(),0,',','.') }} </strong>
                 </li>
             </ul>
-            <form class="card p-2">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Promo code">
-                    <div class="input-group-append">
-                        <button type="submit" class="btn btn-secondary">Redeem</button>
-                    </div>
-                </div>
-            </form>
+
         </div>
-    </form>
+</form>
+
+<form class="card p-2" action="{{ route('cart.ma_giam_gia') }}" method="post">
+    @csrf
+    <div class="input-group">
+        <input type="text" class="form-control" placeholder="Promo code" name="promo_code">
+        <div class="input-group-append">
+            <button type="submit" class="btn btn-secondary">Redeem</button>
+        </div>
+    </div>
+</form>
+
 </div>
 @endsection

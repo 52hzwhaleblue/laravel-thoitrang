@@ -3,6 +3,9 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use App\Models\TableReview;
+use App\Models\TablePromotion;
+use App\Models\TableOrderDetail;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -22,12 +25,13 @@ class TableOrder extends Model
         'shipping_phone',
         'shipping_address',
         'payment_method',
-        'subtotal',
-        'total',
+        'temp_price',
+        'total_price',
         'ship_price',
         'requirements',
         'notes',
-        'status',
+        'status_id',
+        'promotion_id',
         'created_at',
         'updated_at',
     ];
@@ -46,20 +50,37 @@ class TableOrder extends Model
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
 
-    public function getCreatedAtAttribute($value)
-    {
-        return Carbon::createFromFormat('Y-m-d\TH:i:s.u\Z', $value, 'UTC')
-            ->setTimezone('Asia/Ho_Chi_Minh')
-            ->toDateTimeString();
-    }
+//    public function getCreatedAtAttribute($value)
+//    {
+//        return Carbon::createFromFormat('Y-m-d', $value, 'UTC')
+//            ->setTimezone('Asia/Ho_Chi_Minh')
+//            ->toDateTimeString();
+//    }
 
-    public function idUser()
+    public function users()
     {
-        return $this->belongsTo(TableUser::class);
+        return $this->belongsTo(User::class);
     }
 
     public function orderStatus()
     {
         return $this->belongsTo(TableOrderStatus::class);
     }
+
+    public function orderDetail()
+    {
+        return $this->hasMany(TableOrderDetail::class,'order_id','id');
+    }
+
+    public function review()
+    {
+        return $this->hasOne(TableReview::class,'order_id','id');
+    }
+
+    public function promotion()
+    {
+        return $this->hasOne(TablePromotion::class,'promotion_id','id');
+    }
+
+
 }

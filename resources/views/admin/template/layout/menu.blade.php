@@ -2,6 +2,8 @@
 $menus = config('menu');
 @endphp
 
+
+
 <!-- Sidebar menu-->
 <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
 <aside class="app-sidebar">
@@ -27,7 +29,9 @@ $menus = config('menu');
                 <li>
                     <a class="treeview-item
                         @if($ProfileComposer['com'] == $m1['index']) active  @endif"
-                        href="{{ route($m1['index']) }}"><i class="icon fa fa-circle-o"></i>
+
+                        href="{{ $m1['index'] ? route($m1['index']) : '' }}">
+                        <i class="fa-regular fa-circle"></i>
                         {{$m1['title']}}
                     </a>
                 </li>
@@ -38,7 +42,7 @@ $menus = config('menu');
         @endforeach
 
         <li>
-            <a class="app-menu__item" href="charts.html"><i class="app-menu__icon fa fa-pie-chart"></i><span
+            <a class="app-menu__item" href="{{ route('admin.order.index') }}"><i class="app-menu__icon fa fa-pie-chart"></i><span
                     class="app-menu__label">Quản lý đơn hàng</span></a>
         </li>
 

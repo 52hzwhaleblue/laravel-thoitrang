@@ -1,9 +1,11 @@
 <?php
 
-use App\Http\Controllers\Api\BaseController;
-use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\Console\Input\Input;
+use App\Http\Controllers\Api\BaseController;
+use App\Http\Controllers\Api\UserController;
+use Pusher\PushNotifications\PushNotifications;
 
 
 /*
@@ -27,11 +29,13 @@ Route::middleware('auth:sanctum')->group(function(){
 
         Route::post('/user/change-password','changePassword');
 
-        Route::post('/user/fetch-new-order','fetchNewOrder');
+        Route::post('/user/fetch-new-order','fetchOrder');
+
     });
 
 });
-Route::controller(BaseController::class)->group(function(){
 
-    Route::post('/test','uploadFileBanner');
+Route::controller(UserController::class)->group(function(){
+    Route::post('/user/update-status-order','updateStatusOrder');
 });
+

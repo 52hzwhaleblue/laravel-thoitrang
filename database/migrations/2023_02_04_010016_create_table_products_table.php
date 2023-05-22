@@ -24,7 +24,6 @@ return new class extends Migration
             $table->double('discount')->nullable();
             $table->double('sale_price')->nullable();
             $table->json('properties')->nullable();
-            $table->mediumText('options')->nullable()->default(null);
             $table->mediumText('desc')->nullable()->default(null);
             $table->mediumText('content')->nullable()->default(null);
             $table->integer('numb')->nullable();
@@ -32,7 +31,6 @@ return new class extends Migration
             $table->string('photo')->nullable()->default(null);
             $table->string('photo1')->nullable()->default(null);
             $table->integer('view')->nullable();
-            $table->integer('stock')->nullable();
             $table->unsignedInteger('category_id')->nullable();
             $table->integer('status')->default(1);
             $table->foreign('category_id')->references('id')->on('table_categories')->onDelete('cascade');
