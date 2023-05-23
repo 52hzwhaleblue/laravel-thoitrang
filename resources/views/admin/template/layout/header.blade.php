@@ -104,7 +104,14 @@
                     <a class="dropdown-item" href="page-user.html"><i class="fa fa-user fa-lg"></i> Profile</a>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="page-login.html"><i class="fa fa-sign-out fa-lg"></i> Logout</a>
+                    <a class="dropdown-item dangxuat-btn" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                        Đăng xuất
+                    </a>
+
+                    <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" >
+                        @csrf
+                    </form>
                 </li>
             </ul>
         </li>

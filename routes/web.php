@@ -10,16 +10,18 @@ use App\Http\Controllers\CartController;
 // Email Auth
 Auth::routes(['verify' => true]);
 
-//Route logout user account
-// Route::post("logout_user", function() {
-//     Auth::logout();
-//     return redirect("/");
-// })->name('logout.user');
+// Mặc định route của Auth để dăng nhập và đăng xuất là login,logout
+// Customize route cho login và logout nếu không muốn dùng mặc định của Auth
 
-// Route login user account
-Route::get('login_user', function() {
-    return redirect("login");
-})->name("login.user");
+    // Route::post("logout_user", function() {
+    //     Auth::logout();
+    //     return redirect("/");
+    // })->name('logout.user');
+
+    //Route::post('login_user', function() {
+    //    return redirect("login");
+    //})->name("login.user");
+//
 
 Route::get('/', [IndexController::class ,'index'])->name('index');
 Route::get('/gioi-thieu', [IndexController::class,'static'])->name('gioi-thieu');
