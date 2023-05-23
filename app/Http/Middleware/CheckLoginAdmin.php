@@ -3,11 +3,10 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-use Illuminate\Http\Request;
-
-class CheckLogin
+class CheckLoginAdmin
 {
     /*
      * Handle an incoming request.
@@ -18,10 +17,12 @@ class CheckLogin
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::check()) {
+        // admin role = 0
+        // user role = 1
+        if(Auth::check() && Auth::user()->role ==0){
             return $next($request);
         }
-        return redirect('/')->with('CheckLogin', __('Quý khách vui lòng đăng nhập'));
+        return redirect()->route('admin.show_login_view');
+
     }
 }
-

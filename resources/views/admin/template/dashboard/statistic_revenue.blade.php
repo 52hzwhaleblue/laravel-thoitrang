@@ -25,6 +25,10 @@
                     <div class="form-group"><button id="thongke-larapexchart" class="btn btn-success">Thống Kê</button></div>
                 </div>
             </div>
+
+
+
+
             <div id="revenueFilterByDateChart"></div>
 
 

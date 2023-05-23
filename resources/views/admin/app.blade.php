@@ -176,7 +176,6 @@
                         response[6]['total'],
                     ]
                 }])
-                    console.log(response[1]['total'])
             });
 
         });
