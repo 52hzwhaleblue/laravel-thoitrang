@@ -115,7 +115,7 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
         let optional_config = {
-            dateFormat: "Y-m-d",
+            dateFormat: "Y-m-d ",
         }
         $(".thongke-datetimepicker").flatpickr(optional_config);
         $(".thongke-datetimepicker").flatpickr(optional_config);
@@ -128,18 +128,18 @@
     <script>
 
         var chart = new Morris.Bar({
-            // ID of the element in which to draw the chart.
-            element: 'statistic_revenue',
-            // Chart data records -- each entry in this array corresponds to a point on
-            // the chart.
+            element:'statistic_revenue',
+            lineColors: ['#819C79','#FC8710'],
+            pointFillcolors:'#fff',
+            pointStrokeColors:'#000',
+            fillOpacity:0.4,
+            hideHover:'auto',
+            parseTime: false,
 
-            // The name of the data record attribute that contains x-values.
-            xkey: 'year',
-            // A list of names of data record attributes that contain y-values.
-            ykeys: ['value'],
-            // Labels for the ykeys -- will be displayed when you hover over the
-            // chart.
-            labels: ['Value']
+            xkey: 'order_date',
+            ykeys: ['total'],
+            behaveLikeLine: true,
+            labels: ['lợi nhuận']
         });
 
         $('#thongke-btn').click(function() {
@@ -167,6 +167,28 @@
                         alert('Lỗi');
                     }
                 });
+        });
+
+        $('.dashboard-filter').change(function() {
+            var dashboard_value = $(this).val();
+            alert(dashboard_value);
+            var _token = $('input[name="token"]').val();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: 'POST',
+                url: '/admin/dashboard-filter',
+                dataType: 'json',
+                data: {
+                    dashboard_value: dashboard_value,
+                },
+                success: function(data) {
+                    chart.setData(data);
+                }
+            });
         });
     </script>
 </body>

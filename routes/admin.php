@@ -14,8 +14,6 @@ use App\Http\Controllers\Admin\OptionController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\StatisticController;
 
-
-
 // Admin Route
 Route::get('admin/image/show/{id}', [ImageZoneController::class,'show'])->name('admin.imagezone.show');
 Route::post('admin/image/upload/{id}', [ImageZoneController::class,'upload'])->name('admin.imagezone.upload');
@@ -24,7 +22,7 @@ Route::group([
     'prefix' => 'admin',
     'as' => 'admin.',
 ],function(){
-    Route::resource('/', HomeController::class);
+    Route::get('/', [HomeController::class,'index'])->name('index');
 
     // Sản phẩm
     Route::group(['prefix' => 'product', 'as' => 'product.',], function(){
@@ -112,5 +110,6 @@ Route::group([
 
     // Thống kê
     Route::post('filter-by-date',[StatisticController::class,'filter_by_date'])->name('filter_by_date');
+    Route::post('dashboard-filter',[StatisticController::class,'filter_by_date'])->name('dashboard_filter');
 });
 

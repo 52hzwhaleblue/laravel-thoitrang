@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Order;
 use App\Models\TableOrder;
 use App\Models\TableOrderDetail;
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -21,18 +22,16 @@ class OrderSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create('vi_VN');
-
-        $created_at = now();
-
-        $updated_at = now();
-
+        $carbon = Carbon::now('Asia/Ho_Chi_Minh');
+        $created_at = $carbon->format('h:i:s');
+        $updated_at = $carbon;
         $status = 1;
 
         $orderEloquent = new TableOrder();
 
         $code_random = 'HDF'. Str::random(10);
 
-        for($i = 0; $i < 10; ++$i){
+        for($i = 0; $i < 30; ++$i){
             $orderEloquent::create([
                 'code' => $code_random,
                 'user_id' => $i+1,
@@ -43,7 +42,7 @@ class OrderSeeder extends Seeder
                 'temp_price' => 500000,
                 'ship_price' => 0,
                 'notes' => ".....Note",
-                'total_price' => 500000,
+                'total_price' => rand(50000,2000000),
                 'status_id' => $status, // Mới đặt
                 "created_at" => $created_at,
                 "updated_at" => $updated_at,
@@ -54,7 +53,6 @@ class OrderSeeder extends Seeder
         $faker_size = [
             "M",
              "35",
-
         ];
 
         $faker_color= [
