@@ -60,6 +60,7 @@ class InsertOrderJob implements ShouldQueue
             'total_price' =>$this->map_param_order["total_price"],
             'ship_price' => $this->map_param_order["ship_price"],
             'notes' => $this->map_param_order["notes"],
+            'promotion_id' => $this->map_param_order["id_promotion"] == 0 ? null : $this->map_param_order["id_promotion"],
             'status_id' => 1,
             'created_at' =>  $time,
             'updated_at' =>  $time
@@ -86,6 +87,8 @@ class InsertOrderJob implements ShouldQueue
     }
 
     private function updateLimitPromotion($idPromotion){
+        if($idPromotion == 0) return;
+
        $promotion_sql = new TablePromotion();
 
        $promotion = $promotion_sql::find($idPromotion);
