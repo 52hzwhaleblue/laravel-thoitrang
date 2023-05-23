@@ -174,10 +174,9 @@ return [
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
-        App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
+        App\Providers\BroadcastServiceProvider::class,
         // Giỏ hàng https://github.com/hardevine/LaravelShoppingcart
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
         // Debugbar https://github.com/barryvdh/laravel-debugbar

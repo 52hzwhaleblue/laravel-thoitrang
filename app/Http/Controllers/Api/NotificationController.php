@@ -18,7 +18,7 @@ class NotificationController extends BaseController
     try {
         $page = $request->query('page', 1);
 
-        $limit = 10;
+        $limit = 7;
 
         $offset = ($page - 1) * $limit;
 
@@ -30,11 +30,9 @@ class NotificationController extends BaseController
         ->take($limit)
         ->get();
         
-        $response = [
-            'data' => $notifications,
-        ];
 
-        return $this->sendResponse($response, 'Fetch notification successfully');
+
+        return $this->sendResponse($notifications, 'Fetch notification successfully');
     } catch (\Throwable $th) {
         return $this->sendError($th->getMessage(), 500);
     }
@@ -42,8 +40,8 @@ class NotificationController extends BaseController
 
 
    public function create(Request $request){
-        
-      return $this->sendNotiToUser(Auth::id(),$request->title,$request->body,null,"notification");
+
+      return $this->sendNotiToUser(Auth::id(),$request->title,$request->subtitle,"notification");
    }
 
    public function updateReadNoti(Request $request,DB $dB){

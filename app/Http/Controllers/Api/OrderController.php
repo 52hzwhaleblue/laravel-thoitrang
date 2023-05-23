@@ -19,26 +19,26 @@ class OrderController extends BaseController
         try {
             $userId = Auth::id();
 
-            $toPay = $order_sql::with(['orderDetail', 'orderDetail.product','orderDetail.product.productDetail'])
+            $toPay = $order_sql::with(['orderDetail','promotion' ,'orderDetail.product','orderDetail.product.productDetail'])
             ->orderByDesc('created_at')
             ->where('user_id', $userId)
             ->where('status_id',1)
             ->get();
                             
-            $completed = $order_sql::with(['orderDetail', 'orderDetail.product','orderDetail.product.productDetail'])
+            $completed = $order_sql::with(['orderDetail','promotion' ,'orderDetail.product','orderDetail.product.productDetail'])
             ->orderByDesc('created_at')
             ->where('user_id', $userId)
             ->withExists('review as evaluated')
             ->where('status_id',4)
             ->get();
 
-            $toReceive =  $order_sql::with(['orderDetail', 'orderDetail.product','orderDetail.product.productDetail'])
+            $toReceive =  $order_sql::with(['orderDetail','promotion' ,'orderDetail.product','orderDetail.product.productDetail'])
             ->orderByDesc('created_at')
             ->where('user_id', $userId)
             ->where('status_id',3)
             ->get();
 
-            $toShip = $order_sql::with(['orderDetail', 'orderDetail.product','orderDetail.product.productDetail'])
+            $toShip = $order_sql::with(['orderDetail','promotion' ,'orderDetail.product','orderDetail.product.productDetail'])
             ->orderByDesc('created_at')
             ->where('user_id', $userId)
             ->where('status_id',2)
@@ -99,8 +99,9 @@ class OrderController extends BaseController
             });
         
 
-            $order = TableOrder::with(['orderDetail', 'orderDetail.product','orderDetail.product.productDetail'])
+            $order = TableOrder::with(['orderDetail', 'promotion','orderDetail.product','orderDetail.product.productDetail'])
             ->where('user_id', Auth::id())
+            ->orderByDesc('created_at')
             ->first();
 
             return $this->sendResponse( $order, "Create order successfully!!!");
