@@ -24,6 +24,7 @@ class RevenueThisMonthChart
         $sql = TableOrder::whereBetween('created_at',[$start,$end])->orderBy('created_at', 'ASC')->get();
 
         $resArray = $sql->toArray();
+//        dd($resArray);
 
         $totalPrice = array();
         foreach ($resArray as $v) {
@@ -31,6 +32,7 @@ class RevenueThisMonthChart
        }
 
         $prices = json_encode($totalPrice,true);
+
 
         $title = 'Doanh thu tháng '.$start->format('m');
         return $this->chart->areaChart()

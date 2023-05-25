@@ -1,6 +1,34 @@
-@extends('admin.app')
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
 
-@section('content')
+    <!-- Main CSS-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/backend/assets/css/main.css') }}" />
+
+    <!-- Index CSS-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/backend/assets/css/index.css') }}" />
+
+    <!-- Font-icon css-->
+    <link rel="stylesheet" type="text/css" href="{{
+                asset(
+                    'public/backend/assets/css/font-awesome/4.7.0/css/font-awesome.min.css'
+                )
+            }}" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <title>Login - Vali Admin</title>
+</head>
+<body>
+<section class="material-half-bg">
+    <div class="cover"></div>
+</section>
+<section class="login-content">
     @if(session()->has('message'))
         <div class="alert alert-success">
             {{ session()->get('message') }}
@@ -12,25 +40,32 @@
             {{ session()->get('warning') }}
         </div>
     @endif
+    <div class="logo">
+        <h1>Jean Nam C669</h1>
+    </div>
+    <div class="login-box">
+        <form class="login-form"
+              action="{{route('admin.login')}} "
+              method="POST"
+              enctype="multipart/form-data">
+            @csrf
+            <h3 class="login-head"><i class="fa fa-lg fa-fw fa-user"></i>SIGN IN</h3>
 
+            <div class="form-group">
+                <label class="control-label">Email</label>
+                <input class="form-control" type="email" name="email" placeholder="Email" autofocus>
+            </div>
+            <div class="form-group">
+                <label class="control-label">PASSWORD</label>
+                <input class="form-control" type="password" name="password"  placeholder="Password">
+            </div>
 
-    <h1 class="text-center mt-5" >Đăng nhập quản trị</h1>
-    <form style="max-width:875px;margin:auto;" action="{{route('admin.login')}} " method="POST"
-          enctype="multipart/form-data">
-        @csrf
-        <!-- Email input -->
-        <div class="form-outline mb-4">
-            <label class="form-label" for="form2Example1">Email</label>
-            <input type="email"  name="email" id="form2Example1" class="form-control" required />
-        </div>
+            <div class="form-group btn-container">
+                <button class="btn btn-primary btn-block"><i class="fa fa-sign-in fa-lg fa-fw"></i>SIGN IN</button>
+            </div>
+        </form>
+    </div>
+</section>
+</body>
+</html>
 
-        <!-- Password input -->
-        <div class="form-outline mb-4">
-            <label class="form-label" for="form2Example2">Password</label>
-            <input type="password" name="password" id="form2Example2" class="form-control" required />
-        </div>
-
-        <!-- Submit button -->
-        <button type="submit" class="btn btn-dark btn-block mb-4 w-100">Sign in</button>
-    </form>
-@endsection

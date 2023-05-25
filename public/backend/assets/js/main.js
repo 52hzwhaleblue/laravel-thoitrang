@@ -134,6 +134,7 @@ function themthuoctinh(){
 }
 
 function autoLogoutAfter5Min(){
+
     $('.dangxuat-btn').click(function (){
         $.ajaxSetup({
             headers: {
@@ -144,7 +145,7 @@ function autoLogoutAfter5Min(){
             url: '/admin/logout',
             method: "POST",
             success: function(data) {
-                alert('Hệ thống tự động logout sau 15 phút')
+                alert('Hệ thống tự động logout sau 15 phút');
             },
             error: function(xhr, ajaxOptions, thrownError) {
                 // alert(xhr.status);
@@ -153,14 +154,17 @@ function autoLogoutAfter5Min(){
         });
     });
 
+    // if($('.dangxuat-btn').length){
+        setTimeout(function (){
+            $( ".dangxuat-btn" ).trigger( "click" );
+        },5000);
+    // }
 
-    setTimeout(function (){
-        $( ".dangxuat-btn" ).trigger( "click" );
-    },150000);
+
 
 }
 $(document).ready(function() {
-    autoLogoutAfter5Min();
+    // autoLogoutAfter5Min();
     changeTitle();
     checkPrice();
     checAll();

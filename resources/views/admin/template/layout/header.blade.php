@@ -103,6 +103,7 @@
                 <li>
                     <a class="dropdown-item" href="page-user.html"><i class="fa fa-user fa-lg"></i> Profile</a>
                 </li>
+                @auth()
                 <li>
                     <a class="dropdown-item dangxuat-btn" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -113,6 +114,7 @@
                         @csrf
                     </form>
                 </li>
+                @endauth
             </ul>
         </li>
     </ul>

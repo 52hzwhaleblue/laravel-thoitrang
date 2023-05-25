@@ -13,15 +13,13 @@ Auth::routes(['verify' => true]);
 // Mặc định route của Auth để dăng nhập và đăng xuất là login,logout
 // Customize route cho login và logout nếu không muốn dùng mặc định của Auth
 
-    // Route::post("logout_user", function() {
-    //     Auth::logout();
-    //     return redirect("/");
-    // })->name('logout.user');
+ Route::post("user-logout", function() {
+     Auth::logout();
+     return redirect("/");
+ })->name('user.logout');
 
-    //Route::post('login_user', function() {
-    //    return redirect("login");
-    //})->name("login.user");
-//
+Route::get('user-login', [\App\Http\Controllers\Auth\LoginController::class ,'showLoginForm'])->name("user.login");
+Route::post('user-login', [\App\Http\Controllers\Auth\LoginController::class ,'login'])->name("user.login");
 
 Route::get('/', [IndexController::class ,'index'])->name('index');
 Route::get('/gioi-thieu', [IndexController::class,'static'])->name('gioi-thieu');
@@ -33,12 +31,12 @@ Route::get('/san-pham', [IndexController::class,'san_pham'])->name('san-pham');
 Route::get('/chi-tiet-san-pham/{slug}/{id}', [IndexController::class,'chi_tiet_san_pham'])->name('chi_tiet_san_pham');
 Route::post('/load_ajax_product', [IndexController::class,'load_ajax_product']);
 
-Route::get('/user/{id}', [UserController::class,'show'])->name('user.show');
 
 
-Route::middleware("CheckLogin")->group(function() {
+Route::middleware("auth")->group(function() {
+    Route::get('/user/{id}', [UserController::class,'show'])->name('user.show');
     // Giỏ hàng
-    Route::get('/cart', [CartController::class,'index'])->name('cart.index')->middleware('CheckLogin');
+    Route::get('/cart', [CartController::class,'index'])->name('cart.index');
 //    Route::get('/cart/add/{id}', [CartController::class,'add'])->name('cart.add');
     Route::post('/cart-add', [CartController::class,'add'])->name('cart-add');
     Route::patch('/cart/update', [CartController::class,'update'])->name('cart.update');
