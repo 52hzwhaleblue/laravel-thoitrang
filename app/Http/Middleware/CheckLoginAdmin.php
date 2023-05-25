@@ -17,12 +17,12 @@ class CheckLoginAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        // admin role = 0
-        // user role = 1
-        if(Auth::check() && Auth::user()->role ==0){
+        // admin role = 1
+        // user role = 0
+        if(Auth::check() && Auth::user()->role ==1){
             return $next($request);
         }
-        return redirect()->route('admin.show_login_view');
+        return redirect()->route('admin.index');
 
     }
 }

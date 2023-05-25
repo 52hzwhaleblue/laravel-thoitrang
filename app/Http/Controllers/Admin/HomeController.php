@@ -16,6 +16,8 @@ class HomeController extends Controller
 {
     public $chart;
 
+    protected $redirectTo = '/admin';
+
     public function __construct() {
         $this->chart =  new LarapexChart();
     }

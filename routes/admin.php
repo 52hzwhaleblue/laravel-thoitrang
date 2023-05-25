@@ -26,7 +26,7 @@ Route::group([
     Route::post('login', [LoginController::class,'login'])->name('login');
     Route::post('logout', [LoginController::class,'logout'])->name('logout');
 
-    Route::group(['middleware' => ['CheckLoginAdmin']], function () {
+    Route::group(['middleware' => ['auth:admin']], function () {
         Route::get('/', [HomeController::class,'index'])->name('index');
         Route::get('image/show/{id}', [ImageZoneController::class,'show'])->name('imagezone.show');
         Route::post('image/upload/{id}', [ImageZoneController::class,'upload'])->name('imagezone.upload');

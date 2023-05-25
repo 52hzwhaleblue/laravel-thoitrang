@@ -206,7 +206,7 @@
 @if(!empty($dichvu))
 <div class="dichvu-wrapper">
     <div class="wrap-content">
-        <div class="title-main mb-0 "><span>Dịch vụ của chúng tôi</span></div>
+        <div class="title-main "><span>Dịch vụ của chúng tôi</span></div>
 
         <div class="owl-page owl-carousel owl-theme thumbs_img " data-xsm-items="1:0" data-sm-items="2:10"
             data-md-items="3:15" data-lg-items="3:20" data-xlg-items="2:15" data-rewind="1" data-autoplay="0"
