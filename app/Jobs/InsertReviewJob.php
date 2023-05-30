@@ -58,7 +58,7 @@ class InsertReviewJob implements ShouldQueue
             $result = $review_sql::create([
                 'user_id' => $this->userId,
                 'order_id' => $this->orderId,
-                'product_id' => $item->id,
+                'product_id' => $item->product_id,
                 'content' => $this->content,
                 'star' => $this->star,
                 'status' => 1,

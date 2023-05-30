@@ -56,6 +56,6 @@ class TablePromotion extends Model
 
     public function order()
     {
-        return $this->belongsTo(TableOrder::class,'promotion_id','id');
+        return $this->hasOne(TableOrder::class,'promotion_id','id');
     }
 }

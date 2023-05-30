@@ -17,33 +17,35 @@ class NotificationSeeder extends Seeder
     {
         $db = new DB();
 
+        $notification_sql = $db::table('table_notifications');
+
        foreach([1,2] as $item){
-        $db::table('table_notifications')->insert([
+        $notification_sql->insert([
             "user_id" => 1,
             "title" => "title test".$item,
             "subtitle" =>  "subtitle test".$item,
-            "type" =>  "chat",
+            "type" =>  "user",
             "created_at" => Carbon::parse('2022-01-01 10:50'),
             "updated_at" => Carbon::parse('2022-01-01 10:50'),
         ]);
        }
 
        foreach([1,2] as $item){
-        $db::table('table_notifications')->insert([
+        $notification_sql->insert([
             "user_id" => 2,
             "title" => "title test".$item,
             "subtitle" =>  "subtitle test".$item,
-            "type" =>  "chat",
+            "type" =>  "user",
             "created_at" => Carbon::parse('2022-01-01 10:50'),
             "updated_at" => Carbon::parse('2022-01-01 10:50'),
         ]);
        }
 
        foreach([5,6] as $item){
-        $db::table('table_notifications')->insert([
+        $notification_sql->insert([
             "title" => "title test".$item,
             "subtitle" =>  "subtitle test".$item,
-            "type" =>  "order",
+            "type" =>  "user",
             "user_id" => 1,
             "created_at" => now(),
             "updated_at" => now(),

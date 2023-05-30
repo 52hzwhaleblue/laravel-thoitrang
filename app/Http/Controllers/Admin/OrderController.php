@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\UpdateOrderEvent;
 use App\Http\Controllers\Controller;
 use App\Models\TableProductDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Api\BaseController as BaseController;
-
+use App\Jobs\InsertPushNotiJob;
 use App\Models\TableOrder;
 use App\Models\TableOrderDetail;
 use App\Models\User;
@@ -59,7 +60,7 @@ class OrderController extends BaseController
         $color = $request->get('color');
         $product_id = $request->get('product_id');
 
-        // update table_orders
+        //update table_orders
         $order = TableOrder::where('id',$order_id)->where('user_id',$user_id)->first();
         $order->status_id = $order_status;
         $order->save();
@@ -83,9 +84,68 @@ class OrderController extends BaseController
                 ->route('admin.order.index')
                 ->with('message', 'Bạn đã hủy đơn hàng thành công!');
         }
+        $dataNoti =  [
+            "user_id" => $user_id,
+            "order_id" => $order_id,
+            "status" => $order_status,
+        ];
+       
+        $this->handlePushNoti($dataNoti,$order);
+
+        $this->handleUpdateStatus($dataNoti);
+
+
 
         return redirect()
             ->route('admin.order.index')
             ->with('message', 'Bạn đã cập nhật đơn hàng thành công!');
+    }
+
+    private function handleUpdateStatus($dataNoti){
+        $data = [         
+            "order_id" => $dataNoti["order_id"],
+            "new_status" => $dataNoti["status"],     
+        ];
+
+        $response = [
+            "data" => $data,
+            "type" => "order",
+        ];
+
+        $this->pusher('pusher-user-'.$dataNoti["user_id"],'update-order',$response);
+    }
+
+    private function handlePushNoti($data,$order){
+ 
+        $subtitle = "";
+
+        if($data['status'] == 2){
+            $subtitle = "Đơn hàng ".$order->code ." của bạn đã được xác nhận";
+        }else if($data['status'] == 3){
+            $subtitle = "Đơn hàng ".$order->code ." của bạn đã đang được vận chuyển. Hãy chú ý các cuộc gọi từ bộ phận giao hàng";
+        }else if($data['status'] == 4){
+            $subtitle = "Đơn hàng ".$order->code ." của bạn đã được giao hoàn tất";
+        }
+
+         //create notification
+         $notification = TableNotification::create([
+            "user_id" => $data["user_id"],
+            "title" => "Hệ thống đơn hàng",
+            "order_id" => $data["order_id"],
+            "subtitle" => $subtitle,
+            "type" => "user_order",
+            "created_at" => now(),
+            "updated_at" => now(),
+        ]);
+
+        $response = [
+            "data" => $notification, 
+            "type" => "notification",
+        ];
+
+        $this->pusher('pusher-user-'.$notification->user_id,'notification',$response);
+
+        //push notification for client user id
+        $this->sendNotiToUser($data["user_id"],$notification->title,$notification->subtitle, $notification->type);
     }
 }
