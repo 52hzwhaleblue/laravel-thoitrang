@@ -164,16 +164,11 @@
                 tungay: tungay,
                 denngay: denngay,
             }, function(response) {
+                console.log(response);
                 chart.updateSeries([{
                     name: 'Doanh thu',
                     data: [
-                        response[0]['total'],
-                        response[1]['total'],
-                        response[2]['total'],
-                        response[3]['total'],
-                        response[4]['total'],
-                        response[5]['total'],
-                        response[6]['total'],
+                        response['total']
                     ]
                 }])
             });

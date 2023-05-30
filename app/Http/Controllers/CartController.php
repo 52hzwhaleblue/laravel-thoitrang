@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\TableCategory;
 use App\Models\TableNotification;
+use App\Models\TableProductDetail;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
@@ -63,7 +64,7 @@ class CartController extends Controller
             'id' => $product_id,
             'name' => $productById->name,
             'qty' => 1,
-            'price' => $productById->sale_price,
+            'price' => ($productById->discount) ? $productById->sale_price : $productById->regular_price ,
             'options' => [
                 'size' => $size,
                 'color' => $color,
@@ -74,7 +75,6 @@ class CartController extends Controller
                 'slug' => $productById->slug,
             ],
         ]);
-
         return redirect('/cart')->with('alert','Bạn đã thêm sản phẩm vào giỏ hàng thành công!');
     }
 
@@ -105,6 +105,7 @@ class CartController extends Controller
         $qty = $request->get('qty');
         $price = $request->get('price');
         $rowId = $request->get('rowId');
+
         $subTotal = $qty * $price;
 
         Cart::update($rowId, $qty);
@@ -123,6 +124,7 @@ class CartController extends Controller
 
 
     public function store(Request $request,DB $db){
+        // Kiểm tra dữ liệu người dùng nhập
         $this->validate_cart($request);
 
         // Dữ liệu giỏ hàng
@@ -130,7 +132,7 @@ class CartController extends Controller
 
         // Dữ liệu người dùng
         $dataUser = [
-            'user_id' => $request->get('user_id'),
+            'user_id' => (int)$request->get('user_id'),
             'fullname' => $request->get('fullname'),
             'email' => $request->get('email'),
             'phone' => $request->get('phone'),
@@ -141,13 +143,9 @@ class CartController extends Controller
             'payment_method' => $request->get('payment_method'),
         ];
 
-        $user_id = $request->get('user_id');
+        $user_id = (int)$request->get('user_id');
         $code_order = 'UNI'.Str::random(5);
-        // $db::beginTransaction(); // bat dau giao dich
 
-        // $db::rollback(); // quay lai ko them vao du lieu
-
-        // $db::commit(); //them vao database
         $db::transaction(function () use ($request,$user_id,$dataUser,$dataCart,$code_order) {
             // Lưu vào table_order
             $order = TableOrder::create([
@@ -159,18 +157,27 @@ class CartController extends Controller
                 'temp_price' => (int)Cart::total(),
                 'total_price' => (int)Cart::total(),
                 'payment_method' => $dataUser['payment_method'],
-                'status' => 1,
+                'status_id' => 1,
             ]);
-
             // Lưu vào table_order_details
             foreach ($dataCart as $kcart => $vcart) {
-               $hh =  TableOrderDetail::create([
+                $order_details =  TableOrderDetail::create([
                     'order_id' => $order->id,
                     'product_id' => $vcart->id,
                     'color' => $vcart->options->color,
                     'size' => $vcart->options->size,
                     'quantity' => $vcart->qty,
                 ]);
+                // Giảm SLTK khi đặt hàng thành công
+                $product_id =$vcart->id;
+                $color =$order_details->color;
+                $qty = $order_details->quantity;
+
+                $product_detail = TableProductDetail::where('product_id',$product_id)
+                    ->where('color',$color)
+                    ->first();
+                $product_detail->stock -=$qty;
+                $product_detail->save();
             }
 
             // Lưu vào table_notifications
@@ -188,12 +195,16 @@ class CartController extends Controller
             "payment_method" => $dataUser['payment_method'],
             "total" => Cart::total(),
             "time_now" => Carbon::now()->format('d/m/Y m:h:s'),
-            'dataCart' =>Cart::content(),
+            'dataCart' => Cart::content(),
         ];
-        dispatch(new SendMailJob($dataMail,$dataUser)); // thêm vào hàng đợi
+
+        // thêm vào hàng đợi gửi mail
+        dispatch(new SendMailJob($dataMail,$dataUser));
+
         // Hủy Cart Session sau khi dặt hàng thành công
         Cart::destroy();
 
+        // Thông báo qua cho admin có một đơn hàng vừa được thanh toán
         $message_notification ="Đơn hàng của khách hàng ".$dataUser['fullname'];
         event(new PusherEvent($message_notification));
 

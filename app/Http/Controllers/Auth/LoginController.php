@@ -56,11 +56,9 @@ class LoginController extends Controller
          ]);
          $credentials = $request->only(['email', 'password']);
          if (Auth::attempt($credentials)) {
-//             dd('user');
              return redirect()->route('index');
-//            return redirect()->intended(route('index'));
         }
-//         return back()->withInput($request->only('email', 'remember'));
+         return back()->with('error','Tên đăng nhập hoặc mật khẩu không đúng');
      }
 
     public function logout(Request $request)

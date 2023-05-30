@@ -2206,6 +2206,10 @@ ul.pronb-sizes li:hover{
     color: var(--color-black);
     font-family: Barlow;
     font-weight: bold;
+    -webkit-line-clamp: 2;
+}
+.pronb-name:hover span{
+    color:#c40401;
 }
 .pronb-price{
     /* text-align: center; */
@@ -4708,9 +4712,3 @@ coccocgrammar {
     margin-bottom: 10px;
 }
 .tintuc-desc{}
-
-
-
-
-
-

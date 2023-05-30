@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\TableProductDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Api\BaseController as BaseController;
@@ -25,7 +26,6 @@ class OrderController extends BaseController
             $order->user = User::find($order->user_id);
             return $order;
         },);
-
         $order_status = DB::table('table_order_status')->get();
         // return $order_status;
         return view('admin.template.order.order', compact('orders','order_status'));
@@ -54,26 +54,38 @@ class OrderController extends BaseController
     public function update(Request $request)
     {
         $order_status = $request->get('order_status');
-        $order_id = $request->query('order_id');
+        $order_id = (int)$request->query('order_id');
         $user_id = $request->query('user_id');
+        $color = $request->get('color');
+        $product_id = $request->get('product_id');
 
         // update table_orders
         $order = TableOrder::where('id',$order_id)->where('user_id',$user_id)->first();
-        $order->status = $order_status;
+        $order->status_id = $order_status;
         $order->save();
 
-        // Nếu như hủy đơn hàng, hoàn lại số lượng tồn kho cho sản phẩm
+        // Tăng SLTK khi hủy đơn hàng
+        if($order_status == 5){
+            $order_detail = TableOrderDetail::where('order_id',$order_id)->get();
+            foreach ($order_detail as $k => $v)
+            {
+                $product_id =$v->product_id;
+                $color =$v->color;
+                $qty = $v->quantity;
 
-
-        // update table_notification
-        $notification = TableNotification::where('order_id',$order_id)->where('user_id',$user_id)->first();
-        $notification->is_read = 1;
-        $notification->save();
+                $product_detail = TableProductDetail::where('product_id',$product_id)
+                    ->where('color',$color)
+                    ->first();
+                $product_detail->stock +=$qty;
+                $product_detail->save();
+            }
+            return redirect()
+                ->route('admin.order.index')
+                ->with('message', 'Bạn đã hủy đơn hàng thành công!');
+        }
 
         return redirect()
             ->route('admin.order.index')
             ->with('message', 'Bạn đã cập nhật đơn hàng thành công!');
-
-
     }
 }

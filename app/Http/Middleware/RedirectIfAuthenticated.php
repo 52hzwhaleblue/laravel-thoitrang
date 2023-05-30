@@ -33,7 +33,6 @@ class RedirectIfAuthenticated
 
      public function handle($request, Closure $next, $guard = null)
     {
-
         switch($guard){
             case 'admin':
 
