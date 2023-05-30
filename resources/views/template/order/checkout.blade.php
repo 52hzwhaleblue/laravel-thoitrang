@@ -2,7 +2,6 @@
 @section('content')
 <form method="POST" action="{{ route('cart.store') }}">
     <div class="row">
-
         <div class="col-md-8 ">
             <h4 class="mb-3">Billing address</h4>
             @csrf
@@ -129,7 +128,6 @@
                     <strong> {{ number_format(Cart::total(),0,',','.') }} </strong>
                 </li>
             </ul>
-
         </div>
 </form>
 

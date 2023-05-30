@@ -83,9 +83,13 @@
                 </a>
             </h3>
             <div class="pronb-price">
-                <span class="price-new">  {{number_format($v->sale_price)}} vnđ</span>
-                <span class="price-old"> {{number_format($v->regular_price)}} vnđ </span>
-                <span class="discount"> {{$v->discount}} % </span>
+                <?php if($v->discount) { ?>
+                    <span class="price-new">  {{number_format($v->sale_price)}} vnđ</span>
+                    <span class="price-old"> {{number_format($v->regular_price)}} vnđ </span>
+                    <span class="discount"> {{$v->discount}} % </span>
+                <?php } else{ ?>
+                    <span class="price-new">  {{number_format($v->regular_price)}} vnđ</span>
+                <?php } ?>
             </div>
         </div>
     </div>

@@ -120,7 +120,6 @@ Quản lý chi tiết đơn hàng
                                         </td>
 
                                         <td class="align-middle">
-
                                             <p class="text-primary mb-1">
                                                 {{ $v->product->name }}
                                             </p>
@@ -128,6 +127,8 @@ Quản lý chi tiết đơn hàng
                                             <p class="mb-0">
                                                 <span class="pr-2">Màu:
                                                     {{ $v->color }}
+                                                    <input type="text" name="color[]" value="{{ $v->color }}">
+                                                    <input type="text" name="product_id[]" value="{{ $v->product->id }}">
                                                 </span>
 
                                                 <span>Size:
@@ -137,11 +138,12 @@ Quản lý chi tiết đơn hàng
                                         </td>
 
                                         <td class="align-middle text-center">
-
                                             <div class="price-cart-detail">
-                                                <span class="price-new mr-3">
-                                                {{ number_format( $v->product->sale_price,0,',','.') }} vnđ
-                                                </span>
+                                                <?php if($v->product->discount) { ?>
+                                                    <span class="price-new">  {{number_format($v->product->sale_price)}} vnđ</span>
+                                                <?php } else{ ?>
+                                                    <span class="price-new">  {{number_format($v->product->regular_price)}} vnđ</span>
+                                                <?php } ?>
                                             </div>
                                         </td>
 
@@ -150,7 +152,15 @@ Quản lý chi tiết đơn hàng
                                         </td>
                                         <td class="align-middle text-right">
                                             <p class="price-new font-weight-bold">
-                                                {{ number_format($v->quantity *  $v->product->sale_price,0,',','.') }} vnđ
+                                                <?php if($v->product->discount) { ?>
+                                                    <span class="price-new">
+                                                        {{ number_format($v->quantity *  $v->product->sale_price,0,',','.') }} vnđ
+                                                    </span>
+                                                  <?php } else{ ?>
+                                                    <span class="price-new">
+                                                        {{ number_format($v->quantity *  $v->product->regular_price,0,',','.') }} vnđ
+                                                    </span>
+                                                <?php } ?>
                                             </p>
                                         </td>
                                     </tr>
