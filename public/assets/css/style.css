@@ -2913,10 +2913,8 @@ ul.pronb-sizes li:hover{
 
 .name-company-footer {
     text-transform: uppercase;
-    font-family: 'SVN-ALoveThunder';
-    font-size: 67px;
+    font-size: 30px;
     margin-bottom: 0;
-    font-family: 'SVN-ALoveThunder';
 }
 .name-company-footer1{
 
@@ -4646,8 +4644,11 @@ coccocgrammar {
 }
 
 /* Dịch Vụ */
-.dichvu-wrapper{}
-.dichvu-wrapper .wrap-content{}
+.dichvu-wrapper{
+    margin-bottom: 15px;
+}
+.dichvu-wrapper .wrap-content{
+}
 .dichvu-item{}
 .dichvu-img{
     position: relative;
@@ -4655,8 +4656,9 @@ coccocgrammar {
 .dichvu-info{
     position: absolute;
     bottom: 20px;
-    left: 20px;
+    left: 0;
     width: 100%;
+    padding-left: 20px;
 }
 .dichvu-name{}
 .dichvu-name a{

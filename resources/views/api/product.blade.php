@@ -21,7 +21,7 @@
      data-smartspeed = "1000"
      data-autoplayspeed = "800"
      data-autoplaytimeout = "8000"
-     data-dots = "1"
+     data-dots = "0"
      data-animations = ""
      data-nav = "1"
      data-navText = ""

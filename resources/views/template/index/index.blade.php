@@ -17,7 +17,6 @@
 <p class="ToastyFunction"></p>
 @endif
 
-
 <div class="toast" id="CheckLoginToast" role="alert" aria-live="assertive" aria-atomic="true">
     <div class="toast-header">
         <strong class="mr-auto">Thông báo</strong>
@@ -39,7 +38,6 @@
         @endif
     </div>
 </div>
-
 
 
 @if(count($splistnb))
@@ -129,7 +127,7 @@
 </div>
 @endif
 
-@if(!empty($quangcao))
+@if (count($quangcao) > 0)
 <div class="quangcao-wrapper">
     <div class="wrap-content">
         <div class="owl-page owl-carousel owl-theme thumbs_img " data-xsm-items="1:0" data-sm-items="2:10"
@@ -179,7 +177,7 @@
 </div>
 @endif
 
-@if (!empty($album))
+@if (count($album) > 0)
 <div class="album-wrapper">
     <div class="wrap-content">
         <div class="title-main mb-0 "><span>album hình ảnh</span></div>
@@ -203,7 +201,8 @@
 </div>
 @endif
 
-@if(!empty($dichvu))
+
+@if (count($dichvu) > 0)
 <div class="dichvu-wrapper">
     <div class="wrap-content">
         <div class="title-main "><span>Dịch vụ của chúng tôi</span></div>
@@ -234,8 +233,7 @@
 </div>
 @endif
 
-
-@if(!empty($tieuchi))
+@if (count($tieuchi) > 0)
 <div class="tieuchi-wrapper mb-5">
     <div class="wrap-content">
         <div class="owl-page owl-carousel owl-theme thumbs_img " data-xsm-items="1:0" data-sm-items="2:10"
@@ -259,8 +257,7 @@
 </div>
 @endif
 
-
-@if(!empty($tintuc))
+@if (count($tintuc) > 0)
 <div class="tintuc-wrapper mb-5">
     <div class="wrap-content">
     <div class="title-main mb-4 "><span>Bài viết mới mỗi ngày</span></div>
@@ -290,5 +287,4 @@
     </div>
 </div>
 @endif
-
 @endsection
