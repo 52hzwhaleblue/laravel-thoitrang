@@ -111,8 +111,7 @@ class OrderController extends BaseController
             "title" => "Hệ thống đơn hàng",
             "order_id" => $data["order_id"],
             "subtitle" => $subtitle,
-            "type" => "order",
-            "is_read" => 0,
+            "type" => "user_order",
             "created_at" => now(),
             "updated_at" => now(),
         ]);

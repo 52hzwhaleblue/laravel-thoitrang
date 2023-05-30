@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Api\BaseController as BaseController;
+use App\Models\TableOrderDetail;
+use App\Models\TableProductDetail;
+use PhpOffice\PhpSpreadsheet\Calculation\Logical\Boolean;
 
 class OrderController extends BaseController
 {
@@ -112,16 +115,36 @@ class OrderController extends BaseController
         }
     }
 
-    public function delete(Request $request){
+    public function delete(Request $request,TableOrder $order_sql,TableOrderDetail $order_detail_sql,TableProductDetail $product_detail_sql){
         try {
             $order_id = $request->query("order_id");
 
-            $order_sql = new TableOrder();
-
             $order = $order_sql::find($order_id);
 
-            
+            $list_product = $order_detail_sql::where('order_id',$order->id)->get();
 
+            foreach($list_product as $item){
+                $detail = $product_detail_sql::where('product_id',$item->product_id)->first();
+                
+                $detail->update([
+                    "stock" => $detail->stock + $item->quantity
+                ]);
+            }
+
+            // return $order->promotion_id == null;
+
+            if(!empty($order->promotion_id)){
+                //check apply promotion
+
+                $promotion_sql = new TablePromotion();
+                
+                $promotion = $promotion_sql::find($order->promotion_id);
+
+                $promotion->update(["limit" => $promotion->limit + 1]);
+
+            }
+
+            //delete order
             $order->delete();
          
 

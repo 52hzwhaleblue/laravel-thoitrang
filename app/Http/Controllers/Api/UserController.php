@@ -87,12 +87,12 @@ class UserController extends BaseController
     public function changePassword(Request $request){
         try{
             if(!Hash::check($request->current_password, Auth::user()->password)){
-                return $this->sendResponse([],"Current password incorrect! Please try again!!");
+                return $this->sendResponse([201],"Current password incorrect! Please try again!!");
             }
 
             DB::table('table_users')->where('id',Auth::user()->id)->update(["password" => Hash::make($request->new_password)]);
 
-            return $this->sendResponse([],"Changed password user successfully!!");
+            return $this->sendResponse([200],"Changed password user successfully!!");
 
         } catch (\Throwable $th) {    
             return $this->sendError( $th->getMessage(),null,500);
