@@ -51,5 +51,16 @@ class NotificationSeeder extends Seeder
             "updated_at" => now(),
         ]);
        }
+
+        foreach([7,8] as $item){
+            $notification_sql->insert([
+                "title" => "title test".$item,
+                "subtitle" =>  "subtitle test".$item,
+                "type" =>  "admin",
+                "user_id" => 1,
+                "created_at" => now(),
+                "updated_at" => now(),
+            ]);
+        }
     }
 }
