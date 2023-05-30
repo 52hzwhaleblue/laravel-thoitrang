@@ -21,12 +21,13 @@ class TableProduct extends Model
      *
      * @var array
      */
+    
     protected $fillable = [
         'code',
         'name',
         'slug',
-        'regular_price',
         'discount',
+        'regular_price',
         'sale_price',
         'properties',
         'options',

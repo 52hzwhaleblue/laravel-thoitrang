@@ -6,6 +6,8 @@ use App\Models\TableOrder;
 use Illuminate\Support\Str;
 use Illuminate\Bus\Queueable;
 use App\Models\TableOrderDetail;
+use App\Models\TableProduct;
+use App\Models\TableProductDetail;
 use App\Models\TablePromotion;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -81,6 +83,8 @@ class InsertOrderJob implements ShouldQueue
                 'created_at' =>  $time ,
                 'updated_at' =>  $time
             ]);
+
+            $this->updateStockProduct($item->product->id,$item->quantity);
         }
 
         $this->updateLimitPromotion($this->map_param_order["id_promotion"],);
@@ -94,5 +98,14 @@ class InsertOrderJob implements ShouldQueue
        $promotion = $promotion_sql::find($idPromotion);
 
        $promotion->update(["limit" => $promotion->limit - 1]);
+    }
+
+    private function updateStockProduct($idProduct, $quantity){
+
+       $product_detail_sql = new TableProductDetail();
+
+       $product = $product_detail_sql::find($idProduct);
+
+       $product->update(["stock" => $product->stock - $quantity]);
     }
 }
