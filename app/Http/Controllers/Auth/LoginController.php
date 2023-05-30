@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -30,7 +31,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+//    protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
      * Create a new controller instance.
@@ -39,12 +40,34 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+//        $this->middleware('guest')->except('logout');
     }
+
+    public function showLoginForm()
+    {
+        return view('auth.login');
+    }
+
+     public function login(Request $request)
+     {
+         $this->validate($request, [
+             'email' => 'required|email',
+             'password' => 'required|min:6'
+         ]);
+         $credentials = $request->only(['email', 'password']);
+         if (Auth::attempt($credentials)) {
+//             dd('user');
+             return redirect()->route('index');
+//            return redirect()->intended(route('index'));
+        }
+//         return back()->withInput($request->only('email', 'remember'));
+     }
 
     public function logout(Request $request)
     {
-        $this->performLogout($request);
-        return redirect()->route('index');
+//        $this->performLogout($request);
+//        return redirect()->route('index');
+        Auth::logout();
+        return redirect()->route('login');
     }
 }

@@ -30,7 +30,8 @@ $menus = config('menu');
                     <a class="treeview-item
                         @if($ProfileComposer['com'] == $m1['index']) active  @endif"
 
-                        href="{{ $m1['index'] ? route($m1['index']) : '' }}"><i class="icon fa fa-circle-o"></i>
+                        href="{{ $m1['index'] ? route($m1['index']) : '' }}">
+                        <i class="fa-regular fa-circle"></i>
                         {{$m1['title']}}
                     </a>
                 </li>

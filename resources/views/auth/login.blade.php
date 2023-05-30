@@ -84,7 +84,7 @@
 @endif
 
 <h1 class="text-center mt-5" >Đăng nhập</h1>
-<form style="max-width:875px;margin:auto;" action="{{route('login')}} " method="POST"
+<form style="max-width:875px;margin:auto;" action="{{route('user.login')}} " method="POST"
 enctype="multipart/form-data">
 @csrf
     <!-- Email input -->

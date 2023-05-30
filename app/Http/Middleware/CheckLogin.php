@@ -18,7 +18,6 @@ class CheckLogin
      */
     public function handle(Request $request, Closure $next)
     {
-        // if (Auth::check() && Auth::user()->level == 0) {
         if (Auth::check()) {
             return $next($request);
         }

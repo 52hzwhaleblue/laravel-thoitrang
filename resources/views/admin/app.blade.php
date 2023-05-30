@@ -121,74 +121,63 @@
         $(".thongke-datetimepicker").flatpickr(optional_config);
     </script>
 
-    <!-- Thống kê Moris Chart-->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script>
+        var options = {
+            series: [{
+                name: "Consumption",
+                data: []
+            }],
+            chart: {
+                height: 350,
+                type: 'bar',
+            },
+            dataLabels: {
+                enabled: false
+            },
+            title: {
+                text: '',
+            },
+            noData: {
+                text: 'Vui lòng chọn ngày để thống kê ...'
+            },
+            xaxis: {
+                type: 'category',
+                tickPlacement: 'on',
+                labels: {
+                    rotate: -45,
+                    rotateAlways: true
+                }
+            }
+        };
 
-        var chart = new Morris.Bar({
-            element:'statistic_revenue',
-            lineColors: ['#819C79','#FC8710'],
-            pointFillcolors:'#fff',
-            pointStrokeColors:'#000',
-            fillOpacity:0.4,
-            hideHover:'auto',
-            parseTime: false,
+        var chart = new ApexCharts(document.querySelector("#revenueFilterByDateChart"), options);
+        chart.render()
 
-            xkey: 'order_date',
-            ykeys: ['total'],
-            behaveLikeLine: true,
-            labels: ['lợi nhuận']
-        });
-
-        $('#thongke-btn').click(function() {
+        $('#thongke-larapexchart').click(function() {
             var tungay = $('.tungay_flatpickr').val();
             var denngay = $('.denngay_flatpickr').val();
 
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-                $.ajax({
-                    type: 'POST',
-                    url: '/admin/filter-by-date',
-                    dataType: 'json',
-                    data: {
-                        tungay: tungay,
-                        denngay: denngay,
-                    },
-                    success: function(data) {
-                        console.log(data);
-                        chart.setData(data);
-                    },
-                    error:function () {
-                        alert('Lỗi');
-                    }
-                });
-        });
 
-        $('.dashboard-filter').change(function() {
-            var dashboard_value = $(this).val();
-            alert(dashboard_value);
-            var _token = $('input[name="token"]').val();
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
+            $.getJSON('http://127.0.0.1:8000/admin/filter-by-date',
+            {
+                tungay: tungay,
+                denngay: denngay,
+            }, function(response) {
+                chart.updateSeries([{
+                    name: 'Doanh thu',
+                    data: [
+                        response[0]['total'],
+                        response[1]['total'],
+                        response[2]['total'],
+                        response[3]['total'],
+                        response[4]['total'],
+                        response[5]['total'],
+                        response[6]['total'],
+                    ]
+                }])
             });
-            $.ajax({
-                type: 'POST',
-                url: '/admin/dashboard-filter',
-                dataType: 'json',
-                data: {
-                    dashboard_value: dashboard_value,
-                },
-                success: function(data) {
-                    chart.setData(data);
-                }
-            });
+
         });
     </script>
 </body>

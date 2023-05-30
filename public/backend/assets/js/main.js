@@ -133,7 +133,38 @@ function themthuoctinh(){
 		</div>');
 }
 
+function autoLogoutAfter5Min(){
+
+    $('.dangxuat-btn').click(function (){
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url: '/admin/logout',
+            method: "POST",
+            success: function(data) {
+                alert('Hệ thống tự động logout sau 15 phút');
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                // alert(xhr.status);
+                // alert(thrownError);
+            }
+        });
+    });
+
+    // if($('.dangxuat-btn').length){
+        setTimeout(function (){
+            $( ".dangxuat-btn" ).trigger( "click" );
+        },5000);
+    // }
+
+
+
+}
 $(document).ready(function() {
+    // autoLogoutAfter5Min();
     changeTitle();
     checkPrice();
     checAll();

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Charts\RevenueFilterByDateChart;
 use App\Charts\RevenueThisMonthChart;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Charts\ActiveInactiveUserChart;
 use App\Charts\ProductsMostViewed;
@@ -14,11 +16,13 @@ class HomeController extends Controller
 {
     public $chart;
 
+    protected $redirectTo = '/admin';
+
     public function __construct() {
         $this->chart =  new LarapexChart();
     }
 
-    public function index()
+    public function index(Request $request)
     {
         // Chart active-inactive users
         $objActiveInactiveUser = new ActiveInactiveUserChart($this->chart);
@@ -47,7 +51,7 @@ class HomeController extends Controller
             'chartActiveInactiveUser',
             'chartProductMostViewed',
             'chartRevenueThisMonth',
-            'top10ProductBestSeller'
+            'top10ProductBestSeller',
         ]));
     }
 

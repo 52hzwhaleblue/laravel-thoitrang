@@ -26,16 +26,23 @@ class RevenueThisMonthChart
         $resArray = $sql->toArray();
 //        dd($resArray);
 
+        $totalPrice = array();
+        foreach ($resArray as $v) {
+            array_push($totalPrice,$v['total_price']) ;
+       }
+
+        $prices = json_encode($totalPrice,true);
+
+
         $title = 'Doanh thu tháng '.$start->format('m');
         return $this->chart->areaChart()
             ->setTitle($title)
-            ->setSubtitle('Physical sales vs Digital sales.')
             ->addData('Tháng này', [
-                $resArray[0]['total_price'],
-                $resArray[1]['total_price'],
-                $resArray[2]['total_price'],
-                $resArray[3]['total_price'],
-                $resArray[4]['total_price'],
+                $resArray[0]['total_price'].'vnđ',
+                $resArray[1]['total_price'].'vnđ',
+                $resArray[2]['total_price'].'vnđ',
+                $resArray[3]['total_price'].'vnđ',
+                $resArray[4]['total_price'].'vnđ',
             ])
             ->setXAxis([
                 $resArray[0]['created_at'],

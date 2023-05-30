@@ -43,6 +43,17 @@ class Kernel extends HttpKernel
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
+
+//        'admin' => [
+//            \App\Http\Middleware\EncryptCookies::class,
+//            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+//            \Illuminate\Session\Middleware\StartSession::class,
+//            // \Illuminate\Session\Middleware\AuthenticateSession::class,
+//            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+//            \App\Http\Middleware\VerifyCsrfToken::class,
+//            \App\Http\Middleware\CheckLoginAdmin::class,
+//            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+//        ],
     ];
 
     /**
@@ -65,7 +76,8 @@ class Kernel extends HttpKernel
 
 
         // Khai báo middleware
-        'CheckLogin' => \App\Http\Middleware\CheckLogin::class,
+//        'CheckLogin' => \App\Http\Middleware\CheckLogin::class,
+//        'CheckLoginAdmin' => \App\Http\Middleware\CheckLoginAdmin::class,
 
     ];
 }

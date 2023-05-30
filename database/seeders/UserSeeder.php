@@ -26,11 +26,11 @@ class UserSeeder extends Seeder
         User::factory()->count(30)->create();
 
         $eloquent::create([
-            'username'=>"abc@1",
-            'fullname'=>"Admin",
-            'phone'=> "xxxxxx",
-            'email'=> "xxxxx@gmail.com",
-            'password' => Hash::make('123456789'),
+            'username'=>"minhlong",
+            'fullname'=>"Nguyen Vu Minh Long",
+            'phone'=> "0705564567",
+            'email'=> "josephminhlong@gmail.com",
+            'password' => Hash::make('Minhlong@1902'),
             "photo" =>  "thumbnails/avatars/42ea1f2bdeefb978bb7cbab49cfc08b2_644be05a96383.png",
             "role" => 0,
             "created_at" => $created_at,
