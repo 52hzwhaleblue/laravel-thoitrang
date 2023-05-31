@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Api\BaseController as BaseController;
+use App\Models\TableNotification;
 use App\Models\TableOrderDetail;
 use App\Models\TableProductDetail;
 use PhpOffice\PhpSpreadsheet\Calculation\Logical\Boolean;
@@ -107,12 +108,39 @@ class OrderController extends BaseController
             ->orderByDesc('created_at')
             ->first();
 
+
+            $this->createPushNoti($order->id);
+            
             return $this->sendResponse( $order, "Create order successfully!!!");
+            
 
 
         } catch (\Throwable $th) {
             return $this->sendError( $th->getMessage(),500);
         }
+    }
+
+    private function createPushNoti($order_id){
+        
+        $noti = new TableNotification();
+
+        $noti_sql = $noti::create([
+            "title" => "Đơn hàng mới",
+            "subtitle" => "",
+            'user_id'=> Auth::id(),
+            'order_id' => $order_id,
+            'is_read' => 1,
+            'created_at' =>now(),
+            'updated_at' =>now(),
+        ]);
+
+        $data = [
+            'title' => $noti_sql->title,
+            'subtitle' => $noti_sql->subtitle,
+            'created_at' => $noti_sql->created_at,
+        ];
+        
+        $this->pusher('new-order','create-order',$data);
     }
 
     public function delete(Request $request,TableOrder $order_sql,TableOrderDetail $order_detail_sql,TableProductDetail $product_detail_sql){
@@ -124,7 +152,12 @@ class OrderController extends BaseController
             $list_product = $order_detail_sql::where('order_id',$order->id)->get();
 
             foreach($list_product as $item){
-                $detail = $product_detail_sql::where('product_id',$item->product_id)->first();
+
+                $color = substr($item->color,1);
+                
+                $detail = $product_detail_sql::where('product_id',$item->product_id)
+                ->where('color',$color)->first();
+
                 
                 $detail->update([
                     "stock" => $detail->stock + $item->quantity
