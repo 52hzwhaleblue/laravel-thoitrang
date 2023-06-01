@@ -26,22 +26,17 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
 
     <!-- Main CSS-->
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/backend/assets/css/main.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('./public/backend/assets/css/main.css') }}" />
 
     <!-- Index CSS-->
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/backend/assets/css/index.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('./public/backend/assets/css/index.css') }}" />
 
     <!-- Font-icon css-->
-    <link rel="stylesheet" type="text/css" href="{{
-                asset(
-                    'public/backend/assets/css/font-awesome/4.7.0/css/font-awesome.min.css'
-                )
-            }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('./public/backend/assets/css/font-awesome/4.7.0/css/font-awesome.min.css') }}" />
 
-    {{--
+   
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    --}}
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
