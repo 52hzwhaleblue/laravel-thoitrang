@@ -61,7 +61,7 @@ class BaseController extends Controller
             $filename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
             $extension = $file->getClientOriginalExtension();
             $path = $filename . '_' . uniqid() . '.' . $extension;
-            
+
             $image = Image::make($file);
             // Resize image
             $thumbnail = $image->resize($image->width(), $image->height(), function ($constraint) {

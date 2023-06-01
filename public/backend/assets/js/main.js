@@ -92,9 +92,14 @@ function realtimeNotification(){
     // Enable pusher logging - don't include this in production
     Pusher.logToConsole = true;
 
-    var pusher = new Pusher('1e38bdbfaf17ff456b05', {
+    // var pusher = new Pusher('1e38bdbfaf17ff456b05', {
+    //     cluster: 'ap1'
+    // });
+
+    var pusher = new Pusher('b18a8b47f86b06965176', { // PUSHER_APP_KEY của Chương
         cluster: 'ap1'
     });
+
 
     var channel = pusher.subscribe('notification-channel');
     channel.bind('payment-event', function(data) {
@@ -110,7 +115,8 @@ function countNotification(){
 }
 
 function orderNotification(data){
-    toastr.success(data.name,"1 Đơn hàng mới cần xử lý")
+    console.log(data);
+    toastr.success("1 Đơn hàng mới cần xử lý của khách hàng "+data)
     // update order_notifications
     let current_order = $('.order_notifications').text();
     let future_order = parseInt(current_order)+1;

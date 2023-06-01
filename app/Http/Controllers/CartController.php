@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Api\BaseController as BaseController;
 use App\Models\TableCategory;
 use App\Models\TableNotification;
 use App\Models\TableProductDetail;
@@ -25,7 +26,7 @@ use App\Models\TableOrderDetail;
 use App\Models\TableProduct;
 use App\Models\TablePromotion;
 
-class CartController extends Controller
+class CartController extends BaseController
 {
     public function index()
     {
@@ -205,8 +206,9 @@ class CartController extends Controller
         Cart::destroy();
 
         // Thông báo qua cho admin có một đơn hàng vừa được thanh toán
-        $message_notification ="Đơn hàng của khách hàng ".$dataUser['fullname'];
-        event(new PusherEvent($message_notification));
+        $message_notification = $dataUser['fullname'];
+        $this->pusher('notification-channel', 'payment-event', $message_notification);
+//        event(new PusherEvent($message_notification));
 
         return redirect()->route('index')->with('CartToast',' Bạn đã thanh toán thành công');
     }
