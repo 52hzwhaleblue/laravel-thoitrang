@@ -942,6 +942,7 @@ img:not([src]) {
 .header {
     background-color: #ffffff;
     position: relative;
+    overflow: hidden;
 }
 .header .wrap-content{
 }

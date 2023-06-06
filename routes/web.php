@@ -34,7 +34,7 @@ Route::post('/load_ajax_product', [IndexController::class,'load_ajax_product']);
 
 
 Route::middleware("auth")->group(function() {
-    Route::get('/user/{id}', [UserController::class,'show'])->name('user.show');
+    Route::get('/user/{user_id}', [UserController::class,'show'])->name('user.show');
     // Giỏ hàng
     Route::get('/cart', [CartController::class,'index'])->name('cart.index');
 //    Route::get('/cart/add/{id}', [CartController::class,'add'])->name('cart.add');
