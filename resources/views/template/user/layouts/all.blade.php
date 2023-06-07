@@ -32,7 +32,7 @@
     </div>
 @endif
 
-@if(count($all)>0)
+@if(count($order_details)>0)
     <div class="donhang-items">
         @foreach($order_details as $k => $v)
             <div class="donhang-item">

@@ -31,12 +31,12 @@ class UserController extends Controller
         $order_details = TableOrderDetail::whereIn('order_id', $resId_order)->get();
         $rowUser  = User::where('id',$user_id)->first();
         $all = TableOrder::where('user_id',$user_id)->get();
-        $confirmed = TableOrder::where('user_id',$user_id)->where('status_id',2)->get();
+        $confirmed = TableOrder::with('orderDetail.product')->where('user_id',$user_id)->where('status_id',2)->get();
         $onDelivery = TableOrder::with('orderDetail.product')->where('user_id',$user_id)->where('status_id',3)->get();
-        $delivered = TableOrder::where('user_id',$user_id)->where('status_id',4)->get();
+        $shipped = TableOrder::with('orderDetail.product')->where('user_id',$user_id)->where('status_id',4)->get();
         $cancled = TableOrder::where('user_id',$user_id)->where('status_id',5)->get();
 
-//        return $onDelivery;
+//        return $confirmed;
 
         return view('template.user.user',compact(
             'order_details',
@@ -44,7 +44,7 @@ class UserController extends Controller
             'all',
             'confirmed',
             'onDelivery',
-            'delivered',
+            'shipped',
             'cancled',
         ));
     }
