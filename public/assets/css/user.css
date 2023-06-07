@@ -13,14 +13,14 @@
     display: block;
     border-bottom: 1px #fff solid;
 }
-.donhang-items{}
+.donhang-items{
+    padding: 10px;
+}
 .donhang-item{
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
     align-items: flex-start;
-    /* height: 100px; */
-    /* overflow: hidden; */
     margin-bottom: 15px;
 }
 .donhang-img{
@@ -70,4 +70,57 @@
 .donhang-empty img{
     width: 200px;
     height: 200px;
+}
+
+/*Đang vận chuyển*/
+.dangvanchuyen-items{
+    border: 1px #46c36e solid;
+    border-radius: 15px;
+}
+.dangvanchuyen-item{
+    flex-direction: column;
+}
+
+.dangvanchuyen-status{
+    position: relative;
+    padding-left: 27px;
+    color: rgb(56, 56, 61);
+    font-weight: 600;
+    font-size: 14px;
+}
+.dangvanchuyen-status::before{
+    content:"";
+    position:absolute;
+    background: url(../../storage/indicator.png);
+    background-size: contain;
+    width:20px;
+    height:20px;
+    left: 0;
+    top: calc(50% - 20px/2);
+}
+
+.dangvanchuyen-time{
+    position: relative;
+    padding-left: 27px;
+    margin-bottom: 0;
+    color: #46c36e;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 20px;
+}
+.dangvanchuyen-time::before{
+    content:"";
+    position:absolute;
+    background: url(../../storage/delivery.png);
+    background-size: contain;
+    width:20px;
+    height:20px;
+    left: 0;
+    top: calc(50% - 20px/2);
+}
+
+.dangvanchuyen-box{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
 }

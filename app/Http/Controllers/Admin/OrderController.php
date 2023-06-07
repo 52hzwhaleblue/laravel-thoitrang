@@ -22,7 +22,7 @@ class OrderController extends BaseController
 {
     public function index()
     {
-        $orders = DB::table('table_orders')->get()
+        $orders = DB::table('table_orders')->orderByDesc('created_at')->get()
         ->map(function($order){
             $order->user = User::find($order->user_id);
             return $order;
@@ -89,7 +89,7 @@ class OrderController extends BaseController
             "order_id" => $order_id,
             "status" => $order_status,
         ];
-       
+
         $this->handlePushNoti($dataNoti,$order);
 
         $this->handleUpdateStatus($dataNoti);
@@ -102,9 +102,9 @@ class OrderController extends BaseController
     }
 
     private function handleUpdateStatus($dataNoti){
-        $data = [         
+        $data = [
             "order_id" => $dataNoti["order_id"],
-            "new_status" => $dataNoti["status"],     
+            "new_status" => $dataNoti["status"],
         ];
 
         $response = [
@@ -116,7 +116,7 @@ class OrderController extends BaseController
     }
 
     private function handlePushNoti($data,$order){
- 
+
         $subtitle = "";
 
         if($data['status'] == 2){
@@ -139,7 +139,7 @@ class OrderController extends BaseController
         ]);
 
         $response = [
-            "data" => $notification, 
+            "data" => $notification,
             "type" => "notification",
         ];
 
