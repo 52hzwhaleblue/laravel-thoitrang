@@ -71,4 +71,8 @@ class User extends Authenticatable implements MustVerifyEmail
     public function review(){
         return $this-> hasMany(TableReview::class);
     }
+
+    public function orders(){
+        return $this-> hasMany(TableOrder::class);
+    }
 }

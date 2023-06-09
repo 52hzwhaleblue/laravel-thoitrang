@@ -1,34 +1,36 @@
 @extends('layouts.client')
 @section('content')
-    <div class="container">
-        <ul class="nav nav-tabs">
-            <li class="active"><a class="p-3" data-toggle="tab" href="#all">Tất cả đơn hàng</a></li>
-            <li><a class="p-3" data-toggle="tab" href="#confirmed">Đã xác nhận</a></li>
-            <li><a class="p-3" data-toggle="tab" href="#on_delivery">Đang vận chuyển</a></li>
-            <li><a class="p-3" data-toggle="tab" href="#shipped">Đã giao</a></li>
-            <li><a class="p-3" data-toggle="tab" href="#cancled">Đã hủy</a></li>
-        </ul>
 
-        <div class="tab-content">
-            <div id="all" class="tab-pane fade in active">
-                <h3>Tất cả đơn hàng</h3>
-                @include('template.user.layouts.all')
-            </div>
-            <div id="confirmed" class="tab-pane fade">
-                <h3>Đã xác nhận</h3>
-                @include('template.user.layouts.confirmed')
-            </div>
-            <div id="on_delivery" class="tab-pane fade">
-                <h3>Đang vận chuyển</h3>
-                @include('template.user.layouts.on_delivery')
-            </div>
-            <div id="shipped" class="tab-pane fade">
-                <h3>Đã giao</h3>
-                @include('template.user.layouts.shipped')
-            </div>
-            <div id="cancled" class="tab-pane fade">
-                <h3>Đã hủy</h3>
-                @include('template.user.layouts.canceled')
+    <div id="main">
+        <div class="container">
+            <div class="group-tabs">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs donhang-ul" role="tablist">
+                    <li class="mx-3" role="presentation" class="active"><a class="text-dark h5 active " href="#all" aria-controls="all" role="tab" data-toggle="tab">Tất cả đơn hàng</a></li>
+                    <li class="mx-3" role="presentation"><a class="text-dark h5 " href="#confirmed" aria-controls="confirmed" role="tab" data-toggle="tab">Đã xác nhận</a></li>
+                    <li class="mx-3" role="presentation"><a class="text-dark h5 " href="#on_delivery" aria-controls="on_delivery" role="tab" data-toggle="tab">Đang vận chuyển</a></li>
+                    <li class="mx-3" role="presentation"><a class="text-dark h5 " href="#shipped" aria-controls="shipped" role="tab" data-toggle="tab">Đã giao</a></li>
+                    <li class="mx-3" role="presentation"><a class="text-dark h5" href="#cancled" aria-controls="cancled" role="tab" data-toggle="tab">Đã hủy</a></li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="all">
+                        @include('template.user.layouts.all')
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="confirmed">
+                        @include('template.user.layouts.confirmed')
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="on_delivery">
+                        @include('template.user.layouts.on_delivery')
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="shipped">
+                        @include('template.user.layouts.shipped')
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="cancled">
+                        @include('template.user.layouts.canceled')
+                    </div>
+                </div>
             </div>
         </div>
     </div>

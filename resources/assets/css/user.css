@@ -1,0 +1,126 @@
+@charset "UTF-8";
+
+.donhang-ul{
+    margin-bottom: 20px;
+}
+.donhang-ul li{}
+.donhang-ul li a.active{
+    border-bottom: 1px #000 solid;
+}
+
+.donhang-ul li a{
+    padding-bottom: 10px !important;
+    display: block;
+    border-bottom: 1px #fff solid;
+}
+.donhang-items{
+    padding: 10px;
+}
+.donhang-item{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+.donhang-img{
+    position: relative;
+
+}
+.donhang-img img{
+    width: 100px;
+    height: 108px;
+}
+.donhang-info{
+    padding-left: 18px;
+}
+.donhang-name{
+    margin-bottom: 0px;
+    display: flex;
+    flex-direction: column;
+    font-size: 16px;
+    font-weight: 600;
+}
+.donhang-price{
+    margin-bottom: 0 !important;
+}
+
+.donhang-qty{position: absolute;z-index: 9;color: #000;margin-bottom: 0;bottom: 0;right: 0;width: 28px;height: 28px;background: #dedede;text-align: center;line-height: 28px;border-top-left-radius: 15px;font-weight: 500;}
+
+.donhang-color{
+    height: 20px;
+    width: 40px;
+    border-radius: 30px;
+}
+.donhang-size{
+    margin-bottom: 5px;
+}
+
+
+.donhang-empty{
+    text-align: center;
+    padding: 50px 0px 50px 0px;
+}
+.donhang-empty p{
+    margin-top: 15px;
+    color: rgb(56, 56, 61);
+    font-size: 16px;
+    font-weight: 400;
+}
+.donhang-empty img{
+    width: 200px;
+    height: 200px;
+}
+
+/*Đang vận chuyển*/
+.dangvanchuyen-items{
+    border: 1px #46c36e solid;
+    border-radius: 15px;
+}
+.dangvanchuyen-item{
+    flex-direction: column;
+}
+
+.dangvanchuyen-status{
+    position: relative;
+    padding-left: 27px;
+    color: rgb(56, 56, 61);
+    font-weight: 600;
+    font-size: 14px;
+}
+.dangvanchuyen-status::before{
+    content:"";
+    position:absolute;
+    background: url(../../storage/indicator.png);
+    background-size: contain;
+    width:20px;
+    height:20px;
+    left: 0;
+    top: calc(50% - 20px/2);
+}
+
+.dangvanchuyen-time{
+    position: relative;
+    padding-left: 27px;
+    margin-bottom: 0;
+    color: #46c36e;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 20px;
+}
+.dangvanchuyen-time::before{
+    content:"";
+    position:absolute;
+    background: url(../../storage/delivery.png);
+    background-size: contain;
+    width:20px;
+    height:20px;
+    left: 0;
+    top: calc(50% - 20px/2);
+}
+
+.dangvanchuyen-box{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
