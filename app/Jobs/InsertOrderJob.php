@@ -6,6 +6,8 @@ use App\Models\TableOrder;
 use Illuminate\Support\Str;
 use Illuminate\Bus\Queueable;
 use App\Models\TableOrderDetail;
+use App\Models\TableProduct;
+use App\Models\TableProductDetail;
 use App\Models\TablePromotion;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -60,6 +62,7 @@ class InsertOrderJob implements ShouldQueue
             'total_price' =>$this->map_param_order["total_price"],
             'ship_price' => $this->map_param_order["ship_price"],
             'notes' => $this->map_param_order["notes"],
+            'promotion_id' => $this->map_param_order["id_promotion"] == 0 ? null : $this->map_param_order["id_promotion"],
             'status_id' => 1,
             'created_at' =>  $time,
             'updated_at' =>  $time
@@ -80,16 +83,29 @@ class InsertOrderJob implements ShouldQueue
                 'created_at' =>  $time ,
                 'updated_at' =>  $time
             ]);
+
+            $this->updateStockProduct($item->product->id,$item->quantity);
         }
 
         $this->updateLimitPromotion($this->map_param_order["id_promotion"],);
     }
 
     private function updateLimitPromotion($idPromotion){
+        if($idPromotion == 0) return;
+
        $promotion_sql = new TablePromotion();
 
        $promotion = $promotion_sql::find($idPromotion);
 
        $promotion->update(["limit" => $promotion->limit - 1]);
+    }
+
+    private function updateStockProduct($idProduct, $quantity){
+
+       $product_detail_sql = new TableProductDetail();
+
+       $product = $product_detail_sql::find($idProduct);
+
+       $product->update(["stock" => $product->stock - $quantity]);
     }
 }

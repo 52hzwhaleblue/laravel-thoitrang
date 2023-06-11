@@ -26,22 +26,17 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
 
     <!-- Main CSS-->
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/backend/assets/css/main.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('./public/backend/assets/css/main.css') }}" />
 
     <!-- Index CSS-->
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/backend/assets/css/index.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('./public/backend/assets/css/index.css') }}" />
 
     <!-- Font-icon css-->
-    <link rel="stylesheet" type="text/css" href="{{
-                asset(
-                    'public/backend/assets/css/font-awesome/4.7.0/css/font-awesome.min.css'
-                )
-            }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('./public/backend/assets/css/font-awesome/4.7.0/css/font-awesome.min.css') }}" />
 
-    {{--
+   
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    --}}
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
@@ -125,28 +120,80 @@
     <script>
         var options = {
             series: [{
-                name: "Consumption",
-                data: []
+                name: 'Inflation',
+                data: [2.3, 3.1, 4.0, 10.1, 4.0, 3.6, 3.2, 2.3, 1.4, 0.8, 0.5, 0.2]
             }],
             chart: {
                 height: 350,
                 type: 'bar',
             },
+            plotOptions: {
+                bar: {
+                    borderRadius: 10,
+                    dataLabels: {
+                        position: 'top', // top, center, bottom
+                    },
+                }
+            },
             dataLabels: {
-                enabled: false
+                enabled: true,
+                formatter: function (val) {
+                    return val + "vnđ";
+                },
+                offsetY: -20,
+                style: {
+                    fontSize: '12px',
+                    colors: ["#304758"]
+                }
+            },
+
+            xaxis: {
+                categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                position: 'top',
+                axisBorder: {
+                    show: false
+                },
+                axisTicks: {
+                    show: false
+                },
+                crosshairs: {
+                    fill: {
+                        type: 'gradient',
+                        gradient: {
+                            colorFrom: '#D8E3F0',
+                            colorTo: '#BED1E6',
+                            stops: [0, 100],
+                            opacityFrom: 0.4,
+                            opacityTo: 0.5,
+                        }
+                    }
+                },
+                tooltip: {
+                    enabled: true,
+                }
+            },
+            yaxis: {
+                axisBorder: {
+                    show: false
+                },
+                axisTicks: {
+                    show: false,
+                },
+                labels: {
+                    show: false,
+                    formatter: function (val) {
+                        return val + "vnđ";
+                    }
+                }
+
             },
             title: {
-                text: '',
-            },
-            noData: {
-                text: 'Vui lòng chọn ngày để thống kê ...'
-            },
-            xaxis: {
-                type: 'category',
-                tickPlacement: 'on',
-                labels: {
-                    rotate: -45,
-                    rotateAlways: true
+                text: 'Monthly Inflation in Argentina, 2002',
+                floating: true,
+                offsetY: 330,
+                align: 'center',
+                style: {
+                    color: '#444'
                 }
             }
         };
@@ -164,19 +211,19 @@
                 tungay: tungay,
                 denngay: denngay,
             }, function(response) {
-                chart.updateSeries([{
-                    name: 'Doanh thu',
-                    data: [
-                        response[0]['total'],
-                        response[1]['total'],
-                        response[2]['total'],
-                        response[3]['total'],
-                        response[4]['total'],
-                        response[5]['total'],
-                        response[6]['total'],
-                    ]
-                }])
-                    console.log(response[1]['total'])
+                console.log(response);
+                // chart.updateSeries([{
+                //     name: 'Doanh thu',
+                //     data: response
+                // }]);
+                chart.updateOptions({
+                    series: [{
+                        data: response
+                    }],
+                    xaxis: {
+                        position: 'bottom'
+                    }
+                });
             });
 
         });

@@ -61,7 +61,7 @@ class BaseController extends Controller
             $filename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
             $extension = $file->getClientOriginalExtension();
             $path = $filename . '_' . uniqid() . '.' . $extension;
-            
+
             $image = Image::make($file);
             // Resize image
             $thumbnail = $image->resize($image->width(), $image->height(), function ($constraint) {
@@ -199,7 +199,7 @@ class BaseController extends Controller
         return $publishResponse;
     }
 
-    public function sendNotiToUser($userId,$title,$body,$image= null,$type= null){
+    public function sendNotiToUser($userId,$title,$body,$type= null){
         $beamsClient = new PushNotifications(array(
             "instanceId" => env('PUSHER_BEAMS_INSTANCE_ID'),
             "secretKey" =>  env('PUSHER_BEAMS_SECRET_KEY'),
@@ -217,7 +217,6 @@ class BaseController extends Controller
                   "body" => $body,
                 ],
                 "data" => [
-                    "image" => $image,
                     "type" => $type,
                  ],
               ],

@@ -34,9 +34,7 @@ class IndexController extends Controller
 
     public function index(Request $request)
     {
-        // slide,gioithieu,pronb,banner_sanpham,splistnb,bannerQC,album,postnb
         $gioithieu = TableStatic::where('type', 'gioi-thieu')->first();
-
         $gioithieu_slide = TablePhoto::where('type', 'gioithieu-slide')->get();
         $quangcao = TablePhoto::where('type', 'quang-cao')->get();
         $banner_sanpham = TablePhoto::where('type', 'banner-sanpham')->get();
@@ -49,7 +47,7 @@ class IndexController extends Controller
         $tieuchi = TablePost::where('type', 'tieu-chi')->get();
         $tintuc = TablePost::where('type', 'tin-tuc')->get();
 
-
+//        dd(count($album));
         // return $request->session()->all();
 
         return view('template.index.index',compact([

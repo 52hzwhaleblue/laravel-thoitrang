@@ -80,7 +80,7 @@
                                 </p>
                             </th>
                             <th style="padding:3px 9px">
-                                {{number_format($v->options->sale_price)}}vnđ
+                                {{number_format($v->price)}}vnđ
                             </th>
                             <th style="padding:3px 9px">
                                 <p>{{$v->qty}}</p>

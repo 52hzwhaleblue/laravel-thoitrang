@@ -5,6 +5,7 @@ namespace App\Charts;
 use App\Models\TableOrder;
 use ArielMejiaDev\LarapexCharts\LarapexChart;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Livewire\Request;
 
 class RevenueThisMonthChart
@@ -21,33 +22,32 @@ class RevenueThisMonthChart
         $start = Carbon::now()->startOfMonth();
         $end = Carbon::now();
 
-        $sql = TableOrder::whereBetween('created_at',[$start,$end])->orderBy('created_at', 'ASC')->get();
+        $arrTotalPrice  = DB::table('table_orders')
+            ->select('total_price')
+            ->whereBetween('created_at',[$start,$end])
+            ->orderBy('created_at', 'ASC')
+            ->get();
 
-        $resArray = $sql->toArray();
+        $arrOrderDate  = DB::table('table_orders')
+            ->select('created_at')
+            ->whereBetween('created_at',[$start,$end])
+            ->orderBy('created_at', 'ASC')
+            ->get();
 
         $totalPrice = array();
-        foreach ($resArray as $v) {
-            array_push($totalPrice,$v['total_price']) ;
-       }
+        foreach ( $arrTotalPrice as $v) {
+            $totalPrice[] =$v->total_price;
+        }
 
-        $prices = json_encode($totalPrice,true);
+        $orderDate = array();
+        foreach ( $arrOrderDate as $v) {
+            $orderDate[] =$v->created_at;
+        }
 
         $title = 'Doanh thu tháng '.$start->format('m');
         return $this->chart->areaChart()
             ->setTitle($title)
-            ->addData('Tháng này', [
-                $resArray[0]['total_price'].'vnđ',
-                $resArray[1]['total_price'].'vnđ',
-                $resArray[2]['total_price'].'vnđ',
-                $resArray[3]['total_price'].'vnđ',
-                $resArray[4]['total_price'].'vnđ',
-            ])
-            ->setXAxis([
-                $resArray[0]['created_at'],
-                $resArray[1]['created_at'],
-                $resArray[2]['created_at'],
-                $resArray[3]['created_at'],
-                $resArray[4]['created_at'],
-            ]);
+            ->addData('Tháng này', $totalPrice)
+            ->setXAxis($orderDate);
     }
 }

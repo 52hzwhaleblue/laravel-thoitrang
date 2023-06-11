@@ -23,7 +23,7 @@ function Cart(){
             dataType: "JSON",
             method: "GET",
             success: function(data) {
-                $(".giohang-subTotal-"+id).text(data["subTotal"]);
+                $(".giohang-subTotal-"+rowId).text(data["subTotal"]);
                 $(".load-total-price").text(data["total"]);
                 return false;
             },

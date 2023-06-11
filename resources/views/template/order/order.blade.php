@@ -11,9 +11,8 @@
                         <th >STT</th>
                         <th width="10%">Hình</th>
                         <th width="30%">Tiêu đề</th>
-                        <th width="20%">Giá</th>
-                        <th width="7%">Số lượng</th>
                         <th width="20%">Đơn giá</th>
+                        <th width="7%">Số lượng</th>
                         <th width="20%">Tạm tính</th>
                         <th>Xóa</th>
                     </tr>
@@ -55,7 +54,7 @@
 
                             </th>
                             <th>
-                                <span class="giohang-subTotal-{{$row->id}}"> {{number_format($row->qty * $row->price)}}vnđ </span>
+                                <span class="giohang-subTotal-{{$row->rowId}}"> {{number_format($row->qty * $row->price)}}vnđ </span>
                             </th>
                             <th>
                                 <a href="{{route('cart.remove',$row->rowId)}}" onclick="alert('Bạn có muốn xóa sản phẩm này không');">Xóa</a>

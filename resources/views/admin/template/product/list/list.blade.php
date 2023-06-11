@@ -12,6 +12,7 @@
         {{ session()->get('warning') }}
     </div>
 @endif
+
 <div class="mb-3">
     <a
         href="{{ route('admin.product.product-list.create') }}"

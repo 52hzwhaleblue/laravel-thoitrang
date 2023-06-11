@@ -19,3 +19,7 @@
 6. Nova packages
 https://novapackages.com/
 
+// $db::beginTransaction(); // bat dau giao dich
+// $db::rollback(); // quay lai ko them vao du lieu
+// $db::commit(); //them vao database
+

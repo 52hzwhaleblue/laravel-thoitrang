@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Database\Seeders\ReviewSeeder;
+use Database\Seeders\AdminSeeder;
 use Database\Seeders\UserSeeder;
 use Database\Seeders\PhotoSeeder;
 use Database\Seeders\ProductSeeder;
@@ -22,6 +23,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(AdminSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(PhotoSeeder::class);
         $this->call(CategorySeeder::class);

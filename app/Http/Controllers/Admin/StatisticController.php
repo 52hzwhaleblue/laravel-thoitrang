@@ -8,6 +8,7 @@ use App\Models\TableOrder;
 use ArielMejiaDev\LarapexCharts\LarapexChart;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StatisticController extends Controller
 {
@@ -26,17 +27,17 @@ class StatisticController extends Controller
         $denngay = $request->get('denngay');
 
 
-        $sql = TableOrder::whereBetween('created_at',[$tungay,$denngay])->orderBy('created_at', 'ASC')->get();
-
-        $chart_data = array();
-        foreach ($sql as $key => $v) {
-
-            $chart_data[] = array(
-                'total' => $v->total_price,
-                'order_date' => $carbon->format($v->created_at),
-            );
+        $sql = DB::table('table_orders')
+            ->select('total_price')
+            ->whereBetween('created_at',[$tungay,$denngay])
+            ->orderBy('created_at', 'ASC')
+            ->limit(12)
+            ->get();
+        $total_price = array();
+        foreach ($sql as $k => $v) {
+            $total_price[] = $v->total_price;
         }
-        echo  $data = json_encode($chart_data,true);
+        echo  $data = json_encode($total_price,true);
     }
 
     public function dashboard_filter(Request $request){

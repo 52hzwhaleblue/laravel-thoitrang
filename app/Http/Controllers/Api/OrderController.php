@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Api\BaseController as BaseController;
+use App\Models\TableNotification;
+use App\Models\TableOrderDetail;
+use App\Models\TableProductDetail;
+use PhpOffice\PhpSpreadsheet\Calculation\Logical\Boolean;
 
 class OrderController extends BaseController
 {
@@ -19,26 +23,26 @@ class OrderController extends BaseController
         try {
             $userId = Auth::id();
 
-            $toPay = $order_sql::with(['orderDetail', 'orderDetail.product','orderDetail.product.productDetail'])
+            $toPay = $order_sql::with(['orderDetail','promotion' ,'orderDetail.product','orderDetail.product.productDetail'])
             ->orderByDesc('created_at')
             ->where('user_id', $userId)
             ->where('status_id',1)
             ->get();
                             
-            $completed = $order_sql::with(['orderDetail', 'orderDetail.product','orderDetail.product.productDetail'])
+            $completed = $order_sql::with(['orderDetail','promotion' ,'orderDetail.product','orderDetail.product.productDetail'])
             ->orderByDesc('created_at')
             ->where('user_id', $userId)
             ->withExists('review as evaluated')
             ->where('status_id',4)
             ->get();
 
-            $toReceive =  $order_sql::with(['orderDetail', 'orderDetail.product','orderDetail.product.productDetail'])
+            $toReceive =  $order_sql::with(['orderDetail','promotion' ,'orderDetail.product','orderDetail.product.productDetail'])
             ->orderByDesc('created_at')
             ->where('user_id', $userId)
             ->where('status_id',3)
             ->get();
 
-            $toShip = $order_sql::with(['orderDetail', 'orderDetail.product','orderDetail.product.productDetail'])
+            $toShip = $order_sql::with(['orderDetail','promotion' ,'orderDetail.product','orderDetail.product.productDetail'])
             ->orderByDesc('created_at')
             ->where('user_id', $userId)
             ->where('status_id',2)
@@ -99,11 +103,16 @@ class OrderController extends BaseController
             });
         
 
-            $order = TableOrder::with(['orderDetail', 'orderDetail.product','orderDetail.product.productDetail'])
+            $order = TableOrder::with(['orderDetail', 'promotion','orderDetail.product','orderDetail.product.productDetail'])
             ->where('user_id', Auth::id())
+            ->orderByDesc('created_at')
             ->first();
 
+
+            $this->createPushNoti($order->id);
+            
             return $this->sendResponse( $order, "Create order successfully!!!");
+            
 
 
         } catch (\Throwable $th) {
@@ -111,16 +120,64 @@ class OrderController extends BaseController
         }
     }
 
-    public function delete(Request $request){
+    private function createPushNoti($order_id){
+        
+        $noti = new TableNotification();
+
+        $noti_sql = $noti::create([
+            "title" => "Đơn hàng mới",
+            "subtitle" => "",
+            'user_id'=> Auth::id(),
+            'order_id' => $order_id,
+            'is_read' => 1,
+            'created_at' =>now(),
+            'updated_at' =>now(),
+        ]);
+
+        $data = [
+            'title' => $noti_sql->title,
+            'subtitle' => $noti_sql->subtitle,
+            'created_at' => $noti_sql->created_at,
+        ];
+        
+        $this->pusher('new-order','create-order',$data);
+    }
+
+    public function delete(Request $request,TableOrder $order_sql,TableOrderDetail $order_detail_sql,TableProductDetail $product_detail_sql){
         try {
             $order_id = $request->query("order_id");
 
-            $order_sql = new TableOrder();
-
             $order = $order_sql::find($order_id);
 
-            
+            $list_product = $order_detail_sql::where('order_id',$order->id)->get();
 
+            foreach($list_product as $item){
+
+                $color = substr($item->color,1);
+                
+                $detail = $product_detail_sql::where('product_id',$item->product_id)
+                ->where('color',$color)->first();
+
+                
+                $detail->update([
+                    "stock" => $detail->stock + $item->quantity
+                ]);
+            }
+
+            // return $order->promotion_id == null;
+
+            if(!empty($order->promotion_id)){
+                //check apply promotion
+
+                $promotion_sql = new TablePromotion();
+                
+                $promotion = $promotion_sql::find($order->promotion_id);
+
+                $promotion->update(["limit" => $promotion->limit + 1]);
+
+            }
+
+            //delete order
             $order->delete();
          
 

@@ -22,9 +22,9 @@
 
                         @auth
                         <li class="mr-3">
-                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                            <a class="dropdown-item" href="{{ route('user.logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
+                                Đăng xuất
                             </a>
 
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -46,7 +46,7 @@
 
                         @guest
                         <li class="mr-3">
-                            <a href="{{route('login')}}">
+                            <a href="{{route('user.login')}}">
                                 <i class="fa fa-user"></i>
                             </a>
                         </li>
