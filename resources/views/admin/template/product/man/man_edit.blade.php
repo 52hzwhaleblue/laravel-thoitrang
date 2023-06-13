@@ -173,10 +173,20 @@
                         <div class="row">
                             <div class="col-xl-4">
                                 <div class="mb-3">
-                                    <label for="price" class="form-label">Mã sản phẩm :</label>
+                                    <label for="code" class="form-label">Mã sản phẩm :</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" id="price" placeholder="Mã sản phẩm"
+                                        <input type="text" class="form-control" id="code" placeholder="Mã sản phẩm"
                                             name="code" value={{ $data['code'] }} />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-4">
+                                <div class="mb-3">
+                                    <label for="price" class="form-label">Sizes :</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="sizes" placeholder="Sizes"
+                                               name="sizes" value=" {{$sizes}} " />
                                     </div>
                                 </div>
                             </div>

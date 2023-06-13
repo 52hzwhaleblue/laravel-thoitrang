@@ -47,9 +47,6 @@ class IndexController extends Controller
         $tieuchi = TablePost::where('type', 'tieu-chi')->get();
         $tintuc = TablePost::where('type', 'tin-tuc')->get();
 
-//        dd(count($album));
-        // return $request->session()->all();
-
         return view('template.index.index',compact([
             'splistnb',
             'gioithieu',
@@ -70,13 +67,7 @@ class IndexController extends Controller
         $data = DB::table('table_products')
         ->where('category_id', $id_category)
         ->get();
-        $product_properties = TableProductDetail::where('product_id',$id_category)->where('stock','>','0')->get();
-
-        $product_sizes = TableProduct::find($id_category);
-        $sizes = json_encode($product_sizes->properties["sizes"]);
-        $sizes_decode = json_decode($sizes);
-
-        return view('api.product',compact(['data','product_properties','sizes_decode']));
+        return view('api.product',compact(['data']));
     }
 
     public function static()
@@ -107,35 +98,53 @@ class IndexController extends Controller
     public function san_pham()
     {
         $product = DB::table('table_products')->paginate(8);
-
         return view('template.product.product',compact([
             'product',
+        ]));
+    }
+
+    public function danh_muc()
+    {
+        $category = DB::table('table_categories')->paginate(10);
+        return view('template.category.category',compact([
+            'category',
+        ]));
+    }
+    public function chi_tiet_danh_muc (Request $request,$slug,$id)
+    {
+        $category_name = TableCategory::find($id);
+        $data = DB::table('table_products')
+            ->where('category_id', $id)
+            ->paginate(20);
+        $product_properties = TableProductDetail::where('product_id',$id)->where('stock','>','0')->get();
+        $product_sizes = TableProduct::find($id);
+        $sizes = json_encode($product_sizes->properties["sizes"]);
+        $sizes_decode = json_decode($sizes);
+
+        return view('template.category.detail',compact([
+            'category_name',
+            'data',
+            'sizes_decode',
+            'product_properties',
         ]));
     }
 
     public function chi_tiet_san_pham(Request $request,$slug,$id)
     {
         $product = DB::table('table_products')->paginate(8);
-
         $rowDetail = DB::table('table_products')
         ->where('slug', $slug)
         ->get();
-
         $rowDetailPhoto = DB::table('table_product_details')
         ->where('product_id', $id)
         ->get();
-
         $product_properties = TableProductDetail::where('product_id',$id)->where('stock','>','0')->get();
-
-
         $product_sizes = TableProduct::find($id);
         $sizes = json_encode($product_sizes->properties["sizes"]);
         $sizes_decode = json_decode($sizes);
 
-
         // gọi hàm cập nhật view sản phẩm
         $this->update_viewed($request,$slug,$id);
-
 
         return view('template.product.detail',compact([
             'rowDetailPhoto',
@@ -144,8 +153,6 @@ class IndexController extends Controller
             'sizes_decode',
             'product_properties',
         ]));
-
-
     }
 
     public function update_viewed(Request $request,$slug,$id)

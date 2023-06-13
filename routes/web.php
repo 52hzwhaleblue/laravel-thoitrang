@@ -18,7 +18,7 @@ Auth::routes(['verify' => true]);
      return redirect("/");
  })->name('user.logout');
 
-Route::get('user-login', [\App\Http\Controllers\Auth\LoginController::class ,'showLoginForm'])->name("user.login");
+Route::get('user-login', [\App\Http\Controllers\Auth\LoginController::class ,'showLoginForm'])->name("user.showLoginForm");
 Route::post('user-login', [\App\Http\Controllers\Auth\LoginController::class ,'login'])->name("user.login");
 
 Route::get('/', [IndexController::class ,'index'])->name('index');
@@ -30,6 +30,9 @@ Route::get('/post/{slug}', [IndexController::class,'post_detail']);
 Route::get('/san-pham', [IndexController::class,'san_pham'])->name('san-pham');
 Route::get('/chi-tiet-san-pham/{slug}/{id}', [IndexController::class,'chi_tiet_san_pham'])->name('chi_tiet_san_pham');
 Route::post('/load_ajax_product', [IndexController::class,'load_ajax_product']);
+
+Route::get('/danh-muc', [IndexController::class,'danh_muc'])->name('danh_muc');
+Route::get('/chi-tiet-danh-muc/{slug}/{id}', [IndexController::class,'chi_tiet_danh_muc'])->name('chi_tiet_danh_muc');
 
 
 
