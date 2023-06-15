@@ -20,9 +20,7 @@ class Productseeder extends Seeder
     {
 
       $faker = Faker::create('vi_VN');
-
       $carbon = new Carbon;
-
       $current = $carbon::create(2023,1,5);
 
       $product_1 = [

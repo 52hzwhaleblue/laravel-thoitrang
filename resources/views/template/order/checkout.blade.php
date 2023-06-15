@@ -1,6 +1,6 @@
 @extends('layouts.client')
 @section('content')
-<form method="POST" action="{{ route('cart.store') }}">
+<form method="POST" action="{{ route('cart.checkPaymentMethod') }}">
     <div class="row">
         <div class="col-md-8 ">
             <h4 class="mb-3">Billing address</h4>
@@ -94,7 +94,6 @@
                     <label class="custom-control-label" for="momo">Thanh toán MOMO</label>
                 </div>
             </div>
-            <input type="submit" value="Tiến hành thanh toán" class="btn-primary" name="thanhtoan">
         </div>
 
         <div class="col-md-4 mb-4">
@@ -129,7 +128,14 @@
                 </li>
             </ul>
         </div>
+        <button class="btn btn-primary" type="submit" > Thanh Toán  </button>
+
 </form>
+
+{{--<form method="POST" action="{{ route('cart.momo') }}">--}}
+{{--    @csrf--}}
+{{--    <button class="btn btn-primary" type="submit" value="MOMO" name="payment_method"> Thanh Toán MOMO </button>--}}
+{{--</form>--}}
 
 <form class="card p-2" action="{{ route('cart.ma_giam_gia') }}" method="post">
     @csrf

@@ -59,8 +59,7 @@ function changeTitle(){
         slug = slug.replace(/\@\-|\-\@|\@/gi, '');
 
         $( ".slug" ).attr('value',slug);
-      })
-      .keyup();
+      });
 }
 function checkPrice(){
     var regular_price = parseInt($('.regular_price').val());

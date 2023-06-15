@@ -39,13 +39,12 @@
     </div>
 </div>
 
-
 @if(count($splistnb))
 <div class="pronb-wrapper">
     <div class="wrap-content ">
         <div class="title-main mb-0"><span>Sản phẩm nổi bật</span></div>
 
-        <div class="pronb-container">
+        <div class="pronb-container cart-flag">
             <div class="dm-noibat list-hot d-flex flex-wrap align-items-center justify-content-center">
                 <?php foreach($splistnb as $v){?>
                 <a class="text-decoration-none" data-id="<?=$v->id?>" data-tenkhongdau="<?=$v->slug?>">
@@ -63,21 +62,17 @@
 @if(count($splistnb))
 <div class="splistnb-wrapper">
     <div class="wrap-content" data-aos="fade-up" data-aos-duration="1500">
-        <div class="owl-page owl-carousel owl-theme thumbs_img " data-xsm-items="1:0" data-sm-items="2:10"
-            data-md-items="3:15" data-lg-items="3:20" data-xlg-items="4:15" data-rewind="1" data-autoplay="0"
-            data-loop="0" data-lazyload="0" data-mousedrag="1" data-touchdrag="1" data-smartspeed="800"
-            data-autoplayspeed="800" data-autoplaytimeout="5000" data-dots="0" data-animations="" data-nav="1"
-            data-navtext="" data-navcontainer="">
+        <div class="splistnb-items">
             @foreach ($splistnb as $v )
-            <div class="splistnb-item">
-                <a class="splistnb-img hover_sang3 scale-img" href="{{$v->slug}}">
-                    <img class="lazyload"
-                        src="{{ asset('http://localhost:8000/storage/'.$v->photo) }}" alt="slide" />
-                </a>
-                <h3 class="splistnb-name">
-                    <a class="text-split" href="{{$v->slug}}"> {{$v->name}} </a>
-                </h3>
-            </div>
+                <div class="splistnb-item">
+                    <a class="splistnb-img hover_sang3 scale-img" href="chi-tiet-danh-muc/{{$v->slug}}/{{$v->id}}">
+                        <img class="lazyload"
+                             src="{{ asset('http://localhost:8000/storage/'.$v->photo) }}" alt="slide" />
+                    </a>
+                    <h3 class="splistnb-name">
+                        <a class="text-split" href="chi-tiet-danh-muc/{{$v->slug}}/{{$v->id}}"> {{$v->name}} </a>
+                    </h3>
+                </div>
             @endforeach
         </div>
     </div>

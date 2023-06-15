@@ -25,13 +25,7 @@
                     <div class="form-group"><button id="thongke-larapexchart" class="btn btn-success">Thống Kê</button></div>
                 </div>
             </div>
-
-
-
-
             <div id="revenueFilterByDateChart"></div>
-
-
 
             <div class="row">
                 <!-- Chart revenue this months -->
@@ -46,28 +40,46 @@
 
 
                 <!-- Chart Active-Inactive Users -->
-                <div class="col-4">
-                    <div class="p-6 m-20 bg-white rounded shadow">
-                        {!! $chartActiveInactiveUser->container() !!}
-                        <script src="{{ $chartActiveInactiveUser->cdn() }}"></script>
+{{--                <div class="col-4">--}}
+{{--                    <div class="p-6 m-20 bg-white rounded shadow">--}}
+{{--                        {!! $chartActiveInactiveUser->container() !!}--}}
+{{--                        <script src="{{ $chartActiveInactiveUser->cdn() }}"></script>--}}
 
-                        {{ $chartActiveInactiveUser->script() }}
-                    </div>
-                </div>
+{{--                        {{ $chartActiveInactiveUser->script() }}--}}
+{{--                    </div>--}}
+{{--                </div>--}}
 
                 <!-- Chart Top 10 products most viewed-->
-                <div class="col-4">
-                    <div class="p-6 m-20 bg-white rounded shadow">
-                        {!! $chartProductMostViewed->container() !!}
-                        <script src="{{ $chartProductMostViewed->cdn() }}"></script>
+{{--                <div class="col-4">--}}
+{{--                    <div class="p-6 m-20 bg-white rounded shadow">--}}
+{{--                        {!! $chartProductMostViewed->container() !!}--}}
+{{--                        <script src="{{ $chartProductMostViewed->cdn() }}"></script>--}}
 
-                        {{ $chartProductMostViewed->script() }}
+{{--                        {{ $chartProductMostViewed->script() }}--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+
+                <!-- Thống kế top 10 sản phẩm được xem nhiều nhất -->
+                <div class="col-4">
+                    <div class="p-3 m-20 bg-white rounded shadow">
+                        <h6 class="text-dark"> Top 10 sản phẩm được xem nhiều nhất </h6>
+                        <ul class="">
+                            <?php foreach ($top10ProductMostViewed as $k => $v) { ?>
+                            <li>
+                                <p>
+                                    <a href="chi-tiet-san-pham/{{$v->slug}}/{{$v->id}}">
+                                        <span> {{ $v->name }} </span>
+                                        <span> | </span>
+                                        <span> {{$v->view}}  </span>
+                                    </a>
+                                </p>
+                            </li>
+                            <?php } ?>
+                        </ul>
                     </div>
                 </div>
 
-
-
-                <!-- Thống kế top 5 sản phẩm bán chạy -->
+                <!-- Thống kế top 10 sản phẩm bán chạy -->
                 <div class="col-4">
                     <div class="p-3 m-20 bg-white rounded shadow">
                         <h6 class="text-dark"> Top 10 sản phẩm bán chạy </h6>

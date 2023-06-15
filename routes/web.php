@@ -18,7 +18,7 @@ Auth::routes(['verify' => true]);
      return redirect("/");
  })->name('user.logout');
 
-Route::get('user-login', [\App\Http\Controllers\Auth\LoginController::class ,'showLoginForm'])->name("user.login");
+Route::get('user-login', [\App\Http\Controllers\Auth\LoginController::class ,'showLoginForm'])->name("user.showLoginForm");
 Route::post('user-login', [\App\Http\Controllers\Auth\LoginController::class ,'login'])->name("user.login");
 
 Route::get('/', [IndexController::class ,'index'])->name('index');
@@ -31,6 +31,9 @@ Route::get('/san-pham', [IndexController::class,'san_pham'])->name('san-pham');
 Route::get('/chi-tiet-san-pham/{slug}/{id}', [IndexController::class,'chi_tiet_san_pham'])->name('chi_tiet_san_pham');
 Route::post('/load_ajax_product', [IndexController::class,'load_ajax_product']);
 
+Route::get('/danh-muc', [IndexController::class,'danh_muc'])->name('danh_muc');
+Route::get('/chi-tiet-danh-muc/{slug}/{id}', [IndexController::class,'chi_tiet_danh_muc'])->name('chi_tiet_danh_muc');
+
 
 
 Route::middleware("auth")->group(function() {
@@ -42,11 +45,14 @@ Route::middleware("auth")->group(function() {
     Route::patch('/cart/update', [CartController::class,'update'])->name('cart.update');
     Route::get('/cart/destroy', [CartController::class,'destroy'])->name('cart.destroy');
     Route::get('/cart/remove/{rowId}', [CartController::class,'remove'])->name('cart.remove');
-    Route::post('/cart/store', [CartController::class,'store'])->name('cart.store');
+    Route::post('/cart/checkPaymentMethod', [CartController::class,'checkPaymentMethod'])->name('cart.checkPaymentMethod');
     Route::get('/cart/checkout', [CartController::class,'checkout'])->name('cart.checkout');
     Route::post('/cart/ma-giam-gia', [CartController::class,'ma_giam_gia'])->name('cart.ma_giam_gia');
 
     // Giỏ hàng nâng cấp ajax
     Route::get('/cart/update_ajax', [CartController::class,'update_ajax'])->name('cart.update_ajax');
+
+    // Thanh toán momo
+    Route::post('momo_payment', [CartController::class,'momo_payment'])->name('cart.momo');
 });
 
