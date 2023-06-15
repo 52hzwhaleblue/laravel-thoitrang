@@ -44,7 +44,7 @@
                             <th>
                                 <?php if($v->options->discount) { ?>
                                     <span class="price-new">  {{number_format($v->options->sale_price)}} vnđ</span>
-                                    <span class="price-old"> {{number_format($v->price)}} vnđ </span>
+                                    <span class="price-old"> {{number_format($v->options->regular_price)}} vnđ </span>
                                     <span class="discount"> {{$v->options->discount}} % </span>
                                     <?php } else{ ?>
                                     <span class="price-new">  {{number_format($v->price)}} vnđ</span>
