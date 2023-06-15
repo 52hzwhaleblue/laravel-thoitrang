@@ -45,11 +45,14 @@ Route::middleware("auth")->group(function() {
     Route::patch('/cart/update', [CartController::class,'update'])->name('cart.update');
     Route::get('/cart/destroy', [CartController::class,'destroy'])->name('cart.destroy');
     Route::get('/cart/remove/{rowId}', [CartController::class,'remove'])->name('cart.remove');
-    Route::post('/cart/store', [CartController::class,'store'])->name('cart.store');
+    Route::post('/cart/checkPaymentMethod', [CartController::class,'checkPaymentMethod'])->name('cart.checkPaymentMethod');
     Route::get('/cart/checkout', [CartController::class,'checkout'])->name('cart.checkout');
     Route::post('/cart/ma-giam-gia', [CartController::class,'ma_giam_gia'])->name('cart.ma_giam_gia');
 
     // Giỏ hàng nâng cấp ajax
     Route::get('/cart/update_ajax', [CartController::class,'update_ajax'])->name('cart.update_ajax');
+
+    // Thanh toán momo
+    Route::post('momo_payment', [CartController::class,'momo_payment'])->name('cart.momo');
 });
 
