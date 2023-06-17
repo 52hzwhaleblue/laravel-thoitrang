@@ -38,6 +38,38 @@
         @endif
     </div>
 </div>
+<div class="search-wrapper">
+    <div class="wrap-content">
+        <p class="search-heading" >Bạn tìm gì hôm nay?</p>
+        <div class="search-input">
+            <input type="text" id="keyword" placeholder="Tìm kiếm sản phẩm ...">
+            <p class="search-btn"></p>
+        </div>
+
+        <div class="show-search d-none"></div>
+    </div>
+</div>
+
+.
+@if(count($splistnb))
+    <div class="splistnb-wrapper">
+        <div class="wrap-content" data-aos="fade-up" data-aos-duration="1500">
+            <div class="splistnb-items">
+                @foreach ($splistnb as $v )
+                    <div class="splistnb-item">
+                        <a class="splistnb-img hover_sang3 scale-img" href="chi-tiet-danh-muc/{{$v->slug}}/{{$v->id}}">
+                            <img class="lazyload"
+                                 src="{{ asset('http://localhost:8000/storage/'.$v->photo) }}" alt="slide" />
+                        </a>
+                        <h3 class="splistnb-name">
+                            <a class="text-split" href="chi-tiet-danh-muc/{{$v->slug}}/{{$v->id}}"> {{$v->name}} </a>
+                        </h3>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+@endif
 
 @if(count($splistnb))
 <div class="pronb-wrapper">
@@ -57,28 +89,6 @@
     </div>
 </div>
 @endif
-
-
-@if(count($splistnb))
-<div class="splistnb-wrapper">
-    <div class="wrap-content" data-aos="fade-up" data-aos-duration="1500">
-        <div class="splistnb-items">
-            @foreach ($splistnb as $v )
-                <div class="splistnb-item">
-                    <a class="splistnb-img hover_sang3 scale-img" href="chi-tiet-danh-muc/{{$v->slug}}/{{$v->id}}">
-                        <img class="lazyload"
-                             src="{{ asset('http://localhost:8000/storage/'.$v->photo) }}" alt="slide" />
-                    </a>
-                    <h3 class="splistnb-name">
-                        <a class="text-split" href="chi-tiet-danh-muc/{{$v->slug}}/{{$v->id}}"> {{$v->name}} </a>
-                    </h3>
-                </div>
-            @endforeach
-        </div>
-    </div>
-</div>
-@endif
-
 
 @if(!empty($gioithieu))
 <div class="gioithieu-wrapper">

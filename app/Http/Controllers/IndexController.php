@@ -70,6 +70,15 @@ class IndexController extends Controller
         return view('api.product',compact(['data']));
     }
 
+    public function load_ajax_search(Request $request)
+    {
+        $key =  $request->get('key');
+        $data = DB::table('table_products')
+            ->where('name','LIKE','%'.$key.'%' )
+            ->get();
+        return view('api.search',compact(['data']));
+    }
+
     public function static()
     {
         $data = TableStatic::where('type', $this->type)->first();

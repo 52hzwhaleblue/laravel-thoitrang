@@ -156,7 +156,41 @@ function OwlPage(){
         });
     }
 }
-
+function Search()
+{
+    if ($("#keyword").length) {
+        $("#keyword").keyup(function(event) {
+            var key = $(this).val();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: '/load_ajax_search',
+                type: "POST",
+                data: {
+                    key: key,
+                },
+                success: function(result) {
+                    if (result != '') {
+                        $('.show-search').removeClass('d-none');
+                        $('.show-search').html(result);
+                    } else {
+                        if (!$('.show-search').hasClass('d-none')) {
+                            $('.show-search').addClass('d-none');
+                        }
+                        $('.show-search').html('');
+                    }
+                }
+            });
+        });
+    }
+    var placeholderText = ['Nhập từ khóa sản phẩm...', 'Bạn cần tìm gì?'];
+    $('#keyword').placeholderTypewriter({
+        text: placeholderText
+    });
+}
 
 function Home(){
     $('.list-hot a:first').addClass('active');
@@ -283,6 +317,7 @@ function peShiner(){
 
 $(document).ready(function () {
     Home();
+    Search();
     peShiner();
     Toasty();
     Cart();
