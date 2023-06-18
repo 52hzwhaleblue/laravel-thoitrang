@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
@@ -34,26 +35,6 @@ class CartController extends BaseController
         return View('template.order.order',compact('data'));
     }
 
-//    public function add(Request $request,$id)
-//    {
-//        $productById =  TableProduct::find($id);
-//        Cart::add([
-//            'id' => $id,
-//            'name' => $productById->name,
-//            'qty' => 1,
-//            'price' => $productById->sale_price,
-//            'options' => [
-//                'size' => 'M',
-//                'color' => 'Red',
-//                'discount' => $productById->discount,
-//                'sale_price' => $productById->sale_price,
-//                'photo' => $productById->photo,
-//                'code' => $productById->code,
-//                'slug' => $productById->slug,
-//            ],
-//        ]);
-//        return redirect('/cart')->with('alert','Bạn đã thêm sản phẩm vào giỏ hàng thành công!');
-//    }
 
     public function add(Request $request)
     {
@@ -61,7 +42,7 @@ class CartController extends BaseController
         $color = $request->get('pronb_color');
         $size = $request->get('pronb_size');
         $productById =  TableProduct::find($product_id);
-        Cart::add([
+        $data = Cart::add([
             'id' => $product_id,
             'name' => $productById->name,
             'qty' => 1,
@@ -71,11 +52,13 @@ class CartController extends BaseController
                 'color' => $color,
                 'discount' => $productById->discount,
                 'sale_price' => $productById->sale_price,
+                'regular_price' => $productById->regular_price,
                 'photo' => $productById->photo,
                 'code' => $productById->code,
                 'slug' => $productById->slug,
             ],
         ]);
+
         return redirect('/cart')->with('alert','Bạn đã thêm sản phẩm vào giỏ hàng thành công!');
     }
 
@@ -123,13 +106,79 @@ class CartController extends BaseController
         return view('template.order.checkout');
     }
 
+    public function execPostRequest($url, $data)
+    {
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                'Content-Type: application/json',
+                'Content-Length: ' . strlen($data))
+        );
+        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+        //execute post
+        $result = curl_exec($ch);
+        //close connection
+        curl_close($ch);
+        return $result;
+    }
 
-    public function store(Request $request,DB $db){
+    public function momo_payment(Request $request,DB $db)
+    {
+        $endpoint = "https://test-payment.momo.vn/v2/gateway/api/create";
+        $partnerCode = 'MOMOBKUN20180529';
+        $accessKey = 'klm05TvNBzhg7h7j';
+        $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
+        $orderInfo = "Thanh toán qua ATM MoMo";
+        $amount = (int)Cart::total();
+        $orderId = time() ."";
+        $redirectUrl = "http://127.0.0.1:8000"; // đường dẫn trả về khi thanh toán thành công
+        $ipnUrl = "http://127.0.0.1:8000";
+        $extraData = "";
+        $requestId = time() . "";
+        $requestType = "payWithATM";
+
+        //before sign HMAC SHA256 signature
+        $rawHash = "accessKey=" . $accessKey . "&amount=" . $amount . "&extraData=" . $extraData . "&ipnUrl=" . $ipnUrl . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&partnerCode=" . $partnerCode . "&redirectUrl=" . $redirectUrl . "&requestId=" . $requestId . "&requestType=" . $requestType;
+        $signature = hash_hmac("sha256", $rawHash, $secretKey);
+        $data = array('partnerCode' => $partnerCode,
+            'partnerName' => "Test",
+            "storeId" => "MomoTestStore",
+            'requestId' => $requestId,
+            'amount' => $amount,
+            'orderId' => $orderId,
+            'orderInfo' => $orderInfo,
+            'redirectUrl' => $redirectUrl,
+            'ipnUrl' => $ipnUrl,
+            'lang' => 'vi',
+            'extraData' => $extraData,
+            'requestType' => $requestType,
+            'signature' => $signature);
+        $result = $this->execPostRequest($endpoint, json_encode($data));
+        $jsonResult = json_decode($result, true);  // decode json
+
+        // Lưu vào database
+        $this->store($request,$db);
+        return redirect()->to($jsonResult['payUrl']);
+    }
+
+
+    public function cod_payment(Request $request, DB $db)
+    {
+        // Lưu vào database
+        $this->store($request,$db);
+        return redirect()->route('index')->with('CartToast',' Bạn đã thanh toán thành công');
+    }
+
+    public function store(Request $request, DB $db)
+    {
         // Kiểm tra dữ liệu người dùng nhập
         $this->validate_cart($request);
 
         // Dữ liệu giỏ hàng
-         $dataCart= Cart::content();
+        $dataCart= Cart::content();
 
         // Dữ liệu người dùng
         $dataUser = [
@@ -209,10 +258,23 @@ class CartController extends BaseController
         $message_notification = $dataUser['fullname'];
         $this->pusher('notification-channel', 'payment-event', $message_notification);
 //        event(new PusherEvent($message_notification));
-
-        return redirect()->route('index')->with('CartToast',' Bạn đã thanh toán thành công');
     }
 
+
+    public function checkPaymentMethod(Request $request, DB $db)
+    {
+        $payment_method =  $request->get('payment_method');
+        switch ($payment_method) {
+            case "MOMO":
+                return  $this->momo_payment($request,$db);
+                break;
+            case "COD":
+                return $this->cod_payment($request,$db);
+                break;
+            default:
+                $this->cod_payment($request,$db);
+        }
+    }
     public function store_notification(Request $request, $suer_id,$order_id,$message_notification)
     {
         $notification = new TableNotification();

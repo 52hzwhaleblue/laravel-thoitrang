@@ -24,20 +24,19 @@ class HomeController extends Controller
 
     public function index(Request $request)
     {
-        // Chart active-inactive users
-        $objActiveInactiveUser = new ActiveInactiveUserChart($this->chart);
-        $chartActiveInactiveUser = $objActiveInactiveUser->build();
-
-        // Chart Top 10 products most viewed
-        $objProductMostViewed = new ProductsMostViewed($this->chart);
-        $chartProductMostViewed  = $objProductMostViewed->build();
+//         Chart active-inactive users
+//        $objActiveInactiveUser = new ActiveInactiveUserChart($this->chart);
+//        $chartActiveInactiveUser = $objActiveInactiveUser->build();
+//
+//         Chart Top 10 products most viewed
+//        $objProductMostViewed = new ProductsMostViewed($this->chart);
+//        $chartProductMostViewed  = $objProductMostViewed->build();
 
         // Chart revenue this month
         $objRevenueThisMonth = new RevenueThisMonthChart($this->chart);
         $chartRevenueThisMonth  = $objRevenueThisMonth->build();
 
-
-        // Top 15 products best seller
+        // Top 10 products best seller
         $top10ProductBestSeller= DB::table('table_order_details')
             ->selectRaw('product_id,SUM(quantity) AS total_quantity')
             ->groupBy('product_id')
@@ -45,11 +44,17 @@ class HomeController extends Controller
             ->limit(10)
             ->get();
 
-
+        // Top 10 products most viewed
+        $top10ProductMostViewed= DB::table('table_products')
+            ->select('*')
+            ->orderByDesc('view')
+            ->limit(3)
+            ->get();
 
         return view('admin.app',compact([
-            'chartActiveInactiveUser',
-            'chartProductMostViewed',
+//            'chartActiveInactiveUser',
+//            'chartProductMostViewed',
+            'top10ProductMostViewed',
             'chartRevenueThisMonth',
             'top10ProductBestSeller',
         ]));

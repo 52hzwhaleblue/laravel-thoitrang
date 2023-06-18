@@ -1,4 +1,4 @@
-<form class="form-cart" id="cart-form" action="{{route('cart-add')}}" method="post" enctype="multipart/form-data" hidden="">
+<form class="form-cart" id="cart-form" action="{{route('cart-add')}}" method="post" enctype="multipart/form-data"  hidden="">
     @csrf
     <input type="text" class="id-input" name="pronb_id" value="" >
     <input type="text" class="color-input" name="pronb_color" value="">
@@ -27,6 +27,11 @@
      data-navText = ""
      data-navcontainer = ".control-sanpham">
     @foreach ($data as $k =>$v)
+    @php
+        $colors= \App\Models\TableProductDetail::with('product')->where('product_id', $v->id)->where('stock','>','0')->get();
+        $sql_sizes = \Illuminate\Support\Facades\DB::table('table_products')->select('properties')->where('id',$v->id)->first();
+        $sizes = json_decode($sql_sizes->properties)->sizes;
+    @endphp
     <div class="pronb-item" data-aos="fade-up" data-aos-duration="1500">
         <div class="pronb-image">
             <a class="pronb-img scale-img" href=chi-tiet-san-pham/{{$v->slug}}/{{$v->id}} >
@@ -39,13 +44,13 @@
             <div class="pronb-btn">
                 <p class="add-to-cart"> Thêm nhanh vào giỏ hàng + </p>
                 <ul class="pronb-sizes">
-                    @foreach($sizes_decode as $size)
+                    @foreach($sizes as $vsize)
                         <li
                             onclick="addToCart()"
-                            data-size="{{$size}}"
+                            data-size="{{$vsize}}"
                             data-product_id="{{$v->id}}"
                             class="size-click">
-                           <span> {{$size}} </span>
+                           <span> {{$vsize}} </span>
                         </li>
                     @endforeach
                 </ul>
@@ -67,9 +72,6 @@
             </div>
         </div>
         <div class="pronb-info">
-            @php
-                $colors= \App\Models\TableProductDetail::with('product')->where('product_id', $v->id)->where('stock','>','0')->get();
-            @endphp
             @if(count($colors))
                 <ul class="pronb-colors">
                     @foreach($colors as $kcolor => $vcolor)
@@ -114,9 +116,9 @@
             let size = $(this).data('size');
             let color = $(this).parents('.pronb-item').find('.color-click.active').data('color');
 
-            $(this).parents('.pronb-wrapper').find('.id-input').attr('value',product_id);
-            $(this).parents('.pronb-wrapper').find('.color-input').attr('value',color);
-            $(this).parents('.pronb-wrapper').find('.size-input').attr('value',size);
+            $(this).parents('.cart-flag').find('.id-input').attr('value',product_id);
+            $(this).parents('.cart-flag').find('.color-input').attr('value',color);
+            $(this).parents('.cart-flag').find('.size-input').attr('value',size);
 
             setTimeout(addToCart,3000);
             function addToCart() {
