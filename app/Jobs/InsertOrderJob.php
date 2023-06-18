@@ -2,13 +2,16 @@
 
 namespace App\Jobs;
 
+use Pusher\Pusher;
 use App\Models\TableOrder;
 use Illuminate\Support\Str;
-use Illuminate\Bus\Queueable;
-use App\Models\TableOrderDetail;
 use App\Models\TableProduct;
-use App\Models\TableProductDetail;
+use Illuminate\Bus\Queueable;
 use App\Models\TablePromotion;
+use App\Models\TableOrderDetail;
+use App\Models\TableNotification;
+use App\Models\TableProductDetail;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -87,6 +90,8 @@ class InsertOrderJob implements ShouldQueue
             $this->updateStockProduct($item->product->id,$item->quantity);
         }
 
+        $this->createPushNoti($order->id);
+
         $this->updateLimitPromotion($this->map_param_order["id_promotion"],);
     }
 
@@ -108,4 +113,40 @@ class InsertOrderJob implements ShouldQueue
 
        $product->update(["stock" => $product->stock - $quantity]);
     }
+
+    private function createPushNoti($order_id){
+        $noti_sql = TableNotification::create([
+            "title" => "Đơn hàng mới",
+            "subtitle" => "Có đơn hàng mới vừa đặt",
+            'user_id'=> Auth::id(),
+            'order_id' => $order_id,
+            'is_read' => 1,
+            "type" => "admin",
+            'created_at' =>date('Y-m-d H:i-s'),
+            'updated_at' =>date('Y-m-d H:i-s'),
+        ]);
+
+        $data = [
+            'title' =>  $noti_sql->title,
+            'subtitle' =>$noti_sql->subtitle,
+        ];
+        
+        $this->pusher('new-order','create-order',$data);
+    }
+
+    private function pusher($channel,$event,$data){
+        $pusher = new Pusher(
+            env('PUSHER_APP_KEY'),
+            env('PUSHER_APP_SECRET'),
+            env('PUSHER_APP_ID'),
+            [
+                'cluster' => env('PUSHER_APP_CLUSTER'),
+                'useTLS' => true
+            ]
+        );
+
+        // Phát sóng sự kiện `chat-message` trên kênh `chat-channel` với dữ liệu chat đã lấy được từ request
+        $pusher->trigger($channel, $event, $data);
+    }
+
 }
