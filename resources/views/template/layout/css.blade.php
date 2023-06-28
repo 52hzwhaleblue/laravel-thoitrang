@@ -24,5 +24,8 @@
 <!-- Main CSS -->
 <link rel="stylesheet" href=" {{ asset('public/assets/css/style.css') }} ">
 
+<!-- User CSS -->
+<link rel="stylesheet" href=" {{ asset('public/assets/css/user.css') }} ">
+
 
 

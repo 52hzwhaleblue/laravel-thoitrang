@@ -2,11 +2,12 @@
 
 namespace Database\Seeders;
 
+use Database\Seeders\PhotoSeeder;
+use Database\Seeders\PostSeeder;
 use Illuminate\Database\Seeder;
 use Database\Seeders\ReviewSeeder;
 use Database\Seeders\AdminSeeder;
 use Database\Seeders\UserSeeder;
-use Database\Seeders\PhotoSeeder;
 use Database\Seeders\ProductSeeder;
 use Database\Seeders\CategorySeeder;
 use Database\Seeders\PromotionSeeder;
@@ -26,6 +27,7 @@ class DatabaseSeeder extends Seeder
         $this->call(AdminSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(PhotoSeeder::class);
+        $this->call(PostSeeder::class);
         $this->call(CategorySeeder::class);
         $this->call(ProductSeeder::class);
         $this->call(ProductDetailSeeder::class);

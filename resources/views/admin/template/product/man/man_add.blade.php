@@ -265,6 +265,22 @@ enctype="multipart/form-data"
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-xl-4">
+                                    <div class="mb-3">
+                                        <label for="code" class="form-label"
+                                        >Size :</label
+                                        >
+                                        <div class="input-group">
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="sizes"
+                                                placeholder="Sizes"
+                                                name="sizes"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <div class="col-xl-4">
                                     <div class="mb-3">
