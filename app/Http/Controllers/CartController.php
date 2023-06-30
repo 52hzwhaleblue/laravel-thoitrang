@@ -29,6 +29,11 @@ use App\Models\TablePromotion;
 
 class CartController extends BaseController
 {
+    public $temp_code;
+
+//    public function __construct(){
+//        $this->temp_code = '';
+//    }
     public function index()
     {
         $data = Cart::content();
@@ -315,18 +320,20 @@ class CartController extends BaseController
         );
     }
 
-    public function ma_giam_gia(){
-        $promo_code = request()->input('promo_code');
-        $promotion_elo =  TablePromotion::where('code',$promo_code);
+    public function ma_giam_gia(Request  $request){
+        $dataCart= Cart::content();
+        $promo_code =  $request->get('promo_code');
 
+        $result ='';
+
+        $promotion_elo =  TablePromotion::where('code',$promo_code);
         $promotion = $promotion_elo->first();
+
 
         $is_check_exists = false;
 
         if(!empty($promotion->product_id)){
-            //check order has product_id in table promotion
-            $dataCart= Cart::content();
-
+            //check cart has product_id in table promotion
             foreach ($dataCart as $key => $value) {
                 if($value->id == $promotion->product_id){
                     $id = (int)$value->id;
@@ -335,7 +342,8 @@ class CartController extends BaseController
                 }
             }
             if(!$is_check_exists){
-                 return "Mã khuyến mãi này chỉ áp dụng khi đơn hàng bạn có product_id là".$promotion->product_id;
+                $result = "Mã khuyến mãi này chỉ áp dụng khi đơn hàng bạn có product_id là".$promotion->product_id;
+                 return $result;
             }
         }
 
@@ -345,13 +353,19 @@ class CartController extends BaseController
         $is_check_total = $total >= $promotion->order_price_conditions;
 
         if(!$is_check_total){
-            return "Đơn hàng của bạn không đạt điều kiện khi tổng đơn nhỏ hơn".$promotion->order_price_conditions;
+            $result = "Đơn hàng của bạn không đạt điều kiện khi tổng đơn nhỏ hơn ".$promotion->order_price_conditions;
+            return $result;
         }
 
         //success
         $promotion_elo->update([
             "limit" => --$promotion->limit,
         ]);
-        return $total - $promotion->discount_price;
+
+        $result = number_format($total - ($total*$promotion->discount_price/100));
+
+        $this->temp_code = $promo_code;
+
+        return $this->temp_code ;
     }
 }

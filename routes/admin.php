@@ -49,6 +49,7 @@ Route::group([
                 if($m['name'] == 'Bài viết'){
                     foreach($m['data'] as $m1){
                         $type = $m1['type'];
+
                         Route::resource($type, PostController::class);
                     }
                 }

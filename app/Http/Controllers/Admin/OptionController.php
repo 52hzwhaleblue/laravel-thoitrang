@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\TableProduct;
 use Illuminate\Http\Request;
 use App\Models\TablePromotion;
 use Functions;
@@ -13,29 +14,43 @@ class OptionController extends Controller
     public $type;
 
     public function __construct() {
-        $this->type = Functions::getTypeByCom();
+        $this->type = Functions::getTypeByComAdmin();
     }
 
      public function index()
     {
         // // Lấy dữ liệu với type
         $type =  $this->type;
-        if($type='ma-giam-gia'){
-            $data = TablePromotion::all();
-        }
+        $data = TablePromotion::all();
+
         return view('admin.template.option.option',compact('data','type'));
     }
 
 
     public function create()
     {
+        $type =  $this->type;
+        $products = TableProduct::all();
 
+        return view('admin.template.option.option_add',compact('type','products'));
     }
 
 
     public function store(Request $request)
     {
-        //
+        $option = new TablePromotion();
+        $option->name = $request->get('name');
+        $option->desc = $request->get('desc');
+        $option->code = $request->get('code');
+        $option->order_price_conditions = $request->get('order_price_conditions');
+        $option->discount_price = $request->get('discount_price');
+        $option->product_id = $request->get('product_id');
+        $option->limit = $request->get('limit');
+        $option->end_date = $request->get('end_date');
+        $option->save();
+        return redirect()
+            ->route('admin.option.'.$this->type.'.index')
+            ->with('message', 'Bạn đã tạo ' .$this->type. ' thành công!');
     }
 
 
@@ -47,7 +62,11 @@ class OptionController extends Controller
 
     public function edit($id)
     {
-        //
+        $data = TablePromotion::find($id);
+        $products = TableProduct::all();
+        $type =  $this->type;
+        return view('admin.template.option.option_edit',compact('data','products','type'));
+
     }
 
 
@@ -57,8 +76,13 @@ class OptionController extends Controller
     }
 
 
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
-        //
+        $promotion = TablePromotion::find($id);
+        if($promotion !=null){
+            $promotion->delete();
+            return redirect()->route('admin.option.ma-giam-gia.index')->with('message', 'Bạn đã xóa mã giảm giá thành công!');
+        }
+        return ;
     }
 }

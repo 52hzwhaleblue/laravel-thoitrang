@@ -14,7 +14,8 @@
                         <th width="20%">Đơn giá</th>
                         <th width="7%">Số lượng</th>
                         <th width="20%">Tạm tính</th>
-                        <th>Xóa</th>
+                        <th>Thành Tiền</th>
+                        <th width="7%" class="text-center">Thao tác</th>
                     </tr>
                 </thead>
                 <tbody class="giohang-tbody">

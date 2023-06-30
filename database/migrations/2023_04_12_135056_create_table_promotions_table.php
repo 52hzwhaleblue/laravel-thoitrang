@@ -15,6 +15,7 @@ class CreateTablePromotionsTable extends Migration
     {
         Schema::create('table_promotions', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name')->nullable();
             $table->string('code')->nullable();
             $table->unsignedInteger('product_id')->nullable();
             $table->double('order_price_conditions')->nullable();

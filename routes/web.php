@@ -30,6 +30,7 @@ Route::get('/post/{slug}', [IndexController::class,'post_detail']);
 Route::get('/san-pham', [IndexController::class,'san_pham'])->name('san-pham');
 Route::get('/chi-tiet-san-pham/{slug}/{id}', [IndexController::class,'chi_tiet_san_pham'])->name('chi_tiet_san_pham');
 Route::post('/load_ajax_product', [IndexController::class,'load_ajax_product']);
+Route::post('/load_ajax_search', [IndexController::class,'load_ajax_search']);
 
 Route::get('/danh-muc', [IndexController::class,'danh_muc'])->name('danh_muc');
 Route::get('/chi-tiet-danh-muc/{slug}/{id}', [IndexController::class,'chi_tiet_danh_muc'])->name('chi_tiet_danh_muc');
