@@ -26,6 +26,7 @@ class PromotionSeeder extends Seeder
 
         $promotions = [
             [
+                'name' => "Tặng Áo thun Promax-S1",
                 'code' => Str::random(5),
                 'product_id'=>null,
                 'desc'=> $faker->paragraph(2),
@@ -37,6 +38,7 @@ class PromotionSeeder extends Seeder
                 "updated_at" => $updated_at ,
             ],
             [
+                'name' => "Giảm 50%",
                 'code' => Str::random(5),
                 'product_id'=>null,
                 'desc'=> $faker->paragraph(2),

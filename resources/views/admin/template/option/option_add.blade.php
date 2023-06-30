@@ -5,7 +5,7 @@
     {{ session()->get('warning') }}
 </div>
 @endif
-<form action="{{ route('admin.photo.'.$type.'.store') }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('admin.option.'.$type.'.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="row">
         <div class="mb-3 sticky-top1">
@@ -59,18 +59,51 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="panelsStayOpen-headingOne">
                             <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#anhsanpham" aria-expanded="true" aria-controls="anhsanpham">
-                                Hình ảnh sản phẩm
+                                data-bs-target="#thuoctinhoption" aria-expanded="true" aria-controls="thuoctinhoption">
+                                Thuộc tính mã giảm giá
                             </button>
                         </h2>
-                        <div id="anhsanpham" class="accordion-collapse collapse show"
+                        <div id="thuoctinhoption" class="accordion-collapse collapse show"
                             aria-labelledby="panelsStayOpen-headingOne">
                             <div class="accordion-body">
-                                <!-- Dropzone -->
-                                <form action="" method="post" enctype="multipart/form-data" id="" class="">
-                                    @csrf
-                                    <input type="file" name="photo" />
-                                </form>
+                                <div class="mb-3 mt-3">
+                                    <label for="code" class="form-label">Mã giảm giá:</label>
+                                    <input type="text" class="code form-control" id="code" placeholder="Mã giảm giá"
+                                           name="code" required />
+                                </div>
+
+                                <div class="mb-3 mt-3">
+                                    <label for="order_price_conditions" class="form-label">Điều kiện giảm :</label>
+                                    <input type="text" class="order_price_conditions form-control" id="order_price_conditions" placeholder="300.000"
+                                           name="order_price_conditions" required />
+                                    <p class="text-danger"> ( Tổng giá trị đơn hàng phải lớn hơn hoặc bằng gia trị này ) </p>
+                                </div>
+
+                                <div class="mb-3 mt-3">
+                                    <label for="discount_price" class="form-label">Giá trị giảm (%):</label>
+                                    <input type="text" class="discount_price form-control" id="discount_price" placeholder="5"
+                                           name="discount_price" required />
+                                </div>
+
+                                <div class="mb-3 mt-3">
+                                    <label for="product_id" class="form-label">Chọn sản phẩm (nếu có)</label>
+                                    <select class="form-select" id="product_id" name="product_id">
+                                        <option value="">  Chọn sản phẩm </option>
+                                        @foreach ($products as $v)
+                                            <option value="{{$v['id']}}"> {{$v['name']}} | id: {{$v['id']}} </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="mb-3 mt-3">
+                                    <label for="limit" class="form-label">Số lượng:</label>
+                                    <input type="text" class="limit form-control" id="limit" placeholder="Số lượng"
+                                           name="limit" required />
+                                </div>
+                                <div class="mb-3 mt-3">
+                                    <label class="w-50 mb-0" for="end_date">Ngày hết hạn </label>
+                                    <input type="datetime" placeholder="Ngày hết hạn" class="form-control enddate-datetimepicker end_date_flatpickr" name="end_date" id="#end_date" >
+                                </div>
                             </div>
                         </div>
                     </div>

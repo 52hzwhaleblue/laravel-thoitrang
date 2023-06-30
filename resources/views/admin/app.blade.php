@@ -119,6 +119,7 @@
         }
         $(".thongke-datetimepicker").flatpickr(optional_config);
         $(".thongke-datetimepicker").flatpickr(optional_config);
+        $(".end_date_flatpickr").flatpickr(optional_config);
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>

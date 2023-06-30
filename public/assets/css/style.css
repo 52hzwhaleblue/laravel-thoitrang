@@ -8,6 +8,106 @@
 }
 */
 
+html,
+div,
+span,
+applet,
+object,
+iframe,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+font,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+sub,
+sup,
+tt,
+var,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-weight: inherit;
+    font-style: inherit;
+    font-size: 100%;
+    font-family: inherit;
+    vertical-align: baseline;
+}
+
+
+/* remember to define focus styles! */
+
+:focus {
+    outline: 0;
+}
+
+ol,
+ul {
+    list-style: none;
+}
+
+
+/* tables still need 'cellspacing="0"' in the markup */
+
+table {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+caption,
+th,
+td {
+    text-align: left;
+    font-weight: normal;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: "";
+}
+
+blockquote,
+q {
+    quotes: "" "";
+}
+
 @font-face {
     font-family: 'SVN-Poppins-SemiBold';
     src: url('../fonts/SVN-Poppins-SemiBold/SVNPoppinsSemiBold.eot');
@@ -119,7 +219,9 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
 }
 #CheckLoginToast{position: fixed;top: 30px;right: 30px;z-index: 9999999;}
 
-.search-wrapper{}
+.search-wrapper{
+    margin-bottom: 60px;
+}
 .search-wrapper .wrap-content{
     max-width: 700px;
     position: relative;
@@ -4794,4 +4896,76 @@ coccocgrammar {
 .tintuc-desc{}
 
 
-
+/*Mã giảm giá*/
+.promotion-wrapper{}
+.promotion-wrapper .wrap-content{
+    max-width: 1610px;
+}
+.promotion-item{color: #Fff;position: relative;display: flex;flex-direction: column;justify-content: space-between;height: 155px;}
+.promotion-item::before{
+    content:"";
+    position:absolute;
+    background: url(http://localhost/laravel-thoitrang/resources/assets/images/magiamgia1.png) no-repeat;
+    background-size: 100% auto;
+    width: 100%;
+    height: 175px;
+}
+.promotion-top{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 10px;
+    position: relative;
+}
+.promotion-top .left{
+    width: 50%;
+}
+.promotion-top .right{
+    width: 50%;
+}
+.promotion-limit{
+    font-size: 15px;
+    line-height: 1.25rem;
+    color: #F9F86C;
+    text-align: left;
+}
+.promotion-name{
+    font-weight: bold;
+}
+.promotion-desc{
+    font-weight: 600;
+}
+.promotion-bottom{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+    position: relative;
+}
+.promotion-bottom .left{}
+.promotion-bottom .right{}
+.promotion-code{
+    font-size: 1.15rem;
+    font-weight: bold;
+    line-height: 1.25rem;
+    padding: 0.75rem 0 0.75rem;
+    color: #000;
+}
+.promotion-btn:hover{
+    background-color:#2F5ACF;
+}
+.promotion-btn:hover span{
+    color:#fff;
+}
+.promotion-btn{
+    border: 0;
+    height: 32px;
+    border-radius: 100vmax;
+    background-color: #000;
+    color: #fff;
+    width: 105px;
+    text-align: center;
+    line-height: 32px;
+}
+.promotion-btn span{
+    font-weight:600;
+}

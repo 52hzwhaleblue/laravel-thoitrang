@@ -38,6 +38,41 @@
         @endif
     </div>
 </div>
+
+@if(count($promotion))
+<div class="promotion-wrapper">
+    <div class="wrap-content">
+        <div class="owl-page owl-carousel owl-theme thumbs_img " data-xsm-items="1:0" data-sm-items="2:10"
+             data-md-items="3:15" data-lg-items="3:20" data-xlg-items="4:30" data-rewind="1" data-autoplay="0"
+             data-loop="0" data-lazyload="0" data-mousedrag="1" data-touchdrag="1" data-smartspeed="800"
+             data-autoplayspeed="800" data-autoplaytimeout="5000" data-dots="0" data-animations="" data-nav="1"
+             data-navtext="" data-navcontainer="">
+            @foreach ($promotion as $k =>$v)
+                <div class="promotion-item">
+                    <div class="promotion-top">
+                        <div class="left">
+                            <p class="promotion-limit"> Còn lại ({{$v->limit}}) lượt </p>
+                            <p class="promotion-name"> ({{$v->name}}) </p>
+                        </div>
+                        <div class="right">
+                            <p class="promotion-desc text-split"> {!! $v->desc !!} </p>
+
+                        </div>
+                    </div>
+
+                    <div class="promotion-bottom">
+                        <p class="promotion-code"> {{ $v['code'] }} </p>
+                        <a href="" class="promotion-btn">
+                            <span>Lưu mã</span>
+                        </a>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </div>
+</div>
+@endif
+
 <div class="search-wrapper">
     <div class="wrap-content">
         <p class="search-heading" >Bạn tìm gì hôm nay?</p>
@@ -50,7 +85,7 @@
     </div>
 </div>
 
-.
+
 @if(count($splistnb))
     <div class="splistnb-wrapper">
         <div class="wrap-content" data-aos="fade-up" data-aos-duration="1500">
