@@ -46,7 +46,7 @@
 
                         @guest
                         <li class="mr-3">
-                            <a href="{{route('user.login')}}">
+                            <a href="{{route('user.showLoginForm')}}">
                                 <i class="fa fa-user"></i>
                             </a>
                         </li>

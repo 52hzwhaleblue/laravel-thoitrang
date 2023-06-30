@@ -20,7 +20,7 @@ class ProductController extends BaseController
     public function index()
     {
         // TableProduct::factory()->count(5)->create();
-        $data = TableProduct::all();
+        $data = TableProduct::orderBy('created_at', 'DESC')->get();
 
         // Lấy màu,size theo product_id
         return view('admin.template.product.man.man',compact('data'));
@@ -39,11 +39,13 @@ class ProductController extends BaseController
 
     public function store(Request $request)
     {
-        $count = TableProduct::all()->count();
-
         $url = $this->uploadPhoto($request,"products/",415,655);
         $url1 = $this->uploadPhoto1($request,"products/",415,655);
-
+        $sizes = explode(" ",$request->get('sizes'));
+        $properties_data = [
+            'sizes'=>$sizes,
+            'origin'=> 'Vietnam',
+        ];
         $product = new TableProduct();
         $product->name = $request->get('name');
         $product->desc = $request->get('desc');
@@ -55,14 +57,11 @@ class ProductController extends BaseController
             $product->photo1 = $url1;
         }
         $product->category_id =(int)$request->get('category_id');
-
-
         if(empty($product->category_id)){
             return redirect()
                 ->route('admin.product.product-man.index')
                 ->with('warning', 'Vui lòng chọn danh mục cấp 1');
         }
-
         $product->status = (int)$request->get('status');
         $product->slug = $request->get('slug');
         $checkSlug = Functions::checkSlug($product);
@@ -83,64 +82,62 @@ class ProductController extends BaseController
         $product->regular_price = $request->get('regular_price');
         $product->sale_price = $request->get('sale_price');
         $product->discount = $request->get('discount');
-
+        $product->properties = $properties_data;
         $product->save();
 
         // Gọi hàm lưu table_product_detail với size,color,stock
         $colors = $request->get('color');
         $stocks = $request->get('stock');
 
-        foreach ($colors as $kcolor => $vcolor)
-        {
-            TableProductDetail::create([
-                'product_id' => $product->id,
-                'color' => $vcolor,
-                "stock" => $stocks[$kcolor],
-                "create_at" => now(),
-                "updated_at" => now(),
-            ]);
+        if($colors){
+            foreach ($colors as $kcolor => $vcolor)
+            {
+                TableProductDetail::create([
+                    'product_id' => $product->id,
+                    'color' => $vcolor,
+                    "stock" => $stocks[$kcolor],
+                    "create_at" => now(),
+                    "updated_at" => now(),
+                ]);
+            }
         }
-
         return redirect()
             ->route('admin.product.product-man.index')
             ->with('message', 'Bạn đã tạo sản phẩm thành công!');
     }
 
-    public function show($id)
-    {
-        //
-    }
-
     public function edit($slug)
     {
-        $sql = TableProduct::where('slug', $slug)->first();
-        $data = json_decode($sql, true);
+        $data = TableProduct::where('slug', $slug)->first();
         $splist = TableCategory::all();
 
         $product_id = $data['id'];
         $product_properties = TableProductDetail::where('product_id',$product_id)->get();
+        $sql_sizes = \Illuminate\Support\Facades\DB::table('table_products')->select('properties')->where('id',$product_id)->first();
+        $sizes = implode(" ", json_decode($sql_sizes->properties)->sizes);
+
         return view(
             'admin.template.product.man.man_edit',
-            compact('data','splist','product_properties')
+            compact('data','splist','product_properties','sizes')
         );
     }
 
     public function update(Request $request, $slug)
     {
-        $count = TableProduct::all()->count();
-
         $url = $this->uploadPhoto($request,"products/",415,655);
         $url1 = $this->uploadPhoto1($request,"products/",415,655);
 
-
+        $sizes = explode(" ",$request->get('sizes'));
+        $properties_data = [
+            'sizes'=>$sizes,
+            'origin'=> 'Vietnam',
+        ];
         $product = TableProduct::where('slug', $slug)->first();
-
         $product->status = (int)$request->get('status');
         $product->name = $request->get('name');
         $product->desc = $request->get('desc');
         $product->content = $request->get('content');
         $product->category_id =(int)$request->get('category_id');
-
 
         if(empty($product->category_id)){
             return redirect()
@@ -155,16 +152,13 @@ class ProductController extends BaseController
         }
 
         $product->status = (int)$request->get('status');
-
         $product->slug = $request->get('slug');
-
-        $checkSlug = Functions::checkSlug($product);
-
         $product->code = $request->get('code');
         $product->regular_price = $request->get('regular_price');
         $product->sale_price = $request->get('sale_price');
         $product->discount = $request->get('discount');
 
+        $checkSlug = Functions::checkSlug($product);
         if ($checkSlug == 'exist') {
             return redirect()
                 ->route('admin.product.product-man.index')
@@ -177,7 +171,7 @@ class ProductController extends BaseController
                 ->route('admin.product.product-man.index')
                 ->with('warning', 'Đường dẫn không được trống');
         }
-        // dd(json_decode($product,true));
+        $product->properties = $properties_data;
         $product->save();
 
         return redirect()
