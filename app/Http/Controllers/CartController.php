@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
@@ -29,11 +30,6 @@ use App\Models\TablePromotion;
 
 class CartController extends BaseController
 {
-    public $temp_code;
-
-//    public function __construct(){
-//        $this->temp_code = '';
-//    }
     public function index()
     {
         $data = Cart::content();
@@ -137,7 +133,7 @@ class CartController extends BaseController
         $accessKey = 'klm05TvNBzhg7h7j';
         $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
         $orderInfo = "Thanh toán qua ATM MoMo";
-        $amount = (int)Cart::total();
+        $amount = (int)$request->get('product_total');
         $orderId = time() ."";
         $redirectUrl = "http://127.0.0.1:8000"; // đường dẫn trả về khi thanh toán thành công
         $ipnUrl = "http://127.0.0.1:8000";
@@ -180,14 +176,14 @@ class CartController extends BaseController
     public function store(Request $request, DB $db)
     {
         // Kiểm tra dữ liệu người dùng nhập
-        $this->validate_cart($request);
+         $this->validate_cart($request);
 
         // Dữ liệu giỏ hàng
         $dataCart= Cart::content();
 
         // Dữ liệu người dùng
         $dataUser = [
-            'user_id' => (int)$request->get('user_id'),
+            'user_id' => Auth::user()->id,
             'fullname' => $request->get('fullname'),
             'email' => $request->get('email'),
             'phone' => $request->get('phone'),
@@ -198,8 +194,10 @@ class CartController extends BaseController
             'payment_method' => $request->get('payment_method'),
         ];
 
-        $user_id = (int)$request->get('user_id');
+        $user_id = Auth::user()->id;
         $code_order = 'UNI'.Str::random(5);
+        $promo_code = $request->get('promo_code');
+        dd($promo_code);
 
         $db::transaction(function () use ($request,$user_id,$dataUser,$dataCart,$code_order) {
             // Lưu vào table_order
@@ -210,7 +208,7 @@ class CartController extends BaseController
                 'shipping_phone' => $dataUser['phone'],
                 'shipping_address' => $dataUser['address'],
                 'temp_price' => (int)Cart::total(),
-                'total_price' => (int)Cart::total(),
+                'total_price' => (int)$request->get('product_total'),
                 'payment_method' => $dataUser['payment_method'],
                 'status_id' => 1,
             ]);
@@ -248,7 +246,7 @@ class CartController extends BaseController
             "email" => $dataUser['email'],
             "phone" => $dataUser['phone'],
             "payment_method" => $dataUser['payment_method'],
-            "total" => Cart::total(),
+            "total" =>(int)$request->get('product_total'),
             "time_now" => Carbon::now()->format('d/m/Y m:h:s'),
             'dataCart' => Cart::content(),
         ];
@@ -323,49 +321,94 @@ class CartController extends BaseController
     public function ma_giam_gia(Request  $request){
         $dataCart= Cart::content();
         $promo_code =  $request->get('promo_code');
-
-        $result ='';
-
         $promotion_elo =  TablePromotion::where('code',$promo_code);
         $promotion = $promotion_elo->first();
+        $isBelongToProduct = false;
+        if($promo_code == ''){
+            $alert = "<p class='font-weight-bold text-danger'>
+               Bạn chưa nhập mã giảm giá
+              </p>";
+            $data = array(
+                'alert' =>$alert,
+            );
+            return $data;
 
+        }
 
-        $is_check_exists = false;
+        if(!$promotion){
+            $alert = "<p class='font-weight-bold text-danger'>
+               Mã giảm giá không tồn tại!
+              </p>";
+            $data = array(
+                'alert' =>$alert,
+            );
+            return $data;
 
-        if(!empty($promotion->product_id)){
-            //check cart has product_id in table promotion
-            foreach ($dataCart as $key => $value) {
-                if($value->id == $promotion->product_id){
-                    $id = (int)$value->id;
-                    $is_check_exists = !$is_check_exists;
-                    break;
+        }
+
+        // Kiểm tra xem có mã giảm giá user nhập có tồn taị trong hệ thống không
+        if($promotion)
+        {
+            // Kiểm tra xem mã giảm giá đó có thuộc product_id nào không
+            if(!empty($promotion->product_id)){
+
+                //check cart has product_id in table promotion
+                foreach ($dataCart as $key => $value) {
+                    if($value->id == $promotion->product_id){
+                        $id = (int)$value->id;
+                        $isBelongToProduct = !$isBelongToProduct;
+                        break;
+                    }
                 }
-            }
-            if(!$is_check_exists){
-                $result = "Mã khuyến mãi này chỉ áp dụng khi đơn hàng bạn có product_id là".$promotion->product_id;
-                 return $result;
+                if(!$isBelongToProduct){
+                    $sanpham = TableProduct::find($promotion->product_id);
+                    $slug = $sanpham->slug;
+                    $name = $sanpham->name;
+                    $id = $sanpham->id;
+                    $link = "/chi-tiet-san-pham/$slug/$id";
+
+                    $alert = "Mã giảm giá này chỉ áp dụng cho sản phẩm: <a href='$link' target='_blank' class='font-weight-bold text-danger'>  $name (Mua ngay)  </a>";
+
+                    $data = array(
+                        'alert' =>$alert,
+                    );
+                    return $data ;
+                }
             }
         }
 
         //check total order
-        $total = Cart::total();
-
-        $is_check_total = $total >= $promotion->order_price_conditions;
+        $subTotal = Cart::total();
+        $is_check_total = $subTotal >= $promotion->order_price_conditions;
 
         if(!$is_check_total){
-            $result = "Đơn hàng của bạn không đạt điều kiện khi tổng đơn nhỏ hơn ".$promotion->order_price_conditions;
-            return $result;
+            $order_price_conditions = number_format($promotion->order_price_conditions);
+            $alert = "<p class='font-weight-bold text-danger'>
+                Đơn hàng của bạn không đạt điều kiện khi tổng đơn hàng nhỏ hơn $order_price_conditions vnđ
+              </p>";
+            $data = array(
+                'alert' =>$alert,
+            );
+            return $data ;
         }
 
+        // lưu session tạm để check người dùng nhập nhiều lần
+//        session([ 'temp_code' => $promo_code ]);
+//        if($promo_code == Session::get('temp_code')){
+//            $alert = 'Bạn đã nhập mã này rồi';
+//            $data = array(
+//                'alert' =>$alert,
+//            );
+//            return $data ;
+//        }
+
         //success
-        $promotion_elo->update([
-            "limit" => --$promotion->limit,
-        ]);
-
-        $result = number_format($total - ($total*$promotion->discount_price/100));
-
-        $this->temp_code = $promo_code;
-
-        return $this->temp_code ;
+        $total = $subTotal - ($subTotal*$promotion->discount_price/100);
+        $totalText = number_format($subTotal - ($subTotal*$promotion->discount_price/100));
+        $data = array(
+            'total' =>$total,
+            'totalText' =>$totalText
+        );
+        return $data ;
     }
 }

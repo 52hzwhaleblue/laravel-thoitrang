@@ -54,7 +54,7 @@
 
                                         </th>
                                         <th class="align-middle">
-                                            {{$v['discount_price'] ? number_format($v['order_price_conditions']).' %' : ''}}
+                                            {{$v['discount_price'] ? number_format($v['discount_price']).' %' : ''}}
                                         </th>
                                         <th class="align-middle">
                                             {{ $v['limit'] }}

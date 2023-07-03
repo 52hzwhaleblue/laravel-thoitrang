@@ -37,6 +37,7 @@ function Cart(){
     // Mã giảm giá
     $('.magiamgia_submit').click(function (){
         let promo_code = $(this).parents().find('.promo_code').val();
+        // $(this).parents().find('.promo_code').attr('value',promo_code);
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -50,8 +51,9 @@ function Cart(){
             },
             method: "POST",
             success: function(result) {
-                $('.product_total').text(result);
-                console.log(result);
+                $('.promo_alert').html(result.alert);
+                $('.product_total').text(result.totalText);
+                $("input[name=product_total]").attr('value',result.total);
             },
             error: function(xhr, ajaxOptions, thrownError) {
                 // alert(xhr.status);

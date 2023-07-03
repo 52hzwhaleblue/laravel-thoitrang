@@ -40,7 +40,7 @@
 </div>
 
 @if(count($promotion))
-<div class="promotion-wrapper">
+<div class="promotion-wrapper d-hiden">
     <div class="wrap-content">
         <div class="owl-page owl-carousel owl-theme thumbs_img " data-xsm-items="1:0" data-sm-items="2:10"
              data-md-items="3:15" data-lg-items="3:20" data-xlg-items="4:30" data-rewind="1" data-autoplay="0"
@@ -55,7 +55,7 @@
                             <p class="promotion-name"> ({{$v->name}}) </p>
                         </div>
                         <div class="right">
-                            <p class="promotion-desc text-split"> {!! $v->desc !!} </p>
+                            <div class="promotion-desc text-split"> {!! $v->desc !!} </div>
 
                         </div>
                     </div>
@@ -73,7 +73,7 @@
 </div>
 @endif
 
-<div class="search-wrapper">
+<div class="search-wrapper d-hiden">
     <div class="wrap-content">
         <p class="search-heading" >Bạn tìm gì hôm nay?</p>
         <div class="search-input">
@@ -87,7 +87,7 @@
 
 
 @if(count($splistnb))
-    <div class="splistnb-wrapper">
+    <div class="splistnb-wrapper d-hiden">
         <div class="wrap-content" data-aos="fade-up" data-aos-duration="1500">
             <div class="splistnb-items">
                 @foreach ($splistnb as $v )
@@ -107,7 +107,7 @@
 @endif
 
 @if(count($splistnb))
-<div class="pronb-wrapper">
+<div class="pronb-wrapper d-hiden">
     <div class="wrap-content ">
         <div class="title-main mb-0"><span>Sản phẩm nổi bật</span></div>
 
@@ -126,7 +126,7 @@
 @endif
 
 @if(!empty($gioithieu))
-<div class="gioithieu-wrapper">
+<div class="gioithieu-wrapper d-hiden">
     <div class="wrap-content">
         <div class="gioithieu-left" data-aos="fade-right" data-aos-duration="1500">
             <div class="gioithieu-box">
@@ -168,7 +168,7 @@
 @endif
 
 @if (count($quangcao) > 0)
-<div class="quangcao-wrapper">
+<div class="quangcao-wrapper d-hiden">
     <div class="wrap-content">
         <div class="owl-page owl-carousel owl-theme thumbs_img " data-xsm-items="1:0" data-sm-items="2:10"
             data-md-items="3:15" data-lg-items="3:20" data-xlg-items="2:15" data-rewind="1" data-autoplay="0"
@@ -218,7 +218,7 @@
 @endif
 
 @if (count($album) > 0)
-<div class="album-wrapper">
+<div class="album-wrapper d-hiden">
     <div class="wrap-content">
         <div class="title-main mb-0 "><span>album hình ảnh</span></div>
         <div class="album-grid ">
@@ -243,7 +243,7 @@
 
 
 @if (count($dichvu) > 0)
-<div class="dichvu-wrapper">
+<div class="dichvu-wrapper d-hiden">
     <div class="wrap-content">
         <div class="title-main "><span>Dịch vụ của chúng tôi</span></div>
 
@@ -274,7 +274,7 @@
 @endif
 
 @if (count($tieuchi) > 0)
-<div class="tieuchi-wrapper mb-5">
+<div class="tieuchi-wrapper d-hiden mb-5">
     <div class="wrap-content">
         <div class="owl-page owl-carousel owl-theme thumbs_img " data-xsm-items="1:0" data-sm-items="2:10"
             data-md-items="3:15" data-lg-items="3:20" data-xlg-items="4:15" data-rewind="1" data-autoplay="0"
@@ -298,7 +298,7 @@
 @endif
 
 @if (count($tintuc) > 0)
-<div class="tintuc-wrapper mb-5">
+<div class="tintuc-wrapper d-hiden mb-5">
     <div class="wrap-content">
     <div class="title-main mb-4 "><span>Bài viết mới mỗi ngày</span></div>
 

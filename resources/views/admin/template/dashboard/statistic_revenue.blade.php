@@ -68,7 +68,7 @@
                             <li>
                                 <p>
                                     <a href="chi-tiet-san-pham/{{$v->slug}}/{{$v->id}}">
-                                        <span> {{ $v->name }} </span>
+                                        <span style="color: #007D71;"> {{ $v->name }} </span>
                                         <span> | </span>
                                         <span> {{$v->view}}  </span>
                                     </a>
@@ -90,7 +90,7 @@
                                 <li>
                                     <p>
                                         <a href="chi-tiet-san-pham/{{$product_name->slug}}/{{$product_name->id}}">
-                                            <span> {{ $product_name->name }} </span>
+                                            <span style="color: #007D71;"> {{ $product_name->name }} </span>
                                             <span> | </span>
                                             <span> {{$v->total_quantity}}  </span>
                                         </a>

@@ -5,11 +5,12 @@
             {{ session()->get('warning') }}
         </div>
     @endif
-    <form action="{{ route('admin.option.'.$type.'.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('admin.option.'.$type.'.update',$data['id']) }}" method="POST" enctype="multipart/form-data">
         @csrf
+        @method('PUT')
         <div class="row">
             <div class="mb-3 sticky-top1">
-                <button type="submit" class="btn btn-primary">Tạo mới</button>
+                <button type="submit" class="btn btn-primary">Cập nhật</button>
                 <button type="reset" class="btn btn-secondary">Làm lại</button>
             </div>
             <div class="row">
@@ -75,7 +76,7 @@
                                     <div class="mb-3 mt-3">
                                         <label for="order_price_conditions" class="form-label">Điều kiện giảm :</label>
                                         <input type="text" class="order_price_conditions form-control" id="order_price_conditions"
-                                               name="order_price_conditions"  value="{{ number_format($data['order_price_conditions']) }}"  required />
+                                               name="order_price_conditions"  value="{{$data['order_price_conditions']}}"  required />
                                         <p class="text-danger"> ( Tổng giá trị đơn hàng phải lớn hơn hoặc bằng gia trị này ) </p>
                                     </div>
 

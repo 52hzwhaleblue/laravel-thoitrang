@@ -94,7 +94,9 @@ h1, h2, h3, h4, h5, h6 {
     margin-top: 0;
     margin-bottom: 0;
 }
-
+a{
+    text-decoration:none !important;
+}
 p {
     margin-top: 0;
     margin-bottom: 0;
@@ -13069,8 +13071,9 @@ be a descendant of the grid when it is being dragged.
 }
 
 .dropdown-menu.dropdown-menu-right {
-    left: auto;
-    right: 0;
+    left: unset !important;
+    right: -130px;
+    width: 300px;
 }
 
 .dropdown-item .fa, .dropdown-item .icon {
