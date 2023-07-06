@@ -31,11 +31,6 @@
                     >
                         <thead>
                             <tr>
-                                <th>
-                                    <div class="custom-control custom-checkbox my-checkbox">
-                                        <input type="checkbox" class="checkAll custom-control-input" id="selectall-checkbox">
-                                    </div>
-                                </th>
                                 <th>Mã đơn hàng</th>
                                 <th width="20%">Họ tên</th>
                                 <th>Ngày đặt</th>
@@ -48,11 +43,6 @@
                         <tbody>
                             @foreach ($orders as $k =>$v)
                                 <tr>
-                                    <th>
-                                        <div class="custom-control custom-checkbox my-checkbox">
-                                            <input type="checkbox" name="list_check[]" value="{{ $v->id }}" class="custom-control-input" id="selectall-checkbox">
-                                        </div>
-                                    </th>
                                     <th class="align-middle">
 
                                         <a href="order-detail?order_id={{ $v->id }}&user_id={{ $v->user_id }}">
@@ -81,11 +71,11 @@
                                     </th>
 
                                     <th class="align-middle d-flex">
-                                        <a href=" " class="btn btn-primary mr-2">
+                                        <a href="order-detail?order_id={{ $v->id }}&user_id={{ $v->user_id }}" class="btn btn-primary mr-2">
                                             Sửa
                                         </a>
 
-                                        <form action="" method="post">
+                                        <form action="{{route('admin.order.destroy',$v->id)}}" method="post">
                                             @csrf
                                             @method('DELETE')
                                             <button class="btn btn-danger">

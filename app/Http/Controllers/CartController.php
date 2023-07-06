@@ -197,7 +197,7 @@ class CartController extends BaseController
         $user_id = Auth::user()->id;
         $code_order = 'UNI'.Str::random(5);
         $promo_code = $request->get('promo_code');
-        dd($promo_code);
+
 
         $db::transaction(function () use ($request,$user_id,$dataUser,$dataCart,$code_order) {
             // Lưu vào table_order

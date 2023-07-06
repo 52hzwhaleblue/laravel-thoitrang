@@ -102,13 +102,12 @@ class BaseController extends Controller
 
                 // Save thumbnail to storage
                 $thumbnail_path = 'thumbnails/'. $dir  . $path_file;
-
                 Storage::disk('public')->put($thumbnail_path, (string) $thumbnail_image->encode());
 
                 return $thumbnail_path;
-
         }
     }
+
     public function uploadPhoto1($request, $dir, $width, $height)
     {
         if ($request->has('photo1')) {

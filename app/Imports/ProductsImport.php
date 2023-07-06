@@ -19,19 +19,30 @@ class ProductsImport implements ToModel,WithStartRow
     public function model(array $row)
     {
         return new TableProduct([
-            'id' =>  $row[0],
-            'code' =>  $row[1],
-            'name' => $row[2],
-            'slug' => $row[3],
-            'regular_price' => $row[4],
+//  CODE	NAME	SLUG	REGULAR_PRICE	DISCOUNT	SALE_PRICE	PROPERTIES	DESC	CONTENT	NUMB	TYPE	PHOTO	PHOTO1	VIEW	CATEGORY_ID	STATUS
+
+            'code' =>  $row[0],
+            'name' => $row[1],
+            'slug' => $row[2],
+            'regular_price' => $row[3],
+            'discount' => $row[4],
             'sale_price' => $row[5],
-            'desc' => $row[6],
-            'status' => $row[7],
+            'properties' => $row[6],
+            'desc' => $row[7],
+            'content' => $row[8],
+            'numb' => $row[9],
+            'type' => $row[10],
+            'photo' => $row[11],
+            'photo1' => $row[12],
+            'view' => $row[13],
+            'category_id' => $row[14],
+            'status' => $row[15],
         ]);
     }
 
     public function startRow():int
     {
+        // bắt đầu đọc dự liệu tại dòng thứ 2
         return 2;
     }
 }

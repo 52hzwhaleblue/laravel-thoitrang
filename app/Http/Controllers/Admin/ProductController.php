@@ -14,15 +14,13 @@ use App\Models\TableCategory;
 use App\Models\TableProduct;
 use App\Http\Controllers\Api\BaseController as BaseController;
 use Excel;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends BaseController
 {
     public function index()
     {
-        // TableProduct::factory()->count(5)->create();
         $data = TableProduct::orderBy('created_at', 'DESC')->get();
-
-        // Lấy màu,size theo product_id
         return view('admin.template.product.man.man',compact('data'));
     }
 
@@ -113,8 +111,11 @@ class ProductController extends BaseController
 
         $product_id = $data['id'];
         $product_properties = TableProductDetail::where('product_id',$product_id)->get();
-        $sql_sizes = \Illuminate\Support\Facades\DB::table('table_products')->select('properties')->where('id',$product_id)->first();
-        $sizes = implode(" ", json_decode($sql_sizes->properties)->sizes);
+        $sql_sizes = DB::table('table_products')->select('properties')->where('id',$product_id)->first();
+        ($sql_sizes->properties != null)
+            ? $sizes = implode(" ", json_decode($sql_sizes->properties)->sizes)
+            : $sizes = null;
+
 
         return view(
             'admin.template.product.man.man_edit',
@@ -210,7 +211,9 @@ class ProductController extends BaseController
 
     public function export_handle()
     {
-        return Excel::download(new ProductsExport(), 'products.csv',  \Maatwebsite\Excel\Excel::CSV);
+        return Excel::download(new ProductsExport(), 'products.csv',  \Maatwebsite\Excel\Excel::CSV,[
+            'Content-Type' => 'text/csv',
+        ]);
     }
     public function deleteAll(Request $request,$id)
     {

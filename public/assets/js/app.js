@@ -63,12 +63,9 @@ function Cart(){
     });
 
 }
-
-
 function AosAnimation(){
     AOS.init({});
 }
-
 function OwlData(obj){
     if(obj.length < 0) return false;
     var xsm_items = obj.attr("data-xsm-items");
@@ -221,6 +218,27 @@ function Search()
     });
 }
 
+function Photobox(){
+    // applying photobox on a `gallery` element which has lots of thumbnails links.
+    // Passing options object as well:
+    //-----------------------------------------------
+    $('#gallery').photobox('a',{ time:6 });
+
+    // using a callback and a fancier selector
+    //----------------------------------------------
+    $('#gallery').photobox('li > a.family',{ time:0 }, callback);
+    function callback(){
+        console.log('image has been loaded');
+    }
+
+    // destroy the plugin on a certain gallery:
+    //-----------------------------------------------
+    $('#gallery').photobox('destroy');
+
+    // re-initialize the photbox DOM (does what Document ready does)
+    //-----------------------------------------------
+    $('#gallery').photobox('prepareDOM');
+}
 function Home(){
     $('.list-hot a:first').addClass('active');
     var id_category = $('.list-hot a:first').data('id');
@@ -346,6 +364,7 @@ function peShiner(){
 
 $(document).ready(function () {
     Home();
+    Photobox();
     Search();
     peShiner();
     Toasty();

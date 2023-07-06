@@ -23,6 +23,10 @@
 <script type="text/javascript" src="{{ asset('public/assets/aos/aos.js') }}">
 </script>
 
+<!-- Photobox -->
+<script type="text/javascript" src="{{ asset('public/assets/js/photobox.js') }}">
+</script>
+
 <script type="text/javascript" src="{{ asset('public/assets/js/lettering.js') }}"></script>
 <script type="text/javascript" src="{{ asset('public/assets/js/textillate.js') }}"></script>
 <script type="text/javascript" src="{{ asset('public/assets/js/placeholderTypewriter.js') }}"></script>

@@ -1105,11 +1105,10 @@ img:not([src]) {
     position: relative;
     overflow: hidden;
 }
-.header .wrap-content{
-}
+.header .wrap-content{padding: 6px 0px;}
 
 .header-left{
-    width: 26%;
+    width: 30%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1252,7 +1251,7 @@ img:not([src]) {
 
 /* Menu */
 .w-menu {
-    width: 70%;
+    width: 49%;
 }
 
 .menu {

@@ -22,7 +22,7 @@ class OrderController extends BaseController
 {
     public function index()
     {
-        $orders = DB::table('table_orders')->orderByDesc('created_at')->get()
+        $orders = DB::table('table_orders')->orderByDesc('created_at')->paginate(10)
         ->map(function($order){
             $order->user = User::find($order->user_id);
             return $order;
@@ -93,9 +93,6 @@ class OrderController extends BaseController
 //        $this->handlePushNoti($dataNoti,$order);
 //
 //        $this->handleUpdateStatus($dataNoti);
-
-
-
         return redirect()
             ->route('admin.order.index')
             ->with('message', 'Bạn đã cập nhật đơn hàng thành công!');
@@ -147,5 +144,15 @@ class OrderController extends BaseController
 
         //push notification for client user id
         $this->sendNotiToUser($data["user_id"],$notification->title,$notification->subtitle, $notification->type);
+    }
+
+    public function destroy($id)
+    {
+        $order = TableOrder::find($id);
+        if($order)
+        {
+            $order->delete();
+            return redirect()->route('admin.order.index')->with('message','Bạn đã xóa hóa đơn thành công');
+        }
     }
 }

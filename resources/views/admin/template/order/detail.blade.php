@@ -102,6 +102,7 @@ Quản lý chi tiết đơn hàng
                                 </thead>
                                 <tbody>
                                     @foreach ($order_details as $k =>$v)
+{{--                                        <?php dd($order_details)  ?>--}}
                                     <tr>
                                         <td class="align-middle">
 
@@ -127,13 +128,10 @@ Quản lý chi tiết đơn hàng
                                             <p class="mb-0">
                                                 <span class="pr-2">Màu:
                                                     {{ $v->color }}
-                                                    <input type="text" name="color[]" value="{{ $v->color }}">
-                                                    <input type="text" name="product_id[]" value="{{ $v->product->id }}">
+                                                    <input type="hidden" name="color[]" value="{{ $v->color }}">
+                                                    <input type="hidden" name="product_id[]" value="{{ $v->product->id }}">
                                                 </span>
-
-                                                <span>Size:
-                                                    {{ $v->size }}
-                                                </span>
+                                                <span>Size:{{ $v->size }} </span>
                                             </p>
                                         </td>
 

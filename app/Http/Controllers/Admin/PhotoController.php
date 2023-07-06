@@ -66,9 +66,7 @@ class PhotoController extends BaseController
     public function edit($id)
     {
         $type = Functions::getTypeByComAdmin();
-        $sql = TablePhoto::where('id',$id)->first();
-        $data = json_decode($sql, true);
-
+        $data = TablePhoto::find($id);
         return view(
             'admin..template.photo.photo_edit',
             compact('data','type')

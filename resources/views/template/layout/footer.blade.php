@@ -3,11 +3,11 @@
         <div class="wrap-content d-flex flex-wrap align-items-start justify-content-between">
             <div class="footer-news">
                 <p class="footer-title"> thông tin liên hệ </p>
-                <div class="footer-info"> {!! $footer['content'] !!} </div>
+                <div class="footer-info"> {!! $footer ? $footer['content'] : '' !!} </div>
             </div>
             <div class="footer-news">
-                <p class="name-company-footer"> {{ $footer['name'] }} </p>
-                <p class="name-company-footer1">   {!! $footer['desc'] !!} </p>
+                <p class="name-company-footer"> {{ $footer ? $footer['name'] :''  }} </p>
+                <p class="name-company-footer1">   {!! $footer ? $footer['desc']  : ''!!} </p>
                 @if(!empty($social) )
                 <div class="social social-footer d-flex align-items-center justify-content-center">
                     @foreach($social as $k => $v)

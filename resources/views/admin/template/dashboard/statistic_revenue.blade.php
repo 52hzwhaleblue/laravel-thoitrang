@@ -60,6 +60,7 @@
 {{--                </div>--}}
 
                 <!-- Thống kế top 10 sản phẩm được xem nhiều nhất -->
+                <?php if(count($top10ProductMostViewed)) { ?>
                 <div class="col-4">
                     <div class="p-3 m-20 bg-white rounded shadow">
                         <h6 class="text-dark"> Top 10 sản phẩm được xem nhiều nhất </h6>
@@ -78,8 +79,10 @@
                         </ul>
                     </div>
                 </div>
+                <?php } ?>
 
                 <!-- Thống kế top 10 sản phẩm bán chạy -->
+                <?php if(count($top10ProductBestSeller)) { ?>
                 <div class="col-4">
                     <div class="p-3 m-20 bg-white rounded shadow">
                         <h6 class="text-dark"> Top 10 sản phẩm bán chạy </h6>
@@ -100,6 +103,7 @@
                         </ul>
                     </div>
                 </div>
+                <?php } ?>
             </div>
         </div>
     </div>

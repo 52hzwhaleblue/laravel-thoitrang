@@ -40,7 +40,7 @@ class AppServiceProvider extends ServiceProvider
 
         if(Schema::hasTable('table_photos')){
             $social = TablePhoto::where('type', 'social')->get();
-            $slide = TablePhoto::where('type', 'slideshow')->get();
+            $slide = TablePhoto::where('type', 'slideshow')->where('status',1)->get();
 
             View::share(compact(
                 'social',

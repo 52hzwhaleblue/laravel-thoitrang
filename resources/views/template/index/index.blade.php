@@ -73,7 +73,7 @@
 </div>
 @endif
 
-<div class="search-wrapper d-hiden">
+<div class="search-wrapper">
     <div class="wrap-content">
         <p class="search-heading" >Bạn tìm gì hôm nay?</p>
         <div class="search-input">
@@ -221,10 +221,10 @@
 <div class="album-wrapper d-hiden">
     <div class="wrap-content">
         <div class="title-main mb-0 "><span>album hình ảnh</span></div>
-        <div class="album-grid ">
+        <div class="album-grid " id="gallery">
             @foreach ($album as $k => $v )
                 <div class="album<?=$k?> ">
-                    <a class="hover_sang3 h-100 scale-img"  href="{{ $v['slug'] }}" title="{{ $v['name'] }}">
+                    <a class="hover_sang3 h-100 scale-img"  href="{{ asset('http://localhost:8000/storage/'.$v->photo) }}" title="{{ $v['name'] }}">
                         <img class="lazyload h-100"
                         src="{{ asset('http://localhost:8000/storage/'.$v->photo) }}" alt="{{ $v['name'] }}" />
                     </a>
