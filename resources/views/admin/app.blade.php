@@ -34,7 +34,7 @@
     <!-- Font-icon css-->
     <link rel="stylesheet" type="text/css" href="{{ asset('./public/backend/assets/css/font-awesome/4.7.0/css/font-awesome.min.css') }}" />
 
-   
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 
@@ -72,7 +72,7 @@
         @if($ProfileComposer['com'] == 'admin.index')
             @include('admin.template.dashboard.index')
         @endif
-        <!-- Yield content -->
+        <!-- Yield content-->
         @yield('content')
     </main>
 
@@ -88,8 +88,11 @@
     <script src="{{  asset('public/backend/assets/js/plugins/pace.min.js')}}"></script>
     <script src="{{ asset('public/backend/assets/js/ckeditor/ckeditor.js')}}"></script>
     <script type="text/javascript">
-        CKEDITOR.replace("cke_content");
-        CKEDITOR.replace("cke_desc");
+        if($('#cke_content').length){
+            CKEDITOR.replace("cke_content");
+            CKEDITOR.replace("cke_desc");
+        }
+
     </script>
 
     <!-- Data table plugin-->

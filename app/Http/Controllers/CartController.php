@@ -43,11 +43,24 @@ class CartController extends BaseController
         $color = $request->get('pronb_color');
         $size = $request->get('pronb_size');
         $productById =  TableProduct::find($product_id);
+
+        if($productById->regular_price == null && $productById->discount == null && $productById->sale_price == null)
+        {
+            $price = 0;
+        }
+
+        if($productById->discount != null){
+            $price = $productById->sale_price;
+        }else{
+            $price = $productById->regular_price;
+        }
+
+
         $data = Cart::add([
             'id' => $product_id,
             'name' => $productById->name,
             'qty' => 1,
-            'price' => ($productById->discount) ? $productById->sale_price : $productById->regular_price ,
+            'price' => $price,
             'options' => [
                 'size' => $size,
                 'color' => $color,

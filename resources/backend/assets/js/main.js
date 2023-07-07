@@ -73,6 +73,7 @@ function checkPrice(){
         if(sale_price > regular_price){
             $( ".regular_price" ).attr('value','').val(0);
             $( ".sale_price" ).attr('value','').val(0);
+            $( ".discount" ).attr('value','').val(0);
         }
         var discount = ((regular_price - sale_price)/regular_price)*100;
         // var discount = (sale_price *100) /regular_price;
@@ -125,7 +126,7 @@ function themthuoctinh(){
                     <label class="d-block" for="color">Color:</label>\
                     <input type="color" id="color" name="color[]" value="#FF0000">\
                 </div>\
-				<div class="d-flex justify-content-between align-item-center mt-1">\
+				<div id="swatch" class="d-flex justify-content-between align-item-center mt-1">\
 					<label class="d-block" for="stock">Tồn kho:</label>\
 					<input type="text" name="stock[]" class="form-control w-75 " placeholder="Tồn kho" value="0" title="Tồn kho">\
 				</div>\
@@ -133,6 +134,12 @@ function themthuoctinh(){
 		</div>');
 }
 
+function xoathuoctinh(){
+    $('.btn-xoa-thuoctinh').click(function(event) {
+        console.log($(this).parents('.thuoctinh-box'));
+        $(this).parents('.thuoctinh-box').remove();
+    });
+}
 function autoLogoutAfter5Min(){
 
     $('.dangxuat-btn').click(function (){
@@ -165,6 +172,7 @@ function autoLogoutAfter5Min(){
 }
 $(document).ready(function() {
     // autoLogoutAfter5Min();
+    xoathuoctinh();
     changeTitle();
     checkPrice();
     checAll();

@@ -14491,10 +14491,19 @@ table.dataTable thead>tr>th.sorting_asc{
 /*Admin Input Color*/
 #swatch{
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
 }
+#swatch label{
+    width: 20%;
+}
+#swatch input{
+    width: 20%;
+}
 
+.btn-xoa-thuoctinh{
+    width: 5%;
+}
 #swatch .info{
     padding: 1em;
 }

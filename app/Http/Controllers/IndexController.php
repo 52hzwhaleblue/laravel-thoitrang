@@ -127,16 +127,14 @@ class IndexController extends Controller
         $data = DB::table('table_products')
             ->where('category_id', $id)
             ->paginate(20);
-        $product_properties = TableProductDetail::where('product_id',$id)->where('stock','>','0')->get();
-        $product_sizes = TableProduct::find($id);
-        $sizes = json_encode($product_sizes->properties["sizes"]);
-        $sizes_decode = json_decode($sizes);
+//        $product_properties = TableProductDetail::where('product_id',$id)->where('stock','>','0')->get();
+//        $product_sizes = TableProduct::find($id);
+//        $sizes = json_encode($product_sizes->properties["sizes"]);
+//        $sizes_decode = json_decode($sizes);
 
         return view('template.category.detail',compact([
             'category_name',
             'data',
-            'sizes_decode',
-            'product_properties',
         ]));
     }
 
@@ -151,7 +149,12 @@ class IndexController extends Controller
         ->get();
         $product_properties = TableProductDetail::where('product_id',$id)->where('stock','>','0')->get();
         $product_sizes = TableProduct::find($id);
-        $sizes = json_encode($product_sizes->properties["sizes"]);
+
+        ($product_sizes->properties != null)
+            ? $sizes = json_encode($product_sizes->properties["sizes"])
+            : $sizes = null;
+
+
         $sizes_decode = json_decode($sizes);
 
         // gọi hàm cập nhật view sản phẩm

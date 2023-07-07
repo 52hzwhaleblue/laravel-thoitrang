@@ -63,16 +63,16 @@
                 </div>
             </li>
 
-            <li>
-                <div class="cart-pro-detail d-flex flex-wrap align-items-center justify-content-between">
-                    <a class="transition addnow addcart text-decoration-none d-flex align-items-center justify-content-center"
-                        data-id="<?=$rowDetail[0]->id ?>" data-action="addnow"><span> Thêm
-                            vào giỏ hàng </span></a>
-                    <a class="transition buynow addcart text-decoration-none d-flex align-items-center justify-content-center"
-                        data-id="<?=$rowDetail[0]->id ?>" data-action="buynow"><span>Mua
-                            ngay</span></a>
-                </div>
-            </li>
+{{--            <li>--}}
+{{--                <div class="cart-pro-detail d-flex flex-wrap align-items-center justify-content-between">--}}
+{{--                    <a class="transition addnow addcart text-decoration-none d-flex align-items-center justify-content-center"--}}
+{{--                        data-id="<?=$rowDetail[0]->id ?>" data-action="addnow"><span> Thêm--}}
+{{--                            vào giỏ hàng </span></a>--}}
+{{--                    <a class="transition buynow addcart text-decoration-none d-flex align-items-center justify-content-center"--}}
+{{--                        data-id="<?=$rowDetail[0]->id ?>" data-action="buynow"><span>Mua--}}
+{{--                            ngay</span></a>--}}
+{{--                </div>--}}
+{{--            </li>--}}
 
         </ul>
         <div class="desc-pro-detail content-text">
@@ -123,10 +123,10 @@
             @endphp
             <div class="pronb-item col-3 mb-4" data-aos="fade-up" data-aos-duration="1500">
                 <div class="pronb-image">
-                    <a class="pronb-img scale-img" href=chi-tiet-san-pham/{{$v->slug}}/{{$v->id}} >
+                    <a class="pronb-img scale-img" href=/chi-tiet-san-pham/{{$v->slug}}/{{$v->id}} >
                         <img src="{{asset("http://localhost:8000/storage/$v->photo")}}" alt="{{$v->name}}" />
                     </a>
-                    <a class="pronb-img1 scale-img" href=chi-tiet-san-pham/{{$v->slug}}/{{$v->id}} >
+                    <a class="pronb-img1 scale-img" href=/chi-tiet-san-pham/{{$v->slug}}/{{$v->id}} >
                         <img src="{{asset("http://localhost:8000/storage/$v->photo1")}}" alt="{{$v->name}}" />
                     </a>
 
@@ -171,7 +171,7 @@
                     </ul>
                 @endif
                 <h3 class="mb-0">
-                    <a class="pronb-name" href=chi-tiet-san-pham/{{$v->slug}}/{{$v->id}}>
+                    <a class="pronb-name" href=/chi-tiet-san-pham/{{$v->slug}}/{{$v->id}}>
                         <span class="text-split">  {{$v->name}} </span>
                     </a>
                 </h3>

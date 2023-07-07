@@ -348,18 +348,18 @@ function Toasty(){
 }
 
 function peShiner(){
-    $(window).bind("load", function () {
-        var api = $(".peShiner").peShiner({
-          api: true,
-          paused: true,
-          reverse: true,
-          repeat: 1,
-          color: "fireHL",
-      });
-
-        api.resume();
-
-    });
+    if($('.peShiner').length){
+        $(window).bind("load", function () {
+            var api = $(".peShiner").peShiner({
+                api: true,
+                paused: true,
+                reverse: true,
+                repeat: 1,
+                color: "fireHL",
+            });
+            api.resume();
+        });
+    }
 }
 
 $(document).ready(function () {

@@ -80,7 +80,7 @@ class PhotoStaticController extends BaseController
 
     public function update(Request $request, $id)
     {
-        $url = $this->uploadPhoto($request,"test2/", $this->width, $this->height);
+        $url = $this->uploadPhoto($request,"photo/", $this->width, $this->height);
         $photo = TablePhoto::where('id', $id)->first();
 
         $photo->name = $request->get('name');

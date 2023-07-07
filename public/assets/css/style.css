@@ -2297,6 +2297,10 @@ a.name-newsnb:hover {
     margin-bottom: 15px;
 }
 .pronb-img{}
+.pronb-img img{
+    width:100%;
+    height:100%;
+}
 .pronb-img1{
     position: absolute;
     top: 0;
@@ -2304,6 +2308,12 @@ a.name-newsnb:hover {
     visibility: hidden;
     opacity: 0;
     transition: all .5s;
+    width: 100%;
+    height: 100%;
+}
+.pronb-img1 img{
+    width:100%;
+    height:100%;
 }
 .pronb-item:hover  .pronb-img1{
     visibility: visible;

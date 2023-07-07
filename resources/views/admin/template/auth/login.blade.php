@@ -41,7 +41,7 @@
         </div>
     @endif
     <div class="logo">
-        <h1>Jean Nam C669</h1>
+        <h1>Thời Trang C665</h1>
     </div>
     <div class="login-box">
         <form class="login-form"

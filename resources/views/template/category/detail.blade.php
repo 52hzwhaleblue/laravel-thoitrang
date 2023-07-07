@@ -3,7 +3,7 @@
 <div class="title-main"><span> {{$category_name['name']}}</span></div>
 <div class="content-main mb-5">
     <?php if(count($data)) { ?>
-    <form class="form-cart cart-flag" id="cart-form" action="{{route('cart-add')}}" method="post" enctype="multipart/form-data" >
+    <form class="form-cart cart-flag" id="cart-form" action="{{route('cart-add')}}" method="post" enctype="multipart/form-data" hidden="">
         @csrf
         <input type="text" class="id-input" name="pronb_id" value="" >
         <input type="text" class="color-input" name="pronb_color" value="">
@@ -14,21 +14,24 @@
         @foreach ($data as $k =>$v)
             @php
                 $colors= \App\Models\TableProductDetail::with('product')->where('product_id', $v->id)->where('stock','>','0')->get();
-                $sql_sizes = \Illuminate\Support\Facades\DB::table('table_products')->select('properties')->where('id',1)->first();
-                $sizes = json_decode($sql_sizes->properties)->sizes;
+                $sql_sizes = \Illuminate\Support\Facades\DB::table('table_products')->select('properties')->where('id',$v->id)->first();
+                ($sql_sizes != null)
+                    ? $sizes = json_decode($sql_sizes->properties)->sizes
+                    : $sizes = null;
             @endphp
             <div class="pronb-item col-3 mb-4" data-aos="fade-up" data-aos-duration="1500">
                 <div class="pronb-image">
-                    <a class="pronb-img scale-img" href=chi-tiet-san-pham/{{$v->slug}}/{{$v->id}} >
+                    <a class="pronb-img scale-img" href=/chi-tiet-san-pham/{{$v->slug}}/{{$v->id}} >
                         <img src="{{asset("http://localhost:8000/storage/$v->photo")}}" alt="{{$v->name}}" />
                     </a>
-                    <a class="pronb-img1 scale-img" href=chi-tiet-san-pham/{{$v->slug}}/{{$v->id}} >
+                    <a class="pronb-img1 scale-img" href=/chi-tiet-san-pham/{{$v->slug}}/{{$v->id}} >
                         <img src="{{asset("http://localhost:8000/storage/$v->photo1")}}" alt="{{$v->name}}" />
                     </a>
 
                     <div class="pronb-btn">
                         <p class="add-to-cart"> Thêm nhanh vào giỏ hàng + </p>
                         <ul class="pronb-sizes">
+                            <?php if($sizes != null) { ?>
                             @foreach($sizes as $vsize)
                                 <li
                                     onclick="addToCart()"
@@ -38,6 +41,7 @@
                                     <span> {{$vsize}} </span>
                                 </li>
                             @endforeach
+                            <?php } ?>
                         </ul>
                     </div>
                     <div class="pronb-loader">
