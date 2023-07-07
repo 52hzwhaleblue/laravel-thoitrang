@@ -7,7 +7,6 @@ use App\Models\TableCategory;
 use App\Models\TableNotification;
 use App\Models\TableProductDetail;
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\DB;
@@ -15,14 +14,11 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Gloudemans\Shoppingcart\Facades\Cart;
-
 use Illuminate\Support\Str;
 use Carbon\Carbon;
-
 use App\Mail\SendMail;
 use App\Jobs\SendMailJob;
 use App\Events\PusherEvent;
-
 use App\Models\TableOrder;
 use App\Models\TableOrderDetail;
 use App\Models\TableProduct;
@@ -30,6 +26,11 @@ use App\Models\TablePromotion;
 
 class CartController extends BaseController
 {
+    public $temp_code;
+
+//    public function __construct(){
+//        $this->temp_code = '';
+//    }
     public function index()
     {
         $data = Cart::content();
@@ -54,7 +55,6 @@ class CartController extends BaseController
         }else{
             $price = $productById->regular_price;
         }
-
 
         $data = Cart::add([
             'id' => $product_id,
@@ -146,7 +146,9 @@ class CartController extends BaseController
         $accessKey = 'klm05TvNBzhg7h7j';
         $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
         $orderInfo = "Thanh toán qua ATM MoMo";
+
         $amount = (int)$request->get('product_total');
+
         $orderId = time() ."";
         $redirectUrl = "http://127.0.0.1:8000"; // đường dẫn trả về khi thanh toán thành công
         $ipnUrl = "http://127.0.0.1:8000";
@@ -337,6 +339,7 @@ class CartController extends BaseController
         $promotion_elo =  TablePromotion::where('code',$promo_code);
         $promotion = $promotion_elo->first();
         $isBelongToProduct = false;
+      
         if($promo_code == ''){
             $alert = "<p class='font-weight-bold text-danger'>
                Bạn chưa nhập mã giảm giá
@@ -345,7 +348,6 @@ class CartController extends BaseController
                 'alert' =>$alert,
             );
             return $data;
-
         }
 
         if(!$promotion){
@@ -387,6 +389,21 @@ class CartController extends BaseController
                     );
                     return $data ;
                 }
+
+        $is_check_exists = false;
+
+        if(!empty($promotion->product_id)){
+            //check cart has product_id in table promotion
+            foreach ($dataCart as $key => $value) {
+                if($value->id == $promotion->product_id){
+                    $id = (int)$value->id;
+                    $is_check_exists = !$is_check_exists;
+                    break;
+                }
+            }
+            if(!$is_check_exists){
+                $result = "Mã khuyến mãi này chỉ áp dụng khi đơn hàng bạn có product_id là".$promotion->product_id;
+                 return $result;
             }
         }
 
@@ -423,5 +440,6 @@ class CartController extends BaseController
             'totalText' =>$totalText
         );
         return $data ;
+
     }
 }
