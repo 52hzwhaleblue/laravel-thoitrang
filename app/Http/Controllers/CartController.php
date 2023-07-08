@@ -210,9 +210,10 @@ class CartController extends BaseController
         $user_id = Auth::user()->id;
         $code_order = 'UNI'.Str::random(5);
         $promo_code = $request->get('promo_code');
+        $promo_elo = DB::table('table_promotions')->where('code',$promo_code)->first();
 
 
-        $db::transaction(function () use ($request,$user_id,$dataUser,$dataCart,$code_order) {
+        $db::transaction(function () use ($request,$user_id,$dataUser,$dataCart,$code_order,$promo_elo) {
             // Lưu vào table_order
             $order = TableOrder::create([
                 'code' => $code_order,
@@ -223,6 +224,7 @@ class CartController extends BaseController
                 'temp_price' => (int)Cart::total(),
                 'total_price' => (int)$request->get('product_total'),
                 'payment_method' => $dataUser['payment_method'],
+                'promotion_id' => ($promo_elo) ? (int)$promo_elo->id : null,
                 'status_id' => 1,
             ]);
             // Lưu vào table_order_details

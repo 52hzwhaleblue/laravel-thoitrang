@@ -23,9 +23,12 @@ Route::post('user-login', [\App\Http\Controllers\Auth\LoginController::class ,'l
 
 Route::get('/', [IndexController::class ,'index'])->name('index');
 Route::get('/gioi-thieu', [IndexController::class,'static'])->name('gioi-thieu');
-Route::get('/tin-tuc', [IndexController::class,'post'])->name('tin-tuc');
 
+Route::get('/tin-tuc', [IndexController::class,'post'])->name('tin-tuc');
 Route::get('/tin-tuc/{slug}', [IndexController::class,'post_detail']);
+
+Route::get('/dich-vu', [IndexController::class,'post'])->name('dich-vu');
+Route::get('/dich-vu/{slug}', [IndexController::class,'post_detail']);
 
 Route::get('/san-pham', [IndexController::class,'san_pham'])->name('san-pham');
 Route::get('/chi-tiet-san-pham/{slug}/{id}', [IndexController::class,'chi_tiet_san_pham'])->name('chi_tiet_san_pham');

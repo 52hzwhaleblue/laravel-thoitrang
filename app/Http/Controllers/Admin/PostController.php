@@ -41,7 +41,7 @@ class PostController extends BaseController
     public function store(Request $request)
     {
         $url = $this->uploadPhoto($request,"post/", $this->width, $this->height);
-
+        dd($this->height);
         $post = new TablePost();
         $post->name = $request->get('name');
         $post->desc = $request->get('desc');

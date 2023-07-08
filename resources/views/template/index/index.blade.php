@@ -225,7 +225,7 @@
             @foreach ($album as $k => $v )
                 <div class="album<?=$k?> ">
                     <a class="hover_sang3 h-100 scale-img"  href="{{ asset('http://localhost:8000/storage/'.$v->photo) }}" title="{{ $v['name'] }}">
-                        <img class="lazyload h-100"
+                        <img class="lazyload w-100 h-100"
                         src="{{ asset('http://localhost:8000/storage/'.$v->photo) }}" alt="{{ $v['name'] }}" />
                     </a>
                 </div>
@@ -254,13 +254,13 @@
             data-navtext="" data-navcontainer="">
             @foreach ($dichvu as $k =>$v)
             <div class="dichvu-item">
-                <a class="dichvu-img hover_sang3 scale-img" href="{{$v->slug}}">
+                <a class="dichvu-img hover_sang3 scale-img" href="/dich-vu/{{$v->slug}}">
                     <img class="lazyload"
                         src="{{ asset('http://localhost:8000/storage/'.$v->photo) }}" alt="{{$v->name}}" />
                 </a>
                 <div class="dichvu-info">
                     <h3 class="dichvu-name">
-                        <a class="text-split" href="{{$v->slug}}"> {{$v->name}} </a>
+                        <a class="text-split" href="/dich-vu/{{$v->slug}}"> {{$v->name}} </a>
                     </h3>
                     <div class="dichvu-desc">
                         {!! $v->desc !!}
@@ -283,7 +283,7 @@
             data-navtext="" data-navcontainer="">
             @foreach ($tieuchi as $k =>$v)
             <div class="tieuchi-item">
-                <a class="tieuchi-img hover_sang3 scale-img" href="{{$v->slug}}">
+                <a class="tieuchi-img rotateY_img scale-img" href="{{$v->slug}}">
                     <img class="lazyload"
                         src="{{ asset('http://localhost:8000/storage/'.$v->photo) }}" alt="{{$v->name}}" />
                 </a>

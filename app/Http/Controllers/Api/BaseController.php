@@ -100,6 +100,9 @@ class BaseController extends Controller
                     $constraint->upsize();
                 })->encode(null);
 
+                // create a new Image instance for inserting
+                //$thumbnail_image->insert('https://mcdn.coolmate.me/image/June2023/mceclip1_43.png', 'bottom-right', 10, 10);
+
                 // Save thumbnail to storage
                 $thumbnail_path = 'thumbnails/'. $dir  . $path_file;
                 Storage::disk('public')->put($thumbnail_path, (string) $thumbnail_image->encode());

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Events\UpdateOrderEvent;
 use App\Http\Controllers\Controller;
 use App\Models\TableProductDetail;
+use App\Models\TablePromotion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Api\BaseController as BaseController;
@@ -40,7 +41,12 @@ class OrderController extends BaseController
         $rowOrder = DB::table('table_orders')
             ->where('id',$order_id)
             ->first();
-
+        // giá tiền sau khi giảm
+        $discount_price = null;
+        if($rowOrder->promotion_id) {
+            $promotion_elo = TablePromotion::with('order')->where('id', $rowOrder->promotion_id)->first();
+            $discount_price = (int)$promotion_elo->discount_price;
+        }
         $rowUser = User::where('id',$user_id)->first();
         $order_details = TableOrderDetail::where('order_id', $order_id)->get()
         ->map(function($order_detail){
@@ -49,7 +55,7 @@ class OrderController extends BaseController
         },);
         $order_status = TableOrderStatus::get();
 
-        return view('admin.template.order.detail',compact('order_details','order_status','rowOrder','rowUser'));
+        return view('admin.template.order.detail',compact('order_details','order_status','rowOrder','rowUser','discount_price'));
     }
 
     public function update(Request $request)
