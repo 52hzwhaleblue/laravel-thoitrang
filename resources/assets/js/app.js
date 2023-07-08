@@ -38,6 +38,7 @@ function Cart(){
     $('.magiamgia_submit').click(function (){
         let promo_code = $(this).parents().find('.promo_code').val();
         // $(this).parents().find('.promo_code').attr('value',promo_code);
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -186,7 +187,6 @@ function Search()
     if ($("#keyword").length) {
         $("#keyword").keyup(function(event) {
             var key = $(this).val();
-
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -230,6 +230,7 @@ function Photobox(){
     function callback(){
         console.log('image has been loaded');
     }
+
 
     // destroy the plugin on a certain gallery:
     //-----------------------------------------------

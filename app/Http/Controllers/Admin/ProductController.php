@@ -112,11 +112,11 @@ class ProductController extends BaseController
 
         $product_id = $data['id'];
         $product_properties = TableProductDetail::where('product_id',$product_id)->get();
+
         $sql_sizes = DB::table('table_products')->select('properties')->where('id',$product_id)->first();
         ($sql_sizes->properties != null)
             ? $sizes = implode(" ", json_decode($sql_sizes->properties)->sizes)
             : $sizes = null;
-
 
         return view(
             'admin.template.product.man.man_edit',
@@ -134,7 +134,7 @@ class ProductController extends BaseController
             'sizes'=>$sizes,
             'origin'=> 'Vietnam',
         ];
-
+      
         $product = TableProduct::where('slug', $slug)->first();
         $product->status = (int)$request->get('status');
         $product->name = $request->get('name');
