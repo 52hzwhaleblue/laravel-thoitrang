@@ -86,19 +86,20 @@ class OrderController extends BaseController
                 $product_detail->stock +=$qty;
                 $product_detail->save();
             }
+
             return redirect()
                 ->route('admin.order.index')
                 ->with('message', 'Bạn đã hủy đơn hàng thành công!');
         }
-//        $dataNoti =  [
-//            "user_id" => $user_id,
-//            "order_id" => $order_id,
-//            "status" => $order_status,
-//        ];
-//
-//        $this->handlePushNoti($dataNoti,$order);
-//
-//        $this->handleUpdateStatus($dataNoti);
+        $dataNoti =  [
+            "user_id" => $user_id,
+            "order_id" => $order_id,
+            "status" => $order_status,
+        ];
+
+        $this->handlePushNoti($dataNoti,$order);
+
+        $this->handleUpdateStatus($dataNoti);
         return redirect()
             ->route('admin.order.index')
             ->with('message', 'Bạn đã cập nhật đơn hàng thành công!');

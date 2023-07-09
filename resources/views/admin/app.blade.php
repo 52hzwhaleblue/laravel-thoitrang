@@ -192,7 +192,7 @@
 
             },
             title: {
-                text: 'Monthly Inflation in Argentina, 2002',
+                text: 'Thống kê doanh thu',
                 floating: true,
                 offsetY: 330,
                 align: 'center',
@@ -222,10 +222,14 @@
                 // }]);
                 chart.updateOptions({
                     series: [{
-                        data: response
+                        data: response.total_price
                     }],
                     xaxis: {
-                        position: 'bottom'
+                        position: 'bottom',
+                        categories:response.date
+                    },
+                    title: {
+                        text: 'Thống kê doanh thu từ '+response.tungay+' đến '+response.denngay,
                     }
                 });
             });

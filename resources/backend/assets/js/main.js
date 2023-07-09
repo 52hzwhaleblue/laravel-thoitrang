@@ -96,7 +96,7 @@ function realtimeNotification(){
         cluster: 'ap1'
     });
 
-    var channel = pusher.subscribe('notification-channel');
+    var channel = pusher.subscribe('payment-channel');
     channel.bind('payment-event', function(data) {
         countNotification();
         orderNotification(data);

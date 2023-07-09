@@ -52,6 +52,7 @@ function Cart(){
             },
             method: "POST",
             success: function(result) {
+                console.log(result);
                 $('.promo_alert').html(result.alert);
                 $('.product_total').text(result.totalText);
                 $("input[name=product_total]").attr('value',result.total);
@@ -199,6 +200,9 @@ function Search()
                     key: key,
                 },
                 success: function(result) {
+                    if (result == null){
+                        console.log('null!!!');
+                    }
                     if (result != '') {
                         $('.show-search').removeClass('d-none');
                         $('.show-search').html(result);
@@ -219,27 +223,8 @@ function Search()
 }
 
 function Photobox(){
-    // applying photobox on a `gallery` element which has lots of thumbnails links.
-    // Passing options object as well:
-    //-----------------------------------------------
-    $('#gallery').photobox('a',{ time:6 });
-
-    // using a callback and a fancier selector
-    //----------------------------------------------
-    $('#gallery').photobox('li > a.family',{ time:0 }, callback);
-    function callback(){
-        console.log('image has been loaded');
-    }
-
-    // destroy the plugin on a certain gallery:
-    //-----------------------------------------------
-    $('#gallery').photobox('destroy');
-
-    // re-initialize the photbox DOM (does what Document ready does)
-    //-----------------------------------------------
-    $('#gallery').photobox('prepareDOM');
+    $('#album').photobox('a',{thumbs:true,loop:false});
 }
-
 function Home(){
     $('.list-hot a:first').addClass('active');
     var id_category = $('.list-hot a:first').data('id');
@@ -255,7 +240,6 @@ function Home(){
         success:function(data){
             $('.load_ajax_product').html(data);
             OwlData($('.owl-pronb'));
-
         }
     });
 

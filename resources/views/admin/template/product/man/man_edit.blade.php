@@ -189,16 +189,6 @@
 
                             <div class="col-xl-4">
                                 <div class="mb-3">
-                                    <label for="price" class="form-label">Sizes :</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" id="sizes" placeholder="Sizes"
-                                               name="sizes" value=" {{$sizes}} " />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-xl-4">
-                                <div class="mb-3">
                                     <label for="price" class="form-label">Giá cũ :</label>
                                     <div class="input-group">
                                         <input type="number" class="form-control regular_price" id="price" placeholder="Giá cũ"

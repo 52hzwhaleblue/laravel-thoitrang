@@ -28,16 +28,30 @@ class StatisticController extends Controller
 
 
         $sql = DB::table('table_orders')
-            ->select('total_price')
+            ->select('total_price','created_at')
             ->whereBetween('created_at',[$tungay,$denngay])
             ->orderBy('created_at', 'ASC')
             ->limit(12)
             ->get();
         $total_price = array();
         foreach ($sql as $k => $v) {
-            $total_price[] = $v->total_price;
+            $total_price[] = number_format($v->total_price);
         }
-        echo  $data = json_encode($total_price,true);
+
+        $date = array();
+        foreach ($sql as $k => $v) {
+            $date[] = $v->created_at;
+        }
+
+        $data = [
+            'total_price'=>$total_price,
+            'date'=>  $date,
+            'tungay'=>  $tungay,
+            'denngay'=>  $denngay,
+
+        ];
+        echo json_encode($data,true);
+//        echo  $data = json_encode($total_price,true);
     }
 
     public function dashboard_filter(Request $request){

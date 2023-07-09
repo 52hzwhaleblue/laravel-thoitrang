@@ -175,7 +175,7 @@ Quản lý chi tiết đơn hàng
 
                             <div class="d-flex justify-content-end align-items-center text-right mt-3">
                                 <p class="mr-3 mb-0 text-dark font-weight-bold">Tiền giảm:</p>
-                                <p class=" mb-0 text-right text-danger font-weight-bold">{{$total_price*$discount_price/100}}</p>
+                                <p class=" mb-0 text-right text-danger font-weight-bold">- {{$total_price*$discount_price/100}}</p>
                             </div>
 
                             <?php } ?>

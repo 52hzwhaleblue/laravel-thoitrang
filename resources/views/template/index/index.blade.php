@@ -230,12 +230,6 @@
                 </div>
             @endforeach
         </div>
-        <a href="thu-vien-anh">
-            <button class="album-btn button-wave m-auto">
-                <span>Xem thêm</span>
-                <div></div>
-            </button>
-        </a>
     </div>
 </div>
 @endif
@@ -282,10 +276,10 @@
             data-navtext="" data-navcontainer="">
             @foreach ($tieuchi as $k =>$v)
             <div class="tieuchi-item">
-                <a class="tieuchi-img rotateY_img scale-img" href="{{$v->slug}}">
+                <div class="tieuchi-imng">
                     <img class="lazyload"
-                        src="{{ asset('http://localhost:8000/storage/'.$v->photo) }}" alt="{{$v->name}}" />
-                </a>
+                         src="{{ asset('http://localhost:8000/storage/'.$v->photo) }}" alt="{{$v->name}}" />
+                </div>
                 <div class="tieuchi-info">
                    <p class="tieuchi-name text-split"> {{ $v['name'] }} </p>
                 </div>

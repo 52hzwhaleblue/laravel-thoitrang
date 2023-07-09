@@ -28,7 +28,7 @@ class OrderController extends BaseController
             ->where('user_id', $userId)
             ->where('status_id',1)
             ->get();
-                            
+
             $completed = $order_sql::with(['orderDetail','promotion' ,'orderDetail.product','orderDetail.product.productDetail'])
             ->orderByDesc('created_at')
             ->where('user_id', $userId)
@@ -47,7 +47,7 @@ class OrderController extends BaseController
             ->where('user_id', $userId)
             ->where('status_id',2)
             ->get();
-            
+
             $response = [
                 "to_pay" => $toPay,
                 "to_ship" => $toShip,
@@ -62,7 +62,7 @@ class OrderController extends BaseController
     }
 
     public function create(Request $request,DB $db ){
-        try {     
+        try {
             $validator = Validator::make($request->all(),
             [
                 'shipping_fullname' => "nullable|required",
@@ -93,15 +93,15 @@ class OrderController extends BaseController
                 'notes' => $request->input('notes'),
                 'id_promotion' => $request->input('id_promotion'),
             ];
-            
+
 
             $job = new InsertOrderJob($request->input('list_product'),$data);
-        
 
-            $db::transaction(function () use ($job) {   
+
+            $db::transaction(function () use ($job) {
                 dispatch($job);
             });
-        
+
 
             $order = TableOrder::with(['orderDetail', 'promotion','orderDetail.product','orderDetail.product.productDetail'])
             ->where('user_id', Auth::id())
@@ -110,9 +110,9 @@ class OrderController extends BaseController
 
 
             $this->createPushNoti($order->id);
-            
+
             return $this->sendResponse( $order, "Create order successfully!!!");
-            
+
 
 
         } catch (\Throwable $th) {
@@ -121,7 +121,7 @@ class OrderController extends BaseController
     }
 
     private function createPushNoti($order_id){
-        
+
         $noti = new TableNotification();
 
         $noti_sql = $noti::create([
@@ -139,7 +139,7 @@ class OrderController extends BaseController
             'subtitle' => $noti_sql->subtitle,
             'created_at' => $noti_sql->created_at,
         ];
-        
+
         $this->pusher('new-order','create-order',$data);
     }
 
@@ -154,11 +154,11 @@ class OrderController extends BaseController
             foreach($list_product as $item){
 
                 $color = substr($item->color,1);
-                
+
                 $detail = $product_detail_sql::where('product_id',$item->product_id)
                 ->where('color',$color)->first();
 
-                
+
                 $detail->update([
                     "stock" => $detail->stock + $item->quantity
                 ]);
@@ -170,7 +170,7 @@ class OrderController extends BaseController
                 //check apply promotion
 
                 $promotion_sql = new TablePromotion();
-                
+
                 $promotion = $promotion_sql::find($order->promotion_id);
 
                 $promotion->update(["limit" => $promotion->limit + 1]);
@@ -179,7 +179,7 @@ class OrderController extends BaseController
 
             //delete order
             $order->delete();
-         
+
 
             return $this->sendResponse([], "Delete order successfully!!!");
         } catch (\Throwable $th) {
@@ -192,7 +192,7 @@ class OrderController extends BaseController
             $idPromotion = $request->input("idPromotion");
 
             $promotion = TablePromotion::find($idPromotion);
-          
+
             if($promotion->limit < 1){
                 return $this->sendResponse(201, "Apply promotion failure!!!");
             }

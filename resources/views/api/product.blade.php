@@ -1,4 +1,5 @@
-<form class="form-cart" id="cart-form" action="{{route('cart-add')}}" method="post" enctype="multipart/form-data"  hidden="">
+<form class="form-cart cart-flag" id="cart-form" action="{{route('cart-add')}}" method="post" enctype="multipart/form-data"
+      hidden="">
     @csrf
     <input type="text" class="id-input" name="pronb_id" value="" >
     <input type="text" class="color-input" name="pronb_color" value="">
@@ -28,7 +29,7 @@
      data-navcontainer = ".control-sanpham">
     @foreach ($data as $k =>$v)
     @php
-        $colors= \App\Models\TableProductDetail::with('product')->where('product_id', $v->id)->where('stock','>','0')->get();
+        $colors= \App\Models\TableProductDetail::where('product_id', $v->id)->where('stock','>','0')->get();
         $sql_sizes = \Illuminate\Support\Facades\DB::table('table_products')->select('properties')->where('id',$v->id)->first();
         $sizes = json_decode($sql_sizes->properties)->sizes;
     @endphp

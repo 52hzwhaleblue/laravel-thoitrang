@@ -10,6 +10,23 @@
             @csrf
         </form>
     </div>
+    <h3> Bộ sưu tập hình ảnh </h3>
+    <?php
+        $rowDetailPhoto = \App\Models\TableProductDetail::where('product_id',$id)->get();
+    ?>
+
+    <?php if(count($rowDetailPhoto)>0)  { ?>
+        <div class="row">
+            <?php foreach ($rowDetailPhoto as $k => $v) { ?>
+            <div class="col-3">
+                <img class="d-block" src="{{asset("http://localhost:8000/storage/$v->photo")}}" alt="{{$v->name}}" />
+
+            </div>
+            <?php } ?>
+        </div>
+    <?php }  ?>
+
+
 
     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script> --}}
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Api\BaseController;
 use App\Http\Controllers\Controller;
 use App\Models\TableProduct;
 use Illuminate\Http\Request;
@@ -9,7 +10,7 @@ use App\Models\TablePromotion;
 use Functions;
 
 
-class OptionController extends Controller
+class OptionController extends BaseController
 {
     public $type;
 
@@ -48,6 +49,13 @@ class OptionController extends Controller
         $option->limit = $request->get('limit');
         $option->end_date = $request->get('end_date');
         $option->save();
+
+        $noti = [
+            'title'=> 'Có một voucher giảm giá '.$request->get('discount_price'),
+            'body' => $request->get('order_price_conditions')
+        ];
+        $this->pusher('promo-channel','promo-event',$noti);
+
         return redirect()
             ->route('admin.option.'.$this->type.'.index')
             ->with('message', 'Bạn đã tạo ' .$this->type. ' thành công!');
