@@ -27,49 +27,40 @@
                         <table class="table table-hover table-bordered" id="sampleTable">
                             <thead>
                                 <tr>
-                                    <th>
-                                        <div class="custom-control custom-checkbox my-checkbox">
-                                            <input type="checkbox" class="checkAll custom-control-input"
-                                                id="selectall-checkbox">
-                                        </div>
-                                    </th>
-                                    <th width="10%">STT</th>
-                                    <th width="30%">Tiêu đề</th>
-                                    <th>Hiển thị</th>
+                                    <th width="20%">Tiêu đề</th>
+                                    <th width="20%">Mã giảm giá</th>
+                                    <th width="20%">Điều kiện đơn hàng giảm</th>
+                                    <th width="20%">Giá trị giảm (%) </th>
+                                    <th width="10%">Số lượng </th>
+                                    <th width="20%">Ngày hết hạn </th>
                                     <th>Thao tác</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($data as $k => $v)
                                     <tr>
-                                        <th>
-                                            <div class="custom-control custom-checkbox my-checkbox">
-                                                <input type="checkbox" name="list_check[]" value="{{ $v['id'] }}"
-                                                    class="custom-control-input" id="selectall-checkbox">
-                                            </div>
+                                        <th class="align-middle">
+                                            <a class="text-dark" href=" {{ route('admin.option.' . $type . '.edit', $v['id']) }} ">
+                                                {{ $v['name'] }}
+                                            </a>
                                         </th>
                                         <th class="align-middle">
-                                            <input type="number" class="form-control form-control-mini m-auto update-numb"
-                                                min="0" value="1" data-id="1" data-table="products" />
-                                        </th>
-
-                                        <th class="align-middle">
-                                            <a href=" {{ route('admin.option.' . $type . '.edit', $v['id']) }} ">
+                                            <a class="text-dark" href=" {{ route('admin.option.' . $type . '.edit', $v['id']) }} ">
                                                 {{ $v['code'] }}
                                             </a>
                                         </th>
                                         <th class="align-middle">
-                                            <div
-                                                class="custom-control custom-checkbox my-checkbox"
-                                            >
-                                                <input
-                                                    type="checkbox"
-                                                    class="custom-control-input show-checkbox arrStatus"
-                                                    data-table="product_lists"
-                                                    data-id="{{ $v['id'] }}"
-                                                    @if ($v['status'] == 1) checked @endif
-                                                />
-                                            </div>
+                                            {{$v['order_price_conditions'] ? number_format($v['order_price_conditions']).' vnđ' : ''}}
+
+                                        </th>
+                                        <th class="align-middle">
+                                            {{$v['discount_price'] ? number_format($v['order_price_conditions']).' %' : ''}}
+                                        </th>
+                                        <th class="align-middle">
+                                            {{ $v['limit'] }}
+                                        </th>
+                                        <th class="align-middle">
+                                            {{ $v['end_date'] }}
                                         </th>
 
                                         <th class="align-middle d-flex">

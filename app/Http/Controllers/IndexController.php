@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\PusherEvent;
 use App\Models\TableNotification;
 use App\Models\TableProductDetail;
+use App\Models\TablePromotion;
 use File;
 use App\Models\TablePost;
 use App\Models\TablePhoto;
@@ -37,7 +38,6 @@ class IndexController extends Controller
         $gioithieu = TableStatic::where('type', 'gioi-thieu')->first();
         $gioithieu_slide = TablePhoto::where('type', 'gioithieu-slide')->get();
         $quangcao = TablePhoto::where('type', 'quang-cao')->get();
-        $banner_sanpham = TablePhoto::where('type', 'banner-sanpham')->get();
         $bannerQC = TablePhoto::where('type', 'banner-quangcao')->first();
         $album = TablePhoto::where('type', 'thu-vien-anh')->get();
 
@@ -46,6 +46,7 @@ class IndexController extends Controller
         $dichvu = TablePost::where('type', 'dich-vu')->get();
         $tieuchi = TablePost::where('type', 'tieu-chi')->get();
         $tintuc = TablePost::where('type', 'tin-tuc')->get();
+        $promotion = TablePromotion::all();
 
         return view('template.index.index',compact([
             'splistnb',
@@ -58,6 +59,7 @@ class IndexController extends Controller
             'tieuchi',
             'bannerQC',
             'tintuc',
+            'promotion'
         ]));
     }
 
@@ -68,6 +70,15 @@ class IndexController extends Controller
         ->where('category_id', $id_category)
         ->get();
         return view('api.product',compact(['data']));
+    }
+
+    public function load_ajax_search(Request $request)
+    {
+        $key =  $request->get('key');
+        $data = DB::table('table_products')
+            ->where('name','LIKE','%'.$key.'%' )
+            ->get();
+        return view('api.search',compact(['data']));
     }
 
     public function static()

@@ -1,7 +1,5 @@
 @extends('layouts.client')
 @section('content')
-
-    <?php echo $ProfileComposer['com'] ;  ?>
     <div class="content-main mb-5">
     <div class="title-main"> <span> SẢN PHẨM </span></div>
     <?php if(count($product)) { ?>

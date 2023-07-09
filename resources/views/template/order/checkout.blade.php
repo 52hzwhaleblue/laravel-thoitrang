@@ -94,6 +94,7 @@
                     <label class="custom-control-label" for="momo">Thanh toán MOMO</label>
                 </div>
             </div>
+
         </div>
 
         <div class="col-md-4 mb-4">
@@ -123,28 +124,22 @@
                 <input type="hidden" name="product_subtotal" value="{{ $row->subtotal }}">
                 @endforeach
                 <li class="list-group-item d-flex justify-content-between">
-                    <span>Total (VNĐ)</span>
-                    <strong> {{ number_format(Cart::total(),0,',','.') }} </strong>
+                    <strong class="text-danger text-2xl h5 ">Total (VNĐ)</strong>
+                    <strong class="text-danger text-2xl h5 product_total "> {{ number_format(Cart::total(),0,',','.') }} </strong>
                 </li>
             </ul>
+
+            <div class="input-group">
+                <input type="text" class="form-control promo_code" placeholder="Promo code" name="promo_code">
+                <div class="input-group-append">
+                    <div  name="magiamgia_submit" class="btn btn-secondary magiamgia_submit">submit</div>
+                </div>
+            </div>
+
         </div>
-        <button class="btn btn-primary" type="submit" > Thanh Toán  </button>
 
-</form>
-
-{{--<form method="POST" action="{{ route('cart.momo') }}">--}}
-{{--    @csrf--}}
-{{--    <button class="btn btn-primary" type="submit" value="MOMO" name="payment_method"> Thanh Toán MOMO </button>--}}
-{{--</form>--}}
-
-<form class="card p-2" action="{{ route('cart.ma_giam_gia') }}" method="post">
-    @csrf
-    <div class="input-group">
-        <input type="text" class="form-control" placeholder="Promo code" name="promo_code">
-        <div class="input-group-append">
-            <button type="submit" class="btn btn-secondary">Redeem</button>
-        </div>
     </div>
+        <button class="btn btn-primary" type="submit" > Thanh Toán  </button>
 </form>
 
 </div>
