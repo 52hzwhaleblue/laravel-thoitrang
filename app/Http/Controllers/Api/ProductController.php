@@ -81,7 +81,7 @@ class ProductController extends BaseController
 
             $currentDate = Carbon::now(); 
 
-            $threeMonthsAgo = $currentDate->copy()->subDays(90)->toDateString();
+            $threeMonthsAgo = $currentDate->copy()->subDays(30)->toDateString();
 
             $products = TableProduct::with(['category','productDetail'])
                 ->withCount('orderDetail as sold')

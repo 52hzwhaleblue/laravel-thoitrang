@@ -3,46 +3,49 @@
 namespace App\Http\Controllers\Api;
 
 
+use Carbon\Carbon;
 use App\Models\Product;
 use App\Models\TableOrder;
 use App\Jobs\InsertOrderJob;
 use Illuminate\Http\Request;
 use App\Models\TablePromotion;
+use App\Models\TableOrderDetail;
+use App\Models\TableNotification;
+use App\Models\TableProductDetail;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use App\Http\Controllers\Api\BaseController as BaseController;
-use App\Models\TableNotification;
-use App\Models\TableOrderDetail;
-use App\Models\TableProductDetail;
 use PhpOffice\PhpSpreadsheet\Calculation\Logical\Boolean;
+use App\Http\Controllers\Api\BaseController as BaseController;
 
 class OrderController extends BaseController
 {
-    public function fetchAll(TableOrder $order_sql){
+    public function fetchAll(){
         try {
             $userId = Auth::id();
 
-            $toPay = $order_sql::with(['orderDetail','promotion' ,'orderDetail.product','orderDetail.product.productDetail'])
-            ->orderByDesc('created_at')
+            $order = new TableOrder();
+
+            $toPay = $order::with(['orderDetail','promotion' ,'orderDetail.product','orderDetail.product.productDetail'])
+            
             ->where('user_id', $userId)
             ->where('status_id',1)
             ->get();
                             
-            $completed = $order_sql::with(['orderDetail','promotion' ,'orderDetail.product','orderDetail.product.productDetail'])
+            $completed = $order::with(['orderDetail','promotion' ,'orderDetail.product','orderDetail.product.productDetail'])
             ->orderByDesc('created_at')
             ->where('user_id', $userId)
             ->withExists('review as evaluated')
             ->where('status_id',4)
             ->get();
 
-            $toReceive =  $order_sql::with(['orderDetail','promotion' ,'orderDetail.product','orderDetail.product.productDetail'])
+            $toReceive =  $order::with(['orderDetail','promotion' ,'orderDetail.product','orderDetail.product.productDetail'])
             ->orderByDesc('created_at')
             ->where('user_id', $userId)
             ->where('status_id',3)
             ->get();
 
-            $toShip = $order_sql::with(['orderDetail','promotion' ,'orderDetail.product','orderDetail.product.productDetail'])
+            $toShip = $order::with(['orderDetail','promotion' ,'orderDetail.product','orderDetail.product.productDetail'])
             ->orderByDesc('created_at')
             ->where('user_id', $userId)
             ->where('status_id',2)
@@ -81,6 +84,8 @@ class OrderController extends BaseController
                 return $this->sendError('validation error',$validator->errors(),401);
             }
 
+            //$this->createPushNoti();
+
             $data =  [
                 'user_id' => Auth::id(),
                 'shipping_phone' => $request->input('shipping_phone'),
@@ -101,15 +106,15 @@ class OrderController extends BaseController
             $db::transaction(function () use ($job) {   
                 dispatch($job);
             });
-        
+            
+
 
             $order = TableOrder::with(['orderDetail', 'promotion','orderDetail.product','orderDetail.product.productDetail'])
             ->where('user_id', Auth::id())
             ->orderByDesc('created_at')
             ->first();
 
-
-            $this->createPushNoti($order->id);
+            // $this->createPushNoti($order->id);
             
             return $this->sendResponse( $order, "Create order successfully!!!");
             
@@ -120,28 +125,6 @@ class OrderController extends BaseController
         }
     }
 
-    private function createPushNoti($order_id){
-        
-        $noti = new TableNotification();
-
-        $noti_sql = $noti::create([
-            "title" => "Đơn hàng mới",
-            "subtitle" => "",
-            'user_id'=> Auth::id(),
-            'order_id' => $order_id,
-            'is_read' => 1,
-            'created_at' =>now(),
-            'updated_at' =>now(),
-        ]);
-
-        $data = [
-            'title' => $noti_sql->title,
-            'subtitle' => $noti_sql->subtitle,
-            'created_at' => $noti_sql->created_at,
-        ];
-        
-        $this->pusher('new-order','create-order',$data);
-    }
 
     public function delete(Request $request,TableOrder $order_sql,TableOrderDetail $order_detail_sql,TableProductDetail $product_detail_sql){
         try {
@@ -153,7 +136,7 @@ class OrderController extends BaseController
 
             foreach($list_product as $item){
 
-                $color = substr($item->color,1);
+                $color = $item->color;
                 
                 $detail = $product_detail_sql::where('product_id',$item->product_id)
                 ->where('color',$color)->first();
@@ -163,8 +146,6 @@ class OrderController extends BaseController
                     "stock" => $detail->stock + $item->quantity
                 ]);
             }
-
-            // return $order->promotion_id == null;
 
             if(!empty($order->promotion_id)){
                 //check apply promotion

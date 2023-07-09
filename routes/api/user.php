@@ -29,8 +29,6 @@ Route::middleware('auth:sanctum')->group(function(){
 
         Route::post('/user/change-password','changePassword');
 
-        Route::post('/user/fetch-new-order','fetchOrder');
-
     });
 
 });

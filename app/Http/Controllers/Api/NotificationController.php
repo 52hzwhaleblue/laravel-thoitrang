@@ -25,6 +25,7 @@ class NotificationController extends BaseController
         $user_id = Auth::id();
 
         $notifications = $tableNoti::where('user_id', $user_id)
+        ->where('type','user')
         ->orderByDesc('created_at')
         ->skip($offset)
         ->take($limit)
@@ -40,45 +41,31 @@ class NotificationController extends BaseController
 
 
    public function create(Request $request){
-
       return $this->sendNotiToUser(Auth::id(),$request->title,$request->subtitle,"notification");
    }
 
-   public function updateReadNoti(Request $request,DB $dB){
-    try {
-        $idNoti = $request->idNoti;
+   public function delete(Request $request){
+        try{
+            $db = new DB;
+            $id = $request->query('id');
+            if($id != -1){
+                $db::table('table_notifications')
+                ->where('id', $id)
+                ->where('user_id',Auth::id())
+                ->where('type','user')
+                ->delete();
 
-        $type = $request->type;
+                return $this->sendResponse([], 'Delete notification successfully');
+            }
 
-        $user_id  = Auth::id();
-
-        if (empty($type)) {
-            return $this->sendResponse([], "Failed notification");
+            $db::table('table_notifications')
+            ->where('user_id',Auth::id())
+            ->where('type','user')
+            ->delete();
+            return $this->sendResponse([], 'Delete all  notification successfully');
+            
+        } catch (\Throwable $th) {
+            return $this->sendError($th->getMessage(), 500);
         }
-
-        $query = $dB::table('table_notifications')
-                  ->where('type', $type)->where('user_id', $user_id);
-               
-        if ($idNoti != -1) {
-
-            $query = $query->where('id', $idNoti);
-        }
-        
-        $dB::beginTransaction();
-
-       
-           
-            $query->update([
-               'is_read' => 1,
-            ]);
-       
-        $dB::commit();
-
-        return $this->sendResponse([], "Updated notification");
-      }catch(\Throwable $th){
-        $dB::rollBack();
-         return $this->sendError($th->getMessage(), 500);
-      }
-
    }
 }

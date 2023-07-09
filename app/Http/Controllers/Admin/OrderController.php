@@ -102,9 +102,9 @@ class OrderController extends BaseController
     }
 
     private function handleUpdateStatus($dataNoti){
-        $data = [
-            "order_id" => $dataNoti["order_id"],
-            "new_status" => $dataNoti["status"],
+        $data = [         
+            "order_id" => (int)$dataNoti["order_id"],
+            "new_status" => (int)$dataNoti["status"],     
         ];
 
         $response = [
@@ -133,7 +133,7 @@ class OrderController extends BaseController
             "title" => "Hệ thống đơn hàng",
             "order_id" => $data["order_id"],
             "subtitle" => $subtitle,
-            "type" => "user_order",
+            "type" => "user",
             "created_at" => now(),
             "updated_at" => now(),
         ]);
