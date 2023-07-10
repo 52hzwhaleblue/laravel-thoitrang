@@ -131,7 +131,7 @@ class InsertOrderJob implements ShouldQueue
             'subtitle' =>$noti_sql->subtitle,
         ];
         
-        $this->pusher('notification-channel','payment-event',$data);
+        $this->pusher('payment-channel','payment-event',$data);
     }
 
     private function pusher($channel,$event,$data){

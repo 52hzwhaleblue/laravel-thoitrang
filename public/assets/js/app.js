@@ -51,7 +51,7 @@ function Cart(){
             method: "POST",
             success: function(result) {
                 $('.product_total').text(result);
-                // console.log(data);
+                console.log(result);
             },
             error: function(xhr, ajaxOptions, thrownError) {
                 // alert(xhr.status);

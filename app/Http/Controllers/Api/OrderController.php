@@ -158,10 +158,11 @@ class OrderController extends BaseController
 
             }
 
+            
+            $this->pusher('delete_order_channel','delete_order_event',$order->id);
             //delete order
             $order->delete();
-         
-
+            
             return $this->sendResponse([], "Delete order successfully!!!");
         } catch (\Throwable $th) {
             return $this->sendError( $th->getMessage(),500);
