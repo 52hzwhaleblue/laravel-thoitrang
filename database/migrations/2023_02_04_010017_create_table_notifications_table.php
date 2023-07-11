@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('subtitle')->nullable();
             $table->string('type')->nullable()->default("");
             $table->foreign('user_id') ->references('id')->on('table_users')->cascadeOnDelete();
-            $table->foreign('order_id') ->references('id')->on('table_orders')->cascadeOnDelete();
             $table->timestamps();
         });
 
