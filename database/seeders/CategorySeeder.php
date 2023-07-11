@@ -24,10 +24,6 @@ class CategorySeeder extends Seeder
             "Quần-Áo","Túi xách","Giày-dép","Đồng hồ", "Mắt kính","Nón","Trang sức"
         ];
 
-        $background_colors = [
-            "CDA263","8282D3","F78FB3","D96161", "F3AE4E","27839B","C1A6C5"
-        ];
-
         $list_slug= [
             "ao_cotton_kid.jpg",
             "ao_phong_unisex_black_white_2.jpg",
@@ -65,7 +61,6 @@ class CategorySeeder extends Seeder
                 "name" => $list_name[$i],
                 "name_vi" => $list_name_vi[$i],
                 "slug" => $list_slug[$i],
-                "background_color" => $background_colors[$i],
                 "photo" => $list_category[$i],
                 "status" => 1,
                 "created_at" => $date,

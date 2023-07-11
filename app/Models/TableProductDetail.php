@@ -18,6 +18,7 @@ class TableProductDetail extends Model
         'photo',
         'product_id',
         'name',
+        'size',
         'color',
         'stock',
         'created_at',

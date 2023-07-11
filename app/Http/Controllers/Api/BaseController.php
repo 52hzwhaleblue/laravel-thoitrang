@@ -178,7 +178,6 @@ class BaseController extends Controller
                     "name" => "adam",
                     "type" => "user",
                  ],
-
             ],
             "fcm" => [
                 "notification" => [

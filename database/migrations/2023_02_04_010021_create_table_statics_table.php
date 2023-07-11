@@ -19,11 +19,9 @@ return new class extends Migration
             $table->increments('id');
             $table->string('photo')->nullable()->default(null);
             $table->string('photo1')->nullable()->default(null);
-            $table->mediumText('options')->nullable()->default(null);
             $table->mediumText('content')->nullable()->default(null);
             $table->mediumText('desc')->nullable()->default(null);
             $table->string('name')->nullable()->default(null);
-            $table->string('file_attach')->nullable()->default(null);
             $table->string('type')->nullable()->default(null);
             $table->integer('status')->default(1);
             $table->timestamps();

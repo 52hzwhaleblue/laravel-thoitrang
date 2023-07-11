@@ -20,6 +20,7 @@ class TableReview extends Model
         'product_id',
         'content',
         'star',
+        'photos',
         "status",
         'created_at',
         'updated_at',
@@ -31,6 +32,7 @@ class TableReview extends Model
      * @var array
      */
     protected $casts = [
+        'photos' => 'array',
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];

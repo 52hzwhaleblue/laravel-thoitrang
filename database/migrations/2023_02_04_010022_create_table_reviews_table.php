@@ -20,18 +20,10 @@ return new class extends Migration
             $table->unsignedInteger('order_id')->nullable();
             $table->integer('star')->nullable();
             $table->string('content')->nullable();
-            $table->string('status')->nullable();
+            $table->json('photos')->nullable();
             $table->foreign('product_id')->references('id')->on('table_products')->cascadeOnDelete();
             $table->foreign('order_id')->references('id')->on('table_orders')->cascadeOnDelete();
             $table->foreign('user_id')->references('id')->on('table_users')->cascadeOnDelete();
-            $table->timestamps();
-        });
-
-        Schema::create('table_review_detail', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('review_id');
-            $table->string('photo')->nullable();
-            $table->foreign('review_id')->references('id')->on('table_reviews')->cascadeOnDelete();
             $table->timestamps();
         });
     }
