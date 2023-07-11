@@ -72,7 +72,7 @@ class CartController extends BaseController
             ],
         ]);
 
-        return redirect('/cart')->with('alert', 'Bạn đã thêm sản phẩm vào giỏ hàng thành công!');
+        return back()->with('CartToast', 'Bạn đã thêm sản phẩm vào giỏ hàng thành công!');
     }
 
     public function update(Request $request)

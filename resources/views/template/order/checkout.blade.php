@@ -1,7 +1,7 @@
 @extends('layouts.client')
 @section('content')
 <form method="POST" action="{{ route('cart.checkPaymentMethod') }}" class="my-5">
-    <div class="row ">
+    <div class="row justify-content-start position-relative ">
         <div class="col-md-8 ">
             <h4 class="mb-3">Thông tin giao hàng</h4>
             @csrf
@@ -70,13 +70,17 @@
             </div>
             <hr class="mb-4">
             <h4 class="mb-3">Hình thức thanh toán</h4>
-            <div class="d-block my-3">
-                <div class="custom-control custom-radio">
+            <div class="d-block my-3 httt-items">
+                <div class="custom-control custom-radio httt-item">
                     <input id="cod" name="payment_method" type="radio" class="custom-control-input" checked value="COD">
+                    <img class="lazyload"
+                         src="{{ asset('http://localhost:8000/storage/cod.png') }}" alt="momo" />
                     <label class="custom-control-label" for="cod">C.O.D</label>
                 </div>
-                <div class="custom-control custom-radio">
+                <div class="custom-control custom-radio httt-item">
                     <input id="momo" name="payment_method" type="radio" class="custom-control-input" value="MOMO">
+                    <img class="lazyload"
+                         src="{{ asset('http://localhost:8000/storage/momo.png') }}" alt="momo" />
                     <label class="custom-control-label" for="momo">Thanh toán MOMO</label>
                 </div>
             </div>
@@ -88,7 +92,7 @@
                 <span class="text-muted">Giỏ hàng của bạn</span>
                 <span class="badge badge-secondary badge-pill"> {{ Cart::count() }} </span>
             </h4>
-            <ul class="list-group mb-3 sticky-top">
+            <ul class="list-group mb-3 sticky-topss">
                 @foreach (Cart::content() as $k =>$row)
                 <li class="list-group-item d-flex justify-content-between lh-condensed">
                     <p class="font-weight-bold">{{ $row->name }}</p>

@@ -2,15 +2,13 @@
 $menus = config('menu');
 @endphp
 
-
-
 <!-- Sidebar menu-->
 <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
 <aside class="app-sidebar">
     <div class="app-sidebar__user">
         <div>
-            <p class="app-sidebar__user-name">John Doe</p>
-            <p class="app-sidebar__user-designation">Frontend Developer</p>
+            <p class="app-sidebar__user-name">{{\Illuminate\Support\Facades\Auth::user()->fullName}}</p>
+            <p class="app-sidebar__user-designation">{{\Illuminate\Support\Facades\Auth::user()->email}}</p>
         </div>
     </div>
     <ul class="app-menu">
@@ -29,7 +27,6 @@ $menus = config('menu');
                 <li>
                     <a class="treeview-item
                         @if($ProfileComposer['com'] == $m1['index']) active  @endif"
-
                         href="{{ $m1['index'] ? route($m1['index']) : '' }}">
                         <i class="fa-regular fa-circle"></i>
                         {{$m1['title']}}
@@ -47,7 +44,7 @@ $menus = config('menu');
         </li>
 
         <li>
-            <a class="app-menu__item" href="charts.html"><i class="app-menu__icon fa fa-pie-chart"></i><span
+            <a class="app-menu__item" href=""><i class="app-menu__icon fa fa-pie-chart"></i><span
                     class="app-menu__label">Thiết lập thông tin</span></a>
         </li>
     </ul>

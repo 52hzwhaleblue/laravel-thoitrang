@@ -542,6 +542,7 @@
     "/backend/assets/js/dropzone/dist/dropzone.mjs.map": "/backend/assets/js/dropzone/dist/dropzone.mjs.map",
     "/backend/assets/js/jquery-3.2.1.min.js": "/backend/assets/js/jquery-3.2.1.min.js",
     "/backend/assets/js/main.js": "/backend/assets/js/main.js",
+    "/backend/assets/js/moment.js": "/backend/assets/js/moment.js",
     "/backend/assets/js/plugins/bootstrap-datepicker.min.js": "/backend/assets/js/plugins/bootstrap-datepicker.min.js",
     "/backend/assets/js/plugins/bootstrap-notify.min.js": "/backend/assets/js/plugins/bootstrap-notify.min.js",
     "/backend/assets/js/plugins/chart.js": "/backend/assets/js/plugins/chart.js",

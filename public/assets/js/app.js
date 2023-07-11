@@ -223,7 +223,7 @@ function Search()
 }
 
 function Photobox(){
-    $('#album').photobox('a',{thumbs:true,loop:false});
+    $('#gallery').photobox('a',{thumbs:true,loop:false});
 }
 function Home(){
     $('.list-hot a:first').addClass('active');

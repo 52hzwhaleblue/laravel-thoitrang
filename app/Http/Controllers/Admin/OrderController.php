@@ -23,11 +23,12 @@ class OrderController extends BaseController
 {
     public function index()
     {
-        $orders = DB::table('table_orders')->orderByDesc('created_at')->paginate(10)
+        $orders = DB::table('table_orders')->orderByDesc('created_at')->get()
         ->map(function($order){
             $order->user = User::find($order->user_id);
             return $order;
         },);
+
         $order_status = DB::table('table_order_status')->get();
         // return $order_status;
         return view('admin.template.order.order', compact('orders','order_status'));
@@ -160,6 +161,18 @@ class OrderController extends BaseController
         {
             $order->delete();
             return redirect()->route('admin.order.index')->with('message','Bạn đã xóa hóa đơn thành công');
+        }
+    }
+
+    public function delete_order_listen(Request $request)
+    {
+        $order_id = $request->get('order_id');
+        $order_elo = TableOrder::find($order_id);
+        if ($order_elo){
+            $order_elo->delete();
+            $this->pusher('delete_order_channel', 'delete_order_event', 'Xóa thành công');
+        }else{
+            $this->pusher('delete_order_channel', 'delete_order_event', 'Database PC ko có đơn hàng nào');
         }
     }
 }

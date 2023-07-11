@@ -106,6 +106,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
+    <!-- moment -->
+    <script type="text/javascript" src="{{asset('public/backend/assets/js/moment.js')}}"></script>
+
     <!-- pusher -->
     <script src="https://js.pusher.com/8.0.1/pusher.min.js"></script>
 
@@ -142,7 +145,7 @@
             dataLabels: {
                 enabled: true,
                 formatter: function (val) {
-                    return val + "vnđ";
+                    return val.toLocaleString('it-IT', {style : 'currency', currency : 'VND'});
                 },
                 offsetY: -20,
                 style: {
@@ -186,7 +189,7 @@
                 labels: {
                     show: false,
                     formatter: function (val) {
-                        return val + "vnđ";
+                        return val + " VND";
                     }
                 }
 
@@ -202,39 +205,36 @@
             }
         };
 
-        var chart = new ApexCharts(document.querySelector("#revenueFilterByDateChart"), options);
-        chart.render()
+        if($('#revenueFilterByDateChart').length){
+            var chart = new ApexCharts(document.querySelector("#revenueFilterByDateChart"), options);
+            chart.render()
 
-        $('#thongke-larapexchart').click(function() {
-            var tungay = $('.tungay_flatpickr').val();
-            var denngay = $('.denngay_flatpickr').val();
+            $('#thongke-larapexchart').click(function() {
+                var tungay = $('.tungay_flatpickr').val();
+                var denngay = $('.denngay_flatpickr').val();
 
 
-            $.getJSON('http://127.0.0.1:8000/admin/filter-by-date',
-            {
-                tungay: tungay,
-                denngay: denngay,
-            }, function(response) {
-                console.log(response);
-                // chart.updateSeries([{
-                //     name: 'Doanh thu',
-                //     data: response
-                // }]);
-                chart.updateOptions({
-                    series: [{
-                        data: response.total_price
-                    }],
-                    xaxis: {
-                        position: 'bottom',
-                        categories:response.date
-                    },
-                    title: {
-                        text: 'Thống kê doanh thu từ '+response.tungay+' đến '+response.denngay,
-                    }
-                });
+                $.getJSON('http://127.0.0.1:8000/admin/filter-by-date',
+                    {
+                        tungay: tungay,
+                        denngay: denngay,
+                    }, function(response) {
+                        chart.updateOptions({
+                            series: [{
+                                data: response.total_price
+                            }],
+                            xaxis: {
+                                position: 'bottom',
+                                categories:response.date
+                            },
+                            title: {
+                                text: 'Thống kê doanh thu từ '+response.tungay+' đến '+response.denngay,
+                            }
+                        });
+                    });
+
             });
-
-        });
+        }
     </script>
 </body>
 

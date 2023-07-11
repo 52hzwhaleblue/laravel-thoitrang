@@ -22,12 +22,14 @@ class Functions
                 "table_products",
                 "table_posts",
             ];
-            if(!empty($id))  // cập nhật mới có id
+
+            if(!empty($id))  // lúc đầu khi tạo mới sẽ ko có id, cập nhật mới có id
             {
                 $where = $id;
             }else{
                 $where = '';
             }
+            // => Khi tạo mới $where sẽ bằng rỗng
 
             foreach ($table as $v) {
                 $check = DB::table($v)
@@ -35,10 +37,11 @@ class Functions
                     ->where('id','!=' ,$where)
                     ->where('slug', '=', $slug)
                     ->get();
-
+                // $check lấy ra id kiểm tra xem có id nào đã tồn tại hay chưa (slug đã toồn tại)
                 $arrChecks = json_decode($check,true);
 
                 foreach($arrChecks as $arrCheck){
+                    // nếu như có id => đã có slug => slug đã tồn tại
                     if($arrCheck['id'] != '')
                     {
                         $result = 'exist';

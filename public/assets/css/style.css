@@ -217,7 +217,7 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
     margin: 0px;
     overflow: hidden;
 }
-#CheckLoginToast{position: fixed;top: 30px;right: 30px;z-index: 9999999;}
+#CheckLoginToast{position: fixed;top: 30px;right: 30px;z-index: 999;}
 
 .search-wrapper{
     margin-bottom: 60px;
@@ -5025,3 +5025,14 @@ coccocgrammar {
     }
 }
 
+.httt-items{}
+.httt-item{
+    display: flex;
+    align-items: center;
+}
+.httt-item img{
+    width: 32px;
+}
+.httt-item label{
+    margin-left: 40px;
+}

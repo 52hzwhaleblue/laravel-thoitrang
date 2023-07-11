@@ -29,7 +29,7 @@ class RevenueThisMonthChart
             ->get();
 
         $arrOrderDate  = DB::table('table_orders')
-            ->select('created_at')
+            ->selectRaw('Date(created_at) as created_at')
             ->whereBetween('created_at',[$start,$end])
             ->orderBy('created_at', 'ASC')
             ->get();

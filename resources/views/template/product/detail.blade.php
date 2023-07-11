@@ -4,20 +4,20 @@
     <div class="left-pro-detail">
         @if(count($rowDetailPhoto))
             <div class="rowDetailPhoto-for">
-                <?php foreach ($rowDetailPhoto as $k => $v) { ?>
+                <?php foreach ($rowDetailPhoto as $k => $v) { if($v->photo !=null) { ?>
                 <div class="rowDetailPhoto-img">
                     <img class="w-100" src="{{ asset('http://127.0.0.1:8000/storage/' . $v->photo) }}" />
                 </div>
-                <?php } ?>
+                <?php }} ?>
             </div>
 
             <div class="rowDetailPhoto-scroll">
                 <div class="rowDetailPhoto-nav">
-                    <?php foreach ($rowDetailPhoto as $k => $v) { ?>
+                    <?php foreach ($rowDetailPhoto as $k => $v) { if($v->photo !=null) {?>
                     <div class="rowDetailPhoto-item">
                         <img class="" src="{{ asset('http://127.0.0.1:8000/storage/' . $v->photo) }}" />
                     </div>
-                    <?php } ?>
+                    <?php } }?>
                 </div>
             </div>
         @else

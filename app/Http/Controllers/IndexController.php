@@ -126,6 +126,7 @@ class IndexController extends Controller
         $category_name = TableCategory::find($id);
         $data = DB::table('table_products')
             ->where('category_id', $id)
+            ->orderByDesc('created_at')
             ->paginate(20);
 
 //        $product_properties = TableProductDetail::where('product_id',$id)->where('stock','>','0')->get();

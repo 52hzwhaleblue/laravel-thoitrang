@@ -44,12 +44,15 @@ Route::group([
 
         // Bài viết
         Route::group(['prefix' => 'post','as' => 'post.',], function(){
+//            Route::get('tin-tuc',[PostController::class,'index'])->name('tin-tuc.index');
+//            Route::get('dich-vu',[PostController::class,'index'])->name('dich-vu.index');
+//            Route::get('tieu-chi',[PostController::class,'index'])->name('tieu-chi.index');
+
             $menus = config('menu');
             foreach($menus as $m){
                 if($m['name'] == 'Bài viết'){
                     foreach($m['data'] as $m1){
                         $type = $m1['type'];
-
                         Route::resource($type, PostController::class);
                     }
                 }
@@ -111,6 +114,7 @@ Route::group([
         // Đơn hàng
         Route::get('order', [OrderController::class,'index'])->name('order.index');
         Route::delete('order/{id}', [OrderController::class,'destroy'])->name('order.destroy');
+        Route::get('delete_order_listen', [OrderController::class,'delete_order_listen'])->name('order.destroy');
 
         // Chi tiết đơn hàng
         // Route::get('order-detail/{order_id}/{user_id}', [OrderController::class,'edit'])->name('order.detail');
