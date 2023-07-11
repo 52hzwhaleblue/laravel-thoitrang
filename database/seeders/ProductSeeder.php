@@ -25,17 +25,13 @@ class Productseeder extends Seeder
       $current = $carbon::create(2023,1,5);
 
       $ao_1 = [
-        "code" =>  "PROF". Str::random(10) . date('YmdHis'),
+        "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
         "name" => "Áo thun nam ba lỗ sành điệu đẹp",
         "slug" => "ao-thun-nam-ba-lo-sanh-dieu-dep",
         "regular_price" => 300000,
         "sale_price" => 150000,
         "discount" => 50,
         "desc" => $faker->paragraph(random_int(3,6)),
-        "properties" => json_encode([
-          "sizes" => ["M","L","XL"],
-          "origin" => "Việt Nam",
-        ]),
         "photo" => "thumbnails/products/ao1_s.jpg",
         "photo1" => "thumbnails/products/ao1_t.jpg",
         "category_id" => 1,
@@ -46,17 +42,13 @@ class Productseeder extends Seeder
       ];
 
       $ao_2 = [
-        "code" =>  "PROF". Str::random(10) . date('YmdHis'),
+        "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
         "name" => "Áo khoác da lót dù cao cấp ADN10",
         "slug" => "ao-khoac-da-lot-du-cao-cap-adn10",
         "regular_price" => 300000,
         "sale_price" => 200000,
         "discount" => 67,
         "desc" => $faker->paragraph(random_int(3,6)),
-        "properties" => json_encode([
-          "sizes" => ["L","XL"],
-          "origin" => "Việt Nam",
-        ]),
           "photo" => "thumbnails/products/ao2_s.jpg",
           "photo1" => "thumbnails/products/ao2_t.jpg",
         "category_id" => 1,
@@ -67,17 +59,13 @@ class Productseeder extends Seeder
       ];
 
       $ao_3= [
-        "code" =>  "PROF". Str::random(10) . date('YmdHis'),
+        "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
         "name" => "Áo polo nam thời trang phù hợp phong cách trẻ trung Kira",
         "slug" => "ao-polo-nam-thoi-trang-phu-hop-phong-cach-tre-trung-kira",
         "regular_price" => 200000,
         "sale_price" => null,
         "discount" => null,
         "desc" => $faker->paragraph(random_int(3,6)),
-        "properties" => json_encode([
-          "sizes" => ["M","L","XL"],
-          "origin" => "Việt Nam",
-        ]),
           "photo" => "thumbnails/products/ao3_s.jpg",
           "photo1" => "thumbnails/products/ao3_t.jpg",
         "category_id" => 1,
@@ -88,17 +76,13 @@ class Productseeder extends Seeder
       ];
 
       $ao_4= [
-        "code" =>  "PROF". Str::random(10) . date('YmdHis'),
+        "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
         "name" => "Áo thun nam đẹp chất vải nhẹ mát mẻ vào hè",
         "slug" => "ao-thun-nam-dep-chat-vai-nhe-mat-me-vao-he",
         "regular_price" => 99000,
         "sale_price" => null,
         "discount" => null,
         "desc" => $faker->paragraph(random_int(3,6)),
-        "properties" => json_encode([
-          "sizes" => ["M","L","XL"],
-          "origin" => "Việt Nam",
-        ]),
           "photo" => "thumbnails/products/ao4_s.jpg",
           "photo1" => "thumbnails/products/ao4_t.jpg",
         "category_id" => 1,
@@ -109,17 +93,13 @@ class Productseeder extends Seeder
       ];
 
       $ao_5= [
-        "code" =>  "PROF". Str::random(10) . date('YmdHis'),
+        "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
         "name" => "Áo thun nam tay dài đẹp chất vải nhẹ lịch lãm",
         "slug" => "ao-thun-nam-tay-dai-dep-chat-vai-nhe-lich-lam",
         "regular_price" => 150000,
         "sale_price" => 135000,
         "discount" => 10,
         "desc" => $faker->paragraph(random_int(3,6)),
-        "properties" => json_encode([
-          "sizes" => ["M","L","XL"],
-          "origin" => "Việt Nam",
-        ]),
           "photo" => "thumbnails/products/ao5_s.jpg",
           "photo1" => "thumbnails/products/ao5_t.jpg",
         "category_id" => 1,
@@ -130,17 +110,13 @@ class Productseeder extends Seeder
       ];
 
       $ao_6= [
-        "code" =>  "PROF". Str::random(10) . date('YmdHis'),
+        "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
         "name" => "Áo thun nam thời trang",
         "slug" => "ao-thun-nam-thoi-trang",
         "regular_price" => 300000,
         "sale_price" => null,
         "discount" => null,
         "desc" => $faker->paragraph(random_int(3,6)),
-        "properties" => json_encode([
-            "sizes" => ["M","L","XL"],
-          "origin" => "Việt Nam",
-        ]),
           "photo" => "thumbnails/products/ao6_s.jpg",
           "photo1" => "thumbnails/products/ao6_t.jpg",
         "category_id" => 1,
@@ -152,17 +128,13 @@ class Productseeder extends Seeder
 
       // Quần
       $quan_1= [
-        "code" =>  "PROF". Str::random(10) . date('YmdHis'),
+        "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
         "name" => "Quần mùa hè",
         "slug" => "quan-mua-he",
         "regular_price" => 300000,
         "sale_price" => 150000,
         "discount" => 50,
         "desc" => $faker->paragraph(random_int(3,6)),
-        "properties" => json_encode([
-            "sizes" => ["M","L","XL"],
-          "origin" => "Việt Nam",
-        ]),
         "photo" => "thumbnails/products/quan1_t.jpg",
         "photo1" => "thumbnails/products/quan1_s.jpg",
         "category_id" => 2,
@@ -173,17 +145,13 @@ class Productseeder extends Seeder
       ];
 
       $quan_2= [
-        "code" =>  "PROF". Str::random(10) . date('YmdHis'),
+        "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
         "name" => "Quần short nam đi biển",
         "slug" => "quan-short-nam-di-bien",
         "regular_price" => 150000,
         "sale_price" => 145000,
         "discount" => 3,
         "desc" => $faker->paragraph(random_int(3,6)),
-        "properties" => json_encode([
-            "sizes" => ["M","L","XL"],
-          "origin" => "Việt Nam",
-        ]),
           "photo" => "thumbnails/products/quan2_t.jpg",
           "photo1" => "thumbnails/products/quan2_s.jpg",
         "category_id" => 2,
@@ -194,17 +162,13 @@ class Productseeder extends Seeder
       ];
 
       $quan_3= [
-        "code" =>  "PROF". Str::random(10) . date('YmdHis'),
+        "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
         "name" => "Quần short nam tể thao",
         "slug" => "quan-short-nam-the-thao",
         "regular_price" => 120000,
         "sale_price" => null,
         "discount" => null,
         "desc" => $faker->paragraph(random_int(3,6)),
-        "properties" => json_encode([
-            "sizes" => ["M","L","XL"],
-          "origin" => "Việt Nam",
-        ]),
           "photo" => "thumbnails/products/quan3_t.jpg",
           "photo1" => "thumbnails/products/quan3_s.jpg",
         "category_id" => 2,
@@ -215,17 +179,13 @@ class Productseeder extends Seeder
       ];
 
       $quan_4= [
-        "code" =>  "PROF". Str::random(10) . date('YmdHis'),
+        "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
         "name" => "Quần short tối giản",
         "slug" => "quan-short-toi-gian",
         "regular_price" => 21000,
         "sale_price" => null,
         "discount" => null,
         "desc" => $faker->paragraph(random_int(3,6)),
-        "properties" => json_encode([
-          "sizes" => ["M","L","XL"],
-          "origin" => "Việt Nam",
-        ]),
           "photo" => "thumbnails/products/quan4_t.jpg",
           "photo1" => "thumbnails/products/quan4_s.jpg",
         "category_id" => 2,
@@ -236,17 +196,13 @@ class Productseeder extends Seeder
       ];
 
       $quan_5= [
-        "code" =>  "PROF". Str::random(10) . date('YmdHis'),
+        "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
         "name" => "Quần nam mặc hằng ngày",
         "slug" => "quan-nam-mac-hang-ngay",
         "regular_price" => 350000,
         "sale_price" => 270000,
         "discount" => 23,
         "desc" => $faker->paragraph(random_int(3,6)),
-        "properties" => json_encode([
-          "sizes" => ["M","L","XL"],
-          "origin" => "Việt Nam",
-        ]),
           "photo" => "thumbnails/products/quan5_t.jpg",
           "photo1" => "thumbnails/products/quan5_s.jpg",
         "category_id" => 2,
@@ -257,17 +213,13 @@ class Productseeder extends Seeder
       ];
 
       $quan_6= [
-        "code" =>  "PROF". Str::random(10) . date('YmdHis'),
+        "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
         "name" => "Quần thoáng khí",
         "slug" => "quan-thoang-khi",
         "regular_price" => 176000,
         "sale_price" => null,
         "discount" => null,
         "desc" => $faker->paragraph(random_int(3,6)),
-        "properties" => json_encode([
-          "sizes" => ["M","L","XL"],
-          "origin" => "Việt Nam",
-        ]),
           "photo" => "thumbnails/products/quan6_t.jpg",
           "photo1" => "thumbnails/products/quan6_s.jpg",
         "category_id" => 2,
@@ -278,17 +230,13 @@ class Productseeder extends Seeder
       ];
       // Đồ bộ
       $dobo_1= [
-        "code" =>  "PROF". Str::random(10) . date('YmdHis'),
+        "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
         "name" => "Đồ bộ nam mát mẻ mùa hè",
         "slug" => "do-bo-nam-mat-me-mua-he",
         "regular_price" => 290000,
         "sale_price" => null,
         "discount" => null,
         "desc" => $faker->paragraph(random_int(3,6)),
-        "properties" => json_encode([
-          "sizes" => ["M","L","XL"],
-          "origin" => "Việt Nam",
-        ]),
         "photo" => "thumbnails/products/dobo1_t.jpg",
         "photo1" => "thumbnails/products/dobo1_s.jpg",
         "category_id" => 3,
@@ -299,17 +247,13 @@ class Productseeder extends Seeder
       ];
 
       $dobo_2= [
-        "code" =>  "PROF". Str::random(10) . date('YmdHis'),
+        "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
         "name" => "Đồ bộ thể thao",
         "slug" => "do-bo-the-thao",
         "regular_price" => 145000,
         "sale_price" => null,
         "discount" => null,
         "desc" => $faker->paragraph(random_int(3,6)),
-        "properties" => json_encode([
-          "sizes" => ["M","L","XL"],
-          "origin" => "Việt Nam",
-        ]),
           "photo" => "thumbnails/products/dobo2_t.jpg",
           "photo1" => "thumbnails/products/dobo2_s.jpg",
         "category_id" => 3,
@@ -320,17 +264,13 @@ class Productseeder extends Seeder
       ];
 
       $dobo_3= [
-        "code" =>  "PROF". Str::random(10) . date('YmdHis'),
+        "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
         "name" => "Đồ bộ năng động",
         "slug" => "do-bo-nang-dong",
         "regular_price" => 410000,
         "sale_price" => 380000,
         "discount" => 10,
         "desc" => $faker->paragraph(random_int(3,6)),
-        "properties" => json_encode([
-          "sizes" => [35,36],
-          "origin" => "Việt Nam",
-        ]),
           "photo" => "thumbnails/products/dobo3_t.jpg",
           "photo1" => "thumbnails/products/dobo3_s.jpg",
         "category_id" => 3,
@@ -341,17 +281,13 @@ class Productseeder extends Seeder
       ];
 
       $dobo_4= [
-        "code" =>  "PROF". Str::random(10) . date('YmdHis'),
+        "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
         "name" => "Đồ bộ hoa anh đào",
         "slug" => "do-bo-hoa-anh-dao",
         "regular_price" => 270000,
         "sale_price" => null,
         "discount" => null,
         "desc" => $faker->paragraph(random_int(3,6)),
-        "properties" => json_encode([
-          "sizes" => ["X","L","XL"],
-          "origin" => "Việt Nam",
-        ]),
           "photo" => "thumbnails/products/dobo4_t.jpg",
           "photo1" => "thumbnails/products/dobo4_s.jpg",
         "category_id" => 3,
@@ -363,17 +299,13 @@ class Productseeder extends Seeder
 
       // Túi xách
       $tuixach_1= [
-        "code" =>  "PROF". Str::random(10) . date('YmdHis'),
+        "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
         "name" => "Túi xách cổ điển",
         "slug" => "tui-xach-co-dien",
         "regular_price" => 750000,
         "sale_price" => 725000,
         "discount" => 10,
         "desc" => $faker->paragraph(random_int(3,6)),
-        "properties" => json_encode([
-          "sizes" => [35,36,38,39,40],
-          "origin" => "Việt Nam",
-        ]),
         "photo" => "thumbnails/products/tuixach1_t.jpg",
         "photo1" => "thumbnails/products/tuixach1_s.jpg",
         "category_id" => 4,
@@ -384,17 +316,13 @@ class Productseeder extends Seeder
       ];
 
       $tuixach_2= [
-        "code" =>  "PROF". Str::random(10) . date('YmdHis'),
+        "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
         "name" => "Túi đeo chéo classic",
         "slug" => "tui-deo-cheo-classic",
         "regular_price" => 150000,
         "sale_price" => null,
         "discount" => null,
         "desc" => $faker->paragraph(random_int(3,6)),
-        "properties" => json_encode([
-          "sizes" => ["X","L","XL","XXL"],
-          "origin" => "Việt Nam",
-        ]),
           "photo" => "thumbnails/products/tuixach2_t.jpg",
           "photo1" => "thumbnails/products/tuixach2_s.jpg",
         "category_id" => 4,
@@ -405,17 +333,13 @@ class Productseeder extends Seeder
       ];
 
       $tuixach_3= [
-        "code" =>  "PROF". Str::random(10) . date('YmdHis'),
+        "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
         "name" => "Túi đeo chéo messenger",
         "slug" => "tui-deo-cheo-messenger",
         "regular_price" => 105000,
         "sale_price" => null,
         "discount" => null,
         "desc" => $faker->paragraph(random_int(3,6)),
-        "properties" => json_encode([
-          "sizes" => ["X","L","XL","XXL"],
-          "origin" => "Việt Nam",
-        ]),
           "photo" => "thumbnails/products/tuixach3_t.jpg",
           "photo1" => "thumbnails/products/tuixach3_s.jpg",
         "category_id" => 4,
@@ -426,17 +350,13 @@ class Productseeder extends Seeder
       ];
 
       $tuixach_4= [
-        "code" =>  "PROF". Str::random(10) . date('YmdHis'),
+        "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
         "name" => "Túi Tote V1 - Signature",
         "slug" => "tui-tote-v1-signature",
         "regular_price" => 80000,
         "sale_price" => null,
         "discount" => null,
         "desc" => $faker->paragraph(random_int(3,6)),
-        "properties" => json_encode([
-          "sizes" => ["X","L","XL","XXL"],
-          "origin" => "Việt Nam",
-        ]),
           "photo" => "thumbnails/products/tuixach4_t.jpg",
           "photo1" => "thumbnails/products/tuixach4_s.jpg",
         "category_id" => 4,

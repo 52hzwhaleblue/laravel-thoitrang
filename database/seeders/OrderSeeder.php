@@ -38,6 +38,7 @@ class OrderSeeder extends Seeder
                 'shipping_fullname' => $faker->name(),
                 'shipping_phone' =>  $faker->phoneNumber(),
                 'shipping_address'=>  $faker->address(),
+                'shipping_email'=>  $faker->email(),
                 'payment_method' => "COD",
                 'temp_price' => 500000,
                 'ship_price' => 0,
@@ -56,8 +57,8 @@ class OrderSeeder extends Seeder
         ];
 
         $faker_color= [
-            "00a8ff",
-             "f7f1e3",
+            "#00a8ff",
+             "#f7f1e3",
         ];
 
         $order_detail_eloquent = new TableOrderDetail();
@@ -66,13 +67,13 @@ class OrderSeeder extends Seeder
 
         for($k = 0; $k < 10; ++$k){
             for($i = 0; $i< 2; ++$i){
-                $product_id =  $random_product[$k];
+                $product_detail_id =  $random_product[$k];
                 if($i == 1){
-                   ++$product_id;
+                   ++$product_detail_id;
                 }
                 $order_detail_eloquent::create([
                     'order_id' => $k+1,
-                    'product_id' => $product_id,
+                    'product_detail_id' => $product_detail_id,
                     'quantity' => random_int(1,10),
                     'size' => $faker_size[$i],
                     'color'=> $faker_color[$i],

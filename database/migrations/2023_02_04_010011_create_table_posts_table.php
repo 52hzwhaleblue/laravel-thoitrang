@@ -22,8 +22,6 @@ return new class extends Migration
             $table->string('name')->nullable()->default(null);
             $table->mediumText('desc')->nullable()->default(null);
             $table->mediumText('content')->nullable()->default(null);
-            $table->mediumText('options')->nullable()->default(null);
-            $table->integer('numb')->nullable();
             $table->integer('status')->default(1);
             $table->string('type')->nullable()->default(null);
             $table->integer('view')->nullable();

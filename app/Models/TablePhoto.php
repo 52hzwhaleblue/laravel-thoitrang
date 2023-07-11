@@ -15,15 +15,9 @@ class TablePhoto extends Model
 
     protected $fillable = [
         'photo',
-        'content',
-        'desc',
         'name',
-        'link',
-        'link_video',
         'options',
         'type',
-        'act',
-        'numb',
         'status',
         'created_at',
         'updated_at',

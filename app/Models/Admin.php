@@ -14,9 +14,7 @@ class Admin extends Authenticatable implements MustVerifyEmail
     use HasFactory, Notifiable;
 
     protected $guarded = 'admin';
-
     protected $table = "table_admins";
-
     protected $fillable = [
         'username',
         'fullName',
@@ -25,7 +23,6 @@ class Admin extends Authenticatable implements MustVerifyEmail
         'password',
         'photo',
         'role',
-        'login_provider',
         'created_at',
         'updated_at',
     ];

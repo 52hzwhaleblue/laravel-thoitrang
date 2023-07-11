@@ -22,6 +22,7 @@ class TableOrderDetail extends Model
         'product_id',
         'color',
         'size',
+        'price',
         'quantity',
         'photo',
         'created_at',

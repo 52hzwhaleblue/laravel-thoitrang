@@ -21,7 +21,7 @@ class TableProduct extends Model
      *
      * @var array
      */
-    
+
     protected $fillable = [
         'code',
         'name',
@@ -29,12 +29,7 @@ class TableProduct extends Model
         'discount',
         'regular_price',
         'sale_price',
-        'properties',
-        'options',
         'desc',
-        'content',
-        'numb',
-        'type',
         'view',
         'category_id',
         'status',

@@ -20,7 +20,6 @@ class TableReview extends Model
         'product_id',
         'content',
         'star',
-        "status",
         'created_at',
         'updated_at',
     ];

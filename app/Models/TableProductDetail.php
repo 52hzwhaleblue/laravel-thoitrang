@@ -19,6 +19,7 @@ class TableProductDetail extends Model
         'product_id',
         'name',
         'color',
+        'size',
         'stock',
         'created_at',
         'updated_at',

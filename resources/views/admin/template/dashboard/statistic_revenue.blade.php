@@ -89,7 +89,7 @@
                         <h6 class="text-dark"> Top 10 sản phẩm bán chạy </h6>
                         <ul class="">
                             <?php foreach ($top10ProductBestSeller as $k => $v) {
-                                $product_name= \App\Models\TableProduct::where('id', $v->product_id)->first();
+                                $product_name= \App\Models\TableProduct::where('id', $v->product_detail_id)->first();
                             ?>
                                 <li>
                                     <p>
