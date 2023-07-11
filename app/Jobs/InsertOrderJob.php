@@ -62,7 +62,7 @@ class InsertOrderJob implements ShouldQueue
             'shipping_address' => $this->map_param_order["shipping_address"],
             'payment_method' => $this->map_param_order["payment_method"],
             'temp_price' =>$this->map_param_order["temp_price"],
-            'total_price' =>$this->map_param_order["total_price"],
+            'total_price' => $this->map_param_order["total_price"],
             'ship_price' => $this->map_param_order["ship_price"],
             'notes' => $this->map_param_order["notes"],
             'promotion_id' => $this->map_param_order["id_promotion"] == 0 ? null : $this->map_param_order["id_promotion"],
@@ -117,7 +117,7 @@ class InsertOrderJob implements ShouldQueue
     private function createPushNoti($order_id){
         $noti_sql = TableNotification::create([
             "title" => "Đơn hàng mới",
-            "subtitle" => "Có đơn hàng mới vừa đặt",
+            "subtitle" => "Có đơn hàng mới vừa đặt từ người dùng ".Auth::user()->fullName,
             'user_id'=> Auth::id(),
             'order_id' => $order_id,
             'is_read' => 1,
@@ -131,7 +131,7 @@ class InsertOrderJob implements ShouldQueue
             'subtitle' =>$noti_sql->subtitle,
         ];
         
-        $this->pusher('new-order','create-order',$data);
+        $this->pusher('payment-channel','payment-event',$data);
     }
 
     private function pusher($channel,$event,$data){

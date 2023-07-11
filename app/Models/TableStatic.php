@@ -21,11 +21,9 @@ class TableStatic extends Model
     protected $fillable = [
         'photo',
         'photo1',
-        'options',
         'content',
-        'desc',
         'name',
-        'file_attach',
+        'desc',
         'type',
         'status',
         'created_at',

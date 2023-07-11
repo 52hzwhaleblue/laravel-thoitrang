@@ -28,8 +28,6 @@ class ReviewSeeder extends Seeder
 
         $reviewEloquent = new TableReview();
 
-        $reviewDetailEloquent = new TableReviewDetail();
-
 
         $random_star = random_int(3,5);
 
@@ -42,25 +40,19 @@ class ReviewSeeder extends Seeder
                 if($i == 1){
                    ++$product_id;
                 }
-                $review = $reviewEloquent::create([
+                 $reviewEloquent::create([
                     "user_id" => $k+1,
                     "order_id" => $k+1,
                     'product_id' => $product_id,
                     "star" =>  $random_star,
                     "content" => $content,
+                    'photos' => json_encode(["thumbnails/reviews/test_review.jpg"]),
                     "status" => $status,
                     "created_at" =>  $created_at,
                     "updated_at" => $updated_at,
                 ]);
-
-                $reviewDetailEloquent::create([
-                    "review_id" =>$review->id,
-                    "photo" =>"thumbnails/reviews/test_review.jpg",
-                    "created_at" =>  $created_at,
-                    "updated_at" => $updated_at,
-                ]);
-            }
         }
+    }
         TableReview::factory()->count(100)->create();
     }
 }

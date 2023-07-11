@@ -90,12 +90,21 @@ class ReviewController extends BaseController
 
             }
 
-            dispatch(new InsertReviewJob(
-                Auth::id(),
-                $order_id,
-                $content,
-                $star, $array_photo
-            ));
+            if(empty($files)){
+                dispatch(new InsertReviewJob(
+                    Auth::id(),
+                    $order_id,
+                    $content,
+                    $star, []
+                ));
+            }else {
+                dispatch(new InsertReviewJob(
+                    Auth::id(),
+                    $order_id,
+                    $content,
+                    $star, $array_photo
+                )); 
+            }
             
            
     

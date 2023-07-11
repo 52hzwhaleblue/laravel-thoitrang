@@ -31,7 +31,7 @@ class UserSeeder extends Seeder
             'phone'=> "0705564567",
             'email'=> "josephminhlong@gmail.com",
             'password' => Hash::make('Minhlong@1902'),
-            "photo" =>  "thumbnails/avatars/42ea1f2bdeefb978bb7cbab49cfc08b2_644be05a96383.png",
+            "photo" =>  "thumbnails/avatars/avatar_main.png",
             "role" => 0,
             "created_at" => $created_at,
             "updated_at" => $updated_at,

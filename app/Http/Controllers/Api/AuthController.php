@@ -102,16 +102,14 @@ class AuthController extends BaseController
         }
     }
 
-    public function checkPhone(){
+    public function checkPhone(DB $db){
         try{
             $phone = request()->input('phone');
 
-            $ischeck = User::where('phone',$phone)->exists();
+            $ischeck = $db::table('table_users')->where('phone',$phone)->exists();
            
-            if(!$ischeck){
-                return $this->sendResponse([201],"Failed");
-            }
-            return $this->sendResponse([200],"Successfully");
+          
+            return $this->sendResponse([$ischeck],"Successfully");
 
         }catch(\Throwable $th){
             return $this->sendError( $th->getMessage(),null,500);

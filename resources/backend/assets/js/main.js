@@ -100,6 +100,30 @@ function realtimeNotification(){
         countNotification();
         orderNotification(data);
     });
+
+
+    // var delete_order_listen = pusher.subscribe('delete_order_channel');
+    // delete_order_listen.bind('delete_order_event',function (order_id){
+    //     $.ajaxSetup({
+    //         headers: {
+    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //         }
+    //     });
+    //     $.ajax({
+    //         url: '/admin/delete_order_listen',
+    //         order_id: order_id,
+    //         dataType: "JSON",
+    //         method: "GET",
+    //         success: function(data) {
+    //             console.log(data);
+    //             toastr.success(data)
+    //         },
+    //         error: function(xhr, ajaxOptions, thrownError) {
+    //             // alert(xhr.status);
+    //             // alert(thrownError);
+    //         }
+    //     });
+    // });
 }
 
 function countNotification(){

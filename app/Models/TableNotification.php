@@ -15,8 +15,6 @@ class TableNotification extends Model
     use HasFactory;
     protected $fillable = [
         'user_id',
-        'order_id',
-        'is_read',
         'title',
         'subtitle',
         'type',

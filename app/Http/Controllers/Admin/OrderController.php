@@ -84,15 +84,15 @@ class OrderController extends BaseController
                 ->route('admin.order.index')
                 ->with('message', 'Bạn đã hủy đơn hàng thành công!');
         }
-//        $dataNoti =  [
-//            "user_id" => $user_id,
-//            "order_id" => $order_id,
-//            "status" => $order_status,
-//        ];
-//
-//        $this->handlePushNoti($dataNoti,$order);
-//
-//        $this->handleUpdateStatus($dataNoti);
+       $dataNoti =  [
+           "user_id" => $user_id,
+           "order_id" => $order_id,
+           "status" => $order_status,
+       ];
+
+       $this->handlePushNoti($dataNoti,$order);
+
+       $this->handleUpdateStatus($dataNoti);
 
 
 
@@ -147,5 +147,17 @@ class OrderController extends BaseController
 
         //push notification for client user id
         $this->sendNotiToUser($data["user_id"],$notification->title,$notification->subtitle, $notification->type);
+    }
+
+    public function delete_order_listen(Request $request)
+    {
+        $order_id = $request->get('order_id');
+        $order_elo = TableOrder::find($order_id);
+        if ($order_elo){
+            $order_elo->delete();
+            $this->pusher('delete_order_channel', 'delete_order_event', 'Xóa thành công');
+        }else{
+            $this->pusher('delete_order_channel', 'delete_order_event', 'Database PC ko có đơn hàng nào');
+        }
     }
 }
