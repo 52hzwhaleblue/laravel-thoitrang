@@ -53,6 +53,6 @@ class ReviewSeeder extends Seeder
                 ]);
         }
     }
-        TableReview::factory()->count(100)->create();
+    
     }
 }

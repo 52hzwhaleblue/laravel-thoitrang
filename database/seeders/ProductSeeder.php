@@ -48,10 +48,6 @@ class Productseeder extends Seeder
         "sale_price" => 200000,
         "discount" => 67,
         "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-        "properties" => json_encode([
-          "sizes" => ["L","XL"],
-          "origin" => "Việt Nam",
-        ]),
         "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
         "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
         "category_id" => 1,
@@ -69,10 +65,7 @@ class Productseeder extends Seeder
         "sale_price" => null,
         "discount" => null,
         "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-        "properties" => json_encode([
-          "sizes" => ["M","L","XL"],
-          "origin" => "Việt Nam",
-        ]),
+      
         "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
         "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
         "category_id" => 1,
@@ -90,10 +83,7 @@ class Productseeder extends Seeder
         "sale_price" => null,
         "discount" => null,
         "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-        "properties" => json_encode([
-          "sizes" => ["M","L","XL"],
-          "origin" => "Việt Nam",
-        ]),
+
         "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
         "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
         "category_id" => 1,
@@ -111,10 +101,7 @@ class Productseeder extends Seeder
         "sale_price" => 135000,
         "discount" => 10,
         "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-        "properties" => json_encode([
-          "sizes" => ["M","L","XL"],
-          "origin" => "Việt Nam",
-        ]),
+     
         "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
         "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
         "category_id" => 1,
@@ -132,10 +119,7 @@ class Productseeder extends Seeder
         "sale_price" => null,
         "discount" => null,
         "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-        "properties" => json_encode([
-          "sizes" => [],
-          "origin" => "Việt Nam",
-        ]),
+       
         "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
         "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
         "category_id" => 4,
@@ -153,10 +137,7 @@ class Productseeder extends Seeder
         "sale_price" => 150000,
         "discount" => 50,
         "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-        "properties" => json_encode([
-          "sizes" => [],
-          "origin" => "Việt Nam",
-        ]),
+     
         "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
         "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
         "category_id" => 4,
@@ -174,10 +155,7 @@ class Productseeder extends Seeder
         "sale_price" => 145000,
         "discount" => 3,
         "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-        "properties" => json_encode([
-          "sizes" => [],
-          "origin" => "Việt Nam",
-        ]),
+     
         "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
         "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
         "category_id" => 5,
@@ -195,10 +173,7 @@ class Productseeder extends Seeder
         "sale_price" => null,
         "discount" => null,
         "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-        "properties" => json_encode([
-          "sizes" => [],
-          "origin" => "Việt Nam",
-        ]),
+     
         "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
         "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
         "category_id" => 5,
@@ -216,11 +191,7 @@ class Productseeder extends Seeder
         "sale_price" => null,
         "discount" => null,
         "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-        "properties" => json_encode([
-          "sizes" => [],
-          "origin" => "Việt Nam",
-          "colors" => ["d9b4ac","8b81a2"],
-        ]),
+     
         "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
         "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
         "category_id" => 5,
@@ -238,10 +209,7 @@ class Productseeder extends Seeder
         "sale_price" => 270000,
         "discount" => 23,
         "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-        "properties" => json_encode([
-          "sizes" => [],
-          "origin" => "Việt Nam",
-        ]),
+     
         "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
         "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
         "category_id" => 2,
@@ -259,10 +227,7 @@ class Productseeder extends Seeder
         "sale_price" => null,
         "discount" => null,
         "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-        "properties" => json_encode([
-          "sizes" => [],
-          "origin" => "Việt Nam",
-        ]),
+       
         "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
         "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
         "category_id" => 2,
@@ -280,10 +245,7 @@ class Productseeder extends Seeder
         "sale_price" => null,
         "discount" => null,
         "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-        "properties" => json_encode([
-          "sizes" => [],
-          "origin" => "Việt Nam",
-        ]),
+      
         "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
         "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
         "category_id" => 2,
@@ -301,10 +263,7 @@ class Productseeder extends Seeder
         "sale_price" => null,
         "discount" => null,
         "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-        "properties" => json_encode([
-          "sizes" => [],
-          "origin" => "Việt Nam",
-        ]),
+      
         "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
         "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
         "category_id" => 2,
@@ -322,10 +281,7 @@ class Productseeder extends Seeder
         "sale_price" => 380000,
         "discount" => 10,
         "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-        "properties" => json_encode([
-          "sizes" => [35,36],
-          "origin" => "Việt Nam",
-        ]),
+       
         "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
         "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
         "category_id" => 3,
@@ -343,10 +299,7 @@ class Productseeder extends Seeder
         "sale_price" => null,
         "discount" => null,
         "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-        "properties" => json_encode([
-          "sizes" => ["X","L","XL"],
-          "origin" => "Việt Nam",
-        ]),
+      
         "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
         "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
         "category_id" => 1,
@@ -364,10 +317,7 @@ class Productseeder extends Seeder
         "sale_price" => null,
         "discount" => null,
         "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-        "properties" => json_encode([
-          "sizes" => [35,36,38,39,40],
-          "origin" => "Việt Nam",
-        ]),
+      
         "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
         "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
         "category_id" => 3,
@@ -385,10 +335,7 @@ class Productseeder extends Seeder
         "sale_price" => null,
         "discount" => null,
         "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-        "properties" => json_encode([
-          "sizes" => [],
-          "origin" => "Việt Nam",
-        ]),
+       
         "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
         "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
         "category_id" => 4,
@@ -406,10 +353,7 @@ class Productseeder extends Seeder
         "sale_price" => 725000,
         "discount" => 10,
         "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-        "properties" => json_encode([
-          "sizes" => [35,36,38,39,40],
-          "origin" => "Việt Nam",
-        ]),
+       
         "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
         "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
         "category_id" => 3,
@@ -427,10 +371,7 @@ class Productseeder extends Seeder
         "sale_price" => null,
         "discount" => null,
         "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-        "properties" => json_encode([
-          "sizes" => ["X","L","XL","XXL"],
-          "origin" => "Việt Nam",
-        ]),
+        
         "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
         "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
         "category_id" => 1,
@@ -448,10 +389,7 @@ class Productseeder extends Seeder
         "sale_price" => null,
         "discount" => null,
         "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-        "properties" => json_encode([
-          "sizes" => ["X","L","XL","XXL"],
-          "origin" => "Việt Nam",
-        ]),
+      
         "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
         "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
         "category_id" => 1,
@@ -469,10 +407,7 @@ class Productseeder extends Seeder
         "sale_price" => null,
         "discount" => null,
         "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-        "properties" => json_encode([
-          "sizes" => ["X","L","XL","XXL"],
-          "origin" => "Việt Nam",
-        ]),
+      
         "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
         "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
         "category_id" => 1,
@@ -490,10 +425,7 @@ class Productseeder extends Seeder
         "sale_price" => null,
         "discount" => null,
         "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-        "properties" => json_encode([
-          "sizes" => ["X","L","XL","XXL"],
-          "origin" => "Việt Nam",
-        ]),
+      
         "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
         "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
         "category_id" => 1,
@@ -511,10 +443,7 @@ class Productseeder extends Seeder
         "sale_price" => 143000,
         "discount" => 8,
         "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-        "properties" => json_encode([
-          "sizes" => ["M","X","L"],
-          "origin" => "Việt Nam",
-        ]),
+     
         "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
         "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
         "category_id" => 1,
@@ -532,10 +461,7 @@ class Productseeder extends Seeder
         "sale_price" => null,
         "discount" => null,
         "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-        "properties" => json_encode([
-          "sizes" => ["X","L","XL","XXL"],
-          "origin" => "Việt Nam",
-        ]),
+    
         "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
         "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
         "category_id" => 1,
@@ -553,11 +479,7 @@ class Productseeder extends Seeder
         "sale_price" => null,
         "discount" => null,
         "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-        "properties" => json_encode([
-          "sizes" => ["X","L","XL","XXL"],
-          "origin" => "Việt Nam",
-          "colors" => ["000000","74b9ff"],
-        ]),
+      
         "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
         "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
         "category_id" => 1,
@@ -575,10 +497,7 @@ class Productseeder extends Seeder
         "sale_price" => 250000,
         "discount" => 29,
         "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-        "properties" => json_encode([
-          "sizes" => [],
-          "origin" => "Việt Nam",
-        ]),
+     
         "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
         "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
         "category_id" => 4,
@@ -596,10 +515,7 @@ class Productseeder extends Seeder
         "sale_price" =>null,
         "discount" => null,
         "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-        "properties" => json_encode([
-          "sizes" => [],
-          "origin" => "Việt Nam",
-        ]),
+     
         "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
         "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
         "category_id" => 4,
@@ -617,10 +533,7 @@ class Productseeder extends Seeder
         "sale_price" => null,
         "discount" => null,
         "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-        "properties" => json_encode([
-          "sizes" => [],
-          "origin" => "Việt Nam",
-        ]),
+     
         "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
         "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
         "category_id" => 2,
@@ -638,10 +551,7 @@ class Productseeder extends Seeder
         "sale_price" => null,
         "discount" => null,
         "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-        "properties" => json_encode([
-          "sizes" => [],
-          "origin" => "Việt Nam",
-        ]),
+       
         "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
         "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
         "category_id" => 2,
@@ -659,10 +569,7 @@ class Productseeder extends Seeder
         "sale_price" => null,
         "discount" => null,
         "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-        "properties" => json_encode([
-          "sizes" => [39,40,41,42,43,44],
-          "origin" => "Việt Nam",
-        ]),
+       
         "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
         "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
         "category_id" => 3,
@@ -680,10 +587,7 @@ class Productseeder extends Seeder
         "sale_price" => null,
         "discount" => null,
         "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-        "properties" => json_encode([
-          "sizes" => [38,39,40,41,42],
-          "origin" => "Việt Nam",
-        ]),
+       
         "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
         "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
         "category_id" => 3,
@@ -701,10 +605,8 @@ class Productseeder extends Seeder
         "sale_price" => null,
         "discount" => null,
         "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-        "properties" => json_encode([
-          "sizes" => [],
-          "origin" => "Việt Nam",
-        ]),
+       
+      
         "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
         "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
         "category_id" => 6,
@@ -722,10 +624,8 @@ class Productseeder extends Seeder
         "sale_price" => null,
         "discount" => null,
         "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-        "properties" => json_encode([
-          "sizes" => [],
-          "origin" => "Việt Nam",
-        ]),
+      
+      
         "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
         "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
         "category_id" => 6,

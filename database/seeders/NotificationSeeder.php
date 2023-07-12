@@ -25,7 +25,6 @@ class NotificationSeeder extends Seeder
             "title" => "title test".$item,
             "subtitle" =>  "subtitle test".$item,
             "type" =>  "user",
-            "is_read" => 1,
             "created_at" => Carbon::parse('2022-01-01 10:50'),
             "updated_at" => Carbon::parse('2022-01-01 10:50'),
         ]);
