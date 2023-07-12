@@ -22,7 +22,7 @@ class CreateTablePromotionsTable extends Migration
             $table->longText('desc')->nullable();
             $table->double('discount_price')->nullable();
             $table->integer('limit')->nullable();
-            $table->date('end_date')->nullable();
+            $table->date('end_date')->nullable();   
             $table->integer('status')->nullable()->default(1);
             $table->timestamps();
             $table->foreign('product_id')->references('id')->on('table_products')->cascadeOnDelete();

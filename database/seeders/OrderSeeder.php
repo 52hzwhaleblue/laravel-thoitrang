@@ -31,7 +31,7 @@ class OrderSeeder extends Seeder
 
         $code_random = 'HDF'. Str::random(10);
 
-        for($i = 0; $i < 30; ++$i){
+        for($i = 0; $i < 2; ++$i){
             $orderEloquent::create([
                 'code' => $code_random,
                 'user_id' => $i+1,
@@ -49,37 +49,44 @@ class OrderSeeder extends Seeder
             ]);
         }
 
-
-        $faker_size = [
-            "M",
-             "35",
-        ];
-
-        $faker_color= [
-            "00a8ff",
-             "f7f1e3",
-        ];
-
         $order_detail_eloquent = new TableOrderDetail();
 
-        $random_product = [1,3,5,7,9,11,13,15,17,19];
-
-        for($k = 0; $k < 10; ++$k){
-            for($i = 0; $i< 2; ++$i){
-                $product_id =  $random_product[$k];
-                if($i == 1){
-                   ++$product_id;
-                }
-                $order_detail_eloquent::create([
-                    'order_id' => $k+1,
-                    'product_id' => $product_id,
-                    'quantity' => random_int(1,10),
-                    'size' => $faker_size[$i],
-                    'color'=> $faker_color[$i],
+       
+         $order_detail_eloquent::create([
+                    'order_id' => 1,
+                    'product_detail_id' => 1,
+                    'product_id' => 1,
+                    'quantity' => random_int(1,4),
+                    'size' => "M",
+                    'price' => 99000,
+                    'color'=> "#232645",
                     "created_at" => $created_at,
                     "updated_at" => $updated_at,
-                ]);
-            }
-        }
+        ]);
+
+        $order_detail_eloquent::create([
+            'order_id' => 1,
+            'product_detail_id' => 2,
+            'product_id' => 1,
+            'quantity' => random_int(1,4),
+            'size' => "L",
+            'price' => 99000,
+            'color'=> "#232645",
+            "created_at" => $created_at,
+            "updated_at" => $updated_at,
+        ]);
+
+        $order_detail_eloquent::create([
+            'order_id' => 1,
+            'product_detail_id' => 3,
+            'product_id' => 1,
+            'quantity' => random_int(1,4),
+            'size' => "XL",
+            'price' => 99000,
+            'color'=> "#232645",
+            "created_at" => $created_at,
+            "updated_at" => $updated_at,
+        ]);
+        
     }
 }

@@ -38,7 +38,7 @@ class PromotionSeeder extends Seeder
                 "updated_at" => $updated_at ,
             ],
             [
-                'name' => "Giảm 50%",
+                'name' => "Mùa hè sắp đến rồi!!",
                 'code' => Str::random(5),
                 'product_id'=>null,
                 'desc'=> "Giảm giá cho đươn hàng từ 500.000đ",
