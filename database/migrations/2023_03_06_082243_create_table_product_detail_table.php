@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('table_product_details', function (Blueprint $table) {
             $table->increments('id');
             $table->string('photo')->nullable()->default(null);
-            $table->string('name')->nullable();
             $table->string('color')->nullable();
             $table->string('size')->nullable();
             $table->integer('stock')->nullable();

@@ -205,7 +205,7 @@ class ProductDetailSeeder extends Seeder
                 "product_id" =>  $value["id"],
                 "photo" => 'thumbnails/products/'.$key.'.png',
                 "color" => $value["color"],
-                "size" => $value["size"],
+                "size" => emptyArray($value["size"]) ? $value["size"] : "",
                 "stock" => random_int(10,50),
                 "created_at" =>now(),
                 "updated_at" =>now(),
