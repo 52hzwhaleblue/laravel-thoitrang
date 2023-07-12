@@ -84,7 +84,6 @@ class OrderController extends BaseController
                 return $this->sendError('validation error',$validator->errors(),401);
             }
 
-            //$this->createPushNoti();
 
             $data =  [
                 'user_id' => Auth::id(),
@@ -107,14 +106,10 @@ class OrderController extends BaseController
                 dispatch($job);
             });
             
-
-
             $order = TableOrder::with(['orderDetail', 'promotion','orderDetail.product','orderDetail.product.productDetail'])
             ->where('user_id', Auth::id())
             ->orderByDesc('created_at')
             ->first();
-
-            // $this->createPushNoti($order->id);
             
             return $this->sendResponse( $order, "Create order successfully!!!");
             

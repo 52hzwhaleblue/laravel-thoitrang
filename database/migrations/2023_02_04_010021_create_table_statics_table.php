@@ -23,7 +23,7 @@ return new class extends Migration
             $table->mediumText('desc')->nullable()->default(null);
             $table->string('name')->nullable()->default(null);
             $table->string('type')->nullable()->default(null);
-            $table->integer('status')->default(1);
+            $table->integer('status')->default(1);  
             $table->timestamps();
         });
 

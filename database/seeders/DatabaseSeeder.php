@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PromotionSeeder::class);
         $this->call(OrderStatusSeeder::class);
         $this->call(OrderSeeder::class);
-        $this->call(ReviewSeeder::class);
+        // $this->call(ReviewSeeder::class);
         $this->call(StaticSeeder::class);
     }
 }

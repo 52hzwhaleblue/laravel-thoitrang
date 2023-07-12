@@ -22,8 +22,6 @@ class ReviewSeeder extends Seeder
 
         $updated_at = now();
 
-        $status = 1;
-
         $content = $faker->text();
 
         $reviewEloquent = new TableReview();
@@ -47,7 +45,6 @@ class ReviewSeeder extends Seeder
                     "star" =>  $random_star,
                     "content" => $content,
                     'photos' => json_encode(["thumbnails/reviews/test_review.jpg"]),
-                    "status" => $status,
                     "created_at" =>  $created_at,
                     "updated_at" => $updated_at,
                 ]);

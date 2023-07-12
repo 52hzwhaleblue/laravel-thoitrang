@@ -12,7 +12,7 @@ class CategoryController extends BaseController
 {
     public function fetchCategories(){   
         try {     
-            $categories = DB::table('table_categories')->select('id','name','name_vi','photo','background_color','created_at')->get();
+            $categories = DB::table('table_categories')->select('id','name','name_vi','photo','created_at')->get();
             return $this->sendResponse($categories, "Fetch categories successfully!!!");
             
         } catch (\Throwable $th) { 

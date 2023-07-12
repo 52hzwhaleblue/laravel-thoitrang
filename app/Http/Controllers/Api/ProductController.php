@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\TablePromotion;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Api\BaseController as BaseController;
+use App\Models\TableOrderDetail;
 
 class ProductController extends BaseController
 {
@@ -22,7 +23,7 @@ class ProductController extends BaseController
          
             $products = TableProduct::with(['category','productDetail'])
                 ->Stock()
-                ->withCount('orderDetail as sold')
+                // ->withCount('orderDetail as sold')
                 ->withAvg('reviews as star', 'star')
                 ->when($page > 0,function($query) use ($limit,$page){
                     $offset = ($page - 1) * $limit;
@@ -32,7 +33,8 @@ class ProductController extends BaseController
                 ->get()
                 ->map(function ($product) {
                     $product->star =  (double)$product->star;
-                    $product->is_popular = $product->view > 200 && $product->orderDetail->sum('quantity') > 5;
+                  
+                    $product->is_popular = $product->view > 200;
                      return $product;
                 }); 
           
@@ -105,26 +107,29 @@ class ProductController extends BaseController
         }
     }
 
-    public function getDetail(){
+    public function getDetail(DB $db){
         try{
-            $id = request()->query('id_product');
+            $productID = request()->query('id_product');
 
-            $productQuery = new TableProduct();
+            $query = new TableProduct();
             
-            $product = $productQuery::with(["productDetail"])
-            ->withCount('orderDetail as sold')
+            $product = $query::with(["productDetail"])
+            ->withSum('orderDetail as sold','quantity')
+            ->Stock()
             ->withAvg('reviews as star', 'star')
-            ->find($id);
+            ->find($productID);
 
-            $product-> star=  (double)$product->star;
-            
+            $product-> star = (double)$product->star;
+
+            $product-> sold = (int)$product->sold;
+
             $product->is_popular = $product->view > 350;
 
-            $productQuery::where('id',$product->id)->update([
+            $query::where('id',$productID)->update([
                 "view" => $product->view + 1,
             ]);
 
-            return $this->sendResponse($product, "Get successfully!!!");
+            return $this->sendResponse( $product, "Get successfully!!!");
 
             
         }catch(\Throwable $th){

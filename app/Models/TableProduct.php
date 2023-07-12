@@ -79,9 +79,8 @@ class TableProduct extends Model
         return $this->hasMany(TableReview::class,'product_id','id');
     }
 
-    public function orderDetail()
-    {
-        return $this->hasMany(TableOrderDetail::class, 'product_id','id');
+    public function orderDetail(){
+        return $this->hasMany(TableOrderDetail::class,'product_id','id');
     }
 
     public function scopePopular($query)

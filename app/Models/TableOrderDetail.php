@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use App\Models\TableOrder;
 use App\Models\TableProduct;
+use App\Models\TableProductDetail;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -20,6 +21,7 @@ class TableOrderDetail extends Model
     protected $fillable = [
         'order_id',
         'product_detail_id',
+        'product_id',
         'color',
         'size',
         'price',
@@ -46,6 +48,10 @@ class TableOrderDetail extends Model
             ->toDateTimeString();
     }
 
+    public function productDetail(){
+        return $this->belongsTo(TableProductDetail::class,'product_id','id');
+    }
+
     public function product(){
         return $this->belongsTo(TableProduct::class,'product_id','id');
     }
@@ -54,4 +60,5 @@ class TableOrderDetail extends Model
     {
         return $this->belongsTo(TableOrder::class);
     }
+
 }
