@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Pusher\Pusher;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Storage;
@@ -156,8 +157,6 @@ class BaseController extends Controller
 
         }
     }
-
-
 
     public function sendNotiAllDevice($interests,$title,$body,$image= null,$type){
         $beamsClient = new PushNotifications(array(

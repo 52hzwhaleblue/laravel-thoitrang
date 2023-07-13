@@ -78,10 +78,12 @@ class InsertOrderJob implements ShouldQueue
         foreach( $list as $item){
             $tableDetail::create([
                 'order_id' => $order->id,
-                'product_detail_id' => $item->product->id,
+                'product_id' => $item->product->id,
+                'product_detail_id' => $item->product_detail_id,
                 'color' => $item->color,
-                'size' => $item->size,
+                'size' => empty($item->size) ? "" : $item->size,
                 'quantity' => $item->quantity,
+                'price' => $item->price,
                 'photo' => $item->photo,
                 'created_at' =>  $time ,
                 'updated_at' =>  $time

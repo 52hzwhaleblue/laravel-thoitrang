@@ -85,7 +85,7 @@ class TableProduct extends Model
 
     public function scopePopular($query)
     {
-        return $query->where('view', '>=', 200)
+        return $query->where('view', '>=', 100)
             ->whereIn('id', function ($query) {
                 $query->select('product_id')
                     ->from('table_order_details')

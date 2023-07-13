@@ -23,7 +23,7 @@ class ProductController extends BaseController
          
             $products = TableProduct::with(['category','productDetail'])
                 ->Stock()
-                // ->withCount('orderDetail as sold')
+                ->withSum('orderDetail as sold','quantity')
                 ->withAvg('reviews as star', 'star')
                 ->when($page > 0,function($query) use ($limit,$page){
                     $offset = ($page - 1) * $limit;
@@ -32,9 +32,11 @@ class ProductController extends BaseController
                 ->take($limit)
                 ->get()
                 ->map(function ($product) {
-                    $product->star =  (double)$product->star;
-                  
-                    $product->is_popular = $product->view > 200;
+                    $product-> star = (double)$product->star;
+
+                    $product-> sold = (int)$product->sold;
+        
+                    $product->is_popular = $product->view > 50 && $product->sold > 3;
                      return $product;
                 }); 
           
@@ -46,7 +48,6 @@ class ProductController extends BaseController
     }
 
     public function fetchPoppular(Request $request){
-
         try {
             $page = $request->query('page',1);
 
@@ -55,7 +56,7 @@ class ProductController extends BaseController
             $products = TableProduct::with(['category','productDetail','orderDetail'])
                 ->Stock()
                 ->Popular()
-                ->withCount('orderDetail as sold')
+                ->withSum('orderDetail as sold','quantity')
                 ->withAvg('reviews as star', 'star')
                 ->when($page > 1, function($query) use ($page,$limit){
                     $offset = ($page - 1) * $limit;
@@ -64,10 +65,11 @@ class ProductController extends BaseController
                 ->take($limit)
                 ->get()
                 ->map(function ($product) {
-                    $product->star =  (double)$product->star;
-                    $product->is_popular = true;
-                     return $product;
-                }); 
+                        $product->star =  (double)$product->star;
+                        $product->sold =  (int)$product->sold;
+                        $product->is_popular = true;
+                        return $product;
+            }); 
                
             return $this->sendResponse($products, "Fetch popular successfully!!!");
         } catch (\Throwable $th) {
@@ -86,7 +88,7 @@ class ProductController extends BaseController
             $threeMonthsAgo = $currentDate->copy()->subDays(30)->toDateString();
 
             $products = TableProduct::with(['category','productDetail'])
-                ->withCount('orderDetail as sold')
+                ->withSum('orderDetail as sold','quantity')
                 ->withAvg('reviews as star', 'star')
                 ->whereDate('created_at', '>=', $threeMonthsAgo)
                 ->when($page > 1, function($query) use ($page,$limit){
@@ -96,8 +98,11 @@ class ProductController extends BaseController
                 ->take($limit)
                 ->get()
                 ->map(function ($product) {
-                    $product->star =  (double)$product->star;
-                    $product->is_popular = false;
+                    $product-> star = (double)$product->star;
+
+                    $product-> sold = (int)$product->sold;
+        
+                    $product->is_popular = $product->view > 50 && $product->sold > 3;
                      return $product;
                 });
                
@@ -107,7 +112,7 @@ class ProductController extends BaseController
         }
     }
 
-    public function getDetail(DB $db){
+    public function getDetail(){
         try{
             $productID = request()->query('id_product');
 
@@ -123,7 +128,7 @@ class ProductController extends BaseController
 
             $product-> sold = (int)$product->sold;
 
-            $product->is_popular = $product->view > 350;
+            $product->is_popular = $product->view > 50 && $product->sold > 3;
 
             $query::where('id',$productID)->update([
                 "view" => $product->view + 1,
@@ -147,13 +152,15 @@ class ProductController extends BaseController
             }
 
             $products = TableProduct::with(['category','productDetail'])
-            ->withCount('orderDetail as sold')
+            ->withSum('orderDetail as sold','quantity')
             ->whereRaw("name LIKE '%$keyword%'")
             ->withAvg('reviews as star', 'star')
             ->get()
             ->map(function ($product) {
                 $product->star =  (double)$product->star;
-                $product->is_popular = $product->view > 350;
+                $product->sold =  (int)$product->sold;
+               
+                $product->is_popular = $product->view > 50 && $product->sold > 3;
                  return $product;
             }); 
         
@@ -204,7 +211,7 @@ class ProductController extends BaseController
             $limit = 10;
 
             $products = TableProduct::with(['category','productDetail'])
-            ->withCount('orderDetail as sold')
+            ->withSum('orderDetail as sold','quantity')
             ->withAvg('reviews as star', 'star')
             ->when($page > 1, function($query) use ($page,$limit){
                 $offset = ($page - 1) * $limit;
@@ -214,8 +221,11 @@ class ProductController extends BaseController
             ->take($limit)
             ->get()
             ->map(function ($product) {
-                $product->star =  (double)$product->star;
-                $product->is_popular = false;
+                $product-> star = (double)$product->star;
+
+                $product-> sold = (int)$product->sold;
+    
+                $product->is_popular = $product->view > 50 && $product->sold > 3;
                  return $product;
             });
 
