@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Admin\OrderController;
@@ -52,8 +53,7 @@ Route::post('/broadcasting/auth', function (Illuminate\Http\Request $request) {
 
 
 Route::middleware('auth:sanctum')->get('/pusher/beams-auth', function (Request $request) {
-  
-    $userID = $request->user()->id;
+    $userID = Auth::id();
 
     $beamsClient = new PushNotifications(array(
         "instanceId" => env('PUSHER_BEAMS_INSTANCE_ID'),
