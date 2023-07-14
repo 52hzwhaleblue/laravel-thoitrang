@@ -47,11 +47,11 @@ class PhotoSeeder extends Seeder
 
         // Thư viện ảnh (Album)
         $album = [
-            "thumbnails/photo/album1.jpg",
-            "thumbnails/photo/album2.jpg",
-            "thumbnails/photo/album3.jpg",
-            "thumbnails/photo/album4.jpg",
-            "thumbnails/photo/album5.jpg"
+            "thumbnails/photo/album1_64a8ba65029cc.jpg",
+            "thumbnails/photo/album2_64a8ba703fbfd.jpg",
+            "thumbnails/photo/album3_64a8550657d2a.jpg",
+            "thumbnails/photo/album4_64a8ba7cae0f7.jpg",
+            "thumbnails/photo/album5_64a8ba88be7a8.jpg"
         ];
         foreach($album as $index => $item){
             $photoEloquent->create([
@@ -66,7 +66,7 @@ class PhotoSeeder extends Seeder
         $photoEloquent->create([
             "name" => 'logo',
             "type" => 'logo',
-            "photo" => 'thumbnails/photo/logo-8163_6455057ae4506.png',
+            "photo" => 'thumbnails/photo/logo_64a856210afae.png',
             "created_at" => date("Y-m-d H:i:s"),
             "updated_at" => date("Y-m-d H:i:s"),
         ]);
@@ -75,7 +75,7 @@ class PhotoSeeder extends Seeder
         $photoEloquent->create([
             "name" => 'Banner Quảng Cáo',
             "type" => 'banner-quangcao',
-            "photo" => 'thumbnails/photo/bannerQC3_647608decfe17.jpg',
+            "photo" => 'thumbnails/photo/bannerQC2_64a8bad077ae0.webp',
             "created_at" => date("Y-m-d H:i:s"),
             "updated_at" => date("Y-m-d H:i:s"),
         ]);

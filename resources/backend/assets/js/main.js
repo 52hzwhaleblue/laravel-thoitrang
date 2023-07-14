@@ -148,54 +148,62 @@ function themthuoctinh(){
 			<div class="w_box3">\
                 <div id="swatch" class="mt-1">\
                     <label class="d-block" for="color">Color:</label>\
-                    <input type="color" id="color" name="color[]" value="#FF0000">\
+                    <input type="color" id="color" name="color[]" class="form-control form-control-color" value="#FF0000">\
+                </div>\
+                <div id="swatch" class="mt-1">\
+                    <label class="d-block" for="size">Size:</label>\
+                    <input type="size" id="size" name="size[]" placeholder="XL">\
                 </div>\
 				<div id="swatch" class="d-flex justify-content-between align-item-center mt-1">\
 					<label class="d-block" for="stock">Tồn kho:</label>\
-					<input type="text" name="stock[]" class="form-control w-75 " placeholder="Tồn kho" value="0" title="Tồn kho">\
+					<input type="number" name="stock[]" class="form-control w-75 " placeholder="Tồn kho" min="1"  value="1" title="Tồn kho">\
 				</div>\
 			</div>\
 		</div>');
 }
 
 function xoathuoctinh(){
-    $('.btn-xoa-thuoctinh').click(function(event) {
-        console.log($(this).parents('.thuoctinh-box'));
-        $(this).parents('.thuoctinh-box').remove();
-    });
-}
-function autoLogoutAfter5Min(){
+    if($('.thuoctinh-delete-btn').length){
+        $('.thuoctinh-delete-btn').click(function () {
+            let product_id = $(this).data('product_id');
+            let color = $(this).data('color');
+            let size = $(this).data('size');
+            let stock = $(this).data('stock');
 
-    $('.dangxuat-btn').click(function (){
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            if(confirm("Bạn có muốn xóa?")){
+                $(this).parents('.thuoctinh-box').remove();
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                    url: '/admin/product/delete-thuoctinh',
+                    data: {
+                        product_id : product_id,
+                        color : color,
+                        size : size,
+                        stock : stock,
+                    },
+                    method: "POST",
+                    success: function(result) {
+                        if(result == 1){
+                            toastr.success('Xóa thành công thuộc tính')
+                        }
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        // alert(xhr.status);
+                        // alert(thrownError);
+                    }
+                });
             }
+
         });
-        $.ajax({
-            url: '/admin/logout',
-            method: "POST",
-            success: function(data) {
-                alert('Hệ thống tự động logout sau 15 phút');
-            },
-            error: function(xhr, ajaxOptions, thrownError) {
-                // alert(xhr.status);
-                // alert(thrownError);
-            }
-        });
-    });
-
-    // if($('.dangxuat-btn').length){
-        setTimeout(function (){
-            $( ".dangxuat-btn" ).trigger( "click" );
-        },5000);
-    // }
-
-
-
+    }
 }
+
 $(document).ready(function() {
-    // autoLogoutAfter5Min();
     xoathuoctinh();
     changeTitle();
     checkPrice();

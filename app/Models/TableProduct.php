@@ -23,13 +23,15 @@ class TableProduct extends Model
      */
 
     protected $fillable = [
-        'code',
+        'SKU',
         'name',
+        'desc',
         'slug',
         'discount',
         'regular_price',
         'sale_price',
-        'desc',
+        'photo',
+        'photo1',
         'view',
         'category_id',
         'status',

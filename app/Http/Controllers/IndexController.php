@@ -48,6 +48,22 @@ class IndexController extends Controller
         $tintuc = TablePost::where('type', 'tin-tuc')->get();
         $promotion = TablePromotion::all();
 
+        $thuoctinh= \App\Models\TableProductDetail::where('product_id', 32)->where('stock','>','0')->get();
+        $sizes = array();
+        $colors = array();
+
+        foreach ($thuoctinh as $v) {
+            $sizes[] = $v->size;
+            $colors[] = $v->color;
+        }
+
+        $sizeaa = DB::table('table_product_details')->select('size')->where('product_id',32)->get();
+        $size_arr = array();
+        foreach ($sizeaa as $item) {
+            $size_arr[] = $item->size;
+        }
+//        dd(explode(' ',implode(' ',$size_arr)));
+
         return view('template.index.index',compact([
             'splistnb',
             'gioithieu',
@@ -67,7 +83,7 @@ class IndexController extends Controller
     {
         $id_category =  (int)$request->get('id_category');
         $data = DB::table('table_products')
-        ->where('category_id', $id_category)
+        ->where('category_id', $id_category)->orderByDesc('created_at')
         ->get();
         return view('api.product',compact(['data']));
     }
@@ -128,11 +144,6 @@ class IndexController extends Controller
             ->where('category_id', $id)
             ->orderByDesc('created_at')
             ->paginate(20);
-
-//        $product_properties = TableProductDetail::where('product_id',$id)->where('stock','>','0')->get();
-//        $product_sizes = TableProduct::find($id);
-//        $sizes = json_encode($product_sizes->properties["sizes"]);
-//        $sizes_decode = json_decode($sizes);
 
 
         return view('template.category.detail',compact([

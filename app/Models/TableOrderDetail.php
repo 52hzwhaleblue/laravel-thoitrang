@@ -19,11 +19,11 @@ class TableOrderDetail extends Model
      */
     protected $fillable = [
         'order_id',
-        'product_id',
+        'product_detail__id',
         'color',
         'size',
-        'price',
         'quantity',
+        'price',
         'photo',
         'created_at',
         'update_at',

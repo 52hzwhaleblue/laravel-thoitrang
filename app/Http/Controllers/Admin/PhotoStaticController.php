@@ -28,8 +28,7 @@ class PhotoStaticController extends BaseController
         // Lấy dữ liệu với type
         $type = $this->type;
         $data = TablePhoto::where('type', $type)->first();
-        // dd($data);
-        // dd(count($data));
+
         return view('admin.template.photo_static.photo_static',compact('data','type'));
     }
 

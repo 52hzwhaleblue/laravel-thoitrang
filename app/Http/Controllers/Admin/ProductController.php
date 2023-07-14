@@ -37,18 +37,14 @@ class ProductController extends BaseController
 
     public function store(Request $request)
     {
+//        $sizes =$request->get('size');
+//        dd($sizes);
         $url = $this->uploadPhoto($request,"products/",415,655);
         $url1 = $this->uploadPhoto1($request,"products/",415,655);
-        $sizes = explode(" ",$request->get('sizes'));
-        $properties_data = [
-            'sizes'=>$sizes,
-            'origin'=> 'Vietnam',
-        ];
 
         $product = new TableProduct();
         $product->name = $request->get('name');
         $product->desc = $request->get('desc');
-        $product->content = $request->get('content');
         if ($request->has('photo')) {
             $product->photo = $url;
         }
@@ -77,15 +73,16 @@ class ProductController extends BaseController
                 ->route('admin.product.product-man.create')
                 ->with('warning', 'Đường dẫn không được trống');
         }
-        $product->code = $request->get('code');
+        $product->SKU = $request->get('SKU');
+
         $product->regular_price = $request->get('regular_price');
         $product->sale_price = $request->get('sale_price');
         $product->discount = $request->get('discount');
-        $product->properties = $properties_data;
         $product->save();
 
         // Gọi hàm lưu table_product_detail với size,color,stock
         $colors = $request->get('color');
+        $sizes =$request->get('size');
         $stocks = $request->get('stock');
 
         if($colors){
@@ -94,6 +91,7 @@ class ProductController extends BaseController
                 TableProductDetail::create([
                     'product_id' => $product->id,
                     'color' => $vcolor,
+                    "size" => $sizes[$kcolor],
                     "stock" => $stocks[$kcolor],
                     "create_at" => now(),
                     "updated_at" => now(),
@@ -113,14 +111,9 @@ class ProductController extends BaseController
         $product_id = $data['id'];
         $product_properties = TableProductDetail::where('product_id',$product_id)->get();
 
-        $sql_sizes = DB::table('table_products')->select('properties')->where('id',$product_id)->first();
-        ($sql_sizes->properties != null)
-            ? $sizes = implode(" ", json_decode($sql_sizes->properties)->sizes)
-            : $sizes = null;
-
         return view(
             'admin.template.product.man.man_edit',
-            compact('data','splist','product_properties','sizes')
+            compact('data','splist','product_properties')
         );
     }
 
@@ -129,17 +122,10 @@ class ProductController extends BaseController
         $url = $this->uploadPhoto($request,"products/",415,655);
         $url1 = $this->uploadPhoto1($request,"products/",415,655);
 
-        $sizes = explode(" ",$request->get('sizes')); // explode từ string => array
-        $properties_data = [
-            'sizes'=>$sizes,
-            'origin'=> 'Vietnam',
-        ];
-      
         $product = TableProduct::where('slug', $slug)->first();
         $product->status = (int)$request->get('status');
         $product->name = $request->get('name');
         $product->desc = $request->get('desc');
-        $product->content = $request->get('content');
         $product->category_id =(int)$request->get('category_id');
 
         if(empty($product->category_id)){
@@ -156,7 +142,7 @@ class ProductController extends BaseController
 
         $product->status = (int)$request->get('status');
         $product->slug = $request->get('slug');
-        $product->code = $request->get('code');
+        $product->SKU = $request->get('SKU');
         $product->regular_price = $request->get('regular_price');
         $product->sale_price = $request->get('sale_price');
         $product->discount = $request->get('discount');
@@ -174,37 +160,52 @@ class ProductController extends BaseController
                 ->route('admin.product.product-man.index')
                 ->with('warning', 'Đường dẫn không được trống');
         }
-        $product->properties = $properties_data;
         $product->save();
 
-        // Cập nhật color,stock chi tiết sản phẩm
-//        $colors = $request->get('color');
-//        $stock = $request->get('stock');
-//
-//        $product_id = DB::table('table_products')->select('id')->where('slug',$slug)->first();
-//        dd($product_id);
-//        $product_detail = TableProductDetail::where('product_id', $product_id->id)
-//            ->where('color','=',null)
-//            ->where('stock','=',null)
-//        ; // khi delete thì product_detail ko dc ->get()
-//
-//        $dataProductDetail = null;
-//        $product_detail->delete(); // khi delete thì product_detail ko dc ->get()
-//
-//        foreach ($colors as $k => $v) {
-//            $dataProductDetail['color'] = $v;
-//            $dataProductDetail['stock'] = $stock[$k];
-//            DB::table('table_product_details')->insert([
-//                'color' => $dataProductDetail['color'],
-//                'stock' => $dataProductDetail['stock'],
-//                'product_id' => $product_id,
-//                'photo' => $product_id,
-//
-//            ]);
-//        }
+        // Gọi hàm lưu table_product_detail với size,color,stock
+        $colors = $request->get('color');
+        $sizes =$request->get('size');
+        $stocks = $request->get('stock');
+
+        $product_detail_properties = TableProductDetail::where('product_id',$product->id)->get();
+
+        foreach ($product_detail_properties as $k => $v){
+            DB::table('table_product_details')
+                ->where('product_id', $product->id)
+                ->where('color',$v->color)
+                ->where('size',$v->size)
+                ->where('stock',$v->stock)
+                ->limit(1)
+                ->update(array(
+                    'color' => $colors[$k],
+                    'size' => $sizes[$k],
+                    'stock' => $stocks[$k],
+                ));
+        }
+
         return redirect()
             ->route('admin.product.product-man.index')
             ->with('message', 'Bạn đã cập nhật sản phẩm thành công!');
+    }
+
+    public function delete_thuoctinh(Request $request)
+    {
+        $product_id = (int)$request->get('product_id');
+        $size = $request->get('size');
+        $color = $request->get('color');
+        $stock = (int)$request->get('stock');
+
+        $product_detail = TableProductDetail::where('product_id',$product_id)
+            ->where('size',$size)
+            ->where('color',$color)
+            ->where('stock',$stock)
+            ->first();
+
+        if ($product_detail){
+            $product_detail->delete();
+        }
+
+        return true;
     }
 
     public function destroy(Request $request,$id)

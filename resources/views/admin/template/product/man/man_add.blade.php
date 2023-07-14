@@ -251,36 +251,38 @@ enctype="multipart/form-data"
                             <div class="row">
                                 <div class="col-xl-4">
                                     <div class="mb-3">
-                                        <label for="code" class="form-label"
+                                        <label for="SKU" class="form-label"
                                             >Mã sản phẩm :</label
                                         >
                                         <div class="input-group">
                                             <input
                                                 type="text"
                                                 class="form-control"
-                                                id="code"
+                                                id="SKU"
                                                 placeholder="Mã sản phẩm"
-                                                name="code"
+                                                name="SKU"
                                             />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xl-4">
-                                    <div class="mb-3">
-                                        <label for="code" class="form-label"
-                                        >Size :</label
-                                        >
-                                        <div class="input-group">
-                                            <input
-                                                type="text"
-                                                class="form-control"
-                                                id="sizes"
-                                                placeholder="Sizes"
-                                                name="sizes"
-                                            />
+                                <?php /*
+                                    <div class="col-xl-4">
+                                        <div class="mb-3">
+                                            <label for="code" class="form-label"
+                                            >Size :</label
+                                            >
+                                            <div class="input-group">
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    id="sizes"
+                                                    placeholder="Sizes"
+                                                    name="sizes"
+                                                />
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                */ ?>
 
                                 <div class="col-xl-4">
                                     <div class="mb-3">

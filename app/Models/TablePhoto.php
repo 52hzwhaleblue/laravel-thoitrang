@@ -16,7 +16,6 @@ class TablePhoto extends Model
     protected $fillable = [
         'photo',
         'name',
-        'options',
         'type',
         'status',
         'created_at',

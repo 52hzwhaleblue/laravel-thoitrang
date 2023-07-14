@@ -13,6 +13,7 @@ class TableCategory extends Model
 
     protected $fillable = [
         'name',
+        'name_vi',
         'slug',
         'photo',
         'status',

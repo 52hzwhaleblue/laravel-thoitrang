@@ -29,33 +29,49 @@
      data-navcontainer = ".control-sanpham">
     @foreach ($data as $k =>$v)
     @php
-        $colors= \App\Models\TableProductDetail::where('product_id', $v->id)->where('stock','>','0')->get();
-        $sql_sizes = \Illuminate\Support\Facades\DB::table('table_products')->select('properties')->where('id',$v->id)->first();
-        $sizes = json_decode($sql_sizes->properties)->sizes;
+        $thuoctinh= \App\Models\TableProductDetail::where('product_id', $v->id)->where('stock','>','0')->get();
+        $sizes = DB::table('table_product_details')->select('size')->where('product_id',$v->id)->get();
+        $size_json = array();
+        foreach ($sizes as $item) {
+            $size_json[] = $item->size;
+        }
+        $size_arr = explode(' ',implode(' ',$size_json));
+
+        $colors = array();
+        foreach ($thuoctinh as $v1) {
+
+            $colors[] = $v1->color;
+        }
     @endphp
     <div class="pronb-item" data-aos="fade-up" data-aos-duration="1500">
         <div class="pronb-image">
-            <a class="pronb-img scale-img" href=chi-tiet-san-pham/{{$v->slug}}/{{$v->id}} >
-                <img src="{{asset("http://localhost:8000/storage/$v->photo")}}" alt="{{$v->name}}" />
-            </a>
-            <a class="pronb-img1 scale-img" href=chi-tiet-san-pham/{{$v->slug}}/{{$v->id}} >
-                <img src="{{asset("http://localhost:8000/storage/$v->photo1")}}" alt="{{$v->name}}" />
-            </a>
+            <?php if(!empty($v->photo) || !empty($v->photo1)) { ?>
+                <a class="pronb-img scale-img" href=chi-tiet-san-pham/{{$v->slug}}/{{$v->id}} >
+                    <img src="{{asset("http://localhost:8000/storage/$v->photo")}}" alt="{{$v->name}}" />
+                </a>
+                <a class="pronb-img1 scale-img" href=chi-tiet-san-pham/{{$v->slug}}/{{$v->id}} >
+                    <img src="{{asset("http://localhost:8000/storage/$v->photo1")}}" alt="{{$v->name}}" />
+                </a>
+            <?php } else { ?>
+            <img class="lazyload noimage"
+                 src="{{ asset('http://localhost:8000/storage/noimage.jpg') }}" alt="noimage" />
+            <?php } ?>
 
             <div class="pronb-btn">
                 <p class="add-to-cart"> Thêm nhanh vào giỏ hàng + </p>
                 <ul class="pronb-sizes">
-                    @foreach($sizes as $vsize)
+                    @foreach($size_arr as $k => $vsize)
                         <li
                             onclick="addToCart()"
                             data-size="{{$vsize}}"
                             data-product_id="{{$v->id}}"
                             class="size-click">
-                           <span> {{$vsize}} </span>
+                           <span> {{$vsize}}</span>
                         </li>
                     @endforeach
                 </ul>
             </div>
+
             <div class="pronb-loader">
                 <div class="loader">
                     <div class="loader-item">
@@ -75,8 +91,8 @@
         <div class="pronb-info">
             @if(count($colors))
                 <ul class="pronb-colors">
-                    @foreach($colors as $kcolor => $vcolor)
-                        <li  class="pronb-color color-click" data-color="{{$vcolor->color}}">  <p style="background: {{$vcolor->color}};"> </p> </li>
+                    @foreach($colors as $vcolor)
+                        <li  class="pronb-color color-click" data-color="{{$vcolor}}">  <p style="background: {{$vcolor}};"> </p> </li>
                     @endforeach
                 </ul>
             @endif

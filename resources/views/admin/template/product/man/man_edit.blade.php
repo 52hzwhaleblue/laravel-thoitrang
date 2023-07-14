@@ -169,23 +169,25 @@
                         <div class="row">
                             <div class="col-xl-4">
                                 <div class="mb-3">
-                                    <label for="code" class="form-label">Mã sản phẩm :</label>
+                                    <label for="SKU" class="form-label">Mã sản phẩm :</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" id="code" placeholder="Mã sản phẩm"
-                                            name="code" value={{ $data['code'] }} >
+                                        <input type="text" class="form-control" id="SKU" placeholder="Mã sản phẩm"
+                                            name="SKU" value={{ $data['SKU'] }} >
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-xl-4">
-                                <div class="mb-3">
-                                    <label for="price" class="form-label">Sizes :</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" id="sizes" placeholder="Sizes"
-                                               name="sizes" value=" {{$sizes}} " />
+                            <?php /*
+                                <div class="col-xl-4">
+                                    <div class="mb-3">
+                                        <label for="price" class="form-label">Sizes :</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="sizes" placeholder="Sizes"
+                                                   name="sizes" value=" {{$sizes}} " />
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            */ ?>
 
                             <div class="col-xl-4">
                                 <div class="mb-3">
@@ -244,19 +246,30 @@
                     <div class="col-md-12 form-group">
                         <div class="w_box3 d-flex row">
                             @foreach($product_properties as $k => $v)
-                                <?php if($v->color != null && $v->stock != null) { ?>
                                 <div class="col-12 thuoctinh-box p-0 d-flex flex-column justify-content-between align-item-center mt-1">
-                                    <div id="swatch" class="col-11 p-0">
-                                        <label class="d-block" for="color">Color:</label>
-                                        <input class="d-block" type="color" id="color" name="color[]" value="{{$v->color}}">
-                                    </div>
+                                        <div id="swatch" class="col-11 p-0">
+                                            <label class="d-block" for="color">Color:</label>
+                                            <input class="d-block" type="color" id="color" name="color[]" value="{{$v->color}}">
+                                        </div>
+                                        <div id="swatch" class="col-11 p-0">
+                                            <label class="d-block" for="size">Size:</label>
+                                            <input class="d-block form-control" type="size" id="size" name="size[]" value="{{$v->size}}">
+                                        </div>
+
                                     <div id="swatch" class="col-11 p-0">
                                         <label class="d-block" for="stock">Tồn kho:</label>
-                                        <input type="text" name="stock[]" class="form-control" placeholder="Tồn kho" value="{{$v->stock}}" title="Tồn kho">
+                                        <input type="number" name="stock[]" class="form-control" placeholder="Tồn kho" min="1" value="{{$v->stock}}" title="Tồn kho">
                                     </div>
-                                    <div class="btn-xoa-thuoctinh btn btn-danger">Xóa</div>
+                                    <div
+                                        class="thuoctinh-delete-btn btn btn-danger"
+                                        data-product_id = "{{$data['id']}}"
+                                        data-size = "{{$v->size}}"
+                                        data-color = "{{$v->color}}"
+                                        data-stock = "{{$v->stock}}"
+                                    >
+                                        Xóa
+                                    </div>
                                 </div>
-                                <?php } ?>
                             @endforeach
                         </div>
                     </div>

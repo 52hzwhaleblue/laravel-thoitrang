@@ -40,6 +40,8 @@ Route::group([
             Route::post('product-export', [ProductController::class,'export_handle'])->name('exportProduct');
 
             Route::post('product-man/deleteAll', [ProductController::class,'deleteAll'])->name('deleteAll');
+
+            Route::post('delete-thuoctinh', [ProductController::class,'delete_thuoctinh'])->name('deleteThuoctinh');
         });
 
         // Bài viết

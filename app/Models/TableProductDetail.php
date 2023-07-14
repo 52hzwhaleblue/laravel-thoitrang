@@ -15,12 +15,12 @@ class TableProductDetail extends Model
     use HasFactory;
 
     protected $fillable = [
-        'photo',
         'product_id',
         'name',
         'color',
         'size',
         'stock',
+        'photo',
         'created_at',
         'updated_at',
     ];
