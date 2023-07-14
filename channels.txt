@@ -1,0 +1,3 @@
+Admin muốn user mobile app nghe thì luôn phát sự kiện thông qua channel bên dưới: 
+  -> channel: 'pusher-user-{id}'
+  -> event: 'pusher-event'
