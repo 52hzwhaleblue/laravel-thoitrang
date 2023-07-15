@@ -1,5 +1,5 @@
 <form class="form-cart cart-flag" id="cart-form" action="{{route('cart-add')}}" method="post" enctype="multipart/form-data"
-      hidden="">
+>
     @csrf
     <input type="text" class="id-input" name="pronb_id" value="" >
     <input type="text" class="color-input" name="pronb_color" value="">
@@ -60,7 +60,7 @@
             <div class="pronb-btn">
                 <p class="add-to-cart"> Thêm nhanh vào giỏ hàng + </p>
                 <ul class="pronb-sizes">
-                    @foreach($size_arr as $k => $vsize)
+                    @foreach($size_arr as $ksize => $vsize)
                         <li
                             onclick="addToCart()"
                             data-size="{{$vsize}}"
@@ -92,7 +92,14 @@
             @if(count($colors))
                 <ul class="pronb-colors">
                     @foreach($colors as $vcolor)
-                        <li  class="pronb-color color-click" data-color="{{$vcolor}}">  <p style="background: {{$vcolor}};"> </p> </li>
+                        <li  class="pronb-color color-click"
+                             data-color="{{$vcolor}}"
+                             data-product_id="{{$v->id}}"
+                             data-sizearr = '<?php echo (\App\Helpers\Functions::getSizeProduct($v->id,$vcolor)) ?>'
+                        >
+
+                            <p style="background: {{$vcolor}};"> </p>
+                        </li>
                     @endforeach
                 </ul>
             @endif
@@ -123,8 +130,20 @@
         $('.color-click').click(function (e) {
             $(this).parent('.pronb-colors').find('.color-click').removeClass('active');
             $(this).addClass('active');
+
+            let sizearr = $(this).data('sizearr');
+            console.log(sizearr);
+
+            let size_class = $(this).parents('.pronb-item').find('.size-click');
+            size_class.each(function (){
+                let size = $(this).data('size');
+                if(!sizearr.includes(size.toString())) $(this).addClass('d-none');
+                else $(this).removeClass('d-none');
+            });
+
         });
 
+        $('.color-click').trigger('click');
         // Size
         // Khi chọn size -> chọn luôn màu active -> add vào giỏ hàng
         $('.size-click').click(function (e) {
@@ -137,10 +156,10 @@
             $(this).parents('.cart-flag').find('.color-input').attr('value',color);
             $(this).parents('.cart-flag').find('.size-input').attr('value',size);
 
-            setTimeout(addToCart,3000);
-            function addToCart() {
-                document.getElementById("cart-form").submit();
-            }
+            // setTimeout(addToCart,3000);
+            // function addToCart() {
+            //     document.getElementById("cart-form").submit();
+            // }
         });
     </script>
 </div>

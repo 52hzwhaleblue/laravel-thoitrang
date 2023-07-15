@@ -9,6 +9,15 @@ class Functions
 {
     private $d;
 
+    public static function getSizeProduct( $product_id,$color)
+    {
+        $sizes = DB::table('table_product_details')->select('size')
+            ->where('product_id',$product_id)
+            ->where('color',$color)
+            ->first();
+        return json_encode(explode(" ",$sizes->size));
+
+    }
     public static  function checkSlug($data = [])
     {
         $slug = $data['slug'];

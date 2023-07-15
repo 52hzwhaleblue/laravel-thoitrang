@@ -28,10 +28,6 @@ class IndexController extends Controller
         $this->type = Functions::getTypeByCom();
     }
 
-    public function testPusher()
-    {
-        event(new PusherEvent("Khách hàng:"));
-    }
 
     public function index(Request $request)
     {
@@ -47,22 +43,6 @@ class IndexController extends Controller
         $tieuchi = TablePost::where('type', 'tieu-chi')->get();
         $tintuc = TablePost::where('type', 'tin-tuc')->get();
         $promotion = TablePromotion::all();
-
-        $thuoctinh= \App\Models\TableProductDetail::where('product_id', 32)->where('stock','>','0')->get();
-        $sizes = array();
-        $colors = array();
-
-        foreach ($thuoctinh as $v) {
-            $sizes[] = $v->size;
-            $colors[] = $v->color;
-        }
-
-        $sizeaa = DB::table('table_product_details')->select('size')->where('product_id',32)->get();
-        $size_arr = array();
-        foreach ($sizeaa as $item) {
-            $size_arr[] = $item->size;
-        }
-//        dd(explode(' ',implode(' ',$size_arr)));
 
         return view('template.index.index',compact([
             'splistnb',
@@ -83,7 +63,10 @@ class IndexController extends Controller
     {
         $id_category =  (int)$request->get('id_category');
         $data = DB::table('table_products')
-        ->where('category_id', $id_category)->orderByDesc('created_at')
+            ->where('category_id', $id_category)
+            ->where('status',1)
+            ->orderByDesc('created_at')
+
         ->get();
         return view('api.product',compact(['data']));
     }
@@ -197,7 +180,18 @@ class IndexController extends Controller
         $table_products = TableProduct::where('id',$id)->first();
         $table_products->view = $now_view;
         $table_products->save();
+    }
 
+    public function get_size_product(Request $request)
+    {
+        $product_id = $request->get('product_id');
+        $color = $request->get('color');
+
+        $sizes = DB::table('table_product_details')->select('size')
+            ->where('product_id',$product_id)
+            ->where('color',$color)
+            ->first();
+        return explode(" ",json_encode($sizes->size));
     }
 
 }
