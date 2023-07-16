@@ -38,11 +38,13 @@ class HomeController extends Controller
 
         // Top 10 products best seller
         $top10ProductBestSeller= DB::table('table_order_details')
-            ->selectRaw('product_detail_id,SUM(quantity) AS total_quantity')
-            ->groupBy('product_detail_id')
+            ->selectRaw('product_id,product_detail_id,SUM(quantity) AS total_quantity')
+            ->groupBy('product_detail_id','product_id')
             ->orderByDesc('total_quantity')
             ->limit(10)
             ->get();
+
+//        dd($top10ProductBestSeller);
 
         // Top 10 products most viewed
         $top10ProductMostViewed= DB::table('table_products')

@@ -1,5 +1,9 @@
-<form class="form-cart cart-flag" id="cart-form" action="{{route('cart-add')}}" method="post" enctype="multipart/form-data"
->
+<form hidden=""
+      class="form-cart cart-flag"
+      id="cart-form"
+      action="{{route('cart-add')}}"
+      method="post"
+      enctype="multipart/form-data">
     @csrf
     <input type="text" class="id-input" name="pronb_id" value="" >
     <input type="text" class="color-input" name="pronb_color" value="">
@@ -12,7 +16,7 @@
      data-md-items = "3:10"
      data-lg-items = "3:10"
      data-xlg-items = "4:10"
-     data-rewind = "1"
+     data-rewind = "0"
      data-autoplay = "0"
      data-loop = "0"
      data-dotsData="0"
@@ -39,7 +43,6 @@
 
         $colors = array();
         foreach ($thuoctinh as $v1) {
-
             $colors[] = $v1->color;
         }
     @endphp
@@ -53,21 +56,25 @@
                     <img src="{{asset("http://localhost:8000/storage/$v->photo1")}}" alt="{{$v->name}}" />
                 </a>
             <?php } else { ?>
-            <img class="lazyload noimage"
-                 src="{{ asset('http://localhost:8000/storage/noimage.jpg') }}" alt="noimage" />
+            <a class="scale-img" href=chi-tiet-san-pham/{{$v->slug}}/{{$v->id}} >
+                <img class="lazyload noimage"
+                     src="{{ asset('http://localhost:8000/storage/noimage.jpg') }}" alt="noimage" />
+            </a>
             <?php } ?>
 
             <div class="pronb-btn">
                 <p class="add-to-cart"> Thêm nhanh vào giỏ hàng + </p>
                 <ul class="pronb-sizes">
                     @foreach($size_arr as $ksize => $vsize)
-                        <li
-                            onclick="addToCart()"
-                            data-size="{{$vsize}}"
-                            data-product_id="{{$v->id}}"
-                            class="size-click">
-                           <span> {{$vsize}}</span>
-                        </li>
+                        <?php if($vsize) { ?>
+                            <li
+                                onclick="addToCart()"
+                                data-size="{{$vsize}}"
+                                data-product_id="{{$v->id}}"
+                                class="size-click">
+                               <span> {{$vsize}}</span>
+                            </li>
+                        <?php } ?>
                     @endforeach
                 </ul>
             </div>
@@ -156,10 +163,11 @@
             $(this).parents('.cart-flag').find('.color-input').attr('value',color);
             $(this).parents('.cart-flag').find('.size-input').attr('value',size);
 
-            // setTimeout(addToCart,3000);
-            // function addToCart() {
-            //     document.getElementById("cart-form").submit();
-            // }
+            setTimeout(addToCart,3000);
+            function addToCart() {
+                toastr.success('Đã thêm vào giỏ hàng!')
+                document.getElementById("cart-form").submit();
+            }
         });
     </script>
 </div>

@@ -116,7 +116,7 @@ Route::group([
         // Đơn hàng
         Route::get('order', [OrderController::class,'index'])->name('order.index');
         Route::delete('order/{id}', [OrderController::class,'destroy'])->name('order.destroy');
-        Route::get('delete_order_listen', [OrderController::class,'delete_order_listen'])->name('order.destroy');
+        Route::get('delete_order_listen', [OrderController::class,'delete_order_listen'])->name('order.delete_order_listen');
 
         // Chi tiết đơn hàng
         // Route::get('order-detail/{order_id}/{user_id}', [OrderController::class,'edit'])->name('order.detail');

@@ -45,6 +45,13 @@ class CartController extends BaseController
         $size = $request->get('pronb_size');
         $productById = TableProduct::find($product_id);
 
+        $product_detail_id = DB::table('table_product_details')
+            ->select('id')
+            ->where('color',$color)
+            ->where('size','LIKE','%'.$size.'%' )
+            ->where('product_id',$product_id)
+            ->first();
+
         if ($productById->regular_price == null && $productById->discount == null && $productById->sale_price == null) {
             $price = 0;
         }
@@ -63,6 +70,7 @@ class CartController extends BaseController
             'options' => [
                 'size' => $size,
                 'color' => $color,
+                'product_detail_id' =>$product_detail_id->id,
                 'discount' => $productById->discount,
                 'sale_price' => $productById->sale_price,
                 'regular_price' => $productById->regular_price,
@@ -71,8 +79,7 @@ class CartController extends BaseController
                 'slug' => $productById->slug,
             ],
         ]);
-
-        return back()->with('CartToast', 'Bạn đã thêm sản phẩm vào giỏ hàng thành công!');
+        return back();
     }
 
     public function update(Request $request)
@@ -195,11 +202,10 @@ class CartController extends BaseController
     public function store(Request $request, DB $db)
     {
         // Kiểm tra dữ liệu người dùng nhập
-        $this->validate_cart($request);
+//        $this->validate_cart($request);
 
         // Dữ liệu giỏ hàng
         $dataCart = Cart::content();
-
         // Dữ liệu người dùng
         $dataUser = [
             'user_id' => Auth::user()->id,
@@ -212,7 +218,6 @@ class CartController extends BaseController
             'ward' => $request->get('ward'),
             'payment_method' => $request->get('payment_method'),
         ];
-
         $user_id = Auth::user()->id;
         $code_order = 'UNI' . Str::random(5);
         $promo_code = $request->get('promo_code');
@@ -227,6 +232,7 @@ class CartController extends BaseController
                 'shipping_fullname' => $dataUser['fullname'],
                 'shipping_phone' => $dataUser['phone'],
                 'shipping_address' => $dataUser['address'],
+                'shipping_email' => $dataUser['email'],
                 'temp_price' => (int)Cart::total(),
                 'total_price' => (int)$request->get('product_total'),
                 'payment_method' => $dataUser['payment_method'],
@@ -234,14 +240,22 @@ class CartController extends BaseController
                 'status_id' => 1,
             ]);
             // Lưu vào table_order_details
+//            dd($dataCart);
+
             foreach ($dataCart as $kcart => $vcart) {
+//                dd($vcart->id);
+
                 $order_details = TableOrderDetail::create([
                     'order_id' => $order->id,
                     'product_id' => $vcart->id,
+                    'product_detail_id' => $vcart->options->product_detail_id,
                     'color' => $vcart->options->color,
                     'size' => $vcart->options->size,
                     'quantity' => $vcart->qty,
                 ]);
+
+//                dd($order_details);
+
                 // Giảm SLTK khi đặt hàng thành công
                 $product_id = $vcart->id;
                 $color = $order_details->color;
@@ -356,6 +370,7 @@ class CartController extends BaseController
               </p>";
             $data = array(
                 'alert' => $alert,
+                'success'=>false
             );
             return $data;
         }
@@ -366,6 +381,7 @@ class CartController extends BaseController
               </p>";
             $data = array(
                 'alert' => $alert,
+                'success'=>false
             );
             return $data;
 
@@ -395,6 +411,7 @@ class CartController extends BaseController
 
                     $data = array(
                         'alert' => $alert,
+                        'success'=>false
                     );
                     return $data;
                 }
@@ -411,6 +428,7 @@ class CartController extends BaseController
               </p>";
             $data = array(
                 'alert' => $alert,
+                'success'=>false
             );
             return $data;
         }
@@ -420,7 +438,8 @@ class CartController extends BaseController
         $totalText = number_format($subTotal - ($subTotal * $promotion->discount_price / 100));
         $data = array(
             'total' => $total,
-            'totalText' => $totalText
+            'totalText' => $totalText,
+            'success'=>true
         );
         return $data;
     }

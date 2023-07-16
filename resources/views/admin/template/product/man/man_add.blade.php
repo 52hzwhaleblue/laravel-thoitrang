@@ -297,6 +297,7 @@ enctype="multipart/form-data"
                                                 id="regular_price"
                                                 name="regular_price"
                                                 value=""
+                                                required
                                             />
                                             <span class="input-group-text"
                                                 >VNĐ</span

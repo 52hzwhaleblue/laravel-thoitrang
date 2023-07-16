@@ -52,10 +52,18 @@ function Cart(){
             },
             method: "POST",
             success: function(result) {
-                console.log(result);
-                $('.promo_alert').html(result.alert);
-                $('.product_total').text(result.totalText);
-                $("input[name=product_total]").attr('value',result.total);
+                console.log(result.success);
+                toastr.options.progressBar = true;
+
+                if(result.success){
+                    toastr.success('Áp dụng mã giảm giá thành công!')
+                    $('.product_total').text(result.totalText);
+                    $("input[name=product_total]").attr('value',result.total);
+                }else{
+                    toastr.warning(result.alert);
+                }
+
+                // $('.promo_alert').html(result.alert);
             },
             error: function(xhr, ajaxOptions, thrownError) {
                 // alert(xhr.status);
@@ -297,7 +305,7 @@ function Slick(){
         $('.rowDetailPhoto-for').slick({
             slidesToShow: 1,
             slidesToScroll: 1,
-            arrows: false,
+            arrows: true,
             fade: true,
             arrows: false,
             asNavFor: '.rowDetailPhoto-nav'

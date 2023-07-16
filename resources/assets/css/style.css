@@ -519,6 +519,10 @@ a,a:hover{
 .box-readmore ul li a:hover{color:#767676;}
 
 /* Product Detail */
+.rowDetailPhoto-for{
+    max-height: 530px;
+    overflow: hidden;
+}
 .rowDetailPhoto-scroll{
     position: absolute;
     top: 15px;

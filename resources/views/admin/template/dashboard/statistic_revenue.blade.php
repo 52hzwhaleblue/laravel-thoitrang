@@ -70,7 +70,6 @@
                                 <p>
                                     <a href="chi-tiet-san-pham/{{$v->slug}}/{{$v->id}}">
                                         <span style="color: #007D71;"> {{ $v->name }} </span>
-                                        <span> {{ $v->name }} </span>
                                         <span> | </span>
                                         <span> {{$v->view}}  </span>
                                     </a>
@@ -89,11 +88,11 @@
                         <h6 class="text-dark"> Top 10 sản phẩm bán chạy </h6>
                         <ul class="">
                             <?php foreach ($top10ProductBestSeller as $k => $v) {
-                                $product_name= \App\Models\TableProduct::where('id', $v->product_detail_id)->first();
+                                $product_name= \App\Models\TableProduct::where('id', $v->product_id)->first();
                             ?>
                                 <li>
                                     <p>
-                                        <a href="chi-tiet-san-pham/{{$product_name->slug}}/{{$product_name->id}}">
+                                        <a href="chi-tiet-san-pham/{{($product_name->slug)}}/{{$product_name->id}}">
                                             <span style="color: #007D71;"> {{ $product_name->name }} </span>
                                             <span> | </span>
                                             <span> {{$v->total_quantity}}  </span>
