@@ -30,8 +30,6 @@ class CategoryController extends BaseController
         $Category = new TableCategory();
 
         $Category->name = $request->get('name');
-        $Category->desc = $request->get('desc');
-        $Category->content = $request->get('content');
         if ($request->has('photo')) {
             $Category->photo = $url;
         }
@@ -82,9 +80,7 @@ class CategoryController extends BaseController
 
         $Category = TableCategory::where('slug', $slug)->first();
         $Category->name = $request->get('name');
-        $Category->desc = $request->get('desc');
         $Category->status = (int)$request->get('status');
-        $Category->content = $request->get('content');
         if ($request->has('photo')) {
             $Category->photo = $url;
         }

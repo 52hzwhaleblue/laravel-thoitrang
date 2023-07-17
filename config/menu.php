@@ -91,15 +91,6 @@
                         'height'=>600,
                     ]
                 ],
-                'video' => [
-                    'title' => 'Video',
-                    'type' => 'video',
-                    'index' => 'admin.photo.video.index',
-                    'thumbs' => [
-                        'width'=>0,
-                        'height'=>0,
-                    ]
-                ],
                 'banner' => [
                     'title' => 'Banner',
                     'type' => 'banner',
@@ -118,15 +109,6 @@
                         'height'=>620,
                     ]
                 ],
-                'quang-cao' => [
-                    'title' => 'Quảng cáo',
-                    'type' => 'quang-cao',
-                    'index' => 'admin.photo.quang-cao.index',
-                    'thumbs' => [
-                        'width'=>870,
-                        'height'=>665,
-                    ]
-                ],
                 'thu-vien-anh' => [
                     'title' => 'Thư viện ảnh',
                     'type' => 'thu-vien-anh',
@@ -136,16 +118,6 @@
                         'height'=>520,
                     ]
                 ],
-                'social' => [
-                    'title' => 'Social',
-                    'type' => 'social',
-                    'index' => 'admin.photo.social.index',
-                    'thumbs' => [
-                        'width'=>42,
-                        'height'=>42,
-                    ]
-                ],
-
             ]
         ],
 

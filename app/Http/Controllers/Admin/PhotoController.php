@@ -44,8 +44,6 @@ class PhotoController extends BaseController
 
         $photo = new TablePhoto();
         $photo->name = $request->get('name');
-        $photo->desc = $request->get('desc');
-        $photo->content = $request->get('content');
         if ($request->has('photo')) {
             $photo->photo = $url;
         }
@@ -80,8 +78,6 @@ class PhotoController extends BaseController
         $photo = TablePhoto::where('id', $id)->first();
 
         $photo->name = $request->get('name');
-        $photo->desc = $request->get('desc');
-        $photo->content = $request->get('content');
         if ($request->has('photo')) {
             $photo->photo = $url;
         }

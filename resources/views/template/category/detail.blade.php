@@ -13,11 +13,18 @@
     <div class="row mb-5">
         @foreach ($data as $k =>$v)
             @php
-                $colors= \App\Models\TableProductDetail::with('product')->where('product_id', $v->id)->where('stock','>','0')->get();
-                $sql_sizes = \Illuminate\Support\Facades\DB::table('table_products')->select('properties')->where('id',$v->id)->first();
-                ($sql_sizes != null)
-                    ? $sizes = json_decode($sql_sizes->properties)->sizes
-                    : $sizes = null;
+                $thuoctinh= \App\Models\TableProductDetail::where('product_id', $v->id)->where('stock','>','0')->get();
+                $sizes = DB::table('table_product_details')->select('size')->where('product_id',$v->id)->get();
+                $size_json = array();
+                foreach ($sizes as $item) {
+                    $size_json[] = $item->size;
+                }
+                $size_arr = explode(' ',implode(' ',$size_json));
+
+                $colors = array();
+                foreach ($thuoctinh as $v1) {
+                    $colors[] = $v1->color;
+                }
             @endphp
             <div class="pronb-item col-3 mb-4" data-aos="fade-up" data-aos-duration="1500">
                 <div class="pronb-image">
