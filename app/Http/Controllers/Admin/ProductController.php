@@ -18,6 +18,17 @@ use Illuminate\Support\Facades\DB;
 
 class ProductController extends BaseController
 {
+    public $width;
+    public $height;
+    public $name;
+    public function __construct()
+    {
+        $this->name = 'Sản phẩm';
+        $this->width = Functions::getThumbWidth($this->name);
+        $this->height = Functions::getThumbHeight($this->name);
+
+//        dd($this->width);
+    }
     public function index()
     {
         $data = TableProduct::orderBy('created_at', 'DESC')->get();
@@ -37,10 +48,8 @@ class ProductController extends BaseController
 
     public function store(Request $request)
     {
-//        $sizes =$request->get('size');
-//        dd($sizes);
-        $url = $this->uploadPhoto($request,"products/",415,655);
-        $url1 = $this->uploadPhoto1($request,"products/",415,655);
+        $url = $this->uploadPhoto($request,"products/",$this->width,$this->height);
+        $url1 = $this->uploadPhoto1($request,"products/",$this->width,$this->height);
 
         $product = new TableProduct();
         $product->name = $request->get('name');
@@ -120,8 +129,8 @@ class ProductController extends BaseController
 
     public function update(Request $request, $slug)
     {
-        $url = $this->uploadPhoto($request,"products/",415,655);
-        $url1 = $this->uploadPhoto1($request,"products/",415,655);
+        $url = $this->uploadPhoto($request,"products/",$this->width,$this->height);
+        $url1 = $this->uploadPhoto1($request,"products/",$this->width,$this->height);
 
         $product = TableProduct::where('slug', $slug)->first();
         $product->status = (int)$request->get('status');

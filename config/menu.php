@@ -19,13 +19,21 @@
             'name' => 'Sản phẩm',
             'group' => '.product.',
             'data' =>[
-                'list' =>[
+                'product-list' =>[
                     'title' => 'Danh mục cấp 1',
                     'index' => 'admin.product.product-list.index',
+                    'thumbs' => [
+                        'width'=> 100,
+                        'height'=> 100,
+                    ]
                 ],
-                'man' =>[
+                'product-man' =>[
                     'title' => 'Danh mục sản phẩm',
                     'index' => 'admin.product.product-man.index',
+                    'thumbs' => [
+                        'width'=> 415,
+                        'height'=> 500,
+                    ]
                 ],
                 'import' =>[
                     'title' => 'Nhập / Xuất Sản phẩm',

@@ -82,6 +82,7 @@ class Functions
         $menus = config('menu');
         $type = Functions::getTypeByComAdmin();
 
+
         foreach($menus as $m){
             if($m['name'] == $name){
                 foreach($m['data'] as $k1 => $m1){

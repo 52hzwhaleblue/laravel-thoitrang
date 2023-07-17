@@ -37,6 +37,7 @@
             <?= $rowDetail[0]->name  ?>
         </p>
 
+
         <ul class="attr-pro-detail">
             <li class="w-clear">
                 <label class="attr-label-pro-detail">Giá: </label>
@@ -70,16 +71,16 @@
                 </div>
             </li>
 
-{{--            <li>--}}
-{{--                <div class="cart-pro-detail d-flex flex-wrap align-items-center justify-content-between">--}}
-{{--                    <a class="transition addnow addcart text-decoration-none d-flex align-items-center justify-content-center"--}}
-{{--                        data-id="<?=$rowDetail[0]->id ?>" data-action="addnow"><span> Thêm--}}
-{{--                            vào giỏ hàng </span></a>--}}
-{{--                    <a class="transition buynow addcart text-decoration-none d-flex align-items-center justify-content-center"--}}
-{{--                        data-id="<?=$rowDetail[0]->id ?>" data-action="buynow"><span>Mua--}}
-{{--                            ngay</span></a>--}}
-{{--                </div>--}}
-{{--            </li>--}}
+            <li>
+                <div class="cart-pro-detail d-flex flex-wrap align-items-center justify-content-between">
+                    <a class="transition addnow addcart text-decoration-none d-flex align-items-center justify-content-center"
+                        data-id="<?=$rowDetail[0]->id ?>" data-action="addnow"><span> Thêm
+                            vào giỏ hàng </span></a>
+                    <a class="transition buynow addcart text-decoration-none d-flex align-items-center justify-content-center"
+                        data-id="<?=$rowDetail[0]->id ?>" data-action="buynow"><span>Mua
+                            ngay</span></a>
+                </div>
+            </li>
 
         </ul>
         <div class="desc-pro-detail content-text">
