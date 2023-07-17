@@ -21,12 +21,20 @@ Auth::routes(['verify' => true]);
 Route::get('user-login', [\App\Http\Controllers\Auth\LoginController::class ,'showLoginForm'])->name("user.showLoginForm");
 Route::post('user-login', [\App\Http\Controllers\Auth\LoginController::class ,'login'])->name("user.login");
 
+// Trang chủ
 Route::get('/', [IndexController::class ,'index'])->name('index');
+
+// Trang tĩnh
 Route::get('/gioi-thieu', [IndexController::class,'static'])->name('gioi-thieu');
+
+// Bài viết
 Route::get('/tin-tuc', [IndexController::class,'post'])->name('tin-tuc');
+Route::get('/tin-tuc/{slug}', [IndexController::class,'post_detail']);
 
-Route::get('/post/{slug}', [IndexController::class,'post_detail']);
+Route::get('/dich-vu', [IndexController::class,'post'])->name('dich-vu');
+Route::get('/dich-vu/{slug}', [IndexController::class,'post_detail']);
 
+// Sản phẩm
 Route::get('/san-pham', [IndexController::class,'san_pham'])->name('san-pham');
 Route::get('/chi-tiet-san-pham/{slug}/{id}', [IndexController::class,'chi_tiet_san_pham'])->name('chi_tiet_san_pham');
 Route::post('/load_ajax_product', [IndexController::class,'load_ajax_product']);
@@ -35,8 +43,7 @@ Route::post('/load_ajax_search', [IndexController::class,'load_ajax_search']);
 Route::get('/danh-muc', [IndexController::class,'danh_muc'])->name('danh_muc');
 Route::get('/chi-tiet-danh-muc/{slug}/{id}', [IndexController::class,'chi_tiet_danh_muc'])->name('chi_tiet_danh_muc');
 
-
-
+// Middleware
 Route::middleware("auth")->group(function() {
     Route::get('/user/{user_id}', [UserController::class,'show'])->name('user.show');
     // Giỏ hàng

@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\TableCategory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class CategorySeeder extends Seeder
 {
@@ -17,40 +18,49 @@ class CategorySeeder extends Seeder
     public function run()
     {
         $list_name = [
-            "Clothing","Handbag","Shoes","Watch","Sunglasses","Hat","Jewelry"
+            "Tops","Bottoms","Two Pieces","Bags","Accessories","Oxfords","Bitis Hunter","Watch","Wallet","Underwear"
         ];
 
         $list_name_vi = [
-            "Quần-Áo","Túi xách","Giày-dép","Đồng hồ", "Mắt kính","Nón","Trang sức"
+            "Áo","Quần","Đồ bộ","Túi xách", "Phụ kiện","Giày Oxfords","Bitis Hunter","Đồng Hồ","Ví da","Quần mặc trong"
         ];
 
         $list_slug= [
-            "ao_cotton_kid.jpg",
-            "ao_phong_unisex_black_white_2.jpg",
-            "ao-polo-nam-Aristino-xanh.jpg",
-            "dam_han_quoc_den_nau-nhat.jpg",
-            "guoc_cao_no_white.jpg",
-            "guoc_cao_no_white.jpg",
-            "guoc_cao_no_white.jpg",
+            "ao",
+            "quan",
+            "do-bo",
+            "tui-xach",
+            "phu-kien",
+            "giay-oxfords",
+            "bitis-hunter",
+            "dong-ho",
+            "vi-da",
+            "quan-mac-trong",
         ];
 
         $list_category = [
-            "thumbnails/categories/t-shirt.png",
-            "thumbnails/categories/handbag.png",
-            "thumbnails/categories/shoes.png",
-            "thumbnails/categories/watch.png",
-            "thumbnails/categories/sunglasses.png",
-            "thumbnails/categories/hat.png",
-            "thumbnails/categories/Jewelry.png",
+            "thumbnails/categories/cap1_ao.jpg",
+            "thumbnails/categories/cap1_quan.jpg",
+            "thumbnails/categories/cap1_both.jpg",
+            "thumbnails/categories/cap1_tuixach.jpg",
+            "thumbnails/categories/cap1_phukien.jpg",
+            "thumbnails/categories/cap1_oxfords.jpg",
+            "thumbnails/categories/cap1_bitis.jpg",
+            "thumbnails/categories/cap1_dongho.jpg",
+            "thumbnails/categories/cap1_vida.jpg",
+            "thumbnails/categories/cap1_quanmactrong.jpg",
         ];
+        // Tạo thư mục categories trong public/storage/thumbnails
+        $thumbnail_path = 'thumbnails/categories';
+        Storage::disk('public')->makeDirectory($thumbnail_path);
 
         $query = DB::table('table_categories');
 
         $carbon = new Carbon;
 
         $current = $carbon::create(2023,1,5);
-        
-        for($i = 0; $i < 7; $i++){
+
+        for($i = 0; $i < 10; $i++){
             if($i < 5){
                 $date = $current;
             }

@@ -14,15 +14,13 @@ use App\Models\TableCategory;
 use App\Models\TableProduct;
 use App\Http\Controllers\Api\BaseController as BaseController;
 use Excel;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends BaseController
 {
     public function index()
     {
-        // TableProduct::factory()->count(5)->create();
         $data = TableProduct::orderBy('created_at', 'DESC')->get();
-
-        // Lấy màu,size theo product_id
         return view('admin.template.product.man.man',compact('data'));
     }
 
@@ -46,6 +44,7 @@ class ProductController extends BaseController
             'sizes'=>$sizes,
             'origin'=> 'Vietnam',
         ];
+
         $product = new TableProduct();
         $product->name = $request->get('name');
         $product->desc = $request->get('desc');
@@ -113,8 +112,11 @@ class ProductController extends BaseController
 
         $product_id = $data['id'];
         $product_properties = TableProductDetail::where('product_id',$product_id)->get();
-        $sql_sizes = \Illuminate\Support\Facades\DB::table('table_products')->select('properties')->where('id',$product_id)->first();
-        $sizes = implode(" ", json_decode($sql_sizes->properties)->sizes);
+
+        $sql_sizes = DB::table('table_products')->select('properties')->where('id',$product_id)->first();
+        ($sql_sizes->properties != null)
+            ? $sizes = implode(" ", json_decode($sql_sizes->properties)->sizes)
+            : $sizes = null;
 
         return view(
             'admin.template.product.man.man_edit',
@@ -127,11 +129,12 @@ class ProductController extends BaseController
         $url = $this->uploadPhoto($request,"products/",415,655);
         $url1 = $this->uploadPhoto1($request,"products/",415,655);
 
-        $sizes = explode(" ",$request->get('sizes'));
+        $sizes = explode(" ",$request->get('sizes')); // explode từ string => array
         $properties_data = [
             'sizes'=>$sizes,
             'origin'=> 'Vietnam',
         ];
+      
         $product = TableProduct::where('slug', $slug)->first();
         $product->status = (int)$request->get('status');
         $product->name = $request->get('name');
@@ -174,6 +177,31 @@ class ProductController extends BaseController
         $product->properties = $properties_data;
         $product->save();
 
+        // Cập nhật color,stock chi tiết sản phẩm
+//        $colors = $request->get('color');
+//        $stock = $request->get('stock');
+//
+//        $product_id = DB::table('table_products')->select('id')->where('slug',$slug)->first();
+//        dd($product_id);
+//        $product_detail = TableProductDetail::where('product_id', $product_id->id)
+//            ->where('color','=',null)
+//            ->where('stock','=',null)
+//        ; // khi delete thì product_detail ko dc ->get()
+//
+//        $dataProductDetail = null;
+//        $product_detail->delete(); // khi delete thì product_detail ko dc ->get()
+//
+//        foreach ($colors as $k => $v) {
+//            $dataProductDetail['color'] = $v;
+//            $dataProductDetail['stock'] = $stock[$k];
+//            DB::table('table_product_details')->insert([
+//                'color' => $dataProductDetail['color'],
+//                'stock' => $dataProductDetail['stock'],
+//                'product_id' => $product_id,
+//                'photo' => $product_id,
+//
+//            ]);
+//        }
         return redirect()
             ->route('admin.product.product-man.index')
             ->with('message', 'Bạn đã cập nhật sản phẩm thành công!');
@@ -210,11 +238,17 @@ class ProductController extends BaseController
 
     public function export_handle()
     {
-        return Excel::download(new ProductsExport(), 'products.csv',  \Maatwebsite\Excel\Excel::CSV);
+        return Excel::download(new ProductsExport(), 'products.csv',  \Maatwebsite\Excel\Excel::CSV,[
+            'Content-Type' => 'text/csv',
+        ], 'UTF-8');
     }
-    public function deleteAll(Request $request,$id)
+    public function deleteAll()
     {
-        dd('deleteAll');
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        TableProduct::truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
+        return redirect()->route('admin.product.product-man.index')->with('message', 'Bạn đã xóa tất cả sản phẩm thành công!');
     }
 
 }

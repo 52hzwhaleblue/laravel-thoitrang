@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Events\UpdateOrderEvent;
 use App\Http\Controllers\Controller;
 use App\Models\TableProductDetail;
+use App\Models\TablePromotion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Api\BaseController as BaseController;
@@ -27,6 +28,7 @@ class OrderController extends BaseController
             $order->user = User::find($order->user_id);
             return $order;
         },);
+
         $order_status = DB::table('table_order_status')->get();
         // return $order_status;
         return view('admin.template.order.order', compact('orders','order_status'));
@@ -40,7 +42,12 @@ class OrderController extends BaseController
         $rowOrder = DB::table('table_orders')
             ->where('id',$order_id)
             ->first();
-
+        // giá tiền sau khi giảm
+        $discount_price = null;
+        if($rowOrder->promotion_id) {
+            $promotion_elo = TablePromotion::with('order')->where('id', $rowOrder->promotion_id)->first();
+            $discount_price = (int)$promotion_elo->discount_price;
+        }
         $rowUser = User::where('id',$user_id)->first();
         $order_details = TableOrderDetail::where('order_id', $order_id)->get()
         ->map(function($order_detail){
@@ -49,7 +56,7 @@ class OrderController extends BaseController
         },);
         $order_status = TableOrderStatus::get();
 
-        return view('admin.template.order.detail',compact('order_details','order_status','rowOrder','rowUser'));
+        return view('admin.template.order.detail',compact('order_details','order_status','rowOrder','rowUser','discount_price'));
     }
 
     public function update(Request $request)
@@ -80,22 +87,20 @@ class OrderController extends BaseController
                 $product_detail->stock +=$qty;
                 $product_detail->save();
             }
+
             return redirect()
                 ->route('admin.order.index')
                 ->with('message', 'Bạn đã hủy đơn hàng thành công!');
         }
-       $dataNoti =  [
-           "user_id" => $user_id,
-           "order_id" => $order_id,
-           "status" => $order_status,
-       ];
 
-       $this->handlePushNoti($dataNoti,$order);
-
-       $this->handleUpdateStatus($dataNoti);
-
-
-
+        $dataNoti =  [
+            "user_id" => $user_id,
+            "order_id" => $order_id,
+            "status" => $order_status,
+        ];
+        $this->handlePushNoti($dataNoti,$order);
+        $this->handleUpdateStatus($dataNoti);
+      
         return redirect()
             ->route('admin.order.index')
             ->with('message', 'Bạn đã cập nhật đơn hàng thành công!');
@@ -148,6 +153,18 @@ class OrderController extends BaseController
         //push notification for client user id
         $this->sendNotiToUser($data["user_id"],$notification->title,$notification->subtitle, $notification->type);
     }
+
+
+    public function destroy($id)
+    {
+        $order = TableOrder::find($id);
+        if($order)
+        {
+            $order->delete();
+            return redirect()->route('admin.order.index')->with('message','Bạn đã xóa hóa đơn thành công');
+        }
+    }
+
 
     public function delete_order_listen(Request $request)
     {

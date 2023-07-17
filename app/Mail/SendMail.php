@@ -31,7 +31,7 @@ class SendMail extends Mailable
      */
     public function build()
     {
-        return $this->view('mails.sendMail')->from('laravel.serve123@gmail.com', 'JEAN NAM C665')->subject('[CỬA HÀNG JEAN NAM C665] Thư xác nhận đơn hàng')-> with($this->dataMail);
+        return $this->view('mails.sendMail')->from('laravel.serve123@gmail.com', 'THỜI TRANG C665')->subject('[CỬA HÀNG THỜI TRANG C665] Thư xác nhận đơn hàng')-> with($this->dataMail);
 
     }
 }

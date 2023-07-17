@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Carbon\Carbon;
 use Faker\Factory as Faker;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -23,16 +24,16 @@ class Productseeder extends Seeder
       $carbon = new Carbon;
       $current = $carbon::create(2023,1,5);
 
-      $product_1 = [
-        "SKU" =>  "PROF". Str::random(10).date('YmdHis'),
+      $ao_1 = [
+        "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
         "name" => "Áo thun nam ba lỗ sành điệu đẹp",
         "slug" => "ao-thun-nam-ba-lo-sanh-dieu-dep",
-        "regular_price" => 99000, 
-        "sale_price" => null,
-        "discount" => null,
-        "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-        "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
-        "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
+        "regular_price" => 300000,
+        "sale_price" => 150000,
+        "discount" => 50,
+        "desc" => $faker->paragraph(random_int(3,6)),
+        "photo" => "thumbnails/products/ao1_s.jpg",
+        "photo1" => "thumbnails/products/ao1_t.jpg",
         "category_id" => 1,
         "view" => random_int(20,500),
         "status" => 1,
@@ -40,16 +41,16 @@ class Productseeder extends Seeder
         "updated_at" => $current,
       ];
 
-      $product_2 = [
+      $ao_2 = [
         "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
         "name" => "Áo khoác da lót dù cao cấp ADN10",
         "slug" => "ao-khoac-da-lot-du-cao-cap-adn10",
         "regular_price" => 300000,
         "sale_price" => 200000,
         "discount" => 67,
-        "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-        "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
-        "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
+        "desc" => $faker->paragraph(random_int(3,6)),
+          "photo" => "thumbnails/products/ao2_s.jpg",
+          "photo1" => "thumbnails/products/ao2_t.jpg",
         "category_id" => 1,
         "view" => random_int(20,500),
         "status" => 1,
@@ -57,17 +58,16 @@ class Productseeder extends Seeder
         "updated_at" => $current,
       ];
 
-      $product_3= [
+      $ao_3= [
         "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
         "name" => "Áo polo nam thời trang phù hợp phong cách trẻ trung Kira",
         "slug" => "ao-polo-nam-thoi-trang-phu-hop-phong-cach-tre-trung-kira",
         "regular_price" => 200000,
         "sale_price" => null,
         "discount" => null,
-        "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-      
-        "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
-        "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
+        "desc" => $faker->paragraph(random_int(3,6)),
+          "photo" => "thumbnails/products/ao3_s.jpg",
+          "photo1" => "thumbnails/products/ao3_t.jpg",
         "category_id" => 1,
         "view" => random_int(20,500),
         "status" => 1,
@@ -75,17 +75,16 @@ class Productseeder extends Seeder
         "updated_at" => $current,
       ];
 
-      $product_4= [
+      $ao_4= [
         "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
         "name" => "Áo thun nam đẹp chất vải nhẹ mát mẻ vào hè",
         "slug" => "ao-thun-nam-dep-chat-vai-nhe-mat-me-vao-he",
         "regular_price" => 99000,
         "sale_price" => null,
         "discount" => null,
-        "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-
-        "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
-        "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
+        "desc" => $faker->paragraph(random_int(3,6)),
+          "photo" => "thumbnails/products/ao4_s.jpg",
+          "photo1" => "thumbnails/products/ao4_t.jpg",
         "category_id" => 1,
         "view" => random_int(20,500),
         "status" => 1,
@@ -93,17 +92,16 @@ class Productseeder extends Seeder
         "updated_at" => $current,
       ];
 
-      $product_5= [
+      $ao_5= [
         "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
         "name" => "Áo thun nam tay dài đẹp chất vải nhẹ lịch lãm",
         "slug" => "ao-thun-nam-tay-dai-dep-chat-vai-nhe-lich-lam",
         "regular_price" => 150000,
         "sale_price" => 135000,
         "discount" => 10,
-        "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-     
-        "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
-        "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
+        "desc" => $faker->paragraph(random_int(3,6)),
+          "photo" => "thumbnails/products/ao5_s.jpg",
+          "photo1" => "thumbnails/products/ao5_t.jpg",
         "category_id" => 1,
         "view" => random_int(20,500),
         "status" => 1,
@@ -111,107 +109,102 @@ class Productseeder extends Seeder
         "updated_at" => $current,
       ];
 
-      $product_6= [
+      $ao_6= [
         "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Đồng hồ đeo tay nam EFR-526L-1AV",
-        "slug" => "dong-ho-deo-tay-nam-efr-526l-1av",
+        "name" => "Áo thun nam thời trang",
+        "slug" => "ao-thun-nam-thoi-trang",
         "regular_price" => 300000,
         "sale_price" => null,
         "discount" => null,
-        "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-       
-        "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
-        "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
-        "category_id" => 4,
+        "desc" => $faker->paragraph(random_int(3,6)),
+          "photo" => "thumbnails/products/ao6_s.jpg",
+          "photo1" => "thumbnails/products/ao6_t.jpg",
+        "category_id" => 1,
         "view" => random_int(20,500),
         "status" => 1,
         "created_at" => $current,
         "updated_at" => $current,
       ];
 
-      $product_7= [
+      // Quần
+      $quan_1= [
         "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Đồng hồ đeo tay nữ SHE-4538GL-6A",
-        "slug" => "dong-ho-nu-SHE-4538GL-6A",
+        "name" => "Quần mùa hè",
+        "slug" => "quan-mua-he",
         "regular_price" => 300000,
         "sale_price" => 150000,
         "discount" => 50,
-        "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-     
-        "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
-        "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
-        "category_id" => 4,
+        "desc" => $faker->paragraph(random_int(3,6)),
+        "photo" => "thumbnails/products/quan1_t.jpg",
+        "photo1" => "thumbnails/products/quan1_s.jpg",
+        "category_id" => 2,
         "view" => random_int(20,500),
         "status" => 1,
         "created_at" => $current,
         "updated_at" => $current,
       ];
 
-      $product_8= [
+      $quan_2= [
         "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Mắt kính Buffterfly classic gọng kim loại",
-        "slug" => "mat-kinh-buffterfly-classic-gong-kim-loai",
+        "name" => "Quần short nam đi biển",
+        "slug" => "quan-short-nam-di-bien",
         "regular_price" => 150000,
         "sale_price" => 145000,
         "discount" => 3,
-        "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-     
-        "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
-        "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
-        "category_id" => 5,
+        "desc" => $faker->paragraph(random_int(3,6)),
+          "photo" => "thumbnails/products/quan2_t.jpg",
+          "photo1" => "thumbnails/products/quan2_s.jpg",
+        "category_id" => 2,
         "view" => random_int(20,500),
         "status" => 1,
         "created_at" => $current,
         "updated_at" => $current,
       ];
 
-      $product_9= [
+      $quan_3= [
         "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Mắt kính nữ chống đèn loá sành điệu thời trang JOMO EYEWEAR",
-        "slug" => "mat-kinh-nu-chong-den-loa-sanh-dieu-thoi-trang-jomo-eyewear",
+        "name" => "Quần short nam tể thao",
+        "slug" => "quan-short-nam-the-thao",
         "regular_price" => 120000,
         "sale_price" => null,
         "discount" => null,
-        "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-     
-        "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
-        "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
-        "category_id" => 5,
+        "desc" => $faker->paragraph(random_int(3,6)),
+          "photo" => "thumbnails/products/quan3_t.jpg",
+          "photo1" => "thumbnails/products/quan3_s.jpg",
+        "category_id" => 2,
         "view" => random_int(20,500),
         "status" => 1,
         "created_at" => $current,
         "updated_at" => $current,
       ];
 
-      $product_10= [
+      $quan_4= [
         "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Mắt kính round classic đẹp sành điệu",
-        "slug" => "mat-kinh-round-classic-dep-sanh-dieu",
+        "name" => "Quần short tối giản",
+        "slug" => "quan-short-toi-gian",
         "regular_price" => 21000,
         "sale_price" => null,
         "discount" => null,
-        "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-     
-        "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
-        "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
-        "category_id" => 5,
+        "desc" => $faker->paragraph(random_int(3,6)),
+          "photo" => "thumbnails/products/quan4_t.jpg",
+          "photo1" => "thumbnails/products/quan4_s.jpg",
+        "category_id" => 2,
         "view" => random_int(20,500),
         "status" => 1,
         "created_at" => $current,
         "updated_at" => $current,
       ];
 
-      $product_11= [
+      $quan_5= [
         "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Túi xách lớn satchel 2 ngăn cho nam nữ văn phòng",
-        "slug" => "tui-xach-lon-satchel-2-ngan-cho-nam-nu-van-phong",
+        "name" => "Quần nam mặc hằng ngày",
+        "slug" => "quan-nam-mac-hang-ngay",
         "regular_price" => 350000,
         "sale_price" => 270000,
         "discount" => 23,
-        "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-     
-        "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
-        "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
+        "desc" => $faker->paragraph(random_int(3,6)),
+          "photo" => "thumbnails/products/quan5_t.jpg",
+          "photo1" => "thumbnails/products/quan5_s.jpg",
         "category_id" => 2,
         "view" => random_int(20,500),
         "status" => 1,
@@ -219,71 +212,67 @@ class Productseeder extends Seeder
         "updated_at" => $current,
       ];
 
-      $product_12= [
+      $quan_6= [
         "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Túi xách da đeo chéo nam thời trang phong cách",
-        "slug" => "tui-xach-da-deo-cheo-nam-thoi-trang-phong-cach",
+        "name" => "Quần thoáng khí",
+        "slug" => "quan-thoang-khi",
         "regular_price" => 176000,
         "sale_price" => null,
         "discount" => null,
-        "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-       
-        "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
-        "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
+        "desc" => $faker->paragraph(random_int(3,6)),
+          "photo" => "thumbnails/products/quan6_t.jpg",
+          "photo1" => "thumbnails/products/quan6_s.jpg",
         "category_id" => 2,
         "view" => random_int(20,500),
         "status" => 1,
         "created_at" => $current,
         "updated_at" => $current,
       ];
-
-      $product_13= [
+      // Đồ bộ
+      $dobo_1= [
         "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Túi xách văn phòng đựng laptop cho cả nam lẫn nữ",
-        "slug" => "tui-xach-van-phong-dung-laptop-cho-ca-nam-lan-nu",
+        "name" => "Đồ bộ nam mát mẻ mùa hè",
+        "slug" => "do-bo-nam-mat-me-mua-he",
         "regular_price" => 290000,
         "sale_price" => null,
         "discount" => null,
-        "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-      
-        "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
-        "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
-        "category_id" => 2,
+        "desc" => $faker->paragraph(random_int(3,6)),
+        "photo" => "thumbnails/products/dobo1_t.jpg",
+        "photo1" => "thumbnails/products/dobo1_s.jpg",
+        "category_id" => 3,
         "view" => random_int(20,500),
         "status" => 1,
         "created_at" => $current,
         "updated_at" => $current,
       ];
 
-      $product_14= [
+      $dobo_2= [
         "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Túi xách NAHA nữ đẹp",
-        "slug" => "tui-xach-naha-nu-dep",
+        "name" => "Đồ bộ thể thao",
+        "slug" => "do-bo-the-thao",
         "regular_price" => 145000,
         "sale_price" => null,
         "discount" => null,
-        "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-      
-        "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
-        "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
-        "category_id" => 2,
+        "desc" => $faker->paragraph(random_int(3,6)),
+          "photo" => "thumbnails/products/dobo2_t.jpg",
+          "photo1" => "thumbnails/products/dobo2_s.jpg",
+        "category_id" => 3,
         "view" => random_int(20,500),
         "status" => 1,
         "created_at" => $current,
         "updated_at" => $current,
       ];
 
-      $product_15= [
+      $dobo_3= [
         "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Guốc cao nữ",
-        "slug" => "guoc-cao-nu",
+        "name" => "Đồ bộ năng động",
+        "slug" => "do-bo-nang-dong",
         "regular_price" => 410000,
         "sale_price" => 380000,
         "discount" => 10,
-        "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-       
-        "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
-        "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
+        "desc" => $faker->paragraph(random_int(3,6)),
+          "photo" => "thumbnails/products/dobo3_t.jpg",
+          "photo1" => "thumbnails/products/dobo3_s.jpg",
         "category_id" => 3,
         "view" => random_int(20,500),
         "status" => 1,
@@ -291,35 +280,16 @@ class Productseeder extends Seeder
         "updated_at" => $current,
       ];
 
-      $product_16= [
+      $dobo_4= [
         "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Áo Hoodie drew cực đẹp dành cho giới trẻ nam nữ",
-        "slug" => "ao-hooide-drew-cuc-dep-danh-cho-gioi-tre-nam-nu",
+        "name" => "Đồ bộ hoa anh đào",
+        "slug" => "do-bo-hoa-anh-dao",
         "regular_price" => 270000,
         "sale_price" => null,
         "discount" => null,
-        "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-      
-        "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
-        "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
-        "category_id" => 1,
-        "view" => random_int(20,500),
-        "status" => 1,
-        "created_at" => $current,
-        "updated_at" => $current,
-      ];
-
-      $product_17= [
-        "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Giày IceBreaker nữ",
-        "slug" => "giay-icebeaker-nu",
-        "regular_price" => 500000,
-        "sale_price" => null,
-        "discount" => null,
-        "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-      
-        "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
-        "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
+        "desc" => $faker->paragraph(random_int(3,6)),
+          "photo" => "thumbnails/products/dobo4_t.jpg",
+          "photo1" => "thumbnails/products/dobo4_s.jpg",
         "category_id" => 3,
         "view" => random_int(20,500),
         "status" => 1,
@@ -327,179 +297,68 @@ class Productseeder extends Seeder
         "updated_at" => $current,
       ];
 
-      $product_18= [
+      // Túi xách
+      $tuixach_1= [
         "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Kính Mát Thời Trang Chống Loá JOMO EYEWEAR - Bailey nam nữ",
-        "slug" => "kinh-mat-thoi-trang-chong-loa-jomo-eyewear-bailey-nam-nu",
-        "regular_price" => 125000,
-        "sale_price" => null,
-        "discount" => null,
-        "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-       
-        "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
-        "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
-        "category_id" => 4,
-        "view" => random_int(20,500),
-        "status" => 1,
-        "created_at" => $current,
-        "updated_at" => $current,
-      ];
-
-      $product_19= [
-        "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Nike_Air_Jordan_1_High_OG_Metallic nam nữ",
-        "slug" => "nike-air-jordan-1-high-og-metallic-nam-nu",
+        "name" => "Túi xách cổ điển",
+        "slug" => "tui-xach-co-dien",
         "regular_price" => 750000,
         "sale_price" => 725000,
         "discount" => 10,
-        "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-       
-        "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
-        "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
-        "category_id" => 3,
+        "desc" => $faker->paragraph(random_int(3,6)),
+        "photo" => "thumbnails/products/tuixach1_t.jpg",
+        "photo1" => "thumbnails/products/tuixach1_s.jpg",
+        "category_id" => 4,
         "view" => random_int(20,500),
         "status" => 1,
         "created_at" => $current,
         "updated_at" => $current,
       ];
 
-      $product_20= [
+      $tuixach_2= [
         "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Quần baggy nam nữ trẻ trung thời trang",
-        "slug" => "quan",
+        "name" => "Túi đeo chéo classic",
+        "slug" => "tui-deo-cheo-classic",
         "regular_price" => 150000,
         "sale_price" => null,
         "discount" => null,
-        "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-        
-        "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
-        "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
-        "category_id" => 1,
+        "desc" => $faker->paragraph(random_int(3,6)),
+          "photo" => "thumbnails/products/tuixach2_t.jpg",
+          "photo1" => "thumbnails/products/tuixach2_s.jpg",
+        "category_id" => 4,
         "view" => random_int(20,500),
         "status" => 1,
         "created_at" => $current,
         "updated_at" => $current,
       ];
 
-      $product_21= [
+      $tuixach_3= [
         "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Quần jogger nam thể thao trơn basic",
-        "slug" => "quan-jogger-nam-the-thao-tron-basic",
+        "name" => "Túi đeo chéo messenger",
+        "slug" => "tui-deo-cheo-messenger",
         "regular_price" => 105000,
         "sale_price" => null,
         "discount" => null,
-        "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-      
-        "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
-        "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
-        "category_id" => 1,
+        "desc" => $faker->paragraph(random_int(3,6)),
+          "photo" => "thumbnails/products/tuixach3_t.jpg",
+          "photo1" => "thumbnails/products/tuixach3_s.jpg",
+        "category_id" => 4,
         "view" => random_int(20,500),
         "status" => 1,
         "created_at" => $current,
         "updated_at" => $current,
       ];
 
-      $product_22= [
+      $tuixach_4= [
         "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Quần kaki nam PIGOFASHION",
-        "slug" => "quan-kaki-nam-pigofashion",
+        "name" => "Túi Tote V1 - Signature",
+        "slug" => "tui-tote-v1-signature",
         "regular_price" => 80000,
         "sale_price" => null,
         "discount" => null,
-        "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-      
-        "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
-        "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
-        "category_id" => 1,
-        "view" => random_int(20,500),
-        "status" => 1,
-        "created_at" => $current,
-        "updated_at" => $current,
-      ];
-
-      $product_23= [
-        "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Quần short thể thao nam co giãn thấm hút PIGOFASHION",
-        "slug" => "quan-short-the-thao-nam-co-gian-tham-hut-PIGOFASHION",
-        "regular_price" => 164000,
-        "sale_price" => null,
-        "discount" => null,
-        "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-      
-        "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
-        "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
-        "category_id" => 1,
-        "view" => random_int(20,500),
-        "status" => 1,
-        "created_at" => $current,
-        "updated_at" => $current,
-      ];
-
-      $product_24 = [
-        "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Áo sơ mi văn phòng cho nữ",
-        "slug" => "ao-so-mi-van-phong-cho-nu",
-        "regular_price" => 177000,
-        "sale_price" => 143000,
-        "discount" => 8,
-        "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-     
-        "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
-        "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
-        "category_id" => 1,
-        "view" => random_int(20,500),
-        "status" => 1,
-        "created_at" => $current,
-        "updated_at" => $current,
-      ];
-
-      $product_25 = [
-        "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Áo sơ mi văn phòng cho nam",
-        "slug" => "ao-so-mi-van-[hong-cho-nam",
-        "regular_price" => 180000,
-        "sale_price" => null,
-        "discount" => null,
-        "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-    
-        "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
-        "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
-        "category_id" => 1,
-        "view" => random_int(20,500),
-        "status" => 1,
-        "created_at" => $current,
-        "updated_at" => $current,
-      ];
-
-      $product_26 = [
-        "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Áo sơ mi tay dài văn phòng cho nam",
-        "slug" => "ao-so-mi-tay-dai-van-phong-cho-nam",
-        "regular_price" => 300000,
-        "sale_price" => null,
-        "discount" => null,
-        "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-      
-        "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
-        "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
-        "category_id" => 1,
-        "view" => random_int(20,500),
-        "status" => 1,
-        "created_at" => $current,
-        "updated_at" => $current,
-      ];
-
-      $product_27= [
-        "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Đồng hồ casio bền chống nước nam nữ",
-        "slug" => "dong-ho-casio-ben-chong-nuoc-nam-nu",
-        "regular_price" => 350000,
-        "sale_price" => 250000,
-        "discount" => 29,
-        "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-     
-        "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
-        "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
+        "desc" => $faker->paragraph(random_int(3,6)),
+          "photo" => "thumbnails/products/tuixach4_t.jpg",
+          "photo1" => "thumbnails/products/tuixach4_s.jpg",
         "category_id" => 4,
         "view" => random_int(20,500),
         "status" => 1,
@@ -507,170 +366,32 @@ class Productseeder extends Seeder
         "updated_at" => $current,
       ];
 
-      $product_28= [
-        "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Đồng hồ nữ Marble Florals",
-        "slug" => "dong-ho-nu-marble-florals",
-        "regular_price" => 170000,
-        "sale_price" =>null,
-        "discount" => null,
-        "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-     
-        "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
-        "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
-        "category_id" => 4,
-        "view" => random_int(20,500),
-        "status" => 1,
-        "created_at" => $current,
-        "updated_at" => $current,
-      ];
+        // Tạo thư mục categories trong public/storage/thumbnails
+        $thumbnail_path = 'thumbnails/products';
+        Storage::disk('public')->makeDirectory($thumbnail_path);
 
-      $product_29= [
-        "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Túi Halio Canvas nữ",
-        "slug" => "tui-halio-canvas-nu",
-        "regular_price" => 99000,
-        "sale_price" => null,
-        "discount" => null,
-        "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-     
-        "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
-        "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
-        "category_id" => 2,
-        "view" => random_int(20,500),
-        "status" => 1,
-        "created_at" => $current,
-        "updated_at" => $current,
-      ];
-
-      $product_30= [
-        "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Túi Tote - Okame Hoa thời trang nữ",
-        "slug" => "tui-tote-okame-hoa-thoi-trang-nu",
-        "regular_price" => 99000,
-        "sale_price" => null,
-        "discount" => null,
-        "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-       
-        "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
-        "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
-        "category_id" => 2,
-        "view" => random_int(20,500),
-        "status" => 1,
-        "created_at" => $current,
-        "updated_at" => $current,
-      ];
-
-      $product_31= [
-        "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Giày Sandal Nam MWC - 7066 Giày Sandal Nam Quai Chéo Kiểu Dáng Basic",
-        "slug" => "giay-sandal-nam-mwc-7066-giay-sandal-nam-quai-cheo-kieu-dang-basic",
-        "regular_price" => 300000,
-        "sale_price" => null,
-        "discount" => null,
-        "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-       
-        "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
-        "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
-        "category_id" => 3,
-        "view" => random_int(20,500),
-        "status" => 1,
-        "created_at" =>$carbon::create(2023,5,1),
-        "updated_at" =>$carbon::create(2023,5,1),
-      ];
-
-      $product_32= [
-        "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Giày Sandal Nam Hiệu Vento",
-        "slug" => "giay-sandal-nam-hieu-vento",
-        "regular_price" => 330000,
-        "sale_price" => null,
-        "discount" => null,
-        "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-       
-        "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
-        "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
-        "category_id" => 3,
-        "view" => random_int(20,500),
-        "status" => 1,
-        "created_at" =>$carbon::create(2023,5,1),
-        "updated_at" =>$carbon::create(2023,5,1),
-      ];
-
-      $product_33= [
-        "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Mũ Lưỡi Trai Đen Trơn Classic Khóa Đồng Cao Cấp Cho Nam và Nữ",
-        "slug" => "mu-luoi-trai-den-tron-classic-khoa-dong-cao-cap-cho-nam-va-nu",
-        "regular_price" => 135000,
-        "sale_price" => null,
-        "discount" => null,
-        "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-       
-      
-        "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
-        "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
-        "category_id" => 6,
-        "view" => random_int(20,500),
-        "status" => 1,
-        "created_at" =>$carbon::create(2023,5,1),
-        "updated_at" =>$carbon::create(2023,5,1),
-      ];
-
-      $product_34= [
-        "SKU" =>  "PROF". Str::random(10) . date('YmdHis'),
-        "name" => "Nón Bucket, Mũ Vành Tròn Nam Nữ 2 Mặt Trơn Classic Cao Cấp",
-        "slug" => "non-bucket-mu-vanh-tron-nam-nu-2-mat-tron-classic-cao-cap",
-        "regular_price" => 150000,
-        "sale_price" => null,
-        "discount" => null,
-        "desc" => "Sản phẩm đẹp, thời trang phong cách năm 2023. Là sự lựa chọn hoàn hảo của giới trẻ",
-      
-      
-        "photo" => "thumbnails/products/aothun_644d318fad195.jpg",
-        "photo1" => "thumbnails/products/aothun1_644d318fc86f9.jpg",
-        "category_id" => 6,
-        "view" => random_int(20,500),
-        "status" => 1,
-        "created_at" =>$carbon::create(2023,5,1),
-        "updated_at" =>$carbon::create(2023,5,1),
-      ];
-
-      $products = [
-        $product_1,
-        $product_2,
-        $product_3,
-        $product_4,
-        $product_5,
-        $product_6,
-        $product_7,
-        $product_8,
-        $product_9,
-        $product_10,
-        $product_11,
-        $product_12,
-        $product_13,
-        $product_14,
-        $product_15,
-        $product_16,
-        $product_17,
-        $product_18,
-        $product_19,
-        $product_20,
-        $product_21,
-        $product_22,
-        $product_23,
-        $product_24,
-        $product_25,
-        $product_26,
-        $product_27,
-        $product_28,
-        $product_29,
-        $product_30,
-        $product_31,
-        $product_32,
-        $product_33,
-        $product_34,
-      ];
+        $products = [
+            $ao_1,
+            $ao_2,
+            $ao_3,
+            $ao_4,
+            $ao_5,
+            $ao_6,
+            $quan_1,
+            $quan_2,
+            $quan_3,
+            $quan_4,
+            $quan_5,
+            $quan_6,
+            $dobo_1,
+            $dobo_2,
+            $dobo_3,
+            $dobo_4,
+            $tuixach_1,
+            $tuixach_2,
+            $tuixach_3,
+            $tuixach_4,
+        ];
 
        DB::table('table_products')->insert($products);
     }

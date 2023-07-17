@@ -332,7 +332,7 @@ enctype="multipart/form-data"
                                             <input
                                                 type="number"
                                                 class="form-control discount"
-                                                id="price"
+                                                id="discount"
                                                 placeholder="Chiết khấu"
                                                 name="discount"
                                                 readonly

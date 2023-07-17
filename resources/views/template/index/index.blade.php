@@ -40,7 +40,7 @@
 </div>
 
 @if(count($promotion))
-<div class="promotion-wrapper">
+<div class="promotion-wrapper d-hiden">
     <div class="wrap-content">
         <div class="owl-page owl-carousel owl-theme thumbs_img " data-xsm-items="1:0" data-sm-items="2:10"
              data-md-items="3:15" data-lg-items="3:20" data-xlg-items="4:30" data-rewind="1" data-autoplay="0"
@@ -55,8 +55,7 @@
                             <p class="promotion-name"> ({{$v->name}}) </p>
                         </div>
                         <div class="right">
-                            <p class="promotion-desc text-split"> {!! $v->desc !!} </p>
-
+                            <div class="promotion-desc text-split"> {!! $v->desc !!} </div>
                         </div>
                     </div>
 
@@ -87,7 +86,7 @@
 
 
 @if(count($splistnb))
-    <div class="splistnb-wrapper">
+    <div class="splistnb-wrapper d-hiden">
         <div class="wrap-content" data-aos="fade-up" data-aos-duration="1500">
             <div class="splistnb-items">
                 @foreach ($splistnb as $v )
@@ -107,7 +106,7 @@
 @endif
 
 @if(count($splistnb))
-<div class="pronb-wrapper">
+<div class="pronb-wrapper d-hiden">
     <div class="wrap-content ">
         <div class="title-main mb-0"><span>Sản phẩm nổi bật</span></div>
 
@@ -126,7 +125,7 @@
 @endif
 
 @if(!empty($gioithieu))
-<div class="gioithieu-wrapper">
+<div class="gioithieu-wrapper d-hiden">
     <div class="wrap-content">
         <div class="gioithieu-left" data-aos="fade-right" data-aos-duration="1500">
             <div class="gioithieu-box">
@@ -168,7 +167,7 @@
 @endif
 
 @if (count($quangcao) > 0)
-<div class="quangcao-wrapper">
+<div class="quangcao-wrapper d-hiden">
     <div class="wrap-content">
         <div class="owl-page owl-carousel owl-theme thumbs_img " data-xsm-items="1:0" data-sm-items="2:10"
             data-md-items="3:15" data-lg-items="3:20" data-xlg-items="2:15" data-rewind="1" data-autoplay="0"
@@ -218,32 +217,26 @@
 @endif
 
 @if (count($album) > 0)
-<div class="album-wrapper">
+<div class="album-wrapper d-hiden">
     <div class="wrap-content">
         <div class="title-main mb-0 "><span>album hình ảnh</span></div>
-        <div class="album-grid ">
+        <div class="album-grid " id="gallery">
             @foreach ($album as $k => $v )
                 <div class="album<?=$k?> ">
-                    <a class="hover_sang3 h-100 scale-img"  href="{{ $v['slug'] }}" title="{{ $v['name'] }}">
-                        <img class="lazyload h-100"
+                    <a class="hover_sang3 h-100 scale-img"  href="{{ asset('http://localhost:8000/storage/'.$v->photo) }}" title="{{ $v['name'] }}">
+                        <img class="lazyload w-100 h-100"
                         src="{{ asset('http://localhost:8000/storage/'.$v->photo) }}" alt="{{ $v['name'] }}" />
                     </a>
                 </div>
             @endforeach
         </div>
-        <a href="thu-vien-anh">
-            <button class="album-btn button-wave m-auto">
-                <span>Xem thêm</span>
-                <div></div>
-            </button>
-        </a>
     </div>
 </div>
 @endif
 
 
 @if (count($dichvu) > 0)
-<div class="dichvu-wrapper">
+<div class="dichvu-wrapper d-hiden">
     <div class="wrap-content">
         <div class="title-main "><span>Dịch vụ của chúng tôi</span></div>
 
@@ -254,13 +247,13 @@
             data-navtext="" data-navcontainer="">
             @foreach ($dichvu as $k =>$v)
             <div class="dichvu-item">
-                <a class="dichvu-img hover_sang3 scale-img" href="{{$v->slug}}">
+                <a class="dichvu-img hover_sang3 scale-img" href="/dich-vu/{{$v->slug}}">
                     <img class="lazyload"
                         src="{{ asset('http://localhost:8000/storage/'.$v->photo) }}" alt="{{$v->name}}" />
                 </a>
                 <div class="dichvu-info">
                     <h3 class="dichvu-name">
-                        <a class="text-split" href="{{$v->slug}}"> {{$v->name}} </a>
+                        <a class="text-split" href="/dich-vu/{{$v->slug}}"> {{$v->name}} </a>
                     </h3>
                     <div class="dichvu-desc">
                         {!! $v->desc !!}
@@ -274,7 +267,7 @@
 @endif
 
 @if (count($tieuchi) > 0)
-<div class="tieuchi-wrapper mb-5">
+<div class="tieuchi-wrapper d-hiden mb-5">
     <div class="wrap-content">
         <div class="owl-page owl-carousel owl-theme thumbs_img " data-xsm-items="1:0" data-sm-items="2:10"
             data-md-items="3:15" data-lg-items="3:20" data-xlg-items="4:15" data-rewind="1" data-autoplay="0"
@@ -283,10 +276,10 @@
             data-navtext="" data-navcontainer="">
             @foreach ($tieuchi as $k =>$v)
             <div class="tieuchi-item">
-                <a class="tieuchi-img hover_sang3 scale-img" href="{{$v->slug}}">
+                <div class="tieuchi-imng">
                     <img class="lazyload"
-                        src="{{ asset('http://localhost:8000/storage/'.$v->photo) }}" alt="{{$v->name}}" />
-                </a>
+                         src="{{ asset('http://localhost:8000/storage/'.$v->photo) }}" alt="{{$v->name}}" />
+                </div>
                 <div class="tieuchi-info">
                    <p class="tieuchi-name text-split"> {{ $v['name'] }} </p>
                 </div>
@@ -298,7 +291,7 @@
 @endif
 
 @if (count($tintuc) > 0)
-<div class="tintuc-wrapper mb-5">
+<div class="tintuc-wrapper d-hiden mb-5">
     <div class="wrap-content">
     <div class="title-main mb-4 "><span>Bài viết mới mỗi ngày</span></div>
 

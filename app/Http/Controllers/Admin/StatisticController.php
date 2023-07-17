@@ -26,18 +26,37 @@ class StatisticController extends Controller
         $tungay = $request->get('tungay');
         $denngay = $request->get('denngay');
 
-
-        $sql = DB::table('table_orders')
-            ->select('total_price')
+        $sql1 = DB::table('table_orders')
+            ->select('total_price','created_at')
             ->whereBetween('created_at',[$tungay,$denngay])
             ->orderBy('created_at', 'ASC')
-            ->limit(12)
             ->get();
+
+        $sql = DB::table('table_orders')
+            ->selectRaw('payment_method, Date (created_at) as created_at, SUM(total_price) as total_price')
+            ->whereBetween('created_at',[$tungay,$denngay])
+            ->groupBy (DB::raw ('Date (created_at) ,payment_method'))
+            ->get();
+
         $total_price = array();
         foreach ($sql as $k => $v) {
             $total_price[] = $v->total_price;
         }
-        echo  $data = json_encode($total_price,true);
+
+        $date = array();
+        foreach ($sql as $k => $v) {
+            $date[] = $v->created_at;
+        }
+
+        $data = [
+            'total_price'=>$total_price,
+            'date'=>  $date,
+            'tungay'=>  $tungay,
+            'denngay'=>  $denngay,
+
+        ];
+        echo json_encode($data,true);
+//        echo  $data = json_encode($total_price,true);
     }
 
     public function dashboard_filter(Request $request){

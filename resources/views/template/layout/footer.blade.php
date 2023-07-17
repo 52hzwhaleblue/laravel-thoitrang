@@ -3,11 +3,11 @@
         <div class="wrap-content d-flex flex-wrap align-items-start justify-content-between">
             <div class="footer-news">
                 <p class="footer-title"> thông tin liên hệ </p>
-                <div class="footer-info"> {!! $footer['content'] !!} </div>
+                <div class="footer-info"> {!! $footer ? $footer['content'] : '' !!} </div>
             </div>
             <div class="footer-news">
-                <p class="name-company-footer"> {{ $footer['name'] }} </p>
-                <p class="name-company-footer1">   {!! $footer['desc'] !!} </p>
+                <p class="name-company-footer"> {{ $footer ? $footer['name'] :''  }} </p>
+                <p class="name-company-footer1">   {!! $footer ? $footer['desc']  : ''!!} </p>
                 @if(!empty($social) )
                 <div class="social social-footer d-flex align-items-center justify-content-center">
                     @foreach($social as $k => $v)
@@ -25,13 +25,7 @@
                 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v16.0"
                     nonce="YXJW5Iw5"></script>
 
-                <div class="fb-page" data-href="https://www.facebook.com/profile.php?id=100085402243473&locale=hi_IN"
-                    data-tabs="timeline" data-width="" data-height="300" data-small-header="false" data-adapt-container-width="true"
-                    data-hide-cover="false" data-show-facepile="true">
-                    <blockquote cite="https://www.facebook.com/profile.php?id=100085402243473&locale=hi_IN"
-                        class="fb-xfbml-parse-ignore"><a
-                            href="https://www.facebook.com/profile.php?id=100085402243473&locale=hi_IN">dilongmenswear</a></blockquote>
-                </div>
+                <div class="fb-page" data-href="https://www.facebook.com/coolmate.me" data-tabs="timeline" data-width="350" data-height="300" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/coolmate.me" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/coolmate.me">Coolmate</a></blockquote></div>
             </div>
         </div>
     </div>

@@ -21,6 +21,9 @@
 <!-- Aos Animation CSS -->
 <link rel="stylesheet" href=" {{ asset('/assets/aos/aos.css') }} ">
 
+<!-- Photobox CSS -->
+<link rel="stylesheet" href=" {{ asset('public/assets/css/photobox.css') }} ">
+
 <!-- Main CSS -->
 <link rel="stylesheet" href=" {{ asset('/assets/css/style.css') }} ">
 

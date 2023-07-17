@@ -1,11 +1,14 @@
 <div class="header">
     <div class="wrap-content d-flex flex-wrap align-items-center justify-content-between">
         <div class="header-left">
-            <a class="logo-header peShiner" href="">
-                <img class="lazyload"
-                        src="{{ asset('http://localhost:8000/storage/'.$logo['photo']) }}" alt="{{ $logo['name'] }}" />
-            </a>
-            <a class="name-header text-decoration-none" href=""> jean nam c665 </a>
+            @if($logo)
+                <a class="logo-header peShiner" href="">
+                    <img class="lazyload"
+                         src="{{ asset('http://localhost:8000/storage/'.$logo['photo']) }}" alt="{{ $logo['name'] }}" />
+                </a>
+            @endif
+
+            <a class="name-header text-decoration-none" href=""> Thời trang c665 </a>
 
         </div>
 
@@ -17,12 +20,9 @@
                         <li><a class="transition" href="{{ route('gioi-thieu') }}" title=""> Giới thiệu </a></li>
                         <li><a class="transition" href="{{ route('san-pham') }}" title="Sản phẩm"> Sản phẩm </a></li>
                         <li><a class="transition" href="{{ route('tin-tuc') }}" title=""> Tin tức </a></li>
-                        <li><a class="transition" href="" title=""> Album ảnh </a></li>
-                        <li><a class="transition" href="" title=""> Liên hệ </a></li>
-
                         @auth
                         <li class="mr-3">
-                            <a class="dropdown-item" href="{{ route('user.logout') }}" onclick="event.preventDefault();
+                            <a class="dropdown-item text-info" href="{{ route('user.logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                 Đăng xuất
                             </a>

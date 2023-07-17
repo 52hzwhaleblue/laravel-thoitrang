@@ -23,7 +23,7 @@ class ImageZoneController extends BaseController
         $url1 = $this->uploadRowDetailPhoto($request,"product-details/",524,524);
 
 
-        $image->move(public_path('images'),$name);
+//        $image->move(public_path('images'),$name);
 
         $model = new TableProductDetail();
         $model->product_id = $id;

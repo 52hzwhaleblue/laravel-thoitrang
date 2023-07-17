@@ -55,8 +55,8 @@ class HomeController extends Controller
 //            'chartActiveInactiveUser',
 //            'chartProductMostViewed',
             'top10ProductMostViewed',
-            'chartRevenueThisMonth',
             'top10ProductBestSeller',
+            'chartRevenueThisMonth',
         ]));
     }
 

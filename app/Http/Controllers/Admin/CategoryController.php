@@ -16,7 +16,6 @@ class CategoryController extends BaseController
     public function index()
     {
         $data = TableCategory::all();
-        // TableCategory::factory()->count(5)->create();
         return view('admin.template.product.list.list', compact('data'));
     }
 
@@ -79,11 +78,9 @@ class CategoryController extends BaseController
 
     public function update(Request $request, $slug)
     {
-        $count = TableCategory::all()->count();
         $url = $this->uploadPhoto($request,"categories/",415,655);
 
         $Category = TableCategory::where('slug', $slug)->first();
-        // dd($Category);
         $Category->name = $request->get('name');
         $Category->desc = $request->get('desc');
         $Category->status = (int)$request->get('status');
@@ -114,9 +111,13 @@ class CategoryController extends BaseController
             ->with('message', 'Bạn đã cập nhật danh mục cấp 1 thành công!');
     }
 
-    public function destroy(TableCategory $Category)
+    public function destroy(Request $request,$id)
     {
-        $Category->delete();
-        return redirect()->route('admin.product.product-list.index')->with('message', 'Bạn đã xóa danh mục cấp 1 thành công!');
+        $category = TableCategory::find($id);
+        if($category !=null){
+            $category->delete();
+            return redirect()->route('admin.product.product-list.index')->with('message', 'Bạn đã xóa sản phẩm thành công!');
+        }
+        return ;
     }
 }

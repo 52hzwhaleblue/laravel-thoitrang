@@ -32,11 +32,10 @@
                         <thead>
                             <tr>
                                 <th width="10%">STT</th>
-                                <th>Hình</th>
+                                <th width="10%">Hình</th>
                                 <th width="30%">Tiêu đề</th>
-                                <th>Gallery</th>
-                                <th>Hiển thị</th>
-                                <th>Thao tác</th>
+                                <th width="10%" >Hiển thị</th>
+                                <th width="10%"Thao tác</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -80,46 +79,19 @@
                                         </a>
                                     </th>
                                     <th class="align-middle">
-                                        <div class="dropdown">
-                                            <a
-                                                class="btn btn-success dropdown-toggle"
-                                                href="#"
-                                                role="button"
-                                                id="dropdownMenuLink"
-                                                data-bs-toggle="dropdown"
-                                                aria-expanded="false"
-                                            >
-                                                Gallery
-                                            </a>
-
-                                            <ul
-                                                class="dropdown-menu"
-                                                aria-labelledby="dropdownMenuLink"
-                                            >
-                                                <li>
-                                                    <a
-                                                        class="dropdown-item"
-                                                        href="#"
-                                                        >Action</a
-                                                    >
-                                                </li>
-                                            </ul>
+                                        <div
+                                            class="custom-control custom-checkbox my-checkbox"
+                                        >
+                                            <input
+                                                type="checkbox"
+                                                class="custom-control-input show-checkbox"
+                                                id=""
+                                                data-table="product_lists"
+                                                data-id="{{ $v['id'] }}"
+                                                @if  ($v['status'] == 1) checked @endif
+                                            />
                                         </div>
                                     </th>
-                                        <th class="align-middle">
-                                            <div
-                                                class="custom-control custom-checkbox my-checkbox"
-                                            >
-                                                <input
-                                                    type="checkbox"
-                                                    class="custom-control-input show-checkbox"
-                                                    id=""
-                                                    data-table="product_lists"
-                                                    data-id="{{ $v['id'] }}"
-                                                    @if  ($v['status'] == 1) checked @endif
-                                                />
-                                            </div>
-                                        </th>
 
                                     <th class="align-middle d-flex">
                                         <a href=" {{route('admin.product.product-list.edit', $v['slug'] )}} " class="btn btn-primary mr-2">

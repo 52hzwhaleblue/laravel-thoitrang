@@ -38,7 +38,7 @@
                             <div class="accordion-body">
 
                                 <div class="">
-                                    <input type="checkbox" name="status" value="hienthi"  ($data['status']) ? checked :"" > Hiển thị
+                                    <input type="checkbox" name="status" value="1"  <?php if($data->status == 1) echo 'checked'; ?> > Hiển thị
                                 </div>
 
                                 <div class="mb-3 mt-3">

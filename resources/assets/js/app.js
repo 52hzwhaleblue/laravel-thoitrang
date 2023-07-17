@@ -37,6 +37,8 @@ function Cart(){
     // Mã giảm giá
     $('.magiamgia_submit').click(function (){
         let promo_code = $(this).parents().find('.promo_code').val();
+        // $(this).parents().find('.promo_code').attr('value',promo_code);
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -50,8 +52,10 @@ function Cart(){
             },
             method: "POST",
             success: function(result) {
-                $('.product_total').text(result);
                 console.log(result);
+                $('.promo_alert').html(result.alert);
+                $('.product_total').text(result.totalText);
+                $("input[name=product_total]").attr('value',result.total);
             },
             error: function(xhr, ajaxOptions, thrownError) {
                 // alert(xhr.status);
@@ -61,12 +65,9 @@ function Cart(){
     });
 
 }
-
-
 function AosAnimation(){
     AOS.init({});
 }
-
 function OwlData(obj){
     if(obj.length < 0) return false;
     var xsm_items = obj.attr("data-xsm-items");
@@ -187,7 +188,6 @@ function Search()
     if ($("#keyword").length) {
         $("#keyword").keyup(function(event) {
             var key = $(this).val();
-
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -200,6 +200,9 @@ function Search()
                     key: key,
                 },
                 success: function(result) {
+                    if (result == null){
+                        console.log('null!!!');
+                    }
                     if (result != '') {
                         $('.show-search').removeClass('d-none');
                         $('.show-search').html(result);
@@ -219,6 +222,9 @@ function Search()
     });
 }
 
+function Photobox(){
+    $('#gallery').photobox('a',{thumbs:true,loop:false});
+}
 function Home(){
     $('.list-hot a:first').addClass('active');
     var id_category = $('.list-hot a:first').data('id');
@@ -234,7 +240,6 @@ function Home(){
         success:function(data){
             $('.load_ajax_product').html(data);
             OwlData($('.owl-pronb'));
-
         }
     });
 
@@ -328,22 +333,23 @@ function Toasty(){
 }
 
 function peShiner(){
-    $(window).bind("load", function () {
-        var api = $(".peShiner").peShiner({
-          api: true,
-          paused: true,
-          reverse: true,
-          repeat: 1,
-          color: "fireHL",
-      });
-
-        api.resume();
-
-    });
+    if($('.peShiner').length){
+        $(window).bind("load", function () {
+            var api = $(".peShiner").peShiner({
+                api: true,
+                paused: true,
+                reverse: true,
+                repeat: 1,
+                color: "fireHL",
+            });
+            api.resume();
+        });
+    }
 }
 
 $(document).ready(function () {
     Home();
+    Photobox();
     Search();
     peShiner();
     Toasty();

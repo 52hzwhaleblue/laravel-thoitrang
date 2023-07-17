@@ -3,13 +3,12 @@
     <div class="content-main mb-5">
     <div class="title-main"> <span> SẢN PHẨM </span></div>
     <?php if(count($product)) { ?>
-    <form class="form-cart cart-flag" id="cart-form" action="{{route('cart-add')}}" method="post" enctype="multipart/form-data" >
-        @csrf
-        <input type="text" class="id-input" name="pronb_id" value="" >
-        <input type="text" class="color-input" name="pronb_color" value="">
-        <input type="text" class="size-input"  name="pronb_size"  value="">
-    </form>
-
+        <form hidden="" class="form-cart cart-flag" id="cart-form" action="{{route('cart-add')}}" method="post" enctype="multipart/form-data" >
+            @csrf
+            <input type="text" class="id-input" name="pronb_id" value="" >
+            <input type="text" class="color-input" name="pronb_color" value="">
+            <input type="text" class="size-input"  name="pronb_size"  value="">
+        </form>
         <div class="row mb-5">
             @foreach ($product as $k =>$v)
                 @php

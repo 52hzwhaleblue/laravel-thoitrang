@@ -150,7 +150,7 @@
 
                     <form action="{{ route('admin.product.deleteAll') }}" method="post">
                         @csrf
-                        @method('DELETE')
+                        @method('post')
                         <button class="btn btn-danger">
                             Xóa tất cả
                         </button>

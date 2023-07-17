@@ -18,9 +18,10 @@ class PhotoSeeder extends Seeder
         $photoEloquent = new TablePhoto();
         // Slideshow
         $slideshow = [
-            "thumbnails/photo/slide-9533_6475f709cad12.png",
-            "thumbnails/photo/slide-9533_6475f709cad12.png",
-            "thumbnails/photo/slide-9533_6475f709cad12.png",
+            "thumbnails/photo/slide1.jpg",
+            "thumbnails/photo/slide2.jpg",
+            "thumbnails/photo/slide3.jpg",
+            "thumbnails/photo/slide4.jpg",
         ];
         foreach($slideshow as $index => $item){
             $photoEloquent->create([
@@ -32,8 +33,8 @@ class PhotoSeeder extends Seeder
         }
         // Giới thiệu Slide
         $gioithieuSlide = [
-            "thumbnails/photo/gioithieu1_6475f83e868e6.png",
-            "thumbnails/photo/gioithieu2_6475f84767115.png",
+            "thumbnails/photo/gioithieu1.jpg",
+            "thumbnails/photo/gioithieu2.jpg",
         ];
         foreach($gioithieuSlide as $index => $item){
             $photoEloquent->create([
@@ -46,11 +47,11 @@ class PhotoSeeder extends Seeder
 
         // Thư viện ảnh (Album)
         $album = [
-            "thumbnails/photo/album0_647606b32a813.jpg",
-            "thumbnails/photo/album0_647606bf5392e.jpg",
-            "thumbnails/photo/album_647606cc362dd.png",
-            "thumbnails/photo/album0_647606d8144cb.jpg",
-            "thumbnails/photo/album0_647606e02bf29.jpg"
+            "thumbnails/photo/album1.jpg",
+            "thumbnails/photo/album2.jpg",
+            "thumbnails/photo/album3.jpg",
+            "thumbnails/photo/album4.jpg",
+            "thumbnails/photo/album5.jpg"
         ];
         foreach($album as $index => $item){
             $photoEloquent->create([

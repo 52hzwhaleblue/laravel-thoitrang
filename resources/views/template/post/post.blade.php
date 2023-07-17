@@ -7,13 +7,13 @@
             <?php foreach($post as $k => $v) { ?>
                 <div class="col-3 mb-4">
                     <div class="tintuc-item">
-                        <a class="tintuc-img hover_sang3 scale-img" href="/post/{{$v->slug}}">
+                        <a class="tintuc-img hover_sang3 scale-img" href="/tin-tuc/{{$v->slug}}">
                             <img class="lazyload"
                                 src="{{ asset('http://localhost:8000/storage/'.$v->photo) }}" alt="{{$v->name}}" />
                         </a>
                         <div class="tintuc-info">
                             <h3 class="mb-0">
-                                <a href="/post/{{$v->slug}}" class="tintuc-name">
+                                <a href="/tin-tuc/{{$v->slug}}" class="tintuc-name">
                                     <span class="text-split"> {{ $v->name }} </span>
                                 </a>
                             </h3>

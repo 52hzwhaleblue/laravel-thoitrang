@@ -102,6 +102,7 @@ Quản lý chi tiết đơn hàng
                                 </thead>
                                 <tbody>
                                     @foreach ($order_details as $k =>$v)
+{{--                                        <?php dd($order_details)  ?>--}}
                                     <tr>
                                         <td class="align-middle">
 
@@ -126,14 +127,11 @@ Quản lý chi tiết đơn hàng
 
                                             <p class="mb-0">
                                                 <span class="pr-2">Màu:
-                                                    {{ $v->color }}
-                                                    <input type="text" name="color[]" value="{{ $v->color }}">
-                                                    <input type="text" name="product_id[]" value="{{ $v->product->id }}">
+                                                    <input class="" style="width: 5%; border: 0; border-radius: 20px;overflow: hidden;" type="color" name="color[]" value="{{ $v->color }}">
+                                                    <input type="hidden" name="color[]" value="{{ $v->color }}">
+                                                    <input type="hidden" name="product_id[]" value="{{ $v->product->id }}">
                                                 </span>
-
-                                                <span>Size:
-                                                    {{ $v->size }}
-                                                </span>
+                                                <span>Size:{{ $v->size }} </span>
                                             </p>
                                         </td>
 
@@ -152,23 +150,40 @@ Quản lý chi tiết đơn hàng
                                         </td>
                                         <td class="align-middle text-right">
                                             <p class="price-new font-weight-bold">
-                                                <?php if($v->product->discount) { ?>
-                                                    <span class="price-new">
-                                                        {{ number_format($v->quantity *  $v->product->sale_price,0,',','.') }} vnđ
-                                                    </span>
-                                                  <?php } else{ ?>
-                                                    <span class="price-new">
-                                                        {{ number_format($v->quantity *  $v->product->regular_price,0,',','.') }} vnđ
-                                                    </span>
-                                                <?php } ?>
+                                                <?php
+                                                    ($v->product->discount)
+                                                        ? $total_price = number_format($v->quantity *  $v->product->sale_price,0,',','.')
+                                                        : $total_price = number_format($v->quantity *  $v->product->regular_price,0,',','.');
+                                                    ($discount_price)
+                                                        ? $total_price_after_discount = $total_price - ($total_price*$discount_price/100)
+                                                        : $total_price_after_discount = $total_price;
+                                                    ?>
+
+                                                <span class="price-new">{{$total_price}} vnđ</span>
                                             </p>
                                         </td>
                                     </tr>
                                     @endforeach
                                 </tbody>
                             </table>
-                            <p class="text-right mt-3 text-danger font-weight-bold">
-                                Tổng giá trị đơn hàng: {{ number_format($rowOrder->total_price,0,',','.')  }} vnđ</p>
+
+                            <?php if(($rowOrder->promotion_id)) { ?>
+                            <div class="d-flex justify-content-end align-items-center text-right mt-3">
+                                <p class="mr-3 mb-0 text-dark font-weight-bold">Phần Trăm Giảm Giá (%):</p>
+                                <p class=" mb-0 text-right text-danger font-weight-bold">{{$discount_price}}</p>
+                            </div>
+
+                            <div class="d-flex justify-content-end align-items-center text-right mt-3">
+                                <p class="mr-3 mb-0 text-dark font-weight-bold">Tiền giảm:</p>
+                                <p class=" mb-0 text-right text-danger font-weight-bold">- {{$total_price*$discount_price/100}}</p>
+                            </div>
+
+                            <?php } ?>
+                            <div class="d-flex justify-content-end align-items-center text-right mt-3">
+                                <p class="mr-3 mb-0 text-dark font-weight-bold">Tổng giá trị đơn hàng: </p>
+                                <p class="mb-0 text-right text-danger font-weight-bold">{{ number_format($rowOrder->total_price,0,',','.')  }} vnđ</p>
+
+                            </div>
                         </div>
                     </div>
                 </div>

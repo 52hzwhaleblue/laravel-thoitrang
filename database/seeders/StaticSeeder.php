@@ -20,7 +20,7 @@ class StaticSeeder extends Seeder
 
         // Footer
         $eloquent->create([
-            "name" => 'Xưởng Jean Nam 9668',
+            "name" => 'Thời Trang C665',
             "type" => 'footer',
             "created_at" => date("Y-m-d H:i:s"),
             "updated_at" => date("Y-m-d H:i:s"),
@@ -28,8 +28,8 @@ class StaticSeeder extends Seeder
 
         // Giới thiệu
         $eloquent->create([
-            "name" => 'Giới thiệu về chúng tôi',
-            "desc" => 'Giới thiệu về chúng tôi',
+            "name" => 'Câu chuyện về chúng tôi',
+            "desc" => 'ây là chuyên mục giúp các bạn biết được Thoi Trang c665 đã hình thành ra sao và chúng tôi muốn xây dựng một công ty như thế nào!',
             "type" => 'gioi-thieu',
             "created_at" => date("Y-m-d H:i:s"),
             "updated_at" => date("Y-m-d H:i:s"),

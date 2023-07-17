@@ -60,6 +60,7 @@
 {{--                </div>--}}
 
                 <!-- Thống kế top 10 sản phẩm được xem nhiều nhất -->
+                <?php if(count($top10ProductMostViewed)) { ?>
                 <div class="col-4">
                     <div class="p-3 m-20 bg-white rounded shadow">
                         <h6 class="text-dark"> Top 10 sản phẩm được xem nhiều nhất </h6>
@@ -68,6 +69,7 @@
                             <li>
                                 <p>
                                     <a href="chi-tiet-san-pham/{{$v->slug}}/{{$v->id}}">
+                                        <span style="color: #007D71;"> {{ $v->name }} </span>
                                         <span> {{ $v->name }} </span>
                                         <span> | </span>
                                         <span> {{$v->view}}  </span>
@@ -78,8 +80,10 @@
                         </ul>
                     </div>
                 </div>
+                <?php } ?>
 
                 <!-- Thống kế top 10 sản phẩm bán chạy -->
+                <?php if(count($top10ProductBestSeller)) { ?>
                 <div class="col-4">
                     <div class="p-3 m-20 bg-white rounded shadow">
                         <h6 class="text-dark"> Top 10 sản phẩm bán chạy </h6>
@@ -90,7 +94,7 @@
                                 <li>
                                     <p>
                                         <a href="chi-tiet-san-pham/{{$product_name->slug}}/{{$product_name->id}}">
-                                            <span> {{ $product_name->name }} </span>
+                                            <span style="color: #007D71;"> {{ $product_name->name }} </span>
                                             <span> | </span>
                                             <span> {{$v->total_quantity}}  </span>
                                         </a>
@@ -100,6 +104,7 @@
                         </ul>
                     </div>
                 </div>
+                <?php } ?>
             </div>
         </div>
     </div>

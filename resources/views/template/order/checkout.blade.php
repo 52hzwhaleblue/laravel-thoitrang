@@ -1,24 +1,10 @@
 @extends('layouts.client')
 @section('content')
-<form method="POST" action="{{ route('cart.checkPaymentMethod') }}">
-    <div class="row">
+<form method="POST" action="{{ route('cart.checkPaymentMethod') }}" class="my-5">
+    <div class="row justify-content-start position-relative ">
         <div class="col-md-8 ">
-            <h4 class="mb-3">Billing address</h4>
+            <h4 class="mb-3">Thông tin giao hàng</h4>
             @csrf
-            @auth
-            <div class="mb-3">
-                <label for="user_id">User ID</label>
-                <input type="text" class="form-control" name="user_id" id="user_id" placeholder=""
-                    value="{{auth()->user()->id}}" readonly>
-            </div>
-
-            <div class="mb-3">
-                <label for="order_id">Order ID</label>
-                <input type="text" class="form-control" name="order_id" id="order_id" placeholder=""
-                    value="{{ auth()->user()->id + Cart::count() + date('h') + date('s') }}" readonly>
-            </div>
-
-            @endauth
             <div class="mb-3">
                 <label for="fullname">Họ và tên</label>
                 <input type="text" class="form-control" name="fullname" id="fullname" placeholder="" value="">
@@ -83,14 +69,18 @@
                 </div>
             </div>
             <hr class="mb-4">
-            <h4 class="mb-3">Payment</h4>
-            <div class="d-block my-3">
-                <div class="custom-control custom-radio">
+            <h4 class="mb-3">Hình thức thanh toán</h4>
+            <div class="d-block my-3 httt-items">
+                <div class="custom-control custom-radio httt-item">
                     <input id="cod" name="payment_method" type="radio" class="custom-control-input" checked value="COD">
+                    <img class="lazyload"
+                         src="{{ asset('http://localhost:8000/storage/cod.png') }}" alt="momo" />
                     <label class="custom-control-label" for="cod">C.O.D</label>
                 </div>
-                <div class="custom-control custom-radio">
+                <div class="custom-control custom-radio httt-item">
                     <input id="momo" name="payment_method" type="radio" class="custom-control-input" value="MOMO">
+                    <img class="lazyload"
+                         src="{{ asset('http://localhost:8000/storage/momo.png') }}" alt="momo" />
                     <label class="custom-control-label" for="momo">Thanh toán MOMO</label>
                 </div>
             </div>
@@ -99,16 +89,14 @@
 
         <div class="col-md-4 mb-4">
             <h4 class="d-flex justify-content-between align-items-center mb-3">
-                <span class="text-muted">Your cart</span>
+                <span class="text-muted">Giỏ hàng của bạn</span>
                 <span class="badge badge-secondary badge-pill"> {{ Cart::count() }} </span>
             </h4>
-            <ul class="list-group mb-3 sticky-top">
+            <ul class="list-group mb-3 sticky-topss">
                 @foreach (Cart::content() as $k =>$row)
                 <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                        <h6 class="my-0"> {{ $row->name }} </h6>
-                    </div>
-                    <span class="text-muted"> {{ number_format($row->price,0,',','.') }} </span>
+                    <p class="font-weight-bold">{{ $row->name }}</p>
+                    <p class="font-weight-bold"> {{ number_format($row->price) }}  (x{{$row->qty}})</p>
                 </li>
                 <!--Input hidden  -->
                 <input type="hidden" name="product_code" value="{{ $row->options->code }}">
@@ -123,24 +111,23 @@
                 <input type="hidden" name="product_discount" value="{{ $row->options->discount }}">
                 <input type="hidden" name="product_subtotal" value="{{ $row->subtotal }}">
                 @endforeach
-                <li class="list-group-item d-flex justify-content-between">
-                    <strong class="text-danger text-2xl h5 ">Total (VNĐ)</strong>
-                    <strong class="text-danger text-2xl h5 product_total "> {{ number_format(Cart::total(),0,',','.') }} </strong>
-                </li>
-            </ul>
+                <input type="hidden" class="my-4" name="product_total" value="{{Cart::total()}}">
 
+                <li class="list-group-item d-flex flex-wrap justify-content-between">
+                    <strong class="text-danger h5 font-weight-bold ">Total (VNĐ)</strong>
+                    <strong class="text-danger h5 font-weight-bold product_total "> {{ number_format(Cart::total()) }} </strong>
+                </li>
+                <p class="promo_alert"></p>
+            </ul>
             <div class="input-group">
                 <input type="text" class="form-control promo_code" placeholder="Promo code" name="promo_code">
                 <div class="input-group-append">
                     <div  name="magiamgia_submit" class="btn btn-secondary magiamgia_submit">submit</div>
                 </div>
             </div>
-
         </div>
-
     </div>
         <button class="btn btn-primary" type="submit" > Thanh Toán  </button>
 </form>
-
 </div>
 @endsection

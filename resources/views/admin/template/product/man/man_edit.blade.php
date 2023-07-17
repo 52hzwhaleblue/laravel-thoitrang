@@ -1,9 +1,5 @@
 @extends('admin.app') @section('title') Chi tiết Sản phẩm  @endsection
-
 @section('content')
-<script src="{{
-    asset('backend/assets/js/jquery-3.2.1.min.js')
-}}"></script>
 <form
     action="{{ route('admin.product.product-man.update', $data['slug'] ) }}"
     method="post" enctype="multipart/form-data">
@@ -176,7 +172,7 @@
                                     <label for="code" class="form-label">Mã sản phẩm :</label>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="code" placeholder="Mã sản phẩm"
-                                            name="code" value={{ $data['code'] }} />
+                                            name="code" value={{ $data['code'] }} >
                                     </div>
                                 </div>
                             </div>
@@ -195,9 +191,9 @@
                                 <div class="mb-3">
                                     <label for="price" class="form-label">Giá cũ :</label>
                                     <div class="input-group">
-                                        <input type="number" class="form-control" id="price" placeholder="Giá cũ"
+                                        <input type="number" class="form-control regular_price" id="price" placeholder="Giá cũ"
                                             name="regular_price"
-                                            value={{ $data['regular_price'] }} />
+                                            value={{ $data['regular_price'] }} >
                                         <span class="input-group-text">VNĐ</span>
                                     </div>
                                 </div>
@@ -206,8 +202,8 @@
                                 <div class="mb-3">
                                     <label for="price" class="form-label">Giá mới :</label>
                                     <div class="input-group">
-                                        <input type="number" class="form-control" id="price" placeholder="Giá mới"
-                                            name="sale_price" value={{ $data['sale_price'] }} />
+                                        <input type="number" class="form-control sale_price" id="price" placeholder="Giá mới"
+                                            name="sale_price" value={{ $data['sale_price'] }}>
                                         <span class="input-group-text">VNĐ</span>
                                     </div>
                                 </div>
@@ -217,31 +213,13 @@
                                 <div class="mb-3">
                                     <label for="price" class="form-label">Chiết khấu :</label>
                                     <div class="input-group">
-                                        <input type="number" class="form-control" id="price" placeholder="Chiết khấu"
+                                        <input type="number" class="form-control discount" id="price" placeholder="Chiết khấu"
                                             name="discount" value="{{ $data['discount'] }}"
                                             readonly />
                                         <span class="input-group-text">%</span>
                                     </div>
                                 </div>
                             </div>
-
-                            {{-- Thuộc tính --}}
-                            @if(count($product_properties))
-                                @foreach($product_properties as $k => $v)
-                                    <div class="col-md-4 form-group">
-                                        <div class="w_box3">
-                                            <div id="swatch" class="mt-1">
-                                                <label class="d-block" for="color">Color:</label>
-                                                <input type="color" id="color" name="color[]" value="{{$v->color}}">
-                                            </div>
-                                            <div class="d-flex justify-content-between align-item-center mt-1">
-                                                <label class="d-block" for="stock">Tồn kho:</label>
-                                                <input type="text" name="stock[]" class="form-control w-75" placeholder="Tồn kho" value="{{$v->stock}}" title="Tồn kho">
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            @endif
                         </div>
 
                         </div>
@@ -249,6 +227,44 @@
                 </div>
             </div>
         </div>
+
+    <div class="accordion mb-3" id="accordionPanelsStayOpenExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#thuoctinh" aria-expanded="true" aria-controls="thuoctinh">
+                    Thêm thuộc tính
+                </button>
+            </h2>
+            <div id="thuoctinh" class="accordion-collapse collapse show"
+                 aria-labelledby="panelsStayOpen-headingOne">
+                <div class="accordion-body">
+                    {{-- Thuộc tính --}}
+                    @if(count($product_properties))
+                    <div class="col-md-12 form-group">
+                        <div class="w_box3 d-flex row">
+                            @foreach($product_properties as $k => $v)
+                                <?php if($v->color != null && $v->stock != null) { ?>
+                                <div class="col-12 thuoctinh-box p-0 d-flex flex-column justify-content-between align-item-center mt-1">
+                                    <div id="swatch" class="col-11 p-0">
+                                        <label class="d-block" for="color">Color:</label>
+                                        <input class="d-block" type="color" id="color" name="color[]" value="{{$v->color}}">
+                                    </div>
+                                    <div id="swatch" class="col-11 p-0">
+                                        <label class="d-block" for="stock">Tồn kho:</label>
+                                        <input type="text" name="stock[]" class="form-control" placeholder="Tồn kho" value="{{$v->stock}}" title="Tồn kho">
+                                    </div>
+                                    <div class="btn-xoa-thuoctinh btn btn-danger">Xóa</div>
+                                </div>
+                                <?php } ?>
+                            @endforeach
+                        </div>
+                    </div>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
 
         <div class="accordion mb-3" id="accordionPanelsStayOpenExample">
             <div class="accordion-item">
@@ -270,7 +286,7 @@
         </div>
     </div>
     </div>
-    <button type="submit" class="btn btn-primary">Tạo mới</button>
+    <button type="submit" class="btn btn-primary">Cập nhật</button>
     <button type="reset" class="btn btn-secondary">Làm lại</button>
 </form>
 @endsection

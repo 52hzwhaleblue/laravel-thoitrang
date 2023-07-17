@@ -124,7 +124,7 @@
                 <br>
                 <p
                     style="font-family:Arial,Helvetica,sans-serif;font-size:12px;margin:0;padding:0;line-height:18px;color:#444;font-weight:bold">
-                    <span>CỬA HÀNG JEAN NAM C665</span> cảm ơn quý khách đã đặt hàng, chúng tôi sẽ không
+                    <span>CỬA HÀNG THỜI TRANG C665</span> cảm ơn quý khách đã đặt hàng, chúng tôi sẽ không
                     ngừng nổ lực để phục vụ quý khách tốt hơn!<br>
                 </p>
             </td>
