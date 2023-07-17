@@ -14,7 +14,7 @@
                 </ul>
 
                 <!-- Tab panes -->
-                <div class="tab-content">
+                <div class="tab-content mb-5">
                     <div role="tabpanel" class="tab-pane active" id="all">
                         @include('template.user.layouts.all')
                     </div>

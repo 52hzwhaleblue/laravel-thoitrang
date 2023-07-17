@@ -1,4 +1,4 @@
-<form hidden=""
+<form
       class="form-cart cart-flag"
       id="cart-form"
       action="{{route('cart-add')}}"
@@ -163,9 +163,14 @@
             $(this).parents('.cart-flag').find('.color-input').attr('value',color);
             $(this).parents('.cart-flag').find('.size-input').attr('value',size);
 
-            setTimeout(addToCart,3000);
+            setTimeout(addToCart,2000);
             function addToCart() {
-                toastr.success('Đã thêm vào giỏ hàng!')
+                toastr.options.progressBar = true;
+                <?php if(\Illuminate\Support\Facades\Auth::check()) { ?>
+                    toastr.success('Đã thêm vào giỏ hàng!')
+                <?php }else{ ?>
+                    toastr.error('Vui lòng đăng nhập tài khoản!')
+                <?php } ?>
                 document.getElementById("cart-form").submit();
             }
         });

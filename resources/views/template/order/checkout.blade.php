@@ -14,7 +14,7 @@
             </div>
             <div class="mb-3">
                 <label for="email">Email </label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com">
+                <input type="email" class="form-control" id="email" name="email" value="{{auth()->user()->email}}" placeholder="you@example.com">
                 @error('email')
                 <small class="text-danger font-weight-bold">{{ $message }}</small>
                 @enderror

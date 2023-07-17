@@ -235,7 +235,7 @@
             <h2 class="accordion-header" id="panelsStayOpen-headingOne">
                 <button class="accordion-button" type="button" data-bs-toggle="collapse"
                         data-bs-target="#thuoctinh" aria-expanded="true" aria-controls="thuoctinh">
-                    Thêm thuộc tính
+                    Quản lý thuộc tính
                 </button>
             </h2>
             <div id="thuoctinh" class="accordion-collapse collapse show"

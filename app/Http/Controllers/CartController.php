@@ -202,7 +202,7 @@ class CartController extends BaseController
     public function store(Request $request, DB $db)
     {
         // Kiểm tra dữ liệu người dùng nhập
-//        $this->validate_cart($request);
+        $this->validate_cart($request);
 
         // Dữ liệu giỏ hàng
         $dataCart = Cart::content();
@@ -239,12 +239,9 @@ class CartController extends BaseController
                 'promotion_id' => ($promo_elo) ? (int)$promo_elo->id : null,
                 'status_id' => 1,
             ]);
+
             // Lưu vào table_order_details
-//            dd($dataCart);
-
             foreach ($dataCart as $kcart => $vcart) {
-//                dd($vcart->id);
-
                 $order_details = TableOrderDetail::create([
                     'order_id' => $order->id,
                     'product_id' => $vcart->id,
@@ -252,6 +249,7 @@ class CartController extends BaseController
                     'color' => $vcart->options->color,
                     'size' => $vcart->options->size,
                     'quantity' => $vcart->qty,
+                    'price' => $vcart->price,
                 ]);
 
 //                dd($order_details);

@@ -34,7 +34,7 @@ Quản lý chi tiết đơn hàng
 
                 <div class="form-group col-md-4 col-sm-6">
                     <label class="font-weight-bold">Email:</label>
-                    <p> {{ $rowUser->email }} </p>
+                    <p> {{ $rowOrder->shipping_email }} </p>
                 </div>
 
                 <div class="form-group col-md-4 col-sm-6">
@@ -97,7 +97,7 @@ Quản lý chi tiết đơn hàng
                                         <th class="align-middle text-center" style="width:30%">Tên sản phẩm</th>
                                         <th class="align-middle text-center">Đơn giá</th>
                                         <th class="align-middle text-right">Số lượng</th>
-                                        <th class="align-middle text-right">Tạm tính</th>
+                                        <th class="align-middle text-right">Thành tiền</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -137,11 +137,7 @@ Quản lý chi tiết đơn hàng
 
                                         <td class="align-middle text-center">
                                             <div class="price-cart-detail">
-                                                <?php if($v->product->discount) { ?>
-                                                    <span class="price-new">  {{number_format($v->product->sale_price)}} vnđ</span>
-                                                <?php } else{ ?>
-                                                    <span class="price-new">  {{number_format($v->product->regular_price)}} vnđ</span>
-                                                <?php } ?>
+                                                <span class="price-new">  {{number_format($v->price)}} vnđ</span>
                                             </div>
                                         </td>
 
@@ -151,14 +147,8 @@ Quản lý chi tiết đơn hàng
                                         <td class="align-middle text-right">
                                             <p class="price-new font-weight-bold">
                                                 <?php
-                                                    ($v->product->discount)
-                                                        ? $total_price = number_format($v->quantity *  $v->product->sale_price,0,',','.')
-                                                        : $total_price = number_format($v->quantity *  $v->product->regular_price,0,',','.');
-                                                    ($discount_price)
-                                                        ? $total_price_after_discount = $total_price - ($total_price*$discount_price/100)
-                                                        : $total_price_after_discount = $total_price;
+                                                    $total_price = number_format($v->quantity *  $v->price,0,',','.');
                                                     ?>
-
                                                 <span class="price-new">{{$total_price}} vnđ</span>
                                             </p>
                                         </td>
@@ -166,6 +156,22 @@ Quản lý chi tiết đơn hàng
                                     @endforeach
                                 </tbody>
                             </table>
+
+                            <div class="d-flex justify-content-end align-items-center text-right mt-3">
+                                <p class="mr-3 mb-0 text-dark font-weight-bold">Tạm tính (%):</p>
+                                <p class=" mb-0 text-right text-danger font-weight-bold">
+                                    <?php
+                                    $tamtinh = \Illuminate\Support\Facades\DB::table('table_order_details')
+                                        ->selectRaw('SUM(quantity*price) as tamtinh')
+                                        ->groupBy('order_id')
+                                        ->having('order_id',38)
+                                        ->first();
+
+
+                                    ?>
+                                    {{number_format($tamtinh->tamtinh,0,',','.')}} vnđ
+                                </p>
+                            </div>
 
                             <?php if(($rowOrder->promotion_id)) { ?>
                             <div class="d-flex justify-content-end align-items-center text-right mt-3">
@@ -175,7 +181,12 @@ Quản lý chi tiết đơn hàng
 
                             <div class="d-flex justify-content-end align-items-center text-right mt-3">
                                 <p class="mr-3 mb-0 text-dark font-weight-bold">Tiền giảm:</p>
-                                <p class=" mb-0 text-right text-danger font-weight-bold">- {{$total_price*$discount_price/100}}</p>
+                                <p class=" mb-0 text-right text-danger font-weight-bold">
+                                    <?php
+                                        $tiengiam = $tamtinh->tamtinh - ($tamtinh->tamtinh - ($tamtinh->tamtinh*$discount_price/100 ));
+                                        ?>
+                                    -  {{number_format($tiengiam,0,',','.')}} vnđ
+                                </p>
                             </div>
 
                             <?php } ?>
