@@ -110,9 +110,9 @@
     <script src="{{asset('public/backend/assets/js/jquery-3.2.1.min.js')}}"></script>
     <script>
         // Color
-        $('.pronb-item').each(function (){
-            $(this).find('.color-click:first').addClass('active');
-        });
+        // $('.pronb-item').each(function (){
+        //     $(this).find('.color-click:first').addClass('active');
+        // });
 
         $('.color-click').click(function (e) {
             $(this).parent('.pronb-colors').find('.color-click').removeClass('active');
@@ -131,6 +131,7 @@
         });
 
         $('.color-click').trigger('click');
+
         // Size
         // Khi chọn size -> chọn luôn màu active -> add vào giỏ hàng
         $('.size-click').click(function (e) {
@@ -143,9 +144,14 @@
             $(this).parents('.cart-flag').find('.color-input').attr('value',color);
             $(this).parents('.cart-flag').find('.size-input').attr('value',size);
 
-            setTimeout(addToCart,3000);
+            setTimeout(addToCart,2000);
             function addToCart() {
+                toastr.options.progressBar = true;
+                <?php if(\Illuminate\Support\Facades\Auth::check()) { ?>
                 toastr.success('Đã thêm vào giỏ hàng!')
+                <?php }else{ ?>
+                toastr.error('Vui lòng đăng nhập tài khoản!')
+                <?php } ?>
                 document.getElementById("cart-form").submit();
             }
         });

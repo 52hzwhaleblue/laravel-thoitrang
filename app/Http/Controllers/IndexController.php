@@ -142,7 +142,9 @@ class IndexController extends Controller
         ->where('slug', $slug)
         ->get();
         $rowDetailPhoto = DB::table('table_product_details')
+            ->selectRaw('photo')
         ->where('product_id', $id)
+            ->groupBy('photo')
         ->get();
 
         // gọi hàm cập nhật view sản phẩm

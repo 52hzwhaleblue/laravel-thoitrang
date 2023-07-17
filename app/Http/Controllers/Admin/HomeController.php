@@ -50,7 +50,7 @@ class HomeController extends Controller
         $top10ProductMostViewed= DB::table('table_products')
             ->select('*')
             ->orderByDesc('view')
-            ->limit(3)
+            ->limit(10)
             ->get();
 
         return view('admin.app',compact([

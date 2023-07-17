@@ -157,21 +157,6 @@
                     'type' => 'gioi-thieu',
                     'index' => 'admin.static.gioi-thieu.index',
                 ],
-                'lien-he' => [
-                    'title' => 'Liên hệ',
-                    'type' => 'lien-he',
-                    'index' => 'admin.static.lien-he.index',
-                ],
-                'slogan' => [
-                    'title' => 'Slogan',
-                    'type' => 'slogan',
-                    'index' => 'admin.static.slogan.index',
-                ],
-                'copyright' => [
-                    'title' => 'Copyright',
-                    'type' => 'copyright',
-                    'index' => 'admin.static.copyright.index',
-                ],
                 'footer' => [
                     'title' => 'Footer',
                     'type' => 'footer',

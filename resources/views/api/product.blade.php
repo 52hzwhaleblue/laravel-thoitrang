@@ -130,9 +130,9 @@
 
     <script>
         // Color
-        $('.pronb-item').each(function (){
-            $(this).find('.color-click:first').addClass('active');
-        });
+        // $('.pronb-item').each(function (){
+        //     $(this).find('.color-click:first').addClass('active');
+        // });
 
         $('.color-click').click(function (e) {
             $(this).parent('.pronb-colors').find('.color-click').removeClass('active');

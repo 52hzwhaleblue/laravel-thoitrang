@@ -73,7 +73,9 @@ Quản lý chi tiết đơn hàng
                     <select name="order_status" id="" class="form-select" aria-label="Default select example">
                         <option value="0"> Chọn tình trạng </option>
                         @foreach ($order_status as $k => $v )
-                            <option value="{{ $v->id }}" @if($rowOrder->status_id == $v->id) selected  @endif > {{ $v->name }} </option>
+                            <?php if($rowOrder->status_id <= $v->id ) { ?>
+                                <option value="{{ $v->id }}" @if($rowOrder->status_id == $v->id) selected  @endif > {{ $v->name }} </option>
+                            <?php }?>
                         @endforeach
                    </select>
                 </div>
@@ -128,8 +130,6 @@ Quản lý chi tiết đơn hàng
                                             <p class="mb-0">
                                                 <span class="pr-2">Màu:
                                                     <input class="" style="width: 5%; border: 0; border-radius: 20px;overflow: hidden;" type="color" name="color[]" value="{{ $v->color }}">
-                                                    <input type="hidden" name="color[]" value="{{ $v->color }}">
-                                                    <input type="hidden" name="product_id[]" value="{{ $v->product->id }}">
                                                 </span>
                                                 <span>Size:{{ $v->size }} </span>
                                             </p>
@@ -157,6 +157,8 @@ Quản lý chi tiết đơn hàng
                                 </tbody>
                             </table>
 
+
+                            <?php if(($rowOrder->promotion_id)) { ?>
                             <div class="d-flex justify-content-end align-items-center text-right mt-3">
                                 <p class="mr-3 mb-0 text-dark font-weight-bold">Tạm tính (%):</p>
                                 <p class=" mb-0 text-right text-danger font-weight-bold">
@@ -164,7 +166,7 @@ Quản lý chi tiết đơn hàng
                                     $tamtinh = \Illuminate\Support\Facades\DB::table('table_order_details')
                                         ->selectRaw('SUM(quantity*price) as tamtinh')
                                         ->groupBy('order_id')
-                                        ->having('order_id',38)
+                                        ->having('order_id',$rowOrder->id)
                                         ->first();
 
 
@@ -172,8 +174,6 @@ Quản lý chi tiết đơn hàng
                                     {{number_format($tamtinh->tamtinh,0,',','.')}} vnđ
                                 </p>
                             </div>
-
-                            <?php if(($rowOrder->promotion_id)) { ?>
                             <div class="d-flex justify-content-end align-items-center text-right mt-3">
                                 <p class="mr-3 mb-0 text-dark font-weight-bold">Phần Trăm Giảm Giá (%):</p>
                                 <p class=" mb-0 text-right text-danger font-weight-bold">{{$discount_price}}</p>

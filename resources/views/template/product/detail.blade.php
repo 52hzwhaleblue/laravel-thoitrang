@@ -71,16 +71,16 @@
                 </div>
             </li>
 
-            <li>
-                <div class="cart-pro-detail d-flex flex-wrap align-items-center justify-content-between">
-                    <a class="transition addnow addcart text-decoration-none d-flex align-items-center justify-content-center"
-                        data-id="<?=$rowDetail[0]->id ?>" data-action="addnow"><span> Thêm
-                            vào giỏ hàng </span></a>
-                    <a class="transition buynow addcart text-decoration-none d-flex align-items-center justify-content-center"
-                        data-id="<?=$rowDetail[0]->id ?>" data-action="buynow"><span>Mua
-                            ngay</span></a>
-                </div>
-            </li>
+{{--            <li>--}}
+{{--                <div class="cart-pro-detail d-flex flex-wrap align-items-center justify-content-between">--}}
+{{--                    <a class="transition addnow addcart text-decoration-none d-flex align-items-center justify-content-center"--}}
+{{--                        data-id="<?=$rowDetail[0]->id ?>" data-action="addnow"><span> Thêm--}}
+{{--                            vào giỏ hàng </span></a>--}}
+{{--                    <a class="transition buynow addcart text-decoration-none d-flex align-items-center justify-content-center"--}}
+{{--                        data-id="<?=$rowDetail[0]->id ?>" data-action="buynow"><span>Mua--}}
+{{--                            ngay</span></a>--}}
+{{--                </div>--}}
+{{--            </li>--}}
 
         </ul>
         <div class="desc-pro-detail content-text">
@@ -91,10 +91,10 @@
 
 
 @if(count($product))
-<div class="title-main"><span>Sản phẩm cùng loại</span></div>
+<div class="title-main"><span>Sản phẩm bạn có thể thích</span></div>
 <div class="content-main  cart-flag mb-5">
     <?php if(count($product)) { ?>
-    <form  class="form-cart " id="cart-form" action="{{route('cart-add')}}" method="post" enctype="multipart/form-data" >
+    <form hidden="" class="form-cart " id="cart-form" action="{{route('cart-add')}}" method="post" enctype="multipart/form-data" >
         @csrf
         <input type="text" class="id-input" name="pronb_id" value="" >
         <input type="text" class="color-input" name="pronb_color" value="">

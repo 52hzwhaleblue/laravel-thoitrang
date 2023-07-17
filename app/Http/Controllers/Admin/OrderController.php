@@ -64,8 +64,6 @@ class OrderController extends BaseController
         $order_status = $request->get('order_status');
         $order_id = (int)$request->query('order_id');
         $user_id = $request->query('user_id');
-        $color = $request->get('color');
-        $product_id = $request->get('product_id');
 
         //update table_orders
         $order = TableOrder::where('id',$order_id)->where('user_id',$user_id)->first();
@@ -75,15 +73,21 @@ class OrderController extends BaseController
         // Tăng SLTK khi hủy đơn hàng
         if($order_status == 5){
             $order_detail = TableOrderDetail::where('order_id',$order_id)->get();
+
             foreach ($order_detail as $k => $v)
             {
                 $product_id =$v->product_id;
+                $product_detail_id =$v->product_detail_id;
                 $color =$v->color;
+                $size =$v->size;
                 $qty = $v->quantity;
 
                 $product_detail = TableProductDetail::where('product_id',$product_id)
+                    ->where('id',$product_detail_id)
                     ->where('color',$color)
+                    ->where('size',$size)
                     ->first();
+
                 $product_detail->stock +=$qty;
                 $product_detail->save();
             }

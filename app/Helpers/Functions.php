@@ -46,7 +46,7 @@ class Functions
                     ->where('id','!=' ,$where)
                     ->where('slug', '=', $slug)
                     ->get();
-                // $check lấy ra id kiểm tra xem có id nào đã tồn tại hay chưa (slug đã toồn tại)
+                // $check lấy ra id kiểm tra xem có id nào đã tồn tại hay chưa (slug đã tồn tại)
                 $arrChecks = json_decode($check,true);
 
                 foreach($arrChecks as $arrCheck){

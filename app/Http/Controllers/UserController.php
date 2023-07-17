@@ -30,7 +30,7 @@ class UserController extends Controller
 
         $order_details = TableOrderDetail::whereIn('order_id', $resId_order)->get();
         $rowUser  = User::where('id',$user_id)->first();
-        $all = TableOrder::where('user_id',$user_id)->get();
+        $all = TableOrder::where('user_id',$user_id)->where('status_id','!=',3)->get();
         $confirmed = TableOrder::with('orderDetail.product')->where('user_id',$user_id)->where('status_id',2)->get();
         $onDelivery = TableOrder::with('orderDetail.product')->where('user_id',$user_id)->where('status_id',3)->get();
         $shipped = TableOrder::with('orderDetail.product')->where('user_id',$user_id)->where('status_id',4)->get();

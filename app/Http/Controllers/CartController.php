@@ -26,11 +26,6 @@ use App\Models\TablePromotion;
 
 class CartController extends BaseController
 {
-    public $temp_code;
-
-//    public function __construct(){
-//        $this->temp_code = '';
-//    }
     public function index()
     {
         $data = Cart::content();
