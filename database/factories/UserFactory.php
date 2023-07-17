@@ -27,7 +27,7 @@ class UserFactory extends Factory
             'phone'=> $faker->phoneNumber(),
             'email'=> $faker->email(),
             'password' => Hash::make('123456789'),
-            "photo" =>  "thumbnails/avatars/42ea1f2bdeefb978bb7cbab49cfc08b2_644be05a96383.png",
+            "photo" =>  "thumbnails/avatars/avatar_main.png",
             "role" => 1,
             "created_at" => $created_at,
             "updated_at" => $updated_at,

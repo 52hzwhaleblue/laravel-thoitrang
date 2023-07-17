@@ -40,6 +40,8 @@ Route::group([
             Route::post('product-export', [ProductController::class,'export_handle'])->name('exportProduct');
 
             Route::post('product-man/deleteAll', [ProductController::class,'deleteAll'])->name('deleteAll');
+
+            Route::post('delete-thuoctinh', [ProductController::class,'delete_thuoctinh'])->name('deleteThuoctinh');
         });
 
         // Bài viết
@@ -114,7 +116,7 @@ Route::group([
         // Đơn hàng
         Route::get('order', [OrderController::class,'index'])->name('order.index');
         Route::delete('order/{id}', [OrderController::class,'destroy'])->name('order.destroy');
-        Route::get('delete_order_listen', [OrderController::class,'delete_order_listen'])->name('order.destroy');
+        Route::get('delete_order_listen', [OrderController::class,'delete_order_listen'])->name('order.delete_order_listen');
 
         // Chi tiết đơn hàng
         // Route::get('order-detail/{order_id}/{user_id}', [OrderController::class,'edit'])->name('order.detail');

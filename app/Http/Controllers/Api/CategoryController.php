@@ -12,7 +12,7 @@ class CategoryController extends BaseController
 {
     public function fetchCategories(){   
         try {     
-            $categories = DB::table('table_categories')->select('id','name','name_vi','photo','background_color','created_at')->get();
+            $categories = DB::table('table_categories')->select('id','name','name_vi','photo','created_at')->get();
             return $this->sendResponse($categories, "Fetch categories successfully!!!");
             
         } catch (\Throwable $th) { 
@@ -33,7 +33,7 @@ class CategoryController extends BaseController
 
             $products = TableProduct::with(['category','productDetail'])
                 ->Stock()
-                ->withCount('orderDetail as sold')
+                ->withSum('orderDetail as sold','quantity')
                 ->withAvg('reviews as star', 'star')
                 ->when($cate != -1,function($query) use ($cate){
                     return  $query->where('category_id',$cate);
@@ -42,8 +42,11 @@ class CategoryController extends BaseController
                 ->take($limit)
                 ->get()
                 ->map(function ($product) {
-                    $product->star =  (double)$product->star;
-                    $product->is_popular = $product->view > 350;
+                    $product-> star = (double)$product->star;
+
+                    $product-> sold = (int)$product->sold;
+        
+                    $product->is_popular = $product->view > 50 && $product->sold > 3;
                      return $product;
                 }); 
             

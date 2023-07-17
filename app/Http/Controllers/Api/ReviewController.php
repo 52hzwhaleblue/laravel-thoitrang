@@ -47,8 +47,6 @@ class ReviewController extends BaseController
                 });
             
                 $list = collect($list->get())->merge($dummy_stars);
-
-             
         
                 $response = [
                     "length" => $length,
@@ -71,7 +69,6 @@ class ReviewController extends BaseController
         }
     }
     
-
     public function create(Request $request,DB $db) {
         try {
             $order_id = $request->input('order_id');
@@ -90,14 +87,21 @@ class ReviewController extends BaseController
 
             }
 
-            dispatch(new InsertReviewJob(
-                Auth::id(),
-                $order_id,
-                $content,
-                $star, $array_photo
-            ));
-            
-           
+            if(empty($files)){
+                dispatch(new InsertReviewJob(
+                    Auth::id(),
+                    $order_id,
+                    $content,
+                    $star, []
+                ));
+            }else {
+                dispatch(new InsertReviewJob(
+                    Auth::id(),
+                    $order_id,
+                    $content,
+                    $star, $array_photo
+                )); 
+            }
     
             $db::commit();
     

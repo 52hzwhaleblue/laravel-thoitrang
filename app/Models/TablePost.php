@@ -20,8 +20,6 @@ class TablePost extends Model
         'name',
         'desc',
         'content',
-        'options',
-        'numb',
         'status',
         'type',
         'view',

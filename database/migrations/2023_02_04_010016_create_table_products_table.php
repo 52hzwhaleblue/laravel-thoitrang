@@ -17,17 +17,13 @@ return new class extends Migration
 
         Schema::create('table_products', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('code')->nullable()->default(null);
+            $table->string('SKU')->nullable()->default(null);
             $table->string('name')->nullable()->default(null);
             $table->string('slug')->nullable();
             $table->double('regular_price')->nullable();
             $table->double('discount')->nullable();
             $table->double('sale_price')->nullable();
-            $table->json('properties')->nullable();
             $table->mediumText('desc')->nullable()->default(null);
-            $table->mediumText('content')->nullable()->default(null);
-            $table->integer('numb')->nullable();
-            $table->string('type')->nullable()->default(null);
             $table->string('photo')->nullable()->default(null);
             $table->string('photo1')->nullable()->default(null);
             $table->integer('view')->nullable();

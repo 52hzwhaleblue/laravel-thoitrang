@@ -4,7 +4,6 @@ namespace App\Jobs;
 
 use App\Models\TableOrderDetail;
 use App\Models\TableReview;
-use App\Models\TableReviewDetail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Queue\SerializesModels;
@@ -44,9 +43,6 @@ class InsertReviewJob implements ShouldQueue
 
         $order_detail_sql  = new TableOrderDetail();
 
-        $review_detail_sql  = new TableReviewDetail;
-
-
         $time = now();
 
         $products = $order_detail_sql
@@ -55,27 +51,16 @@ class InsertReviewJob implements ShouldQueue
         ->get();
 
         foreach ($products as $item) {
-            $result = $review_sql::create([
+            $review_sql::create([
                 'user_id' => $this->userId,
                 'order_id' => $this->orderId,
                 'product_id' => $item->product_id,
                 'content' => $this->content,
                 'star' => $this->star,
-                'status' => 1,
+                'photos' => json_encode($this->photos),
                 'created_at' => $time,
                 'updated_at' => $time,
             ]);
-
-            foreach($this->photos as $item){
-                $data = [
-                    'review_id' => $result->id,
-                    'photo' => $item,
-                    'created_at' => $time,
-                    'updated_at' => $time,
-                ];
-                $review_detail_sql::create($data);
-            }
         } 
-
     }
 }

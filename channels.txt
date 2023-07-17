@@ -1,0 +1,6 @@
+Admin muốn user mobile app nghe thì luôn phát sự kiện thông qua channel bên dưới: 
+  -> channel: 'pusher-user-{id}'
+  -> event: 'pusher-event'
+
+Khi tạo khuyến mãi: phát sự kiện trên channel: 'promotion-create-new-channel', event:'pusher'
+Huỷ đơn hàng: phát sự kiện trên channel: 'delete-order-channel', event:'pusher'

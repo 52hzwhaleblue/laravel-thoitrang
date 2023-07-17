@@ -20,13 +20,7 @@ return new class extends Migration
             $table->string('name')->nullable()->default(null);
             $table->string('name_vi')->nullable()->default(null);
             $table->string('slug')->nullable()->default(null);
-            $table->mediumText('content')->nullable()->default(null);
-            $table->mediumText('desc')->nullable()->default(null);
             $table->string('photo')->nullable()->default(null);
-            $table->string('background_color')->nullable()->default(null);
-            $table->mediumText('options')->nullable()->default(null);
-            $table->integer('numb')->nullable();
-            $table->string('type')->nullable()->default(null);
             $table->integer('status')->default(1);
             $table->timestamps();
         });

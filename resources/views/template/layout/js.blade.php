@@ -19,6 +19,10 @@
 <script type="text/javascript" src="{{ asset('public/assets/js/OwlCarousel2-2.3.4/dist/owl.carousel.min.js') }}">
 </script>
 
+<!-- toast -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
 <!-- Aos Animation -->
 <script type="text/javascript" src="{{ asset('public/assets/aos/aos.js') }}">
 </script>

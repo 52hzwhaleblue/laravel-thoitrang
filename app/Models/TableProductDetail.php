@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use App\Models\TableProduct;
+use App\Models\TableOrderDetail;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -18,6 +19,7 @@ class TableProductDetail extends Model
         'photo',
         'product_id',
         'name',
+        'size',
         'color',
         'stock',
         'created_at',
@@ -39,5 +41,10 @@ class TableProductDetail extends Model
     public function product()
     {
         return $this->belongsTo(TableProduct::class);
+    }
+
+    public function orderDetail()
+    {
+        return $this->hasMany(TableOrderDetail::class, 'product_id','id');
     }
 }

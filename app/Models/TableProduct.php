@@ -23,19 +23,16 @@ class TableProduct extends Model
      */
     
     protected $fillable = [
-        'code',
+        'SKU',
         'name',
         'slug',
         'discount',
         'regular_price',
         'sale_price',
-        'properties',
-        'options',
         'desc',
-        'content',
-        'numb',
-        'type',
         'view',
+        'photo',
+        'photo1',
         'category_id',
         'status',
         'created_at',
@@ -82,14 +79,13 @@ class TableProduct extends Model
         return $this->hasMany(TableReview::class,'product_id','id');
     }
 
-    public function orderDetail()
-    {
-        return $this->hasMany(TableOrderDetail::class, 'product_id','id');
+    public function orderDetail(){
+        return $this->hasMany(TableOrderDetail::class,'product_id','id');
     }
 
     public function scopePopular($query)
     {
-        return $query->where('view', '>=', 200)
+        return $query->where('view', '>=', 100)
             ->whereIn('id', function ($query) {
                 $query->select('product_id')
                     ->from('table_order_details')

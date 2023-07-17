@@ -92,24 +92,24 @@ class OrderController extends BaseController
                 ->route('admin.order.index')
                 ->with('message', 'Bạn đã hủy đơn hàng thành công!');
         }
+
         $dataNoti =  [
             "user_id" => $user_id,
             "order_id" => $order_id,
             "status" => $order_status,
         ];
-
         $this->handlePushNoti($dataNoti,$order);
-
         $this->handleUpdateStatus($dataNoti);
+      
         return redirect()
             ->route('admin.order.index')
             ->with('message', 'Bạn đã cập nhật đơn hàng thành công!');
     }
 
     private function handleUpdateStatus($dataNoti){
-        $data = [
-            "order_id" => $dataNoti["order_id"],
-            "new_status" => $dataNoti["status"],
+        $data = [         
+            "order_id" => (int)$dataNoti["order_id"],
+            "new_status" => (int)$dataNoti["status"],     
         ];
 
         $response = [
@@ -138,7 +138,7 @@ class OrderController extends BaseController
             "title" => "Hệ thống đơn hàng",
             "order_id" => $data["order_id"],
             "subtitle" => $subtitle,
-            "type" => "user_order",
+            "type" => "user",
             "created_at" => now(),
             "updated_at" => now(),
         ]);
@@ -154,6 +154,7 @@ class OrderController extends BaseController
         $this->sendNotiToUser($data["user_id"],$notification->title,$notification->subtitle, $notification->type);
     }
 
+
     public function destroy($id)
     {
         $order = TableOrder::find($id);
@@ -163,6 +164,7 @@ class OrderController extends BaseController
             return redirect()->route('admin.order.index')->with('message','Bạn đã xóa hóa đơn thành công');
         }
     }
+
 
     public function delete_order_listen(Request $request)
     {

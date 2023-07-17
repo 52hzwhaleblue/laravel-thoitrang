@@ -78,13 +78,13 @@ class ProductDetailSeeder extends Seeder
 //            "mu-bucket-tron-mau-den-trang-5-510x510" =>["id" => 34, "color" => "#000000"],
         ];
 
-        $eloquent = new TableProductDetail;
-
-        foreach ($imagesProduct as $key => $value) {
+        $eloquent = new TableProductDetail();
+        foreach ($imagesProduct as $value) {
             $eloquent::create([
                 "product_id" =>  $value["id"],
-                "photo" => 'thumbnails/products/'.$key.'.png',
+                "photo" => 'thumbnails/products/'.$value['photo'].'.png',
                 "color" => $value["color"],
+                "size" => array_key_exists("size",$value) ? $value["size"]: "",
                 "stock" => random_int(10,50),
                 "created_at" =>now(),
                 "updated_at" =>now(),

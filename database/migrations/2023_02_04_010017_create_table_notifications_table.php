@@ -16,13 +16,11 @@ return new class extends Migration
         Schema::create('table_notifications', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id')->nullable();
-            $table->unsignedInteger('order_id')->nullable();
             $table->string('title')->nullable();
             $table->string('subtitle')->nullable();
-            $table->integer('is_read')->nullable()->default(1);
+            $table->integer('is_read')->nullable()->default(0);
             $table->string('type')->nullable()->default("");
             $table->foreign('user_id') ->references('id')->on('table_users')->cascadeOnDelete();
-            $table->foreign('order_id') ->references('id')->on('table_orders')->cascadeOnDelete();
             $table->timestamps();
         });
 
