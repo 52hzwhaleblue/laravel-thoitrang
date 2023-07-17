@@ -5,7 +5,7 @@
     <div class="wrap-content">
         <div class="owl-page owl-carousel owl-theme thumbs_img " data-xsm-items="1:0" data-sm-items="2:10"
              data-md-items="3:15" data-lg-items="3:20" data-xlg-items="4:30" data-rewind="1" data-autoplay="0"
-             data-loop="0" data-lazyload="0" data-mousedrag="1" data-touchdrag="1" data-smartspeed="800"
+             data-loop="0" data-lazyload="0" data-mousedrag="0" data-touchdrag="0" data-smartspeed="800"
              data-autoplayspeed="800" data-autoplaytimeout="5000" data-dots="0" data-animations="" data-nav="1"
              data-navtext="" data-navcontainer="">
             @foreach ($promotion as $k =>$v)

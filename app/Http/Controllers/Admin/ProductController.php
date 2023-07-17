@@ -90,6 +90,7 @@ class ProductController extends BaseController
             {
                 TableProductDetail::create([
                     'product_id' => $product->id,
+                    'photo' => $url,
                     'color' => $vcolor,
                     "size" => $sizes[$kcolor],
                     "stock" => $stocks[$kcolor],

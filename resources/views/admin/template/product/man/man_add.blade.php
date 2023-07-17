@@ -196,8 +196,16 @@ enctype="multipart/form-data"
                                     class=""
                                 >
                                     @csrf
-                                    <input type="file" name="photo" />
-                                    <input type="file" name="photo1" />
+                                    <div class="text-center mb-4">
+                                        <img class="lazyload w-50 mb-4"
+                                             src="{{ asset('http://localhost:8000/storage/noimage.jpg') }}" alt="noimage" />
+                                            <input type="file" name="photo" />
+                                    </div>
+                                    <div class="text-center mb-4">
+                                        <img class="lazyload w-50 mb-4"
+                                             src="{{ asset('http://localhost:8000/storage/noimage.jpg') }}" alt="noimage" />
+                                        <input type="file" name="photo1" />
+                                    </div>
                                 </form>
                             </div>
                         </div>

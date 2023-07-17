@@ -29,13 +29,13 @@ class DatabaseSeeder extends Seeder
         $this->call(PhotoSeeder::class);
         $this->call(PostSeeder::class);
         $this->call(CategorySeeder::class);
-        $this->call(ProductSeeder::class);
-        $this->call(ProductDetailSeeder::class);
+//        $this->call(ProductSeeder::class);
+//        $this->call(ProductDetailSeeder::class);
         $this->call(NotificationSeeder::class);
         $this->call(PromotionSeeder::class);
         $this->call(OrderStatusSeeder::class);
-        $this->call(OrderSeeder::class);
-        $this->call(ReviewSeeder::class);
+//        $this->call(OrderSeeder::class);
+//        $this->call(ReviewSeeder::class);
         $this->call(StaticSeeder::class);
     }
 }

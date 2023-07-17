@@ -51,16 +51,6 @@ class OrderSeeder extends Seeder
         }
 
 
-        $faker_size = [
-            "M",
-             "35",
-        ];
-
-        $faker_color= [
-            "#00a8ff",
-             "#f7f1e3",
-        ];
-
         $order_detail_eloquent = new TableOrderDetail();
 
         $random_product = [1,3,5,7,9,11,13,15,17,19];
@@ -75,8 +65,8 @@ class OrderSeeder extends Seeder
                     'order_id' => $k+1,
                     'product_detail_id' => $product_detail_id,
                     'quantity' => random_int(1,10),
-                    'size' => $faker_size[$i],
-                    'color'=> $faker_color[$i],
+                    'size' => "M",
+                    'color'=> "#333",
                     "created_at" => $created_at,
                     "updated_at" => $updated_at,
                 ]);

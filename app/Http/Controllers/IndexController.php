@@ -144,15 +144,6 @@ class IndexController extends Controller
         $rowDetailPhoto = DB::table('table_product_details')
         ->where('product_id', $id)
         ->get();
-        $product_properties = TableProductDetail::where('product_id',$id)->where('stock','>','0')->get();
-        $product_sizes = TableProduct::find($id);
-
-
-        ($product_sizes->properties != null)
-            ? $sizes = json_encode($product_sizes->properties["sizes"])
-            : $sizes = null;
-
-        $sizes_decode = json_decode($sizes);
 
         // gọi hàm cập nhật view sản phẩm
         $this->update_viewed($request,$slug,$id);
@@ -160,9 +151,7 @@ class IndexController extends Controller
         return view('template.product.detail',compact([
             'rowDetailPhoto',
             'rowDetail',
-            'product',
-            'sizes_decode',
-            'product_properties',
+            'product'
         ]));
     }
 
@@ -180,18 +169,6 @@ class IndexController extends Controller
         $table_products = TableProduct::where('id',$id)->first();
         $table_products->view = $now_view;
         $table_products->save();
-    }
-
-    public function get_size_product(Request $request)
-    {
-        $product_id = $request->get('product_id');
-        $color = $request->get('color');
-
-        $sizes = DB::table('table_product_details')->select('size')
-            ->where('product_id',$product_id)
-            ->where('color',$color)
-            ->first();
-        return explode(" ",json_encode($sizes->size));
     }
 
 }
